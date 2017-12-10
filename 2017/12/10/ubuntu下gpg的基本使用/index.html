@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="hexo,node.js," />
+  <meta name="keywords" content="pgp," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="基于github+hexo的个人博客1. 本地环境配置 操作系统为 ubuntu16.04  1. git 使用 sudo apt install git下载git  2. node.js 安装命令 wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh  nvm install stable  3. hexo">
-<meta name="keywords" content="hexo,node.js">
+<meta name="description" content="什么是gpg 课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。 安装gpg 在ubuntu16.04下gpg已经安装好了，可以使用如下命令gpg -h如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往">
+<meta name="keywords" content="pgp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于github+hexo的个人博客">
-<meta property="og:url" content="http://yoursite.com/2017/12/09/基于github-hexo的个人博客/index.html">
+<meta property="og:title" content="ubuntu下gpg的基本使用">
+<meta property="og:url" content="http://yoursite.com/2017/12/10/ubuntu下gpg的基本使用/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="基于github+hexo的个人博客1. 本地环境配置 操作系统为 ubuntu16.04  1. git 使用 sudo apt install git下载git  2. node.js 安装命令 wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh  nvm install stable  3. hexo">
+<meta property="og:description" content="什么是gpg 课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。 安装gpg 在ubuntu16.04下gpg已经安装好了，可以使用如下命令gpg -h如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-10T14:06:01.003Z">
+<meta property="og:updated_time" content="2017-12-10T14:05:58.091Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于github+hexo的个人博客">
-<meta name="twitter:description" content="基于github+hexo的个人博客1. 本地环境配置 操作系统为 ubuntu16.04  1. git 使用 sudo apt install git下载git  2. node.js 安装命令 wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh  nvm install stable  3. hexo">
+<meta name="twitter:title" content="ubuntu下gpg的基本使用">
+<meta name="twitter:description" content="什么是gpg 课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。 安装gpg 在ubuntu16.04下gpg已经安装好了，可以使用如下命令gpg -h如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/09/基于github-hexo的个人博客/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/10/ubuntu下gpg的基本使用/"/>
 
 
 
 
 
-  <title>基于github+hexo的个人博客 | 残星</title>
+  <title>ubuntu下gpg的基本使用 | 残星</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/09/基于github-hexo的个人博客/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/10/ubuntu下gpg的基本使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="残星">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">基于github+hexo的个人博客</h1>
+          <h1 class="post-title" itemprop="name headline">ubuntu下gpg的基本使用</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-09T22:50:23+08:00">
-                2017-12-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-10T21:03:56+08:00">
+                2017-12-10
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/个人博客/" itemprop="url" rel="index">
-                    <span itemprop="name">个人博客</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -342,65 +342,45 @@
       
 
       
-        <h1 id="基于github-hexo的个人博客"><a href="#基于github-hexo的个人博客" class="headerlink" title="基于github+hexo的个人博客"></a>基于github+hexo的个人博客</h1><h2 id="1-本地环境配置"><a href="#1-本地环境配置" class="headerlink" title="1. 本地环境配置"></a>1. 本地环境配置</h2><blockquote>
-<p>操作系统为 ubuntu16.04</p>
-</blockquote>
-<h3 id="1-git"><a href="#1-git" class="headerlink" title="1. git"></a>1. git</h3><blockquote>
-<p>使用 <code>sudo apt install git</code>下载git</p>
-</blockquote>
-<h3 id="2-node-js"><a href="#2-node-js" class="headerlink" title="2. node.js"></a>2. node.js</h3><blockquote>
-<p>安装命令 <code>wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</code></p>
-<p> <code>nvm install stable</code></p>
-</blockquote>
-<h3 id="3-hexo"><a href="#3-hexo" class="headerlink" title="3. hexo"></a>3. hexo</h3><blockquote>
-<p><code>npm install -g hexo-cli</code> 安装hexo</p>
-<p><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">hexo安装</a></p>
-</blockquote>
-<h2 id="2-github-配置"><a href="#2-github-配置" class="headerlink" title="2. github 配置"></a>2. github 配置</h2><blockquote>
-<p>前往github主页新建一个仓库，仓库名为 xxx.github.io(到时候通过xxx.github.io就可以访问个人博客，xxx最好是和github账户名相同，不同不知道是否可以)</p>
-</blockquote>
-<h2 id="3-创建本地文件资源"><a href="#3-创建本地文件资源" class="headerlink" title="3.创建本地文件资源"></a>3.创建本地文件资源</h2><blockquote>
-<p>在/home/canxing/目录下创建保存博客资源文件夹</p>
-<p><code>makir myblog</code></p>
-<p>使用hexo初始化</p>
-<p><code>hexo init ~/myblog</code></p>
-<p>进入myblog文件夹</p>
-<p>生成hexo所需要的文件目录</p>
-<p><code>npm install</code></p>
-<p>使用 <code>hexo s</code> 命令开启hexo服务，并通过localhost:4000 就可以访问一个初始的模板</p>
-</blockquote>
-<h2 id="4-配置hexo"><a href="#4-配置hexo" class="headerlink" title="4. 配置hexo"></a>4. 配置hexo</h2><blockquote>
-<p>hexo文件夹根目录下的_config.yml 文件为hexo的配置文件<br><a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="noopener">官方配置参数</a><br><a href="http://blog.junyu.io/posts/0004-hexo-config-settings.html" target="_blank" rel="noopener">参考配置说明</a></p>
-<p>部分参数说明如下</p>
-<blockquote>
-<ol>
-<li>title:网站主标题</li>
-<li>subtitle: 子标题</li>
-<li>description: 网站描述</li>
-<li>author: 作者</li>
-<li>language: zh_CN</li>
-<li>timezone: 时区，没有设置为本地时区设置</li>
-<li>url: 你的网站域名</li>
-<li>root: 根路径</li>
-<li>permalink:生成的链接的格式</li>
-<li>theme:生成的博客系统样式，就是视图表示，可以前往<a href="https://hexo.io/themes/#responsive" target="_blank" rel="noopener">hexo样式</a>选择喜欢的样式然后使用git clone到本地</li>
-<li>deploy: 部署选项，包括部署类型，仓库url，分支等<blockquote>
+        <h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
+<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
+<h1 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h1><p> 在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><br><em><code>gpg -h</code></em><br><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
+<h1 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h1><h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
+<p>  输入以下命令开始生成密钥对<br></p>
 <ul>
-<li>type: git</li>
-<li>repo: 仓库url</li>
-<li>branch: 一般是master</li>
+<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
 </ul>
 </blockquote>
-</li>
-</ol>
+<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
+<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
+</blockquote>
+<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
+<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
+<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
+</blockquote>
+<p>##4.上出公钥</p>
+<blockquote>
+<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
+</blockquote>
+<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
+<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
+</blockquote>
+<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
+<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
+</blockquote>
+<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
+<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
+</blockquote>
+<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
+<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
+</blockquote>
+<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
+<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
 </blockquote>
 </blockquote>
-<h2 id="5-hexo预览和部署"><a href="#5-hexo预览和部署" class="headerlink" title="5. hexo预览和部署"></a>5. hexo预览和部署</h2><blockquote>
-<ol>
-<li><code>hexo s</code>开启hexo服务器，在网页中可以输入localhost:4000可以查看预览</li>
-<li><code>hexo g</code>生成新的文件资源</li>
-<li><code>hexo d</code>部署到github上，部署路径为_config.yml文件中的deploy的选项</li>
-</ol>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
+<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
 </blockquote>
 
       
@@ -419,9 +399,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
-          
-            <a href="/tags/node-js/" rel="tag"># node.js</a>
+            <a href="/tags/pgp/" rel="tag"># pgp</a>
           
         </div>
       
@@ -434,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/09/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/12/09/基于github-hexo的个人博客/" rel="next" title="基于github+hexo的个人博客">
+                <i class="fa fa-chevron-left"></i> 基于github+hexo的个人博客
               </a>
             
           </div>
@@ -443,10 +421,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/10/ubuntu下gpg的基本使用/" rel="prev" title="ubuntu下gpg的基本使用">
-                ubuntu下gpg的基本使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -580,7 +554,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基于github-hexo的个人博客"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x57FA;&#x4E8E;github-hexo&#x7684;&#x4E2A;&#x4EBA;&#x535A;&#x5BA2;" class="headerlink" title="&#x57FA;&#x4E8E;github+hexo&#x7684;&#x4E2A;&#x4EBA;&#x535A;&#x5BA2;"></a>&#x57FA;&#x4E8E;github+hexo&#x7684;&#x4E2A;&#x4EBA;&#x535A;&#x5BA2;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-本地环境配置"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#1-&#x672C;&#x5730;&#x73AF;&#x5883;&#x914D;&#x7F6E;" class="headerlink" title="1. &#x672C;&#x5730;&#x73AF;&#x5883;&#x914D;&#x7F6E;"></a>1. &#x672C;&#x5730;&#x73AF;&#x5883;&#x914D;&#x7F6E;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-git"><span class="nav-number">1.1.1.</span> <span class="nav-text"><a href="#1-git" class="headerlink" title="1. git"></a>1. git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-node-js"><span class="nav-number">1.1.2.</span> <span class="nav-text"><a href="#2-node-js" class="headerlink" title="2. node.js"></a>2. node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-hexo"><span class="nav-number">1.1.3.</span> <span class="nav-text"><a href="#3-hexo" class="headerlink" title="3. hexo"></a>3. hexo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-github-配置"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#2-github-&#x914D;&#x7F6E;" class="headerlink" title="2. github &#x914D;&#x7F6E;"></a>2. github &#x914D;&#x7F6E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-创建本地文件资源"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#3-&#x521B;&#x5EFA;&#x672C;&#x5730;&#x6587;&#x4EF6;&#x8D44;&#x6E90;" class="headerlink" title="3.&#x521B;&#x5EFA;&#x672C;&#x5730;&#x6587;&#x4EF6;&#x8D44;&#x6E90;"></a>3.&#x521B;&#x5EFA;&#x672C;&#x5730;&#x6587;&#x4EF6;&#x8D44;&#x6E90;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-配置hexo"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#4-&#x914D;&#x7F6E;hexo" class="headerlink" title="4. &#x914D;&#x7F6E;hexo"></a>4. &#x914D;&#x7F6E;hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-hexo预览和部署"><span class="nav-number">1.5.</span> <span class="nav-text"><a href="#5-hexo&#x9884;&#x89C8;&#x548C;&#x90E8;&#x7F72;" class="headerlink" title="5. hexo&#x9884;&#x89C8;&#x548C;&#x90E8;&#x7F72;"></a>5. hexo&#x9884;&#x89C8;&#x548C;&#x90E8;&#x7F72;</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是gpg"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4EC0;&#x4E48;&#x662F;gpg" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;gpg"></a>&#x4EC0;&#x4E48;&#x662F;gpg</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装gpg"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;gpg" class="headerlink" title="&#x5B89;&#x88C5;gpg"></a>&#x5B89;&#x88C5;gpg</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gpg-基本使用"><span class="nav-number">3.</span> <span class="nav-text"><a href="#gpg-&#x57FA;&#x672C;&#x4F7F;&#x7528;" class="headerlink" title="gpg &#x57FA;&#x672C;&#x4F7F;&#x7528;"></a>gpg &#x57FA;&#x672C;&#x4F7F;&#x7528;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-生成密钥"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#1-&#x751F;&#x6210;&#x5BC6;&#x94A5;" class="headerlink" title="1.&#x751F;&#x6210;&#x5BC6;&#x94A5;"></a>1.&#x751F;&#x6210;&#x5BC6;&#x94A5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-检查密钥"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#2-&#x68C0;&#x67E5;&#x5BC6;&#x94A5;" class="headerlink" title="2.&#x68C0;&#x67E5;&#x5BC6;&#x94A5;"></a>2.&#x68C0;&#x67E5;&#x5BC6;&#x94A5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-输出密钥"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#3-&#x8F93;&#x51FA;&#x5BC6;&#x94A5;" class="headerlink" title="3.&#x8F93;&#x51FA;&#x5BC6;&#x94A5;"></a>3.&#x8F93;&#x51FA;&#x5BC6;&#x94A5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-导入密钥"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#5-&#x5BFC;&#x5165;&#x5BC6;&#x94A5;" class="headerlink" title="5.&#x5BFC;&#x5165;&#x5BC6;&#x94A5;"></a>5.&#x5BFC;&#x5165;&#x5BC6;&#x94A5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-公钥加密"><span class="nav-number">3.5.</span> <span class="nav-text"><a href="#6-&#x516C;&#x94A5;&#x52A0;&#x5BC6;" class="headerlink" title="6.&#x516C;&#x94A5;&#x52A0;&#x5BC6;"></a>6.&#x516C;&#x94A5;&#x52A0;&#x5BC6;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-解密"><span class="nav-number">3.6.</span> <span class="nav-text"><a href="#7-&#x89E3;&#x5BC6;" class="headerlink" title="7.&#x89E3;&#x5BC6;"></a>7.&#x89E3;&#x5BC6;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-数字签名"><span class="nav-number">3.7.</span> <span class="nav-text"><a href="#8-&#x6570;&#x5B57;&#x7B7E;&#x540D;" class="headerlink" title="8.&#x6570;&#x5B57;&#x7B7E;&#x540D;"></a>8.&#x6570;&#x5B57;&#x7B7E;&#x540D;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-验证签名"><span class="nav-number">3.8.</span> <span class="nav-text"><a href="#9-&#x9A8C;&#x8BC1;&#x7B7E;&#x540D;" class="headerlink" title="9.&#x9A8C;&#x8BC1;&#x7B7E;&#x540D;"></a>9.&#x9A8C;&#x8BC1;&#x7B7E;&#x540D;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6587;&#x7AE0;" class="headerlink" title="&#x53C2;&#x8003;&#x6587;&#x7AE0;"></a>&#x53C2;&#x8003;&#x6587;&#x7AE0;</span></a></li></ol></div>
             
 
           </div>
