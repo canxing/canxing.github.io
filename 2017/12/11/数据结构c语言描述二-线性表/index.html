@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的类型定义typedef struct Node{ int data; }Node; typedef struct linearList{ Node* elem; int length; int size; }LinearList; 初始化线性表LinearList* ListInit(){ LinearList L">
+<meta name="description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的基本操作 List ListInit();                                                        //初始化线性表int ListLength(List L);                                        //返回线性表的长度">
 <meta name="keywords" content="c语言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构c语言描述二-线性表">
 <meta property="og:url" content="http://yoursite.com/2017/12/11/数据结构c语言描述二-线性表/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的类型定义typedef struct Node{ int data; }Node; typedef struct linearList{ Node* elem; int length; int size; }LinearList; 初始化线性表LinearList* ListInit(){ LinearList L">
+<meta property="og:description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的基本操作 List ListInit();                                                        //初始化线性表int ListLength(List L);                                        //返回线性表的长度">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-11T14:47:57.861Z">
+<meta property="og:updated_time" content="2017-12-12T16:00:41.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构c语言描述二-线性表">
-<meta name="twitter:description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的类型定义typedef struct Node{ int data; }Node; typedef struct linearList{ Node* elem; int length; int size; }LinearList; 初始化线性表LinearList* ListInit(){ LinearList L">
+<meta name="twitter:description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的基本操作 List ListInit();                                                        //初始化线性表int ListLength(List L);                                        //返回线性表的长度">
 
 
 
@@ -354,13 +354,16 @@
 
       
         <p>线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示</p>
+<h2 id="线性表的基本操作"><a href="#线性表的基本操作" class="headerlink" title="线性表的基本操作"></a>线性表的基本操作</h2><blockquote>
+<p>List<em> ListInit();                                                        //初始化线性表<br><br>int ListLength(List</em> L);                                        //返回线性表的长度<br><br>int LocaleList(List<em> L,Node</em> n);                        //返回线性表中指定元素第一次出现的下标索引，没有返回-1<br><br>Node<em> ListGet(List</em> L,int index);                        //返回线性表指定索引位置的节点元素<br><br>int ListClear(List<em> L);                                            //清空线性表，成功返回1,失败返回0<br><br>int ListEmpty(List</em> L);                                            //判断线性表是否为空，是空返回1,不是返回0<br><br>int ListInsert(List<em> L,int index,Node</em> n);    //在线性表指定位置插入指定元素，插入成功返回1,失败返回0<br><br>int ListDelete(List<em> L,int index);                    //删除线性表指定索引位置的元素，删除成功返回1,失败返回0<br><br>void printList(List</em> L);                                        //打印线性表</p>
+</blockquote>
 <h2 id="线性表的类型定义"><a href="#线性表的类型定义" class="headerlink" title="线性表的类型定义"></a>线性表的类型定义</h2><p>typedef struct Node{</p>
-<pre><code>int data;
+<pre><code>int data;//节点元素类型，可以自定义元素
 </code></pre><p>}Node;</p>
 <p>typedef struct linearList{</p>
 <pre><code>Node* elem;
-int length;
-int size;
+int length;//保存该线性表已经存储的个数
+int size;//保存这个线性表可以存储的最大个数
 </code></pre><p>}LinearList;</p>
 <h2 id="初始化线性表"><a href="#初始化线性表" class="headerlink" title="初始化线性表"></a>初始化线性表</h2><p>LinearList* ListInit(){</p>
 <pre><code>LinearList L = (LinearList*) malloc(sizeof(Node));
@@ -374,31 +377,33 @@ L-&gt;size = MAXSIZE;
 return L;
 </code></pre><p>}</p>
 <h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><p>int ListInsert(LinearList* L,int i,Node n){</p>
-<pre><code>if(i &lt; 0)
+<pre><code>if(i &lt; 0)//判断插入位置是否符合规范
     return 0;
-if(L-&gt;length &gt;= L-&gt;size){
+if(L-&gt;length &gt;= L-&gt;size){//如果线性表中的数据已经大于或等于线性表的最大存储数，返回，还可以使用还可以使用relloc函数动态增加数量
     return 0;
 }
 int length = L-&gt;length;
-if( i &lt;= length){
+if( i &lt;= length){//如果插入位置是在已经存在的线性表中，把索引位置以及之后的元素依次先后移动一位
     for(;length != i - 1;length--){
         L-&gt;elem[length] = L-&gt;elem[length - 1];
     }
 }
+//如果插入位置是在已经插入数据长度之外，那么直接插入数据，
+//如果不是，那么length索引的元素变为插入数据
 L-&gt;elem[length] = n;
 L-&gt;length++;
 return 1;
 </code></pre><p>}</p>
 <h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><p>int ListDelete(LinearList* L,int index){</p>
-<pre><code>if(index &lt; 0 || index &gt;= L-&gt;length)
+<pre><code>if(index &lt; 0 || index &gt;= L-&gt;length)//判断删除索引的位置是否在范围外
     return 0;
-for(int i = index;i &lt; L-&gt;length; i++){
+for(int i = index;i &lt; L-&gt;length; i++){//将删除元素之后的所有元素依次向后移动一位
     L-&gt;elem[i] = L-&gt;elem[i + 1];
-}    
+}
 L-&gt;length--;
 return 1;
 </code></pre><p>}</p>
-<p><a href="https://github.com/canxing/data_structure/tree/master/linear_table" target="_blank" rel="noopener">线性表完整源码</a></p>
+<p><a href="https://github.com/canxing/data_structure/blob/master/linear_table/linearList.c" target="_blank" rel="noopener">线性表完整源码</a></p>
 
       
     </div>
@@ -438,6 +443,10 @@ return 1;
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/12/数据结构c语言描述三-链表/" rel="prev" title="数据结构c语言描述三-链表">
+                数据结构c语言描述三-链表 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -524,7 +533,7 @@ return 1;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -581,7 +590,7 @@ return 1;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表的类型定义"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;" class="headerlink" title="&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;"></a>&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化线性表"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;"></a>&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入数据"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x63D2;&#x5165;&#x6570;&#x636E;" class="headerlink" title="&#x63D2;&#x5165;&#x6570;&#x636E;"></a>&#x63D2;&#x5165;&#x6570;&#x636E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除数据"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x5220;&#x9664;&#x6570;&#x636E;" class="headerlink" title="&#x5220;&#x9664;&#x6570;&#x636E;"></a>&#x5220;&#x9664;&#x6570;&#x636E;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表的基本操作"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7EBF;&#x6027;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;" class="headerlink" title="&#x7EBF;&#x6027;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;"></a>&#x7EBF;&#x6027;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表的类型定义"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;" class="headerlink" title="&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;"></a>&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化线性表"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;"></a>&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入数据"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x63D2;&#x5165;&#x6570;&#x636E;" class="headerlink" title="&#x63D2;&#x5165;&#x6570;&#x636E;"></a>&#x63D2;&#x5165;&#x6570;&#x636E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除数据"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x5220;&#x9664;&#x6570;&#x636E;" class="headerlink" title="&#x5220;&#x9664;&#x6570;&#x636E;"></a>&#x5220;&#x9664;&#x6570;&#x636E;</span></a></li></ol></div>
             
 
           </div>
