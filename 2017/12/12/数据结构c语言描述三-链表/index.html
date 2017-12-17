@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="残星">
 <meta property="og:description" content="链表是一种这样的数据结构，其中的各对象按线性顺序排列，然而与数组不同的是，链表的顺序是由各个对象里的指针决定的 链表有很多构造方法:单向链表，单向循环链表，双向链表，双向循环链表等，这里以双向非循环链表为例 双向链表的基本操作 List ListInit();                                                        //初始化链表int Lis">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-12T16:00:14.590Z">
+<meta property="og:updated_time" content="2017-12-17T14:06:07.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构c语言描述三-链表">
 <meta name="twitter:description" content="链表是一种这样的数据结构，其中的各对象按线性顺序排列，然而与数组不同的是，链表的顺序是由各个对象里的指针决定的 链表有很多构造方法:单向链表，单向循环链表，双向链表，双向循环链表等，这里以双向非循环链表为例 双向链表的基本操作 List ListInit();                                                        //初始化链表int Lis">
@@ -368,7 +368,7 @@
 <h2 id="双向链表的基本操作"><a href="#双向链表的基本操作" class="headerlink" title="双向链表的基本操作"></a>双向链表的基本操作</h2><blockquote>
 <p>List<em> ListInit();                                                        //初始化链表<br><br>int ListLength(List</em> L);                                        //返回链表的长度<br><br>int LocaleList(List<em> L,Node</em> n);                        //返回链表中指定元素第一次出现的下标索引，没有返回-1<br><br>Node<em> ListGet(List</em> L,int index);                        //返回链表指定索引位置的节点元素<br><br>int ListClear(List<em> L);                                            //清空链表，成功返回1,失败返回0<br><br>int ListEmpty(List</em> L);                                            //判断链表是否为空，是空返回1,不是返回0<br><br>int ListInsert(List<em> L,int index,Node</em> n);    //在链表指定位置插入指定元素，插入成功返回1,失败返回0<br><br>int ListDelete(List<em> L,int index);                    //删除链表表指定索引位置的元素，删除成功返回1,失败返回0<br><br>void printList(List</em> L);                                        //打印链表</p>
 </blockquote>
-<h2 id="双向链表的构造方法"><a href="#双向链表的构造方法" class="headerlink" title="双向链表的构造方法"></a>双向链表的构造方法</h2><p>typedef struct _Node{  </p>
+<h2 id="双向链表的定义"><a href="#双向链表的定义" class="headerlink" title="双向链表的定义"></a>双向链表的定义</h2><p>typedef struct _Node{  </p>
 <pre><code>int data;                 //数据类型，可以多个
 struct _Node* next;       //后继指针
 struct _Node* prior;      //前驱指针
@@ -576,7 +576,7 @@ if(index == 1){//删除头指针
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -633,7 +633,7 @@ if(index == 1){//删除头指针
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表的基本操作"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;" class="headerlink" title="&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;"></a>&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表的构造方法"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;" class="headerlink" title="&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;"></a>&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表的初始化"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;"></a>&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表的插入"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x63D2;&#x5165;" class="headerlink" title="&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x63D2;&#x5165;"></a>&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x63D2;&#x5165;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表的删除"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x5220;&#x9664;" class="headerlink" title="&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x5220;&#x9664;"></a>&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x5220;&#x9664;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表的基本操作"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;" class="headerlink" title="&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;"></a>&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表的定义"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x5B9A;&#x4E49;"></a>&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表的初始化"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;"></a>&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表的插入"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x63D2;&#x5165;" class="headerlink" title="&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x63D2;&#x5165;"></a>&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x63D2;&#x5165;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表的删除"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x5220;&#x9664;" class="headerlink" title="&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x5220;&#x9664;"></a>&#x53CC;&#x5411;&#x94FE;&#x8868;&#x7684;&#x5220;&#x9664;</span></a></li></ol></div>
             
 
           </div>
