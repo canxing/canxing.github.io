@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,15 +79,18 @@
 
 
 
+<meta name="description" content="什么是方法引用方法引用是lambd表达式的一种特殊形式。看起来更易读更自然 如果想要对苹果的重量进行排序我们可以这样写: inventory.sort((a1,a2) -&amp;gt; a1.getWeight() - a2.getWeight()); 使用方法引用之后是这样的 inventory.sort(Apple::getWeight); 方法引用的语法格式 指向静态方法的引用Class::sta">
 <meta name="keywords" content="java,java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java8-方法引用">
 <meta property="og:url" content="http://yoursite.com/2018/01/07/java8-方法引用/index.html">
 <meta property="og:site_name" content="残星">
+<meta property="og:description" content="什么是方法引用方法引用是lambd表达式的一种特殊形式。看起来更易读更自然 如果想要对苹果的重量进行排序我们可以这样写: inventory.sort((a1,a2) -&amp;gt; a1.getWeight() - a2.getWeight()); 使用方法引用之后是这样的 inventory.sort(Apple::getWeight); 方法引用的语法格式 指向静态方法的引用Class::sta">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-07T03:28:05.796Z">
+<meta property="og:updated_time" content="2018-01-07T14:09:42.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-方法引用">
+<meta name="twitter:description" content="什么是方法引用方法引用是lambd表达式的一种特殊形式。看起来更易读更自然 如果想要对苹果的重量进行排序我们可以这样写: inventory.sort((a1,a2) -&amp;gt; a1.getWeight() - a2.getWeight()); 使用方法引用之后是这样的 inventory.sort(Apple::getWeight); 方法引用的语法格式 指向静态方法的引用Class::sta">
 
 
 
@@ -95,7 +98,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Pisces',
     version: '5.1.3',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -349,7 +352,144 @@
       
 
       
-        
+        <h1 id="什么是方法引用"><a href="#什么是方法引用" class="headerlink" title="什么是方法引用"></a>什么是方法引用</h1><p>方法引用是lambd表达式的一种特殊形式。看起来更易读更自然</p>
+<p>如果想要对苹果的重量进行排序我们可以这样写:</p>
+<pre><code>inventory.sort((a1,a2) -&gt; a1.getWeight() - a2.getWeight());
+</code></pre><p>使用方法引用之后是这样的</p>
+<pre><code>inventory.sort(Apple::getWeight);
+</code></pre><h1 id="方法引用的语法格式"><a href="#方法引用的语法格式" class="headerlink" title="方法引用的语法格式"></a>方法引用的语法格式</h1><ol>
+<li>指向静态方法的引用<pre><code>Class::staticMethod
+</code></pre></li>
+<li>指向现有对象的实例方法的方法引用<pre><code>object::instanceMethod
+</code></pre></li>
+<li>指向任意类型实例方法的方法引用<pre><code>Class::instanceMethod
+</code></pre></li>
+</ol>
+<h2 id="语法简述"><a href="#语法简述" class="headerlink" title="语法简述"></a>语法简述</h2><h3 id="指向静态方法的引用"><a href="#指向静态方法的引用" class="headerlink" title="指向静态方法的引用"></a>指向静态方法的引用</h3><p>类的静态方法必须满足函数描述符，也就是Class.staticMethod的参数和返回值要和函数描述符一致</p>
+<h4 id="对于Function-function-Class-staticMethod"><a href="#对于Function-function-Class-staticMethod" class="headerlink" title="对于Function function = Class::staticMethod;"></a>对于Function<integer,integer> function = Class::staticMethod;</integer,integer></h4><p>Class的staticMethod的静态方法定义应该是:</p>
+<pre><code>public static intstaticMethod(int number){
+    //一个返回int类型的代码块
+}
+</code></pre><h4 id="对于Consumer-consumer-Class-staticMethod"><a href="#对于Consumer-consumer-Class-staticMethod" class="headerlink" title="对于Consumer consumer = Class:staticMethod;"></a>对于Consumer<integer> consumer = Class:staticMethod;</integer></h4><p>Class的staticMethod的静态方法定义应该是:</p>
+<pre><code>public static void staticMethod(int number){
+    //没有返回值的代码块
+}
+</code></pre><h4 id="对于Predicate-pred-Class-staticMethod"><a href="#对于Predicate-pred-Class-staticMethod" class="headerlink" title="对于Predicate pred = Class::staticMethod;"></a>对于Predicate<integer> pred = Class::staticMethod;</integer></h4><p>Class.staticMethod的静态方法定义应该是:</p>
+<pre><code>public static boolean staticMethod(int number){
+    //返回boolean类型的代码块
+}
+</code></pre><h4 id="对于Supplier-supplier-Class-staticMethod"><a href="#对于Supplier-supplier-Class-staticMethod" class="headerlink" title="对于Supplier supplier = Class::staticMethod;"></a>对于Supplier<integer> supplier = Class::staticMethod;</integer></h4><p>Class.staticMethod的静态方法定义应该是:</p>
+<pre><code>public static int staticMethod(){
+    //返回int类型的代码块
+}
+</code></pre><h3 id="指向现有对象的实例方法的方法引用"><a href="#指向现有对象的实例方法的方法引用" class="headerlink" title="指向现有对象的实例方法的方法引用"></a>指向现有对象的实例方法的方法引用</h3><p>类的实例方法必须满足函数描述符，也就是对象调用的方法的参数和返回值要和函数描述法一致</p>
+<h4 id="对于Function-function-object-instanceMethod"><a href="#对于Function-function-object-instanceMethod" class="headerlink" title="对于Function function = object::instanceMethod;"></a>对于Function<class,integer> function = object::instanceMethod;</class,integer></h4><p>Class的实例方法定义应该是:</p>
+<pre><code>public int instanceMethod(){
+    //返回int类型的代码块
+}
+</code></pre><p>如果是BiFunction<class,integer,integer> function = object::instanceMethod;<br>Class的实例方法定义应该是:</class,integer,integer></p>
+<pre><code>public int instacneMethod(int number){
+    //返回int类型的代码块
+}
+</code></pre><p>下同</p>
+<h4 id="对于Consumer-consumer-object-instanceMethod"><a href="#对于Consumer-consumer-object-instanceMethod" class="headerlink" title="对于Consumer consumer = object::instanceMethod;"></a>对于Consumer<class,integer> consumer = object::instanceMethod;</class,integer></h4><p>Class的实例方法定义应该是:</p>
+<pre><code>public void instacneMethod(int number){
+    //没有返回值的代码块
+}
+</code></pre><h4 id="对于Predicate-predicate-object-instanceMethod"><a href="#对于Predicate-predicate-object-instanceMethod" class="headerlink" title="对于Predicate predicate = object::instanceMethod;"></a>对于Predicate<class> predicate = object::instanceMethod;</class></h4><p>Class的实例方法定义应该是:</p>
+<pre><code>public boolean instanceMethod(){
+    //返回boolean类型的代码块
+}
+</code></pre><h4 id="对于Suplier-supplier-object-instanceMethod"><a href="#对于Suplier-supplier-object-instanceMethod" class="headerlink" title="对于Suplier supplier = object::instanceMethod;"></a>对于Suplier<integer> supplier = object::instanceMethod;</integer></h4><p>Class的实例方法定义应该是:</p>
+<pre><code>public int instanceMethod(){
+    //返回int类型的代码块
+
+对于第三种格式，函数描述符至少含有一个参数，也就是说必须有一个参数用来调用方法
+</code></pre><h4 id="对于Function-function-Class-instanceMethod"><a href="#对于Function-function-Class-instanceMethod" class="headerlink" title="对于Function function = Class::instanceMethod;"></a>对于Function<class,integer> function = Class::instanceMethod;</class,integer></h4><p>Class的实例方法定义应该是:</p>
+<pre><code>public int instanceMethod(){
+    //返回int类型的代码块
+}
+</code></pre><h4 id="对于Function-function-Class-instanceMethod-1"><a href="#对于Function-function-Class-instanceMethod-1" class="headerlink" title="对于Function function = Class::instanceMethod;"></a>对于Function<class,integer,integer> function = Class::instanceMethod;</class,integer,integer></h4><pre><code>Class的实例方法定义应该是:
+
+public int instanceMethod(int number){
+    //返回int类型的代码块
+}
+</code></pre><h4 id="对于Consumer-consumer-Class-instanceMethod"><a href="#对于Consumer-consumer-Class-instanceMethod" class="headerlink" title="对于Consumer consumer = Class::instanceMethod;"></a>对于Consumer<class> consumer = Class::instanceMethod;</class></h4><p>Class的实例方法定义应该是:</p>
+<pre><code>public void instanceMethod(){
+    //没有返回值的代码块
+}
+</code></pre><h4 id="对于Comparator-comparator-Class-instanceMethod"><a href="#对于Comparator-comparator-Class-instanceMethod" class="headerlink" title="对于Comparator comparator = Class::instanceMethod;"></a>对于Comparator<class,class> comparator = Class::instanceMethod;</class,class></h4><p>Class的实例方法定义应该是:</p>
+<pre><code>public int instanceMethod(Class clazz){
+    //比较两个数大小的代码块，最后返回一个数用来表示大于，小于，等于
+}
+</code></pre><h1 id="实例"><a href="#实例" class="headerlink" title="实例:"></a>实例:</h1><pre><code>使用方法引用来完成列表苹果的筛选，排序，输出，增加重量，返回对应的苹果重量列表
+Apple.java
+public class Apple {
+    private int weight;
+    private String color;
+    //getter setter
+}
+Main.java
+
+public class Main {
+    public static void main(String[] args) {
+        List&lt;Apple&gt; inventory = Arrays.asList(
+                new Apple(10,&quot;green&quot;),
+                new Apple(20,&quot;red&quot;),
+                new Apple(12,&quot;red&quot;),
+                new Apple(25,&quot;green&quot;));
+        List&lt;String&gt; strs = Arrays.asList(
+                &quot;red&quot;,&quot;green&quot;,&quot;red&quot;,&quot;black&quot;
+                );
+        //筛选
+        List&lt;Apple&gt; redApples = filter(inventory,Apple::getColor,&quot;red&quot;);
+        forEach(redApples,System.out::println);
+
+        List&lt;String&gt; red = filter(strs,String::toString,&quot;red&quot;);
+        forEach(red,System.out::println);
+
+        //将所有苹果的重量表示为一个列表
+        List&lt;Integer&gt; appleWeight = map(inventory,Apple::getWeight);
+        forEach(appleWeight,System.out::println);
+
+        //将所有苹果的重量加10
+        addWeight(inventory,Apple::getWeight,Apple::setWeight,10);
+        forEach(inventory,System.out::println);
+
+        //排序
+        inventory.sort(Comparator.comparing(Apple::getColor));
+        forEach(inventory,System.out::println);
+    }
+    public static &lt;T&gt; void forEach(List&lt;T&gt; inventory,Consumer&lt;T&gt; consumer) {
+        for(T t : inventory) {
+            consumer.accept(t);
+        }
+    }
+    public static &lt;T&gt; void addWeight(List&lt;T&gt; inventory,ToIntFunction&lt;T&gt; func,ObjIntConsumer&lt;T&gt; consumer,int added) {
+        for(T t : inventory) {
+            consumer.accept(t,func.applyAsInt(t) + added);
+        }
+    }
+    public static &lt;T,R&gt; List&lt;R&gt; map(List&lt;T&gt; inventory,Function&lt;T,R&gt; func){
+        List&lt;R&gt; result = new ArrayList&lt;&gt;();
+        for(T t : inventory) {
+            result.add(func.apply(t));
+        }
+        return result;
+    }
+    public static &lt;T,R&gt; List&lt;T&gt; filter(List&lt;T&gt; inventory,Function&lt;T,R&gt; func,Object obj){
+        List&lt;T&gt; result = new ArrayList&lt;&gt;();
+        for(T t : inventory) {
+            if(func.apply(t).equals(obj)) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+}
+</code></pre><p>可以看见方法引用的可读性是要强于lanbda表达式的，如：<br>    List<apple> redApples = filter(inventory,Apple::getColor,”red”);<br>    可以读作:筛选苹果库存中颜色为红色的苹果<br>    inventory.sort(Comparator.comparing(Apple::getColor));<br>    可以读作:库存根据苹果的颜色进行排序<br>但是方法引用在某些方面的比较复杂的，比如要将所有苹果的重量加10,需要使用两个方法引用<br>    addWeight(inventory,Apple::getWeight,Apple::setWeight,10);  </apple></p>
+<p><a href="https://github.com/canxing/java8/tree/master/3/src/com/canxing" target="_blank" rel="noopener">参考源码</a><br>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至liuxin739525@163.com邮箱指正，我将不胜感激。</p>
+
       
     </div>
     
@@ -441,8 +581,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -513,6 +662,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是方法引用"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4EC0;&#x4E48;&#x662F;&#x65B9;&#x6CD5;&#x5F15;&#x7528;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;&#x65B9;&#x6CD5;&#x5F15;&#x7528;"></a>&#x4EC0;&#x4E48;&#x662F;&#x65B9;&#x6CD5;&#x5F15;&#x7528;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法引用的语法格式"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x65B9;&#x6CD5;&#x5F15;&#x7528;&#x7684;&#x8BED;&#x6CD5;&#x683C;&#x5F0F;" class="headerlink" title="&#x65B9;&#x6CD5;&#x5F15;&#x7528;&#x7684;&#x8BED;&#x6CD5;&#x683C;&#x5F0F;"></a>&#x65B9;&#x6CD5;&#x5F15;&#x7528;&#x7684;&#x8BED;&#x6CD5;&#x683C;&#x5F0F;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法简述"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x8BED;&#x6CD5;&#x7B80;&#x8FF0;" class="headerlink" title="&#x8BED;&#x6CD5;&#x7B80;&#x8FF0;"></a>&#x8BED;&#x6CD5;&#x7B80;&#x8FF0;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指向静态方法的引用"><span class="nav-number">2.1.1.</span> <span class="nav-text"><a href="#&#x6307;&#x5411;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x7684;&#x5F15;&#x7528;" class="headerlink" title="&#x6307;&#x5411;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x7684;&#x5F15;&#x7528;"></a>&#x6307;&#x5411;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x7684;&#x5F15;&#x7528;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Function-function-Class-staticMethod"><span class="nav-number">2.1.1.1.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Function-function-Class-staticMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Function function = Class::staticMethod;"></a>&#x5BF9;&#x4E8E;Function<integer,integer> function = Class::staticMethod;</integer,integer></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Consumer-consumer-Class-staticMethod"><span class="nav-number">2.1.1.2.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Consumer-consumer-Class-staticMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Consumer consumer = Class:staticMethod;"></a>&#x5BF9;&#x4E8E;Consumer<integer> consumer = Class:staticMethod;</integer></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Predicate-pred-Class-staticMethod"><span class="nav-number">2.1.1.3.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Predicate-pred-Class-staticMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Predicate pred = Class::staticMethod;"></a>&#x5BF9;&#x4E8E;Predicate<integer> pred = Class::staticMethod;</integer></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Supplier-supplier-Class-staticMethod"><span class="nav-number">2.1.1.4.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Supplier-supplier-Class-staticMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Supplier supplier = Class::staticMethod;"></a>&#x5BF9;&#x4E8E;Supplier<integer> supplier = Class::staticMethod;</integer></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指向现有对象的实例方法的方法引用"><span class="nav-number">2.1.2.</span> <span class="nav-text"><a href="#&#x6307;&#x5411;&#x73B0;&#x6709;&#x5BF9;&#x8C61;&#x7684;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x7684;&#x65B9;&#x6CD5;&#x5F15;&#x7528;" class="headerlink" title="&#x6307;&#x5411;&#x73B0;&#x6709;&#x5BF9;&#x8C61;&#x7684;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x7684;&#x65B9;&#x6CD5;&#x5F15;&#x7528;"></a>&#x6307;&#x5411;&#x73B0;&#x6709;&#x5BF9;&#x8C61;&#x7684;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#x7684;&#x65B9;&#x6CD5;&#x5F15;&#x7528;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Function-function-object-instanceMethod"><span class="nav-number">2.1.2.1.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Function-function-object-instanceMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Function function = object::instanceMethod;"></a>&#x5BF9;&#x4E8E;Function<class,integer> function = object::instanceMethod;</class,integer></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Consumer-consumer-object-instanceMethod"><span class="nav-number">2.1.2.2.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Consumer-consumer-object-instanceMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Consumer consumer = object::instanceMethod;"></a>&#x5BF9;&#x4E8E;Consumer<class,integer> consumer = object::instanceMethod;</class,integer></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Predicate-predicate-object-instanceMethod"><span class="nav-number">2.1.2.3.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Predicate-predicate-object-instanceMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Predicate predicate = object::instanceMethod;"></a>&#x5BF9;&#x4E8E;Predicate<class> predicate = object::instanceMethod;</class></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Suplier-supplier-object-instanceMethod"><span class="nav-number">2.1.2.4.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Suplier-supplier-object-instanceMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Suplier supplier = object::instanceMethod;"></a>&#x5BF9;&#x4E8E;Suplier<integer> supplier = object::instanceMethod;</integer></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Function-function-Class-instanceMethod"><span class="nav-number">2.1.2.5.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Function-function-Class-instanceMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Function function = Class::instanceMethod;"></a>&#x5BF9;&#x4E8E;Function<class,integer> function = Class::instanceMethod;</class,integer></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Function-function-Class-instanceMethod-1"><span class="nav-number">2.1.2.6.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Function-function-Class-instanceMethod-1" class="headerlink" title="&#x5BF9;&#x4E8E;Function function = Class::instanceMethod;"></a>&#x5BF9;&#x4E8E;Function<class,integer,integer> function = Class::instanceMethod;</class,integer,integer></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Consumer-consumer-Class-instanceMethod"><span class="nav-number">2.1.2.7.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Consumer-consumer-Class-instanceMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Consumer consumer = Class::instanceMethod;"></a>&#x5BF9;&#x4E8E;Consumer<class> consumer = Class::instanceMethod;</class></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于Comparator-comparator-Class-instanceMethod"><span class="nav-number">2.1.2.8.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;Comparator-comparator-Class-instanceMethod" class="headerlink" title="&#x5BF9;&#x4E8E;Comparator comparator = Class::instanceMethod;"></a>&#x5BF9;&#x4E8E;Comparator<class,class> comparator = Class::instanceMethod;</class,class></span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;:"></a>&#x5B9E;&#x4F8B;:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -544,7 +709,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
 
 
 
