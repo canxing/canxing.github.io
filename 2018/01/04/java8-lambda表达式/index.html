@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next gemini use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java,java8," />
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="lambda表达式lambda表达式，实在java8中新增的特性，lambda表达式 匿名内部类匿名内部类是用于创建一种不用声明类名称的类，这种类往往只是用一次，可以用”一个实现了某种接口的类”来描述，但是没有具体的名字(也就是引用名称) //声明一个接口 interface InterfaceName{     void method(); } //使用匿名内部类创建一个实现了Interface">
+<meta name="keywords" content="java,java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java8-lambda表达式">
 <meta property="og:url" content="http://yoursite.com/2018/01/04/java8-lambda表达式/index.html">
 <meta property="og:site_name" content="残星">
 <meta property="og:description" content="lambda表达式lambda表达式，实在java8中新增的特性，lambda表达式 匿名内部类匿名内部类是用于创建一种不用声明类名称的类，这种类往往只是用一次，可以用”一个实现了某种接口的类”来描述，但是没有具体的名字(也就是引用名称) //声明一个接口 interface InterfaceName{     void method(); } //使用匿名内部类创建一个实现了Interface">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-04T15:04:33.295Z">
+<meta property="og:updated_time" content="2018-01-07T03:27:51.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-lambda表达式">
 <meta name="twitter:description" content="lambda表达式lambda表达式，实在java8中新增的特性，lambda表达式 匿名内部类匿名内部类是用于创建一种不用声明类名称的类，这种类往往只是用一次，可以用”一个实现了某种接口的类”来描述，但是没有具体的名字(也就是引用名称) //声明一个接口 interface InterfaceName{     void method(); } //使用匿名内部类创建一个实现了Interface">
@@ -97,7 +98,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Gemini',
     version: '5.1.3',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -327,17 +328,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/04/java8-lambda表达式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/01/04/java8-lambda表达式/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -510,6 +500,14 @@ System.out.println(inventory);
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/java8/" rel="tag"># java8</a>
+          
+        </div>
+      
 
       
       
@@ -561,16 +559,6 @@ System.out.println(inventory);
           
 
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
-  
 
 
 
@@ -608,7 +596,7 @@ System.out.println(inventory);
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">残星</p>
-              <p class="site-description motion-element" itemprop="description">执一不二，正心硅步</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -618,7 +606,7 @@ System.out.println(inventory);
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -640,7 +628,7 @@ System.out.println(inventory);
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -651,6 +639,14 @@ System.out.println(inventory);
           
 
           <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/canxing/" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
             
           </div>
 
@@ -713,7 +709,7 @@ System.out.println(inventory);
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
 
 
 
@@ -813,6 +809,13 @@ System.out.println(inventory);
   
   
 
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
@@ -831,26 +834,6 @@ System.out.println(inventory);
 
   
 
-    
-      <script id="dsq-count-scr" src="https://canxing.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/01/04/java8-lambda表达式/';
-          this.page.identifier = '2018/01/04/java8-lambda表达式/';
-          this.page.title = 'java8-lambda表达式';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://canxing.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
 
 
 
@@ -863,6 +846,10 @@ System.out.println(inventory);
   
 
 
+
+
+
+  
 
 
 
