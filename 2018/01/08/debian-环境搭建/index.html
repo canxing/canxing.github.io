@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="今天卸载了ubuntu，换了debian系统，重装系统方式为保留/home，/opt目录，重装/根目录 使用usb installer创建debian启动盘选择系统类型时，选择debian系统无法正确的创建启动盘，要选择其他linux系统类型才能正常创建 安装系统三个挂载目录，/,/home，/opt，其中/home和/opt是原来使用的挂载目录，没有改变，只覆盖了/目录debian桌面环境选择x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="debian-环境搭建">
+<meta property="og:url" content="http://yoursite.com/2018/01/08/debian-环境搭建/index.html">
+<meta property="og:site_name" content="残星">
+<meta property="og:description" content="今天卸载了ubuntu，换了debian系统，重装系统方式为保留/home，/opt目录，重装/根目录 使用usb installer创建debian启动盘选择系统类型时，选择debian系统无法正确的创建启动盘，要选择其他linux系统类型才能正常创建 安装系统三个挂载目录，/,/home，/opt，其中/home和/opt是原来使用的挂载目录，没有改变，只覆盖了/目录debian桌面环境选择x">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-08T13:11:47.412Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="debian-环境搭建">
+<meta name="twitter:description" content="今天卸载了ubuntu，换了debian系统，重装系统方式为保留/home，/opt目录，重装/根目录 使用usb installer创建debian启动盘选择系统类型时，选择debian系统无法正确的创建启动盘，要选择其他linux系统类型才能正常创建 安装系统三个挂载目录，/,/home，/opt，其中/home和/opt是原来使用的挂载目录，没有改变，只覆盖了/目录debian桌面环境选择x">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/08/debian-环境搭建/"/>
+
+
+
+
+
+  <title>debian-环境搭建 | 残星</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">残星</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/08/debian-环境搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="残星">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="残星">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">debian-环境搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-08T18:48:06+08:00">
+                2018-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天卸载了ubuntu，换了debian系统，重装系统方式为保留/home，/opt目录，重装/根目录</p>
+<h2 id="使用usb-installer创建debian启动盘"><a href="#使用usb-installer创建debian启动盘" class="headerlink" title="使用usb installer创建debian启动盘"></a>使用usb installer创建debian启动盘</h2><p>选择系统类型时，选择debian系统无法正确的创建启动盘，要选择其他linux系统类型才能正常创建</p>
+<h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><p>三个挂载目录，/,/home，/opt，其中/home和/opt是原来使用的挂载目录，没有改变，只覆盖了/目录<br>debian桌面环境选择xfce桌面，核心功能模块</p>
+<h2 id="联网"><a href="#联网" class="headerlink" title="联网"></a>联网</h2><p>安装完系统后，第一步就是联网，正常连接校园网，免去了回退ubuntu的烦恼</p>
+<h2 id="设置镜像源"><a href="#设置镜像源" class="headerlink" title="设置镜像源"></a>设置镜像源</h2><p>debian在中国有两个主镜像源</p>
+<pre><code>ftp2.cn.debian.org/debian/
+ftp.cn.debian.org/debian/
+</code></pre><p>debian的主镜像源在国内也可以正常访问<br>配置方式 deb <a href="http://ftp.cn.debian.org/debian" target="_blank" rel="noopener">http://ftp.cn.debian.org/debian</a> stretch main non-free </p>
+<h2 id="安装vim"><a href="#安装vim" class="headerlink" title="安装vim"></a>安装vim</h2><p>切换管理员用户<br>su<br>apt-get install vim-gnome</p>
+<h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a>安装中文输入法</h2><p>linux下的中文输入法有很多，这里选择fcitx，其他的ibus和搜狗输入法都与各种原因没有安装上，很遗憾没有体验一次<br>切换管理员用户<br>su<br>apt install fcitx<br>apt install im-config<br>apt install fcitx-sunpinyin  这个中文输入可以自行更换，不一定只能是这个</p>
+<p>然后输入im-config进行配置，将下载的输入法添加到fcitx中就行了</p>
+<h2 id="配置java环境"><a href="#配置java环境" class="headerlink" title="配置java环境"></a>配置java环境</h2><p>原来的java文件夹位于/opt/jdk下，因为没有覆盖/opt，所以不用重新下载<br>修改.bashrc文件，.bashrc文件在那个用户的目录下，代码那个用户就可以使用jdk<br>在最后添加<br>export JAVA_HOME=/opt/jdk<br>export PATH=$JAVA_HOME/bin:$PATH<br>export CLASSPATH=.:$JAVA_HOME/lib<br>修改完成后，使用输入<br>source .baserc<br>java -version<br>如果看见java信息说明安装成功<br>但是注销后进入发现运行的java不是sunjdk，而是openjdk，直接卸载openjdk，发现由于依赖关系，debian自动又下载了一个gcj-jdk，将依赖的libreoffice卸载后，sunjdk运行成功</p>
+<h2 id="配置maven环境"><a href="#配置maven环境" class="headerlink" title="配置maven环境"></a>配置maven环境</h2><p>同样修改.bashrc,在最后添加下面语句<br>export PATH=${PATH}:/opt/maven/bin</p>
+<h2 id="配置eclipse"><a href="#配置eclipse" class="headerlink" title="配置eclipse"></a>配置eclipse</h2><p>eclipse也是放在/opt目录下，没有修改，但是无法运行，报错缺少java运行时的环境。<br>解决方法<br>修改eclipse目录下的eclipse.ini文件，在最开始添加<br>-vm<br>/opt/jdk/bin<br>运行成功</p>
+<h2 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h2><p>前往<a href="https://dev.mysql.com/downloads/repo/apt/根据版本下载mysql包" target="_blank" rel="noopener">https://dev.mysql.com/downloads/repo/apt/根据版本下载mysql包</a><br>在mysql包下载目录下打开终端，输入<br>dpkg -i mysql-apt-config_w.x.y-z_all.deb<br>apt-get update<br>apt-get install mysql-server<br>下载mysql server，中途会选择版本，输入管理员密码<br>修改mysql字符集，解决中文乱码问题<br>编辑/etc/mysql/my.cnf，输入下面几句话<br>[client]<br>default-character-set=utf8<br>[mysqld]<br>character-set-server=utf8<br>退出，使用service mysql stop 停止mysql 服务<br>然后在使用service mysql start 开启mysql服务<br>进入mysql<br>输入<br>show variables like “%char%”;<br>查看字符集，如果都是utf8说明修改成功，如果失败，再去找找其他办法吧<br>下载msyql-workbench<br>apt install mysql-workbench</p>
+<h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><p>apt install git</p>
+<h2 id="安装visual-studio-code"><a href="#安装visual-studio-code" class="headerlink" title="安装visual studio code"></a>安装visual studio code</h2><p>前往visual studio code官网，下载deb包，<br>输入<br>dpkg -i codeXXXXX.deb<br>apt-get install -f 解决冲突问题</p>
+<h2 id="安装chrome"><a href="#安装chrome" class="headerlink" title="安装chrome"></a>安装chrome</h2><p>运行wget <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" target="_blank" rel="noopener">https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</a><br>执行安装命令 dpkg -i google-chrome-stableXXX.deb<br>解决依赖问题 apt-get install -f<br>根据选择的架构不同，安装的chrome版本不同</p>
+<h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>node.js 安装命令<br>wget -qO- <a href="https://raw.github.com/creationix/nvm/master/install.sh" target="_blank" rel="noopener">https://raw.github.com/creationix/nvm/master/install.sh</a> | sh<br>nvm install stable<br>hexo 安装命令<br>npm install -g hexo-cli</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/07/java8-方法引用/" rel="next" title="java8-方法引用">
+                <i class="fa fa-chevron-left"></i> java8-方法引用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">残星</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/canxing/" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用usb-installer创建debian启动盘"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;usb-installer&#x521B;&#x5EFA;debian&#x542F;&#x52A8;&#x76D8;" class="headerlink" title="&#x4F7F;&#x7528;usb installer&#x521B;&#x5EFA;debian&#x542F;&#x52A8;&#x76D8;"></a>&#x4F7F;&#x7528;usb installer&#x521B;&#x5EFA;debian&#x542F;&#x52A8;&#x76D8;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装系统"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;" class="headerlink" title="&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;"></a>&#x5B89;&#x88C5;&#x7CFB;&#x7EDF;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联网"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x8054;&#x7F51;" class="headerlink" title="&#x8054;&#x7F51;"></a>&#x8054;&#x7F51;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置镜像源"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x8BBE;&#x7F6E;&#x955C;&#x50CF;&#x6E90;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x955C;&#x50CF;&#x6E90;"></a>&#x8BBE;&#x7F6E;&#x955C;&#x50CF;&#x6E90;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装vim"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;vim" class="headerlink" title="&#x5B89;&#x88C5;vim"></a>&#x5B89;&#x88C5;vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装中文输入法"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;&#x4E2D;&#x6587;&#x8F93;&#x5165;&#x6CD5;" class="headerlink" title="&#x5B89;&#x88C5;&#x4E2D;&#x6587;&#x8F93;&#x5165;&#x6CD5;"></a>&#x5B89;&#x88C5;&#x4E2D;&#x6587;&#x8F93;&#x5165;&#x6CD5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置java环境"><span class="nav-number">7.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;java&#x73AF;&#x5883;" class="headerlink" title="&#x914D;&#x7F6E;java&#x73AF;&#x5883;"></a>&#x914D;&#x7F6E;java&#x73AF;&#x5883;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置maven环境"><span class="nav-number">8.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;maven&#x73AF;&#x5883;" class="headerlink" title="&#x914D;&#x7F6E;maven&#x73AF;&#x5883;"></a>&#x914D;&#x7F6E;maven&#x73AF;&#x5883;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置eclipse"><span class="nav-number">9.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;eclipse" class="headerlink" title="&#x914D;&#x7F6E;eclipse"></a>&#x914D;&#x7F6E;eclipse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装mysql"><span class="nav-number">10.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;mysql" class="headerlink" title="&#x5B89;&#x88C5;mysql"></a>&#x5B89;&#x88C5;mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装git"><span class="nav-number">11.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;git" class="headerlink" title="&#x5B89;&#x88C5;git"></a>&#x5B89;&#x88C5;git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装visual-studio-code"><span class="nav-number">12.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;visual-studio-code" class="headerlink" title="&#x5B89;&#x88C5;visual studio code"></a>&#x5B89;&#x88C5;visual studio code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装chrome"><span class="nav-number">13.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;chrome" class="headerlink" title="&#x5B89;&#x88C5;chrome"></a>&#x5B89;&#x88C5;chrome</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装hexo"><span class="nav-number">14.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;hexo" class="headerlink" title="&#x5B89;&#x88C5;hexo"></a>&#x5B89;&#x88C5;hexo</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">残星</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
