@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="c语言," />
+  <meta name="keywords" content="java,java8," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的基本操作 List ListInit();                                                        //初始化线性表int ListLength(List L);                                        //返回线性表的长度">
-<meta name="keywords" content="c语言">
+<meta name="description" content="java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作 Predicate系列的组合操作 接口                        相关方法 Predicate&amp;lt;T&amp;gt;            Predicate&amp;lt;T&amp;gt; negate()">
+<meta name="keywords" content="java,java8">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构c语言描述二-线性表">
-<meta property="og:url" content="http://yoursite.com/2017/12/11/数据结构c语言描述二-线性表/index.html">
+<meta property="og:title" content="java8-复合lambda表达式">
+<meta property="og:url" content="http://yoursite.com/2018/01/11/java8-复合lambda表达式/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的基本操作 List ListInit();                                                        //初始化线性表int ListLength(List L);                                        //返回线性表的长度">
+<meta property="og:description" content="java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作 Predicate系列的组合操作 接口                        相关方法 Predicate&amp;lt;T&amp;gt;            Predicate&amp;lt;T&amp;gt; negate()">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-12T16:00:41.504Z">
+<meta property="og:updated_time" content="2018-01-11T13:46:32.839Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构c语言描述二-线性表">
-<meta name="twitter:description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的基本操作 List ListInit();                                                        //初始化线性表int ListLength(List L);                                        //返回线性表的长度">
+<meta name="twitter:title" content="java8-复合lambda表达式">
+<meta name="twitter:description" content="java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作 Predicate系列的组合操作 接口                        相关方法 Predicate&amp;lt;T&amp;gt;            Predicate&amp;lt;T&amp;gt; negate()">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/11/数据结构c语言描述二-线性表/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/11/java8-复合lambda表达式/"/>
 
 
 
 
 
-  <title>数据结构c语言描述二-线性表 | 残星</title>
+  <title>java8-复合lambda表达式 | 残星</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/11/数据结构c语言描述二-线性表/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/java8-复合lambda表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="残星">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据结构c语言描述二-线性表</h1>
+          <h1 class="post-title" itemprop="name headline">java8-复合lambda表达式</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-11T22:34:26+08:00">
-                2017-12-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T20:35:22+08:00">
+                2018-01-11
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
                   </a>
                 </span>
 
@@ -352,57 +352,72 @@
       
 
       
-        <p>线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示</p>
-<h2 id="线性表的基本操作"><a href="#线性表的基本操作" class="headerlink" title="线性表的基本操作"></a>线性表的基本操作</h2><blockquote>
-<p>List<em> ListInit();                                                        //初始化线性表<br><br>int ListLength(List</em> L);                                        //返回线性表的长度<br><br>int LocaleList(List<em> L,Node</em> n);                        //返回线性表中指定元素第一次出现的下标索引，没有返回-1<br><br>Node<em> ListGet(List</em> L,int index);                        //返回线性表指定索引位置的节点元素<br><br>int ListClear(List<em> L);                                            //清空线性表，成功返回1,失败返回0<br><br>int ListEmpty(List</em> L);                                            //判断线性表是否为空，是空返回1,不是返回0<br><br>int ListInsert(List<em> L,int index,Node</em> n);    //在线性表指定位置插入指定元素，插入成功返回1,失败返回0<br><br>int ListDelete(List<em> L,int index);                    //删除线性表指定索引位置的元素，删除成功返回1,失败返回0<br><br>void printList(List</em> L);                                        //打印线性表</p>
-</blockquote>
-<h2 id="线性表的类型定义"><a href="#线性表的类型定义" class="headerlink" title="线性表的类型定义"></a>线性表的类型定义</h2><p>typedef struct Node{</p>
-<pre><code>int data;//节点元素类型，可以自定义元素
-</code></pre><p>}Node;</p>
-<p>typedef struct linearList{</p>
-<pre><code>Node* elem;
-int length;//保存该线性表已经存储的个数
-int size;//保存这个线性表可以存储的最大个数
-</code></pre><p>}LinearList;</p>
-<h2 id="初始化线性表"><a href="#初始化线性表" class="headerlink" title="初始化线性表"></a>初始化线性表</h2><p>LinearList* ListInit(){</p>
-<pre><code>LinearList L = (LinearList*) malloc(sizeof(Node));
-if(L == NULL)
-    reutrn NULL;
-L-&gt;elem = (Node*)malloc(sizeof(Node) * MAXSIZE);
-if(L-&gt;elem == NULL)
-    return NULL;
-L-&gt;length = 0;
-L-&gt;size = MAXSIZE;
-return L;
-</code></pre><p>}</p>
-<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><p>int ListInsert(LinearList* L,int i,Node n){</p>
-<pre><code>if(i &lt; 0)//判断插入位置是否符合规范
-    return 0;
-if(L-&gt;length &gt;= L-&gt;size){//如果线性表中的数据已经大于或等于线性表的最大存储数，返回，还可以使用还可以使用relloc函数动态增加数量
-    return 0;
-}
-int length = L-&gt;length;
-if( i &lt;= length){//如果插入位置是在已经存在的线性表中，把索引位置以及之后的元素依次先后移动一位
-    for(;length != i - 1;length--){
-        L-&gt;elem[length] = L-&gt;elem[length - 1];
-    }
-}
-//如果插入位置是在已经插入数据长度之外，那么直接插入数据，
-//如果不是，那么length索引的元素变为插入数据
-L-&gt;elem[length] = n;
-L-&gt;length++;
-return 1;
-</code></pre><p>}</p>
-<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><p>int ListDelete(LinearList* L,int index){</p>
-<pre><code>if(index &lt; 0 || index &gt;= L-&gt;length)//判断删除索引的位置是否在范围外
-    return 0;
-for(int i = index;i &lt; L-&gt;length; i++){//将删除元素之后的所有元素依次向后移动一位
-    L-&gt;elem[i] = L-&gt;elem[i + 1];
-}
-L-&gt;length--;
-return 1;
-</code></pre><p>}</p>
-<p><a href="https://github.com/canxing/data_structure/blob/master/linear_table/linearList.c" target="_blank" rel="noopener">线性表完整源码</a></p>
+        <p>java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作</p>
+<p>Predicate系列的组合操作</p>
+<pre><code>接口                        相关方法
+Predicate&lt;T&gt;            Predicate&lt;T&gt; negate()
+                        Predicate&lt;T&gt; or(Predicate&lt;? super T&gt; other)
+                        Predicate&lt;T&gt; and(Predicate&lt;? super T&gt; other)
+
+                        DoublePredicate negate()
+DoublePredicate            DoublePredicate and(DoublePredicate other)
+                        DoublePredicate or(DoublePredicate other)
+
+                        IntPredicate negate()
+IntPredicate            IntPredicate and(IntPredicate other)
+                        IntPredicate or(IntPredicate other)
+
+                        LongPredicate negate()
+LongPredicate            LongPredicate and(LongPredicate other)
+                        LongPredicate or(LongPredicate other)
+
+                        BiPredicate&lt;T,U&gt; negate()
+BiPredicate&lt;T,U&gt;        BiPredicate&lt;T,U&gt; and(BiPredicate&lt;? super T,? super U&gt; other)
+                        BiPredicate&lt;T,U&gt; or(BiPredicate&lt;? super T,? super U&gt; other)
+</code></pre><p>Predicate系列的每个借口都含有and,or,not操作，可以和其他相同的借口进行组合<br>对于苹果类，根据苹果的颜色和重量筛选符合要求的苹果可以有</p>
+<pre><code>//筛选颜色为红色的苹果
+Predicate&lt;Apple&gt; redApple = (Apple apple) -&gt; apple.getColor().equals(&quot;red&quot;);
+//筛选苹果重量大于15的苹果
+Predicate&lt;Apple&gt; weightApple = apple -&gt; apple.getWeight() &gt; 15;
+//对苹果的颜色和重量筛选进行复合，筛选出即是红色重量有大于15的苹果
+List&lt;Apple&gt; filterApples = filter(inventory,redApple.and(weightApple));
+
+//筛选出是红色或者重量大于15的苹果
+filterApples = filter(inventory,redApple.or(weightApple));
+
+//筛选出既不是颜色既不是红色重量也不大于15的苹果
+filterApples = filter(inventory,redApple.negate().or(weightApple.negate()));
+</code></pre><h1 id="Function系列的组合操作"><a href="#Function系列的组合操作" class="headerlink" title="Function系列的组合操作"></a>Function系列的组合操作</h1><pre><code>接口                        相关方法
+Function&lt;T,R&gt;            Function&lt;T,V&gt; addThen(Function&lt;? super R,? extends V&gt; after)
+                        Function&lt;V,R&gt; compose(Function&lt;? super V,? extends T&gt; before)
+
+BiFunction&lt;T,U,R&gt;        BiFunction&lt;T,U,V&gt; addThen(Function&lt;? super R,? extends V&gt; after)
+</code></pre><p>Function系列的接口只有Function<t,r>和BiFunction<t,u,r>可以进行复合操作<br>    Function的意思是函数，作为函数，具有参数和返回值，类似于f(x) = x + 1,<br>    那么Function<t,v>的addThen方法可以理解为将我的返回值作为别的函数的参数，在别的函数中进行函数运算。<br>    如果说有两个函数 f(x) = x + 1 和 g(y) = y + 2，那么addThen可以将f(x)的返回值作为g(x)的参数传递进去，类似于g(f(x)) = f(x) + 2 = (x + 1) + 2这种<br>    同样compose方法可以将别的函数的返回值作为自己的参数进行函数运算  </t,v></t,u,r></t,r></p>
+<p>BiFunction<t,u,r>和Function<t,r>不同的是，他具有三个泛型参数，以及他的addThen方法接收的是一个Function&lt;? super V,? extends T&gt;对象<br>    同样也是将BiFunction的运算结果作为Function的参数，返回Function的运算结果</t,r></t,u,r></p>
+<p>使用Function接口实现为苹果的重量加20，并返回一个列表</p>
+<pre><code>//获取苹果的重量
+Function&lt;Apple,Integer&gt; getWeight = Apple::getWeight;
+//将一个数字加上20,在这里这个数字表示重量
+Function&lt;Integer,Integer&gt; addWeight = weight -&gt; weight + 20;
+
+//使用Function的addThen方法将所有苹果的重量加上20并返回一个列表
+List&lt;Integer&gt; weights = map(inventory,getWeight.andThen(addWeight));
+//使用Function的compose方法将所有苹果的重量加上20并返回一个列表
+weights = map(inventory,addWeight.compose(getWeight));
+</code></pre><h1 id="Consumer系列接口"><a href="#Consumer系列接口" class="headerlink" title="Consumer系列接口"></a>Consumer系列接口</h1><pre><code>接口                        相关方法
+Consumer&lt;T&gt;                Consumer&lt;T&gt; addThen(Consumer&lt;? super T&gt; after)
+DoubleConsumer            DoubleConsumer addThen(DoubleConsumer after)
+IntConsumer                IntConsumer addThen(IntConsumer after)
+LongConsuemr            LongConsumer addThen(LongConsumer after)
+BiConsumer&lt;T,U&gt;            BiConsumer&lt;T,U&gt; addThen(BiConsumer&lt;? super T,? super U&gt; after)
+</code></pre><p>Consumer系列的接口只接收一个泛型参数的都可以使用addThen方法，接收两个参数的只有BiConsumer接口可以使用addThen方法<br>    关于addThen方法，很显然，在经过当前的Consumer对象的处理之后，可以继续被某个Consumer对象处理<br>    使用Consumer将苹果的重量在原有的基础上乘2再加上10  </p>
+<pre><code>//将苹果的重量乘2
+Consumer&lt;Apple&gt; two = apple -&gt; apple.setWeight(apple.getWeight() * 2); 
+//将苹果的重量加10
+Consumer&lt;Apple&gt; add = apple -&gt; apple.setWeight(apple.getWeight() + 10);
+//使用组合将苹果的重量先乘2再加10
+forEach(inventory,two.andThen(add));
+</code></pre><p><a href="https://github.com/canxing/java8/tree/master/4/src/com/canxing" target="_blank" rel="noopener">参考源码</a><br>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至liuxin739525@163.com邮箱指正，我将不胜感激。</p>
 
       
     </div>
@@ -420,7 +435,9 @@ return 1;
       
         <div class="post-tags">
           
-            <a href="/tags/c语言/" rel="tag"># c语言</a>
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/java8/" rel="tag"># java8</a>
           
         </div>
       
@@ -433,8 +450,8 @@ return 1;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/11/数据结构c语言描述一/" rel="next" title="数据结构c语言描述一">
-                <i class="fa fa-chevron-left"></i> 数据结构c语言描述一
+              <a href="/2018/01/08/debian-环境搭建/" rel="next" title="debian-环境搭建">
+                <i class="fa fa-chevron-left"></i> debian-环境搭建
               </a>
             
           </div>
@@ -442,10 +459,6 @@ return 1;
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/12/数据结构c语言描述三-链表/" rel="prev" title="数据结构c语言描述三-链表">
-                数据结构c语言描述三-链表 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -587,7 +600,7 @@ return 1;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表的基本操作"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7EBF;&#x6027;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;" class="headerlink" title="&#x7EBF;&#x6027;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;"></a>&#x7EBF;&#x6027;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表的类型定义"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;" class="headerlink" title="&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;"></a>&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化线性表"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;"></a>&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入数据"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x63D2;&#x5165;&#x6570;&#x636E;" class="headerlink" title="&#x63D2;&#x5165;&#x6570;&#x636E;"></a>&#x63D2;&#x5165;&#x6570;&#x636E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除数据"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x5220;&#x9664;&#x6570;&#x636E;" class="headerlink" title="&#x5220;&#x9664;&#x6570;&#x636E;"></a>&#x5220;&#x9664;&#x6570;&#x636E;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Function系列的组合操作"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Function&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;" class="headerlink" title="Function&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;"></a>Function&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Consumer系列接口"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Consumer&#x7CFB;&#x5217;&#x63A5;&#x53E3;" class="headerlink" title="Consumer&#x7CFB;&#x5217;&#x63A5;&#x53E3;"></a>Consumer&#x7CFB;&#x5217;&#x63A5;&#x53E3;</span></a></li></ol></div>
             
 
           </div>
