@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作 Predicate系列的组合操作 接口                        相关方法 Predicate&amp;lt;T&amp;gt;            Predicate&amp;lt;T&amp;gt; negate()">
+<meta name="description" content="java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作 Predicate系列的组合操作接口                        相关方法 Predicate&amp;lt;T&amp;gt;            Predicate&amp;lt;T&amp;gt; negate()">
 <meta name="keywords" content="java,java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java8-复合lambda表达式">
 <meta property="og:url" content="http://yoursite.com/2018/01/11/java8-复合lambda表达式/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作 Predicate系列的组合操作 接口                        相关方法 Predicate&amp;lt;T&amp;gt;            Predicate&amp;lt;T&amp;gt; negate()">
+<meta property="og:description" content="java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作 Predicate系列的组合操作接口                        相关方法 Predicate&amp;lt;T&amp;gt;            Predicate&amp;lt;T&amp;gt; negate()">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-11T13:46:32.839Z">
+<meta property="og:updated_time" content="2018-01-11T13:48:03.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-复合lambda表达式">
-<meta name="twitter:description" content="java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作 Predicate系列的组合操作 接口                        相关方法 Predicate&amp;lt;T&amp;gt;            Predicate&amp;lt;T&amp;gt; negate()">
+<meta name="twitter:description" content="java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作 Predicate系列的组合操作接口                        相关方法 Predicate&amp;lt;T&amp;gt;            Predicate&amp;lt;T&amp;gt; negate()">
 
 
 
@@ -353,8 +353,7 @@
 
       
         <p>java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作</p>
-<p>Predicate系列的组合操作</p>
-<pre><code>接口                        相关方法
+<h1 id="Predicate系列的组合操作"><a href="#Predicate系列的组合操作" class="headerlink" title="Predicate系列的组合操作"></a>Predicate系列的组合操作</h1><pre><code>接口                        相关方法
 Predicate&lt;T&gt;            Predicate&lt;T&gt; negate()
                         Predicate&lt;T&gt; or(Predicate&lt;? super T&gt; other)
                         Predicate&lt;T&gt; and(Predicate&lt;? super T&gt; other)
@@ -460,6 +459,10 @@ forEach(inventory,two.andThen(add));
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/01/12/java8-使用流/" rel="prev" title="java8-使用流">
+                java8-使用流 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -535,7 +538,7 @@ forEach(inventory,two.andThen(add));
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -600,7 +603,7 @@ forEach(inventory,two.andThen(add));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Function系列的组合操作"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Function&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;" class="headerlink" title="Function&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;"></a>Function&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Consumer系列接口"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Consumer&#x7CFB;&#x5217;&#x63A5;&#x53E3;" class="headerlink" title="Consumer&#x7CFB;&#x5217;&#x63A5;&#x53E3;"></a>Consumer&#x7CFB;&#x5217;&#x63A5;&#x53E3;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Predicate系列的组合操作"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Predicate&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;" class="headerlink" title="Predicate&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;"></a>Predicate&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Function系列的组合操作"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Function&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;" class="headerlink" title="Function&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;"></a>Function&#x7CFB;&#x5217;&#x7684;&#x7EC4;&#x5408;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Consumer系列接口"><span class="nav-number">3.</span> <span class="nav-text"><a href="#Consumer&#x7CFB;&#x5217;&#x63A5;&#x53E3;" class="headerlink" title="Consumer&#x7CFB;&#x5217;&#x63A5;&#x53E3;"></a>Consumer&#x7CFB;&#x5217;&#x63A5;&#x53E3;</span></a></li></ol></div>
             
 
           </div>

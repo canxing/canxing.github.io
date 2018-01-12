@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java8-使用流">
+<meta property="og:url" content="http://yoursite.com/2018/01/12/java8-使用流/index.html">
+<meta property="og:site_name" content="残星">
+<meta property="og:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-12T12:31:46.506Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java8-使用流">
+<meta name="twitter:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/12/java8-使用流/"/>
+
+
+
+
+
+  <title>java8-使用流 | 残星</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">残星</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/12/java8-使用流/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="残星">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="残星">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java8-使用流</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-12T15:32:06+08:00">
+                2018-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="流介绍"><a href="#流介绍" class="headerlink" title="流介绍"></a>流介绍</h1><p>流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现）</p>
+<h1 id="使用流"><a href="#使用流" class="headerlink" title="使用流"></a>使用流</h1><p>集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中<br>使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据<br>像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数据，比如过滤颜色不是红色的苹果，收集苹果的重量列表，但是每一次都需要调用一个方法，流为我们处理这种“一系列”数据提供了一些方法，可以像工厂流水线的方法对流数据进行处理  </p>
+<p>比如要收集颜色是红色苹果的重量集合，可以想这样写</p>
+<pre><code>inventory.stream().filter(apple -&gt; apple.getColor().equals(&quot;red&quot;)).map(Apple::getWeight).forEach(System.out::println);
+</code></pre><p>这里先通过方法stream()生成一个流对象，再使用filter方法过滤掉颜色不是红色的苹果，接着通过map将所有颜色是红色的苹果的重量返回成一个<code>数值流</code>也就是剩下苹果重量的集合，接着调用forEach方法打印剩下苹果的重量。可以读作先过滤掉颜色不是红色的苹果，接着返回所有苹果重量的集合，然后打印<br>如果使用上一节自定义方法实现这些操作书写格式如下:</p>
+<pre><code>inventory = filter(inventory,apple -&gt; apple.getColor().equals(&quot;red&quot;));
+List&lt;Integer&gt; weights = map(inventory,Apple::getWeight);
+forEach(weights, System.out::println);
+</code></pre><p>可以看见流的可读性以及书写性都要高于自定义实现</p>
+<h1 id="流方法"><a href="#流方法" class="headerlink" title="流方法"></a>流方法</h1><p>流的方法分为两类，一类是中间操作，一类是终端操作，中间操作是对流完成操作之后还会返回一个流对象，而终端操作的返回结果是任何不是流的值，前面的filter，map就是中间操作，forEach就是终端操作</p>
+<h2 id="使用流方法对苹果库存进行操作"><a href="#使用流方法对苹果库存进行操作" class="headerlink" title="使用流方法对苹果库存进行操作"></a>使用流方法对苹果库存进行操作</h2><ol>
+<li><p>使用forEach打印数据</p>
+<pre><code>inventory.stream().forEach(System.out::println);
+</code></pre></li>
+<li><p>筛选颜色为红色的苹果</p>
+<pre><code>inventory.stream().filter(apple -&gt; apple.getColor().equals(&quot;red&quot;)).forEach(System.out::println);
+</code></pre></li>
+<li><p>对苹果颜色进行排序，如果个颜色相同，根据重量大小由小到大排序</p>
+<pre><code>Comparator&lt;Apple&gt; colorSort = (a1,a2) -&gt; a1.getColor().compareTo(a2.getColor());
+Comparator&lt;Apple&gt; weightSort = (a1,a2) -&gt; a1.getWeight() - a2.getWeight();
+inventory.stream().sorted(colorSort.thenComparing(weightSort)).forEach(System.out::println);
+</code></pre></li>
+<li><p>去除颜色和重量相同的苹果</p>
+<pre><code>inventory.stream().distinct().forEach(System.out::println);
+</code></pre></li>
+<li><p>只获取前三个苹果</p>
+<pre><code>inventory.stream().limit(3).forEach(System.out::println);
+</code></pre></li>
+<li><p>跳过前面两个苹果，只获取后面三个</p>
+<pre><code>inventory.stream().skip(2).forEach(System.out::println);
+</code></pre></li>
+<li><p>不要第一个苹果也不要最后一个苹果</p>
+<pre><code>inventory.stream().skip(1).limit(inventory.size() - 2).forEach(System.out::println);
+</code></pre></li>
+<li><p>将所有苹果的重量加10</p>
+<pre><code>inventory.stream().peek(apple -&gt; apple.setWeight(apple.getWeight() + 10)).forEach(System.out::println);
+</code></pre></li>
+<li><p>查看有没有重量是20,颜色是红色的苹果</p>
+<pre><code>System.out.println(inventory.stream().anyMatch(apple -&gt; apple.getColor().equals(&quot;red&quot;)));
+</code></pre></li>
+<li><p>查看是不是所有苹果的重量是20,颜色是红色</p>
+<pre><code>System.out.println(inventory.stream().allMatch(apple -&gt; apple.getColor().equals(&quot;red&quot;)));
+</code></pre></li>
+<li><p>查看是不是没有苹果是红色的</p>
+<pre><code>System.out.println(inventory.stream().noneMatch(apple -&gt; apple.getColor().equals(&quot;red&quot;)));
+</code></pre></li>
+<li><p>查看第一个苹果</p>
+<pre><code>System.out.println(inventory.stream().findFirst());
+</code></pre></li>
+<li><p>返回苹果的总重量</p>
+<pre><code>System.out.println(inventory.stream().map(Apple::getWeight).reduce(0, (a,b) -&gt; (a + b)));
+</code></pre></li>
+<li><p>返回苹果的最小重量</p>
+<pre><code>System.out.println(inventory.stream().map(Apple::getWeight).min((n1,n2) -&gt; n1 - n2));
+</code></pre></li>
+<li><p>返回苹果的最大重量</p>
+<pre><code>System.out.println(inventory.stream().map(Apple::getWeight).max((n1,n2) -&gt; n1 - n2));
+</code></pre><h2 id="流的终端操作"><a href="#流的终端操作" class="headerlink" title="流的终端操作"></a>流的终端操作</h2><pre><code>方法                                                                                                            作用
+</code></pre><p>boolean allMatch(Predicate&lt;? super T&gt; predicate)                                                    如果流对象都可以匹配谓词，返回true，否则返回false<br>boolean anyMatch(Predicate&lt;? super T&gt; predicate)                                                    如果流对象中有一个或多个匹配谓词，返回true，否则返回false<br>boolean noneMatch(Predicate&lt;? super T&gt; predicate)                                                    如果流对象中任何一个都没有匹配谓词，返回true，否则返回false<br>Optional<t> max(Comparator&lt;? super T&gt; comparator)                                                    自定义比较方法，返回流对象中比较方法比较出来的最大值<br>Oprional<t> min(Comparator&lt;? super T&gt; comparator)                                                    自定义比较方法，返回流对象中比较方法比较出来的最小值<br>Optional<t> findAny()                                                                                未知<br>Optional<t> findFirst()                                                                                返回流对象中的第一个值<br>long count()                                                                                        返回流中数据的个数<br><r,a> R collect(Collecotr&lt;? super T,A,R&gt; collector)                                                    未知<br><r> R collecot(Supplier<r> supplier,BiConsumer<r,? super="" t=""> accumulator,BiConsumer<r,r> combiner)    未知<br>void forEach(Consumer&lt;? super T&gt; action)                                                            未知<br>void forEachOrDered(Consumer&lt;? super T&gt; action)                                                        未知<br>Oprional<t> reduce<t identity,binaryoperator<t=""> accumulator)                                        未知<br><u> U reduce(U identity,BiFunction<u,? super="" t,u=""> accumulator,BinaryOperator<u> combiner)            未知<br>Object[] toArray()                                                                                    未知<br><a> A[] toArray(IntFunction<a[]> generator)                                                            未知</a[]></a></u></u,?></u></t></t></r,r></r,?></r></r></r,a></t></t></t></t></p>
+</li>
+</ol>
+<h2 id="流的中间操作"><a href="#流的中间操作" class="headerlink" title="流的中间操作"></a>流的中间操作</h2><pre><code>    方法                                                                            作用
+distinct()                                                            去重，流中的对象需要实现equlas方法
+filter(Predicate&lt;? super T&gt; predicate)                                按照规则过滤，满足规则的留下，不满足的去掉
+limit(long maxSize)                                                    返回数据的最大个数，10表示返回10个数据，5表示返回5个
+map(Function&lt;? super T,? extends R&gt; mapper)                            将每个流对象作为函数的参数，并且将返回值填充流对象
+flatMap(Function&lt;? super T,? extends Stream&lt;? extends R&gt;&gt; mapper)    将每个流对象作为函数的参数，但是只返回一个流对象    
+peek(Consumer&lt;? super T&gt; action)                                    可以在流处理时对每个流数据进行操作，并返回Stream对象
+skip(long n)                                                        跳过n个数据，n等于10,表示跳过前面10个数据，和limit方法一起使用效果更好
+sorted()                                                            默认排序，排序类需要实现默认排序接口
+sorted(Comparator&lt;? super T&gt; comparator)                            使用自定义排序对流数据进行排序
+</code></pre><p><a href="https://github.com/canxing/java8/tree/master/5/src/com/canxing" target="_blank" rel="noopener">参考源码</a><br>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至liuxin739525@163.com邮箱指正，我将不胜感激。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/11/java8-复合lambda表达式/" rel="next" title="java8-复合lambda表达式">
+                <i class="fa fa-chevron-left"></i> java8-复合lambda表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">残星</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/canxing/" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#流介绍"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x6D41;&#x4ECB;&#x7ECD;" class="headerlink" title="&#x6D41;&#x4ECB;&#x7ECD;"></a>&#x6D41;&#x4ECB;&#x7ECD;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用流"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x6D41;" class="headerlink" title="&#x4F7F;&#x7528;&#x6D41;"></a>&#x4F7F;&#x7528;&#x6D41;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流方法"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x6D41;&#x65B9;&#x6CD5;" class="headerlink" title="&#x6D41;&#x65B9;&#x6CD5;"></a>&#x6D41;&#x65B9;&#x6CD5;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用流方法对苹果库存进行操作"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x6D41;&#x65B9;&#x6CD5;&#x5BF9;&#x82F9;&#x679C;&#x5E93;&#x5B58;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;" class="headerlink" title="&#x4F7F;&#x7528;&#x6D41;&#x65B9;&#x6CD5;&#x5BF9;&#x82F9;&#x679C;&#x5E93;&#x5B58;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;"></a>&#x4F7F;&#x7528;&#x6D41;&#x65B9;&#x6CD5;&#x5BF9;&#x82F9;&#x679C;&#x5E93;&#x5B58;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流的终端操作"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x6D41;&#x7684;&#x7EC8;&#x7AEF;&#x64CD;&#x4F5C;" class="headerlink" title="&#x6D41;&#x7684;&#x7EC8;&#x7AEF;&#x64CD;&#x4F5C;"></a>&#x6D41;&#x7684;&#x7EC8;&#x7AEF;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流的中间操作"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#&#x6D41;&#x7684;&#x4E2D;&#x95F4;&#x64CD;&#x4F5C;" class="headerlink" title="&#x6D41;&#x7684;&#x4E2D;&#x95F4;&#x64CD;&#x4F5C;"></a>&#x6D41;&#x7684;&#x4E2D;&#x95F4;&#x64CD;&#x4F5C;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">残星</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
