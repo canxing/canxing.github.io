@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="残星">
 <meta property="og:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-12T13:11:08.735Z">
+<meta property="og:updated_time" content="2018-01-12T14:43:38.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-使用流">
 <meta name="twitter:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数">
@@ -409,7 +409,9 @@ inventory.stream().sorted(colorSort.thenComparing(weightSort)).forEach(System.ou
 </code></pre></li>
 <li><p>返回苹果的最大重量</p>
 <pre><code>System.out.println(inventory.stream().map(Apple::getWeight).max((n1,n2) -&gt; n1 - n2));
-</code></pre><h2 id="流的终端操作"><a href="#流的终端操作" class="headerlink" title="流的终端操作"></a>流的终端操作</h2><pre><code>    方法                                                                                                            作用
+</code></pre></li>
+</ol>
+<h2 id="流的终端操作"><a href="#流的终端操作" class="headerlink" title="流的终端操作"></a>流的终端操作</h2><pre><code>    方法                                                                                                            作用
 boolean allMatch(Predicate&lt;? super T&gt; predicate)                                                    如果流对象都可以匹配谓词，返回true，否则返回false
 boolean anyMatch(Predicate&lt;? super T&gt; predicate)                                                    如果流对象中有一个或多个匹配谓词，返回true，否则返回false
 boolean noneMatch(Predicate&lt;? super T&gt; predicate)                                                    如果流对象中任何一个都没有匹配谓词，返回true，否则返回false
@@ -426,18 +428,17 @@ Oprional&lt;T&gt; reduce&lt;T identity,BinaryOperator&lt;T&gt; accumulator)     
 &lt;U&gt; U reduce(U identity,BiFunction&lt;U,? super T,U&gt; accumulator,BinaryOperator&lt;U&gt; combiner)            未知
 Object[] toArray()                                                                                    未知
 &lt;A&gt; A[] toArray(IntFunction&lt;A[]&gt; generator)                                                            未知
-</code></pre></li>
-</ol>
-<h2 id="流的中间操作"><a href="#流的中间操作" class="headerlink" title="流的中间操作"></a>流的中间操作</h2><pre><code>    方法                                                                                                            作用
-distinct()                                                            去重，流中的对象需要实现equlas方法
-filter(Predicate&lt;? super T&gt; predicate)                                按照规则过滤，满足规则的留下，不满足的去掉
-limit(long maxSize)                                                    返回数据的最大个数，10表示返回10个数据，5表示返回5个
-map(Function&lt;? super T,? extends R&gt; mapper)                            将每个流对象作为函数的参数，并且将返回值填充流对象
-flatMap(Function&lt;? super T,? extends Stream&lt;? extends R&gt;&gt; mapper)    将每个流对象作为函数的参数，但是只返回一个流对象    
-peek(Consumer&lt;? super T&gt; action)                                    可以在流处理时对每个流数据进行操作，并返回Stream对象
-skip(long n)                                                        跳过n个数据，n等于10,表示跳过前面10个数据，和limit方法一起使用效果更好
-sorted()                                                            默认排序，排序类需要实现默认排序接口
-sorted(Comparator&lt;? super T&gt; comparator)                            使用自定义排序对流数据进行排序
+</code></pre><h2 id="流的中间操作"><a href="#流的中间操作" class="headerlink" title="流的中间操作"></a>流的中间操作</h2><pre><code>        方法                                                                                                            作用
+    distinct()                                                            去重，流中的对象需要实现equlas方法
+    filter(Predicate&lt;? super T&gt; predicate)                                按照规则过滤，满足规则的留下，不满足的去掉
+    limit(long maxSize)                                                    返回数据的最大个数，10表示返回10个数据，5表示返回5个
+    map(Function&lt;? super T,? extends R&gt; mapper)                            将每个流对象作为函数的参数，并且将返回值填充流对象
+    flatMap(Function&lt;? super T,? extends Stream&lt;? extends R&gt;&gt; mapper)    将每个流对象作为函数的参数，但是只返回一个流对象    
+    peek(Consumer&lt;? super T&gt; action)                                    可以在流处理时对每个流数据进行操作，并返回Stream对象
+    skip(long n)                                                        跳过n个数据，n等于10,表示跳过前面10个数据，和limit方法一起使用效果更好
+    sorted()                                                            默认排序，排序类需要实现默认排序接口
+    sorted(Comparator&lt;? super T&gt; comparator)                            使用自定义排序对流数据进行排序
+值得注意的是flatMap方法，这个方法和map方法不同，map方法会将每一个流对象都作用于Function&lt;? super T,? extends R&gt;返回一个R对象，flatMap方法也会将所有的流对象作用于Function的方法，但是只会返回一个`流对象`，这个方法可以用作一个流中的对象的属性是集合，并且需要将所有流对象为集合的属性收集起来的情况，比如收集几个字符串中所有不重复的字符。
 </code></pre><p><a href="https://github.com/canxing/java8/tree/master/5/src/com/canxing" target="_blank" rel="noopener">参考源码</a><br>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至liuxin739525@163.com邮箱指正，我将不胜感激。</p>
 
       
@@ -480,6 +481,10 @@ sorted(Comparator&lt;? super T&gt; comparator)                            使用
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/13/java8-collect方法/" rel="prev" title="java8-collect方法">
+                java8-collect方法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -556,7 +561,7 @@ sorted(Comparator&lt;? super T&gt; comparator)                            使用
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

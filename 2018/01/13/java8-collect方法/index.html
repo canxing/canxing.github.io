@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="lambda表达式lambda表达式，实在java8中新增的特性，lambda表达式 匿名内部类匿名内部类是用于创建一种不用声明类名称的类，这种类往往只是用一次，可以用”一个实现了某种接口的类”来描述，但是没有具体的名字(也就是引用名称) //声明一个接口 interface InterfaceName{     void method(); } //使用匿名内部类创建一个实现了Interface">
+<meta name="description" content="collect方法collect 方法是Stream中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是Stream用于收集某种形式的数据信息，基本上所有的Stream的终端操作都可以使用collect方法来实现 collect的定义collect方法有两">
 <meta name="keywords" content="java,java8">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java8-lambda表达式">
-<meta property="og:url" content="http://yoursite.com/2018/01/04/java8-lambda表达式/index.html">
+<meta property="og:title" content="java8-collect方法">
+<meta property="og:url" content="http://yoursite.com/2018/01/13/java8-collect方法/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="lambda表达式lambda表达式，实在java8中新增的特性，lambda表达式 匿名内部类匿名内部类是用于创建一种不用声明类名称的类，这种类往往只是用一次，可以用”一个实现了某种接口的类”来描述，但是没有具体的名字(也就是引用名称) //声明一个接口 interface InterfaceName{     void method(); } //使用匿名内部类创建一个实现了Interface">
+<meta property="og:description" content="collect方法collect 方法是Stream中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是Stream用于收集某种形式的数据信息，基本上所有的Stream的终端操作都可以使用collect方法来实现 collect的定义collect方法有两">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-07T03:27:51.423Z">
+<meta property="og:updated_time" content="2018-01-13T12:31:10.936Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java8-lambda表达式">
-<meta name="twitter:description" content="lambda表达式lambda表达式，实在java8中新增的特性，lambda表达式 匿名内部类匿名内部类是用于创建一种不用声明类名称的类，这种类往往只是用一次，可以用”一个实现了某种接口的类”来描述，但是没有具体的名字(也就是引用名称) //声明一个接口 interface InterfaceName{     void method(); } //使用匿名内部类创建一个实现了Interface">
+<meta name="twitter:title" content="java8-collect方法">
+<meta name="twitter:description" content="collect方法collect 方法是Stream中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是Stream用于收集某种形式的数据信息，基本上所有的Stream的终端操作都可以使用collect方法来实现 collect的定义collect方法有两">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/01/04/java8-lambda表达式/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/13/java8-collect方法/"/>
 
 
 
 
 
-  <title>java8-lambda表达式 | 残星</title>
+  <title>java8-collect方法 | 残星</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/java8-lambda表达式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/13/java8-collect方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="残星">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">java8-lambda表达式</h1>
+          <h1 class="post-title" itemprop="name headline">java8-collect方法</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T20:55:23+08:00">
-                2018-01-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-13T17:16:28+08:00">
+                2018-01-13
               </time>
             
 
@@ -352,139 +352,115 @@
       
 
       
-        <h1 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h1><p>lambda表达式，实在java8中新增的特性，lambda表达式</p>
-<h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>匿名内部类是用于创建一种不用声明类名称的类，这种类往往只是用一次，可以用”一个实现了某种接口的类”来描述，但是没有具体的名字(也就是引用名称)</p>
-<pre><code>//声明一个接口
-interface InterfaceName{
-    void method();
+        <h1 id="collect方法"><a href="#collect方法" class="headerlink" title="collect方法"></a>collect方法</h1><p>collect 方法是Stream中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。</p>
+<p>收集器是Stream用于收集某种形式的数据信息，基本上所有的Stream的终端操作都可以使用collect方法来实现</p>
+<h1 id="collect的定义"><a href="#collect的定义" class="headerlink" title="collect的定义"></a>collect的定义</h1><p>collect方法有两种形式  </p>
+<pre><code>方法原型1
+&lt;R&gt; R collect(Supplier&lt;R&gt; supplier,
+              BiConsumer&lt;R, ? super T&gt; accumulator,
+              BiConsumer&lt;R, R&gt; combiner);
+方法原型2
+   &lt;R, A&gt; R collect(Collector&lt;? super T, A, R&gt; collector);
+</code></pre><p>这里主要使用方法原型2,这个方法原型接收一个实现了Collector接口的对象，Collector接口有五个抽象方法，幸运的是java8封装了一些常用的方法供我们使用，这些常用方法封装在java.util.stream.Collectors对象中，这个对象含有多个静态方法，用来返回Collector对象  </p>
+<h1 id="collect方法示例"><a href="#collect方法示例" class="headerlink" title="collect方法示例"></a>collect方法示例</h1><p>Apple.java</p>
+<pre><code>public class Apple {
+    private int weight;
+    private String color;
+    public Apple(int weight, String color) {
+        super();
+        this.weight = weight;
+        this.color = color;
+    }
+    //getter
+    //setter
 }
-//使用匿名内部类创建一个实现了InterfaceName接口的类，但是他没有具体的类型
-new InterfaceName() {
-        @Override
-        public void method() {
-
-        }
-};
-</code></pre><p>匿名内部类是一种书写代码的简化方式，在有些时候想使用实现了某种接口，但是有只是用一次的情况时创建使用</p>
-<pre><code>ExecutorService executorService = Executors.newCachedThreadPool();
-    executorService.execute(new Runnable() {
-        @Override
-        public void run() {
-            System.out.println(&quot;这里可以开启一个线程&quot;);
-        }
-});
-</code></pre><p>以上使用匿名内部类创建了一个任务(实现了Runnable接口的类)然后在线程中开启,关于匿名内部类的更多细节就不演示了，主要说明lambda表达式的用法</p>
-<p>匿名内部类可以简化一部分开发，但是还不够简洁，为什么创建一个任务需要使用那么多的代码</p>
-<pre><code>executorService.execute(new Runnable() {
-    @Override
-    public void run() {
-        System.out.println(&quot;这里可以开启一个线程&quot;);
+</code></pre><p>Main.java</p>
+<pre><code>public class Main {
+    public static void main(String[] args) {
+        List&lt;Apple&gt; inventory = Arrays.asList(
+                new Apple(10,&quot;green&quot;),
+                new Apple(20,&quot;red&quot;),
+                new Apple(12,&quot;red&quot;),
+                new Apple(12,&quot;red&quot;),
+                new Apple(25,&quot;green&quot;));
+        //返回重量最重的苹果
+        System.out.println(&quot;-------------------返回重量最重的苹果----------------&quot;);
+        Optional&lt;Apple&gt; heaviestApple = inventory.stream().collect(Collectors.maxBy(Comparator.comparing(Apple::getWeight)));
+        System.out.println(heaviestApple);
+        //返回重量最轻的苹果
+        System.out.println(&quot;-------------------返回重量最轻的苹果----------------&quot;);
+        Optional&lt;Apple&gt; lightestApple = inventory.stream().collect(Collectors.minBy(Comparator.comparing(Apple::getWeight)));
+        System.out.println(lightestApple);
+        //返回苹果的总重量
+        System.out.println(&quot;-------------------返回苹果的总重量----------------&quot;);
+        int sumInt = inventory.stream().collect(Collectors.summingInt(Apple::getWeight));
+        System.out.println(sumInt);
+        //使用Collectors.averagingInt方法求苹果的平均重量
+        System.out.println(&quot;-------------------求苹果的平均重量-----------------&quot;);
+        double averageWeight = inventory.stream().collect(Collectors.averagingDouble(Apple::getWeight));
+        System.out.println(averageWeight);
+        //返回苹果的重量的各个数据
+        System.out.println(&quot;-------------------返回苹果重量的各个数据属性-----------------&quot;);
+        IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));
+        System.out.println(intSummartStatistics);
+        //将所有苹果颜色拼接为一个字符串
+        System.out.println(&quot;-------------------将所有苹果颜色拼接为一个字符串-----------------&quot;);
+        //joining会自动将流中的数据拼接为字符串，在处理时需要保证流中的数据都是字符串
+        String appleColors = inventory.stream()
+            .map(Apple::getColor)    //将流中的apple转换为apple的颜色
+            .collect(Collectors.joining(/*将每一个颜色后面加上一个空格*/&quot; &quot;));
+        System.out.println(appleColors);
+        //返回苹果数量
+        System.out.println(&quot;-------------------返回苹果的总数量-----------------&quot;);
+        Long count = inventory.stream().collect(Collectors.counting());
+        System.out.println(count);
+        //分组
+        System.out.println(&quot;-------------------将苹果按照苹果颜色进行分组----------------&quot;);
+        Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));
+        System.out.println(appleColorMap);
+        System.out.println(&quot;-------------------将苹果按照苹果颜色和重量进行分组     ----------------&quot;);
+        System.out.println(inventory.stream().collect(Collectors.groupingBy(Apple::getColor,
+                Collectors.groupingBy(apple -&gt; {
+                    if(apple.getWeight() &gt; 10 &amp;&amp; apple.getWeight() &lt; 20) return &quot;一般&quot;;
+                    else if(apple.getWeight() &gt;= 20 ) return &quot;很重&quot;;
+                    else return &quot;轻&quot;;
+                }))));
+        //收集每个颜色的苹果有多少个
+        System.out.println(&quot;-------------------收集每个颜色的苹果有多少个----------------&quot;);
+        Map&lt;String, Long&gt; colorCount = inventory.stream().collect(Collectors.groupingBy(Apple::getColor,Collectors.counting()));
+        System.out.println(colorCount);
+        //分区
+        System.out.println(&quot;-------------------根据苹果颜色进行分区----------------&quot;);
+        Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(&quot;red&quot;)));
+        System.out.println(colorPartition);
+        //归约
+        System.out.println(&quot;-------------------归约操作----------------&quot;);
+        System.out.println(inventory.stream().collect(Collectors.reducing(0,Apple::getWeight,(a,b) -&gt; a + b)));
+        System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.reducing((a,b) -&gt; {
+            if(a &gt; b) return a;
+            else return b;
+        })));
+        System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.reducing(100,(a,b) -&gt; {
+            if(a &gt; b) return a;
+            else return b;
+        })));
     }
 }
-</code></pre><p>除了 <code>System.out.println(&quot;这里可以开启一个线程&quot;);</code>以外的其他代码都是不必要的，于是在java8中了更简单的方式实现，那就是lambda表达式</p>
-<h2 id="lambda表达式-1"><a href="#lambda表达式-1" class="headerlink" title="lambda表达式"></a>lambda表达式</h2><p>lambda表达式在很多编程语言中都在使用lisp，python，c#等，其中在lisp之类的语言中使用最多。<br>如果使用lambda表达式来创建线程任务是什么样呢</p>
-<pre><code>ExecutorService executorService = Executors.newCachedThreadPool();
-    executorService.execute(() -&gt; {
-        System.out.println(&quot;这里可以开启一个线程&quot;);
-    });        
-</code></pre><p>lambda表达式的语法比较简单</p>
-<pre><code>(parameters) -&gt; expression
-(parameters) -&gt; {statements;}
-</code></pre><p>parameters表示传入的参数，-&gt; 用于分隔参数和主体，expression和statements都是主体，expression只有一条语句时可以不用{}，多条语句时需要使用{},lambda表达式主体的最后一条语句默认为返回值，可以有返回值页可以没有返回值。</p>
-<p>下面来演示以下lambda表达式的使用</p>
-<pre><code>    //Apple类，具有颜色了重量两个属性
-    public class Apple {
-        private int weight;
-        private String color;
-        public Apple(int weight, String color) {
-            super();
-            this.weight = weight;
-            this.color = color;
-        }
-        @Override
-        public String toString() {
-            return &quot;Apple [weight=&quot; + weight + &quot;, color=&quot; + color + &quot;]&quot;;
-        }
-    }
-
-//初始化一个Apple类组成的链表
-List&lt;Apple&gt; inventory = Arrays.asList(
-        new Apple(10,&quot;green&quot;),
-        new Apple(20,&quot;red&quot;),
-        new Apple(12,&quot;red&quot;),
-        new Apple(25,&quot;green&quot;));
-/*
-*要完成任务有
-1.筛选出所有颜色为红色的苹果
-2.返回所有苹果的重量，用列表表示
-3.将所有苹果的重量加10
-4.将苹果按重量从小到大排序
-均使用lambda表达式完成
-*/
-//1
-//1.1定义一个苹果筛选项，按照大多数书上的要求来说定义为一个苹果谓词
-interface ApplePredicate{
-    boolean test(Apple a);
-}
-//1.2写一个筛选成功时需要执行的操作，参数是要筛选项以及实现ApplePredicate对象
-public static List&lt;Apple&gt; filterApple(List&lt;Apple&gt; apples,ApplePredicate predicate) {
-    List&lt;Apple&gt; result = new ArrayList&lt;&gt;();
-    for(Apple apple : apples) {
-        if(predicate.test(apple)) {//这里调用了ApplePredicate的test方法，判断条件为真的苹果加入，这个类由外部传入
-            result.add(apple);
-        }
-    }
-    return result;
-}
-//1.3实现筛选条件
-List&lt;Apple&gt; redApples = filterApple(inventory, (Apple apple) -&gt; apple.getColor().equals(&quot;red&quot;));
-System.out.println(redApples);
-
-这样就是筛选出了颜色为红色的所有苹果，如果ApplePredicate对象的条件再变只需要修改为
-List&lt;Apple&gt; result = filterApple(inventory,(Apple apple) -&gt; apple.getWeight() &gt; 20);
-就可以筛选除所有重量大于20的苹果
-
-//2
-//2.1定义一个接口方法，表示传入苹果对象可以返回苹果重量
-interface AppleWeight{
-    int weight(Apple a);
-}
-//2.2定义一个实现，传入一个苹果列表和实现AppleWeight的对象，然后遍历苹果列表，传入AppleWeight对象的weight对象，将返回的重量添加到返回列表中
-public static List&lt;Integer&gt; appleWeight(List&lt;Apple&gt; apples,AppleWeight weight){
-    List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
-    for(Apple apple : apples) {
-        result.add(weight.weight(apple));
-    }
-    return result;
-}
-//2.3使用
-List&lt;Integer&gt; appleWeights = appleWeight(inventory,(Apple apple ) -&gt;apple.getWeight());
-System.out.println(appleWeights);
-
-//3
-//3.1定义一个接口方法可以将苹果的重量增加
-interface AppleWeightAdd{
-    void addWeitht(Apple apple);
-}
-//3.2定义方法，将传入的苹果对象列表遍历，并依次通过AppleWeightAdd对象的addWeight方法
-public static void addWeight(List&lt;Apple&gt; apples,AppleWeightAdd weight) {
-    for(Apple apple : apples) {
-        weight.addWeitht(apple);
-    }
-}
-//3.3实现
-addWeight(inventory,(Apple apple) -&gt; apple.setWeight(apple.getWeight() + 10));
-System.out.println(inventory);
-
-//4.java8的list已经有了排序方法，只需要传入实现了Comparator的对象即可
-inventory.sort((Apple a1,Apple a2) -&gt; a1.getWeight() - a2.getWeight());
-System.out.println(inventory);
-</code></pre><p>关于lambda表达式的注意事项</p>
-<blockquote>
-<p>lambda表达出现的位置必须是只有一个非默认接口才行，java8中添加了默认方法，可以在接口中定义方法体，查看Comparator接口可以看见有许多方法，带有default修饰符,这样的方法是默认方法<br>    lambda表达式必须的参数和返回值必须和默认方法的参数和返回值相同</p>
+</code></pre><blockquote>
+<p>上面代码使用了大多数Collectors的方法，还有一些类型的方法,如:averagingDouble,averagingInt,averagingLong都是相同的。<br>Collectors中的方法大致分为分组，分区，容器（返回list，set，map），简单的数值计算和其他  </p>
+<p>其中分组和分区是有区别的，分区可以看做是分组的特殊形式，分区只会有两个区别满足条件的（true）和不满足条件的（false），不管是分区还是分组，都可以再分,分组是根据返回的条件进行分组  </p>
 </blockquote>
-<p><a href="https://github.com/canxing/java8/tree/master/1" target="_blank" rel="noopener">实例代码</a></p>
-<p>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至liuxin739525@163.com邮箱指正，我将不胜感激。</p>
+<pre><code>Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));
+</code></pre><p>这里就是根据苹果的颜色进行分组，map中只会有两个主键，red或者green。如果将条件改为Apple::getWeight,那么主键就会有10,20,12,25,因为有两个重量为12的苹果，这两个苹果就会分在一组</p>
+<pre><code>Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(&quot;red&quot;)));
+</code></pre><p>这里根据苹果颜色是不是红色进行分区，只会有两个主键，true或者false，true分区里的苹果都是红色的，false分区里的值都不是红色的，但是partitioningBy里面可以传第二个参数，可以对分区里面再进行<code>收集</code>（collect方法）操作</p>
+<p>容器可以为三种，List，Set，Map容器，只需要调用Collectors.toXxxx()方法就可以将流最后组装成一个容易<br>简单的数值计算可以直接通过流计算得出，例如Stream.max()方法和Stream.collect(Collectors.maxBy())方法是相同的，在某些方面，如</p>
+<pre><code>IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));
+</code></pre><p>可以返回多种数据的不同运算结果，还是很方便的</p>
+<blockquote>
+<p>collect方法接收一个Collector对象，而大多数的Collector对象都可以通过Collectors对象的静态工厂方法获取，如果有需要可以查阅手册</p>
+</blockquote>
+<p><a href="https://github.com/canxing/java8/tree/master/6/src/com/canxing" target="_blank" rel="noopener">参考源码</a><br>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至liuxin739525@163.com邮箱指正，我将不胜感激。</p>
 
       
     </div>
@@ -517,8 +493,8 @@ System.out.println(inventory);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/28/java-tcp套接字编程/" rel="next" title="java-tcp套接字编程">
-                <i class="fa fa-chevron-left"></i> java-tcp套接字编程
+              <a href="/2018/01/12/java8-使用流/" rel="next" title="java8-使用流">
+                <i class="fa fa-chevron-left"></i> java8-使用流
               </a>
             
           </div>
@@ -526,10 +502,6 @@ System.out.println(inventory);
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/05/java8-函数式接口/" rel="prev" title="java8-函数式接口">
-                java8-函数式接口 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -671,7 +643,7 @@ System.out.println(inventory);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lambda表达式"><span class="nav-number">1.</span> <span class="nav-text"><a href="#lambda&#x8868;&#x8FBE;&#x5F0F;" class="headerlink" title="lambda&#x8868;&#x8FBE;&#x5F0F;"></a>lambda&#x8868;&#x8FBE;&#x5F0F;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名内部类"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;" class="headerlink" title="&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;"></a>&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda表达式-1"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#lambda&#x8868;&#x8FBE;&#x5F0F;-1" class="headerlink" title="lambda&#x8868;&#x8FBE;&#x5F0F;"></a>lambda&#x8868;&#x8FBE;&#x5F0F;</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#collect方法"><span class="nav-number">1.</span> <span class="nav-text"><a href="#collect&#x65B9;&#x6CD5;" class="headerlink" title="collect&#x65B9;&#x6CD5;"></a>collect&#x65B9;&#x6CD5;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#collect的定义"><span class="nav-number">2.</span> <span class="nav-text"><a href="#collect&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="collect&#x7684;&#x5B9A;&#x4E49;"></a>collect&#x7684;&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#collect方法示例"><span class="nav-number">3.</span> <span class="nav-text"><a href="#collect&#x65B9;&#x6CD5;&#x793A;&#x4F8B;" class="headerlink" title="collect&#x65B9;&#x6CD5;&#x793A;&#x4F8B;"></a>collect&#x65B9;&#x6CD5;&#x793A;&#x4F8B;</span></a></li></ol></div>
             
 
           </div>
