@@ -79,18 +79,24 @@
 
 
 
-<meta name="description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的基本操作 List ListInit();                                                        //初始化线性表int ListLength(List L);                                        //返回线性表的长度">
+<meta name="description" content="AVL树是带有平衡条件的二叉查找树，所谓平衡条件就是:任何节点的深度均不得过深，如下图所示的二叉查找树是不应该出现的一颗AVL树是其每个节点的左子树和右子树的高度最多差1的二叉查找树（空树的高度定义为-1），这是一颗AVL树，树的高度为3 AVL树的定义//头文件中的函数定义 struct AvlNode; typedef struct AvlNode* Position; typedef str">
 <meta name="keywords" content="c语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构c语言描述二-线性表">
-<meta property="og:url" content="http://yoursite.com/2017/12/11/数据结构c语言描述二-线性表/index.html">
+<meta property="og:title" content="数据结构c语言描述四-AVL树">
+<meta property="og:url" content="http://yoursite.com/2018/03/03/数据结构c语言描述四-AVL树/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的基本操作 List ListInit();                                                        //初始化线性表int ListLength(List L);                                        //返回线性表的长度">
+<meta property="og:description" content="AVL树是带有平衡条件的二叉查找树，所谓平衡条件就是:任何节点的深度均不得过深，如下图所示的二叉查找树是不应该出现的一颗AVL树是其每个节点的左子树和右子树的高度最多差1的二叉查找树（空树的高度定义为-1），这是一颗AVL树，树的高度为3 AVL树的定义//头文件中的函数定义 struct AvlNode; typedef struct AvlNode* Position; typedef str">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-12T16:00:41.504Z">
+<meta property="og:image" content="http://yoursite.com/2018/03/03/数据结构c语言描述四-AVL树/二叉查找树的不平衡插入.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/03/数据结构c语言描述四-AVL树/AVL树模型.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/03/数据结构c语言描述四-AVL树/Tree_Rebalancing.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/03/数据结构c语言描述四-AVL树/插入1到7.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/03/数据结构c语言描述四-AVL树/插入模型.png">
+<meta property="og:updated_time" content="2018-03-03T05:52:13.096Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构c语言描述二-线性表">
-<meta name="twitter:description" content="线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示 线性表的基本操作 List ListInit();                                                        //初始化线性表int ListLength(List L);                                        //返回线性表的长度">
+<meta name="twitter:title" content="数据结构c语言描述四-AVL树">
+<meta name="twitter:description" content="AVL树是带有平衡条件的二叉查找树，所谓平衡条件就是:任何节点的深度均不得过深，如下图所示的二叉查找树是不应该出现的一颗AVL树是其每个节点的左子树和右子树的高度最多差1的二叉查找树（空树的高度定义为-1），这是一颗AVL树，树的高度为3 AVL树的定义//头文件中的函数定义 struct AvlNode; typedef struct AvlNode* Position; typedef str">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/03/数据结构c语言描述四-AVL树/二叉查找树的不平衡插入.png">
 
 
 
@@ -120,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/11/数据结构c语言描述二-线性表/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/03/数据结构c语言描述四-AVL树/"/>
 
 
 
 
 
-  <title>数据结构c语言描述二-线性表 | 残星</title>
+  <title>数据结构c语言描述四-AVL树 | 残星</title>
   
 
 
@@ -263,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/11/数据结构c语言描述二-线性表/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/03/数据结构c语言描述四-AVL树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="残星">
@@ -280,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据结构c语言描述二-线性表</h1>
+          <h1 class="post-title" itemprop="name headline">数据结构c语言描述四-AVL树</h1>
         
 
         <div class="post-meta">
@@ -292,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-11T22:34:26+08:00">
-                2017-12-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-03T11:16:51+08:00">
+                2018-03-03
               </time>
             
 
@@ -352,57 +358,69 @@
       
 
       
-        <p>线性表是一种线性结构，在c语言中，表示为在堆中分配一段连续的存储空间来表示</p>
-<h2 id="线性表的基本操作"><a href="#线性表的基本操作" class="headerlink" title="线性表的基本操作"></a>线性表的基本操作</h2><blockquote>
-<p>List<em> ListInit();                                                        //初始化线性表<br><br>int ListLength(List</em> L);                                        //返回线性表的长度<br><br>int LocaleList(List<em> L,Node</em> n);                        //返回线性表中指定元素第一次出现的下标索引，没有返回-1<br><br>Node<em> ListGet(List</em> L,int index);                        //返回线性表指定索引位置的节点元素<br><br>int ListClear(List<em> L);                                            //清空线性表，成功返回1,失败返回0<br><br>int ListEmpty(List</em> L);                                            //判断线性表是否为空，是空返回1,不是返回0<br><br>int ListInsert(List<em> L,int index,Node</em> n);    //在线性表指定位置插入指定元素，插入成功返回1,失败返回0<br><br>int ListDelete(List<em> L,int index);                    //删除线性表指定索引位置的元素，删除成功返回1,失败返回0<br><br>void printList(List</em> L);                                        //打印线性表</p>
-</blockquote>
-<h2 id="线性表的类型定义"><a href="#线性表的类型定义" class="headerlink" title="线性表的类型定义"></a>线性表的类型定义</h2><p>typedef struct Node{</p>
-<pre><code>int data;//节点元素类型，可以自定义元素
-</code></pre><p>}Node;</p>
-<p>typedef struct linearList{</p>
-<pre><code>Node* elem;
-int length;//保存该线性表已经存储的个数
-int size;//保存这个线性表可以存储的最大个数
-</code></pre><p>}LinearList;</p>
-<h2 id="初始化线性表"><a href="#初始化线性表" class="headerlink" title="初始化线性表"></a>初始化线性表</h2><p>LinearList* ListInit(){</p>
-<pre><code>LinearList L = (LinearList*) malloc(sizeof(Node));
-if(L == NULL)
-    reutrn NULL;
-L-&gt;elem = (Node*)malloc(sizeof(Node) * MAXSIZE);
-if(L-&gt;elem == NULL)
-    return NULL;
-L-&gt;length = 0;
-L-&gt;size = MAXSIZE;
-return L;
-</code></pre><p>}</p>
-<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><p>int ListInsert(LinearList* L,int i,Node n){</p>
-<pre><code>if(i &lt; 0)//判断插入位置是否符合规范
-    return 0;
-if(L-&gt;length &gt;= L-&gt;size){//如果线性表中的数据已经大于或等于线性表的最大存储数，返回，还可以使用还可以使用relloc函数动态增加数量
-    return 0;
-}
-int length = L-&gt;length;
-if( i &lt;= length){//如果插入位置是在已经存在的线性表中，把索引位置以及之后的元素依次先后移动一位
-    for(;length != i - 1;length--){
-        L-&gt;elem[length] = L-&gt;elem[length - 1];
+        <p>AVL树是带有平衡条件的二叉查找树，所谓平衡条件就是:任何节点的深度均不得过深，如下图所示的二叉查找树是不应该出现的<br><img src="二叉查找树的不平衡插入.png" alt="二叉查找树的不平衡插入"><br>一颗AVL树是其每个节点的左子树和右子树的高度最多差1的二叉查找树（空树的高度定义为-1），这是一颗AVL树，树的高度为3<br><img src="AVL树模型.png" alt="AVL树模型"></p>
+<h1 id="AVL树的定义"><a href="#AVL树的定义" class="headerlink" title="AVL树的定义"></a>AVL树的定义</h1><pre><code>//头文件中的函数定义
+struct AvlNode;
+typedef struct AvlNode* Position;
+typedef struct AvlNode* AvlTree;
+typedef int ElementType ;
+
+AvlTree MakeEmpty(AvlTree T);
+Position Find(ElementType X,AvlTree T);
+Position FindMin(AvlTree T);
+Position FindMax(AvlTree T);
+AvlTree Insert(ElementType X,AvlTree T);
+AvlTree Delete(ElementType X,AvlTree T);
+ElementType Retrieve(Position P);
+
+//具体实现文件中的树节点定义，这里的树节点元素使用int类型
+struct AvlNode{
+    ElementType Element;
+    AvlTree Left;
+    AvlTree Right;
+    int Height;
+};
+</code></pre><p>可以看见，AVL树和二叉查找树的定义没有什么区别，在节点定义上多了一个变量用来存储树的高度</p>
+<h1 id="AVL树的实现"><a href="#AVL树的实现" class="headerlink" title="AVL树的实现"></a>AVL树的实现</h1><p>AVL树的不同主要体现在插入和删除时的不同，在插入和删除时都有可能破坏AVL树的平衡，此时就需要对AVL树进行平衡修复</p>
+<h2 id="AVL树的插入实现"><a href="#AVL树的插入实现" class="headerlink" title="AVL树的插入实现"></a>AVL树的插入实现</h2><p><a href="https://commons.wikimedia.org/w/index.php?curid=12803426" target="_blank" rel="noopener"><img src="Tree_Rebalancing.png" alt="AVL树的插入情况"></a>图摘自维基百科<br>进行插入操作时，有四种情况可能破坏AVL树的平衡，我们把被破坏的平衡的节点称为root</p>
+<pre><code>1. 对root左儿子的左子树进行一次插入，对应上图的左左情况
+2. 对root右儿子的右子树进行一次插入，对应上图的右右情况
+3. 对root左儿子的右子树进行一次插入，对应上图的左右情况
+4. 对root右儿子的左子树进行一次哈入，对应上图的右左情况
+对于1，2情况，插入节点相对于root节点的&apos;外侧&apos;，这时只需要对root节点和root节点的左儿子或者右儿子进行一次右旋转或者左旋转就可以了;3，4情况相对于root节点的&apos;内侧&apos;，这是需要实行两次的旋转达到平衡
+注意，无论是一次旋转还是两次旋转，都是为了满足二叉查找树的性质和平衡条件
+下图演示了依次将3,2,1,4,5,6,7,16,15,14,13,12,11,10,8,9插入AVL树的过程，带箭头的表示插入时使用了旋转操作
+</code></pre><p><img src="插入1到7.png" alt="插入1到7"><br>上图演示了从1到7顺序插入AVL树的过程，这里都是1和2的情况<br><img src="插入模型.png" alt="插入模型"></p>
+<h3 id="插入代码实现"><a href="#插入代码实现" class="headerlink" title="插入代码实现"></a>插入代码实现</h3><pre><code>AvlTree Insert(ElementType X,AvlTree T){
+    if(T == NULL){
+        T = (AvlTree)malloc(sizeof(struct AvlNode));
+        if(T == NULL) return NULL;
+        T-&gt;Left = T-&gt;Right = NULL;
+        T-&gt;Element = X;
+        T-&gt;Height = 0;
+    }else{
+        if(X &gt; T-&gt;Element){
+            T-&gt;Right = Insert(X,T-&gt;Right);
+            if(Height(T-&gt;Right) - Height(T-&gt;Left) == 2)
+                if(X &gt; T-&gt;Right-&gt;Element)
+                    T = SingleRotaleWithRight(T);
+                else
+                    T = DoubleRotaleWithRight(T);
+        }else{
+            T-&gt;Left = Insert(X,T-&gt;Left);
+            if(Height(T-&gt;Left) - Height(T-&gt;Right) == 2)
+                if(X &lt; T-&gt;Left-&gt;Element)
+                    T = SingleRotaleWithLeft(T);
+                else
+                    T = DoubleRotaleWithLeft(T);
+        }
     }
+    T-&gt;Height = max(Height(T-&gt;Left),Height(T-&gt;Right)) + 1;
+    return T;
 }
-//如果插入位置是在已经插入数据长度之外，那么直接插入数据，
-//如果不是，那么length索引的元素变为插入数据
-L-&gt;elem[length] = n;
-L-&gt;length++;
-return 1;
-</code></pre><p>}</p>
-<h2 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h2><p>int ListDelete(LinearList* L,int index){</p>
-<pre><code>if(index &lt; 0 || index &gt;= L-&gt;length)//判断删除索引的位置是否在范围外
-    return 0;
-for(int i = index;i &lt; L-&gt;length; i++){//将删除元素之后的所有元素依次向后移动一位
-    L-&gt;elem[i] = L-&gt;elem[i + 1];
-}
-L-&gt;length--;
-return 1;
-</code></pre><p>}</p>
-<p><a href="https://github.com/canxing/data_structure/blob/master/linear_table/linearList.c" target="_blank" rel="noopener">线性表完整源码</a></p>
+</code></pre><h2 id="AVL树的删除实现"><a href="#AVL树的删除实现" class="headerlink" title="AVL树的删除实现"></a>AVL树的删除实现</h2><p>AVL树的删除实现比起插入实现要复杂<br>基本想法是删除成功时，修正删除路径上节点高度，然后判断删除路径上的节点的平衡，然后进行旋转<br>删除失败时，不改变任何东西  </p>
+<p>由于删除功能是按照本人自己的想法实现，实现过程较长，这里不进行展示，如有兴趣可以查看参考源码</p>
+<p><a href="https://github.com/canxing/data_structure_and_algorithm_analysis/tree/master/chapter4" target="_blank" rel="noopener">参考源码</a></p>
 
       
     </div>
@@ -433,8 +451,8 @@ return 1;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/11/数据结构c语言描述一/" rel="next" title="数据结构c语言描述一">
-                <i class="fa fa-chevron-left"></i> 数据结构c语言描述一
+              <a href="/2018/03/02/数据结构c语言描述三-二叉查找树/" rel="next" title="数据结构c语言描述三-二叉查找树">
+                <i class="fa fa-chevron-left"></i> 数据结构c语言描述三-二叉查找树
               </a>
             
           </div>
@@ -442,10 +460,6 @@ return 1;
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/12/数据结构c语言描述三-链表/" rel="prev" title="数据结构c语言描述三-链表">
-                数据结构c语言描述三-链表 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -522,7 +536,7 @@ return 1;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -587,7 +601,7 @@ return 1;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表的基本操作"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7EBF;&#x6027;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;" class="headerlink" title="&#x7EBF;&#x6027;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;"></a>&#x7EBF;&#x6027;&#x8868;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性表的类型定义"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;" class="headerlink" title="&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;"></a>&#x7EBF;&#x6027;&#x8868;&#x7684;&#x7C7B;&#x578B;&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化线性表"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;"></a>&#x521D;&#x59CB;&#x5316;&#x7EBF;&#x6027;&#x8868;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入数据"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x63D2;&#x5165;&#x6570;&#x636E;" class="headerlink" title="&#x63D2;&#x5165;&#x6570;&#x636E;"></a>&#x63D2;&#x5165;&#x6570;&#x636E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除数据"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x5220;&#x9664;&#x6570;&#x636E;" class="headerlink" title="&#x5220;&#x9664;&#x6570;&#x636E;"></a>&#x5220;&#x9664;&#x6570;&#x636E;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AVL树的定义"><span class="nav-number">1.</span> <span class="nav-text"><a href="#AVL&#x6811;&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="AVL&#x6811;&#x7684;&#x5B9A;&#x4E49;"></a>AVL&#x6811;&#x7684;&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AVL树的实现"><span class="nav-number">2.</span> <span class="nav-text"><a href="#AVL&#x6811;&#x7684;&#x5B9E;&#x73B0;" class="headerlink" title="AVL&#x6811;&#x7684;&#x5B9E;&#x73B0;"></a>AVL&#x6811;&#x7684;&#x5B9E;&#x73B0;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVL树的插入实现"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#AVL&#x6811;&#x7684;&#x63D2;&#x5165;&#x5B9E;&#x73B0;" class="headerlink" title="AVL&#x6811;&#x7684;&#x63D2;&#x5165;&#x5B9E;&#x73B0;"></a>AVL&#x6811;&#x7684;&#x63D2;&#x5165;&#x5B9E;&#x73B0;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插入代码实现"><span class="nav-number">2.1.1.</span> <span class="nav-text"><a href="#&#x63D2;&#x5165;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;" class="headerlink" title="&#x63D2;&#x5165;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;"></a>&#x63D2;&#x5165;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AVL树的删除实现"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#AVL&#x6811;&#x7684;&#x5220;&#x9664;&#x5B9E;&#x73B0;" class="headerlink" title="AVL&#x6811;&#x7684;&#x5220;&#x9664;&#x5B9E;&#x73B0;"></a>AVL&#x6811;&#x7684;&#x5220;&#x9664;&#x5B9E;&#x73B0;</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="栈又称堆栈，仅允许在表的一端进行插入和删除操作的线性表，该位置位于表尾，称为栈顶(Top)，相对地，另一端称为栈底。由于栈的插入和删除运算只能在栈顶一端进行，后进栈元素必定先出栈，所以把栈称为后进先出表(last in first out 简称 LIFO) 栈有两种实现方式，一种使用顺序表，另一种使用链表方式实现 栈的定义顺序表实现typedef struct _Node{      int da">
+<meta name="description" content="二叉查找树是二叉树的特殊形式，主要性质是，对于树中的每个节点X，它的左子树中所有值小于X的值，而它的右子树中所有值大于X的值因此，二叉查找树可以用某种统一的方式排序 根据这一性质，可以对二叉查找树有如下的函数定义 //头文件中的函数定义 struct TreeNode; typedef struct TreeNode* Position; typedef struct TreeNode* Sear">
 <meta name="keywords" content="c语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构c语言描述四-栈">
-<meta property="og:url" content="http://yoursite.com/2017/12/14/数据结构c语言描述四-栈/index.html">
+<meta property="og:title" content="数据结构c语言描述三-二叉查找树">
+<meta property="og:url" content="http://yoursite.com/2018/03/02/数据结构c语言描述三-二叉查找树/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="栈又称堆栈，仅允许在表的一端进行插入和删除操作的线性表，该位置位于表尾，称为栈顶(Top)，相对地，另一端称为栈底。由于栈的插入和删除运算只能在栈顶一端进行，后进栈元素必定先出栈，所以把栈称为后进先出表(last in first out 简称 LIFO) 栈有两种实现方式，一种使用顺序表，另一种使用链表方式实现 栈的定义顺序表实现typedef struct _Node{      int da">
+<meta property="og:description" content="二叉查找树是二叉树的特殊形式，主要性质是，对于树中的每个节点X，它的左子树中所有值小于X的值，而它的右子树中所有值大于X的值因此，二叉查找树可以用某种统一的方式排序 根据这一性质，可以对二叉查找树有如下的函数定义 //头文件中的函数定义 struct TreeNode; typedef struct TreeNode* Position; typedef struct TreeNode* Sear">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-16T03:57:34.904Z">
+<meta property="og:image" content="http://yoursite.com/2018/03/02/数据结构c语言描述三-二叉查找树/二叉查找树模型.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/02/数据结构c语言描述三-二叉查找树/二叉查找树的不平衡插入.png">
+<meta property="og:updated_time" content="2018-03-03T05:52:57.948Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构c语言描述四-栈">
-<meta name="twitter:description" content="栈又称堆栈，仅允许在表的一端进行插入和删除操作的线性表，该位置位于表尾，称为栈顶(Top)，相对地，另一端称为栈底。由于栈的插入和删除运算只能在栈顶一端进行，后进栈元素必定先出栈，所以把栈称为后进先出表(last in first out 简称 LIFO) 栈有两种实现方式，一种使用顺序表，另一种使用链表方式实现 栈的定义顺序表实现typedef struct _Node{      int da">
+<meta name="twitter:title" content="数据结构c语言描述三-二叉查找树">
+<meta name="twitter:description" content="二叉查找树是二叉树的特殊形式，主要性质是，对于树中的每个节点X，它的左子树中所有值小于X的值，而它的右子树中所有值大于X的值因此，二叉查找树可以用某种统一的方式排序 根据这一性质，可以对二叉查找树有如下的函数定义 //头文件中的函数定义 struct TreeNode; typedef struct TreeNode* Position; typedef struct TreeNode* Sear">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/02/数据结构c语言描述三-二叉查找树/二叉查找树模型.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/14/数据结构c语言描述四-栈/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/02/数据结构c语言描述三-二叉查找树/"/>
 
 
 
 
 
-  <title>数据结构c语言描述四-栈 | 残星</title>
+  <title>数据结构c语言描述三-二叉查找树 | 残星</title>
   
 
 
@@ -263,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/14/数据结构c语言描述四-栈/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/02/数据结构c语言描述三-二叉查找树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="残星">
@@ -280,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据结构c语言描述四-栈</h1>
+          <h1 class="post-title" itemprop="name headline">数据结构c语言描述三-二叉查找树</h1>
         
 
         <div class="post-meta">
@@ -292,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-14T22:33:07+08:00">
-                2017-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-02T21:22:15+08:00">
+                2018-03-02
               </time>
             
 
@@ -352,65 +355,89 @@
       
 
       
-        <p>栈又称堆栈，仅允许在表的一端进行插入和删除操作的线性表，该位置位于表尾，称为栈顶(Top)，相对地，另一端称为栈底。由于栈的插入和删除运算只能在栈顶一端进行，后进栈元素必定先出栈，所以把栈称为后进先出表(last in first out 简称 LIFO)</p>
-<p>栈有两种实现方式，一种使用顺序表，另一种使用链表方式实现</p>
-<h2 id="栈的定义"><a href="#栈的定义" class="headerlink" title="栈的定义"></a>栈的定义</h2><h3 id="顺序表实现"><a href="#顺序表实现" class="headerlink" title="顺序表实现"></a>顺序表实现</h3><pre><code>typedef struct _Node{
-     int data;
-}Node;
+        <p>二叉查找树是二叉树的特殊形式，主要性质是，对于树中的每个节点X，它的左子树中所有值小于X的值，而它的右子树中所有值大于X的值<br>因此，二叉查找树可以用某种统一的方式排序<br><img src="二叉查找树模型.png" alt="二叉查找树模型"></p>
+<p>根据这一性质，可以对二叉查找树有如下的函数定义</p>
+<pre><code>//头文件中的函数定义
+struct TreeNode;
+typedef struct TreeNode* Position;
+typedef struct TreeNode* SearchTree;
+typedef int ElementType;
 
-typedef struct Stack{
-     int length; //节点表示要插入顺序表的下标位置
-      Node* base;
-}Stack;
-</code></pre><h3 id="链表实现"><a href="#链表实现" class="headerlink" title="链表实现"></a>链表实现</h3><pre><code>typedef struct _Node{
-    int data;
-    struct _Node* next;
-}Node;
+SearchTree MakeEmpty(SearchTree T);
+Position Find(ElementType X,SearchTree T);
+Position FindMin(SearchTree T);
+Position FindMax(SearchTree T);
+SearchTree Insert(ElementType X,SearchTree T);
+SearchTree Delete(ElementType X,SearchTree T);
+ElementType Retrieve(Position P);
+Position FindPositionUp(SearchTree T,ElementType X);
 
-typedef struct Stack{
-    int length; //节点表示要插入顺序表的下标位置
-    Node* head;
-}Stack;
-</code></pre><h2 id="栈的基本操作"><a href="#栈的基本操作" class="headerlink" title="栈的基本操作"></a>栈的基本操作</h2><blockquote>
-<p>Stack<em> StackInit();<br>int StackDestroy(Stack</em> S);<br>int StackClear(Stack<em> S);<br>int StackEmpty(Stack</em> S);<br>int StackLength(Stack<em> S);<br>int Push(Stack</em> S,Node<em> n);<br>Node</em> Pop(Stack<em> S);<br>Node</em> StackTop(Stack<em> S);<br>int StackNull(Stack</em> S);<br>void printfNode(Node* n);  </p>
+//具体实现文件中树节点的定义，这里将树节点元素类型定义为int类型
+typedef int ElementType;
+struct TreeNode{
+    ElementType Element;
+    SearchTree Left;
+    SearchTree Right;
+};
+</code></pre><p>函数实现<br>二叉查找树中最主要的两个功能就是插入数据和删除数据，在插入和删除数据之后需要保持整个二叉查找树任然具备二叉查找树的性质，这是很关键的</p>
+<h3 id="插入功能的实现"><a href="#插入功能的实现" class="headerlink" title="插入功能的实现"></a>插入功能的实现</h3><p>根据二叉查找树的性质，那么要插入的数据是出入叶子节点<br>实现算法如下:</p>
+<blockquote>
+<p>   判断插入元素与根节点元素的大小:</p>
+<blockquote>
+<p>   如果被插入的树是空树，那么分配内存空间并将新节点插入空树中;<br>   如果插入元素大于根节点元素，使用递归的方式将插入元素插入到根节点的右子树上;<br>   如果插入元素小于根节点元素，使用递归的方式将插入元素插入根节点的左子树上;<br>   如果插入元素等于根节点元素，什么也不做</p>
 </blockquote>
-<h2 id="栈的初始化"><a href="#栈的初始化" class="headerlink" title="栈的初始化"></a>栈的初始化</h2><h3 id="顺序表的初始化"><a href="#顺序表的初始化" class="headerlink" title="顺序表的初始化"></a>顺序表的初始化</h3><pre><code>Stack* S = (Stack*)malloc(sizeof(Stack));
-if(S == NULL) return NULL;
-S-&gt;base = (Node*)malloc(sizeof(Node) * SIZE);
-if(S-&gt;base == NULL) return NULL;
-S-&gt;length = 0;
-return S;
-</code></pre><h3 id="链表的初始化"><a href="#链表的初始化" class="headerlink" title="链表的初始化"></a>链表的初始化</h3><pre><code>Stack* S = (Stack*)malloc(sizeof(Stack));
-if(S == NULL) return NULL;
-S-&gt;head = (Node*)malloc(sizeof(Node));
-if(S-&gt;head == NULL) return NULL;
-S-&gt;head-&gt;next = NULL;
-S-&gt;length = 0;
-return S;
-</code></pre><h2 id="栈数据的压入"><a href="#栈数据的压入" class="headerlink" title="栈数据的压入"></a>栈数据的压入</h2><h3 id="顺序表压入"><a href="#顺序表压入" class="headerlink" title="顺序表压入"></a>顺序表压入</h3><pre><code>if(StackNull(S) == 1) return -1;
-  if(StackFull(S) == 1)return 0;
-  S-&gt;base[S-&gt;length] = *n;
-  S-&gt;length++;
-  return 1;
-</code></pre><h3 id="链表压入"><a href="#链表压入" class="headerlink" title="链表压入"></a>链表压入</h3><pre><code>if(StackNull(S) == 1) return -1;
-   //使用头插法插入元素
-  n-&gt;next = S-&gt;head-&gt;next;
-  S-&gt;head-&gt;next = n;
-  S-&gt;length++;
-  return 1;
-</code></pre><h2 id="栈数据的弹出"><a href="#栈数据的弹出" class="headerlink" title="栈数据的弹出"></a>栈数据的弹出</h2><h3 id="顺序表的弹出"><a href="#顺序表的弹出" class="headerlink" title="顺序表的弹出"></a>顺序表的弹出</h3><pre><code>if(StackNull(S) == 1) return NULL;
-if(StackEmpty(S) == 1) return NULL;
-S-&gt;length--;
-Node* n = &amp;S-&gt;base[S-&gt;length];
-return n;
-</code></pre><h3 id="链表的弹出"><a href="#链表的弹出" class="headerlink" title="链表的弹出"></a>链表的弹出</h3><pre><code>if(StackNull(S) == 1) return NULL;
-    if(StackEmpty(S) == 1) return NULL;
-    Node* n = S-&gt;head-&gt;next;
-    S-&gt;head-&gt;next = n-&gt;next;
-    n-&gt;next = NULL;
-    S-&gt;length--;
-    return n;
-</code></pre><p><a href="https://github.com/canxing/data_structure/blob/master/stack/stack_order.c" target="_blank" rel="noopener">栈顺序实现源码</a><br><a href="https://github.com/canxing/data_structure/blob/master/stack/stack_list.c" target="_blank" rel="noopener">栈链表实现源码</a></p>
+</blockquote>
+<p>代码实现如下</p>
+<pre><code>SearchTree Insert(ElementType X,SearchTree T){
+    if(T == NULL){
+            T = (SearchTree)malloc(sizeof(struct TreeNode));
+        if(T == NULL) {
+            printf(&quot;初始化树失败\n&quot;);
+            return NULL;
+        }
+        T-&gt;Element = X;
+        T-&gt;Left = T-&gt;Right = NULL;
+    }else if(X &lt; T-&gt;Element){
+        T-&gt;Left = Insert(X,T-&gt;Left);
+    }else if(X &gt; T-&gt;Element){
+        T-&gt;Right = Insert(X,T-&gt;Right);
+    }
+    return T;
+}
+</code></pre><h3 id="删除功能的实现"><a href="#删除功能的实现" class="headerlink" title="删除功能的实现"></a>删除功能的实现</h3><p>删除功能相比于插入功能要困难， 如果删除的节点是叶子节点直接删除就行了， 如果删除的节点不是叶子节点，那么就需要找到一个节点来代替这个删除节点继续维持性质</p>
+<p>删除功能算法如下:</p>
+<pre><code>1. 如果删除元素小于根节点元素，就去根节点的左子树删除该元素
+2. 如果删除元素大于根节点元素，就去根节点的右子树删除该元素
+3. 如果删除元素等于根节点元素，并且这个根节点还有两个子节点，先找到根节点右子树的最小值(或者根节点左子树的最大值)，将根节点的值修改为右子树的最小值(或者左子树的最大值)，然后去根节点的右子树删除最小值(或者去根节点的左子树删除最大值)。这里实际上把删除一个根节点改变为删除一个叶子节点
+4. 如果删除元素等于根节点，并且这个根节点只有一个或者没有子节点
+    4.1 如果根节点只有右节点，将根节点变为右节点
+    4.2 如果根节点只有左节点，将根节点变为左节点
+    4.3 如果根节点没有子节点，参照4.1
+</code></pre><p>代码实现如下</p>
+<pre><code>SearchTree Delete(ElementType X,SearchTree T){
+    Position ptr = T;
+    if(T == NULL) return T;
+    else if(X &lt; T-&gt;Element) T-&gt;Left = Delete(X,T-&gt;Left);
+    else if(X &gt; T-&gt;Element) T-&gt;Right = Delete(X,T-&gt;Right);
+    else if(T-&gt;Left != NULL  &amp;&amp; T-&gt;Right != NULL){ 
+        //找到根节点右子树的最小值
+        ptr = FindMin(T-&gt;Right);
+        //将右子树的最小值赋给根节点
+        T-&gt;Element = ptr-&gt;Element;
+        //前往右子树删除最小值
+        T-&gt;Right = Delete(T-&gt;Element,T-&gt;Right);
+    }else{
+        ptr = T;
+        if(T-&gt;Left == NULL){
+            T = T-&gt;Right;
+        }else if(T-&gt;Right == NULL){
+            T = T-&gt;Left;
+        }
+        free(ptr);
+    }
+    return T;
+}
+</code></pre><p>二叉查找树可以方便的查找，但是在某些情况下，如果在二叉查找树中依次插入1,2,3,4,5,6，那么得到的二叉查找树图如下:<br><img src="二叉查找树的不平衡插入.png" alt="二叉查找树的不平衡插入"><br>这样的情况不是我们想看见的，在这种情况下使用平衡二叉树可以改善这个问题<br><a href="https://github.com/canxing/data_structure_and_algorithm_analysis/tree/master/chapter4" target="_blank" rel="noopener">参考源码</a></p>
 
       
     </div>
@@ -441,8 +468,8 @@ return n;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/12/数据结构c语言描述三-链表/" rel="next" title="数据结构c语言描述三-链表">
-                <i class="fa fa-chevron-left"></i> 数据结构c语言描述三-链表
+              <a href="/2018/01/23/python3-正则表达式/" rel="next" title="python3-正则表达式">
+                <i class="fa fa-chevron-left"></i> python3-正则表达式
               </a>
             
           </div>
@@ -451,8 +478,8 @@ return n;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/14/数据结构c语言描述五-队列/" rel="prev" title="数据结构c语言描述五-队列">
-                数据结构c语言描述五-队列 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/03/数据结构c语言描述四-AVL树/" rel="prev" title="数据结构c语言描述四-AVL树">
+                数据结构c语言描述四-AVL树 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -530,7 +557,7 @@ return n;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -595,7 +622,7 @@ return n;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的定义"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x6808;&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="&#x6808;&#x7684;&#x5B9A;&#x4E49;"></a>&#x6808;&#x7684;&#x5B9A;&#x4E49;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表实现"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x987A;&#x5E8F;&#x8868;&#x5B9E;&#x73B0;" class="headerlink" title="&#x987A;&#x5E8F;&#x8868;&#x5B9E;&#x73B0;"></a>&#x987A;&#x5E8F;&#x8868;&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表实现"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x94FE;&#x8868;&#x5B9E;&#x73B0;" class="headerlink" title="&#x94FE;&#x8868;&#x5B9E;&#x73B0;"></a>&#x94FE;&#x8868;&#x5B9E;&#x73B0;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的基本操作"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x6808;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;" class="headerlink" title="&#x6808;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;"></a>&#x6808;&#x7684;&#x57FA;&#x672C;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的初始化"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x6808;&#x7684;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x6808;&#x7684;&#x521D;&#x59CB;&#x5316;"></a>&#x6808;&#x7684;&#x521D;&#x59CB;&#x5316;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表的初始化"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x987A;&#x5E8F;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x987A;&#x5E8F;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;"></a>&#x987A;&#x5E8F;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表的初始化"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x94FE;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x94FE;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;"></a>&#x94FE;&#x8868;&#x7684;&#x521D;&#x59CB;&#x5316;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈数据的压入"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x6808;&#x6570;&#x636E;&#x7684;&#x538B;&#x5165;" class="headerlink" title="&#x6808;&#x6570;&#x636E;&#x7684;&#x538B;&#x5165;"></a>&#x6808;&#x6570;&#x636E;&#x7684;&#x538B;&#x5165;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表压入"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x987A;&#x5E8F;&#x8868;&#x538B;&#x5165;" class="headerlink" title="&#x987A;&#x5E8F;&#x8868;&#x538B;&#x5165;"></a>&#x987A;&#x5E8F;&#x8868;&#x538B;&#x5165;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表压入"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#&#x94FE;&#x8868;&#x538B;&#x5165;" class="headerlink" title="&#x94FE;&#x8868;&#x538B;&#x5165;"></a>&#x94FE;&#x8868;&#x538B;&#x5165;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈数据的弹出"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x6808;&#x6570;&#x636E;&#x7684;&#x5F39;&#x51FA;" class="headerlink" title="&#x6808;&#x6570;&#x636E;&#x7684;&#x5F39;&#x51FA;"></a>&#x6808;&#x6570;&#x636E;&#x7684;&#x5F39;&#x51FA;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表的弹出"><span class="nav-number">5.1.</span> <span class="nav-text"><a href="#&#x987A;&#x5E8F;&#x8868;&#x7684;&#x5F39;&#x51FA;" class="headerlink" title="&#x987A;&#x5E8F;&#x8868;&#x7684;&#x5F39;&#x51FA;"></a>&#x987A;&#x5E8F;&#x8868;&#x7684;&#x5F39;&#x51FA;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表的弹出"><span class="nav-number">5.2.</span> <span class="nav-text"><a href="#&#x94FE;&#x8868;&#x7684;&#x5F39;&#x51FA;" class="headerlink" title="&#x94FE;&#x8868;&#x7684;&#x5F39;&#x51FA;"></a>&#x94FE;&#x8868;&#x7684;&#x5F39;&#x51FA;</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#插入功能的实现"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x63D2;&#x5165;&#x529F;&#x80FD;&#x7684;&#x5B9E;&#x73B0;" class="headerlink" title="&#x63D2;&#x5165;&#x529F;&#x80FD;&#x7684;&#x5B9E;&#x73B0;"></a>&#x63D2;&#x5165;&#x529F;&#x80FD;&#x7684;&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除功能的实现"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5220;&#x9664;&#x529F;&#x80FD;&#x7684;&#x5B9E;&#x73B0;" class="headerlink" title="&#x5220;&#x9664;&#x529F;&#x80FD;&#x7684;&#x5B9E;&#x73B0;"></a>&#x5220;&#x9664;&#x529F;&#x80FD;&#x7684;&#x5B9E;&#x73B0;</span></a></li></ol></div>
             
 
           </div>

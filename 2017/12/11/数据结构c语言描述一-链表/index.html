@@ -79,18 +79,22 @@
 
 
 
-<meta name="description" content="和栈类似，队列也是一种辅助性质的数据结构，队列是只允许在一端进行插入，在另一端进行删除操作的线性表，只允许插入的一端称为对头，只允许删除的一端称为队头 和栈类似，队列也有两种方式实现，一种以顺序表方式实现，一般为循环队列，一种以链表方式实现 队列的定义顺序表方式实现typedef struct _Noe{     int data; }Node;  typedef struct Queue{">
+<meta name="description" content="链表由一系列不必在内存中相连的结构组成，每一个结构单元均含有表元素和指向包含该元素后继元素的结构的指针如图所示 链表可以有两种表现形式，一种是带有头节点的链表(如上图所示)，另一种是不带有头节点的链表，一般来说带有头节点的链表很多时候处理起来比不带头节点的方便，因此这里选择带有头节点的链表展示 链表定义如下: //头文件中定义 struct Node; typedef struct Node *P">
 <meta name="keywords" content="c语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构c语言描述五-队列">
-<meta property="og:url" content="http://yoursite.com/2017/12/14/数据结构c语言描述五-队列/index.html">
+<meta property="og:title" content="数据结构c语言描述一-链表">
+<meta property="og:url" content="http://yoursite.com/2017/12/11/数据结构c语言描述一-链表/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="和栈类似，队列也是一种辅助性质的数据结构，队列是只允许在一端进行插入，在另一端进行删除操作的线性表，只允许插入的一端称为对头，只允许删除的一端称为队头 和栈类似，队列也有两种方式实现，一种以顺序表方式实现，一般为循环队列，一种以链表方式实现 队列的定义顺序表方式实现typedef struct _Noe{     int data; }Node;  typedef struct Queue{">
+<meta property="og:description" content="链表由一系列不必在内存中相连的结构组成，每一个结构单元均含有表元素和指向包含该元素后继元素的结构的指针如图所示 链表可以有两种表现形式，一种是带有头节点的链表(如上图所示)，另一种是不带有头节点的链表，一般来说带有头节点的链表很多时候处理起来比不带头节点的方便，因此这里选择带有头节点的链表展示 链表定义如下: //头文件中定义 struct Node; typedef struct Node *P">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-14T15:05:08.332Z">
+<meta property="og:image" content="http://yoursite.com/2017/12/11/数据结构c语言描述一-链表/有头节点的链表.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/11/数据结构c语言描述一-链表/链表的删除.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/11/数据结构c语言描述一-链表/链表的插入.png">
+<meta property="og:updated_time" content="2018-03-02T10:04:39.636Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构c语言描述五-队列">
-<meta name="twitter:description" content="和栈类似，队列也是一种辅助性质的数据结构，队列是只允许在一端进行插入，在另一端进行删除操作的线性表，只允许插入的一端称为对头，只允许删除的一端称为队头 和栈类似，队列也有两种方式实现，一种以顺序表方式实现，一般为循环队列，一种以链表方式实现 队列的定义顺序表方式实现typedef struct _Noe{     int data; }Node;  typedef struct Queue{">
+<meta name="twitter:title" content="数据结构c语言描述一-链表">
+<meta name="twitter:description" content="链表由一系列不必在内存中相连的结构组成，每一个结构单元均含有表元素和指向包含该元素后继元素的结构的指针如图所示 链表可以有两种表现形式，一种是带有头节点的链表(如上图所示)，另一种是不带有头节点的链表，一般来说带有头节点的链表很多时候处理起来比不带头节点的方便，因此这里选择带有头节点的链表展示 链表定义如下: //头文件中定义 struct Node; typedef struct Node *P">
+<meta name="twitter:image" content="http://yoursite.com/2017/12/11/数据结构c语言描述一-链表/有头节点的链表.png">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/14/数据结构c语言描述五-队列/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/11/数据结构c语言描述一-链表/"/>
 
 
 
 
 
-  <title>数据结构c语言描述五-队列 | 残星</title>
+  <title>数据结构c语言描述一-链表 | 残星</title>
   
 
 
@@ -263,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/14/数据结构c语言描述五-队列/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/11/数据结构c语言描述一-链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="残星">
@@ -280,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据结构c语言描述五-队列</h1>
+          <h1 class="post-title" itemprop="name headline">数据结构c语言描述一-链表</h1>
         
 
         <div class="post-meta">
@@ -292,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-14T22:33:16+08:00">
-                2017-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-11T22:34:26+08:00">
+                2017-12-11
               </time>
             
 
@@ -352,69 +356,59 @@
       
 
       
-        <p>和栈类似，队列也是一种辅助性质的数据结构，队列是只允许在一端进行插入，在另一端进行删除操作的线性表，只允许插入的一端称为对头，只允许删除的一端称为队头</p>
-<p>和栈类似，队列也有两种方式实现，一种以顺序表方式实现，一般为循环队列，一种以链表方式实现</p>
-<h2 id="队列的定义"><a href="#队列的定义" class="headerlink" title="队列的定义"></a>队列的定义</h2><h3 id="顺序表方式实现"><a href="#顺序表方式实现" class="headerlink" title="顺序表方式实现"></a>顺序表方式实现</h3><pre><code>typedef struct _Noe{
-    int data;
-}Node;
+        <p>链表由一系列不必在内存中相连的结构组成，每一个结构单元均含有表元素和指向包含该元素后继元素的结构的指针<br>如图所示<br><img src="有头节点的链表.png" alt="带头节点的链表"></p>
+<p>链表可以有两种表现形式，一种是带有头节点的链表(如上图所示)，另一种是不带有头节点的链表，一般来说带有头节点的链表很多时候处理起来比不带头节点的方便，因此这里选择带有头节点的链表展示</p>
+<p>链表定义如下:</p>
+<pre><code>//头文件中定义
+struct Node;
+typedef struct Node *PtrToNode;
+typedef PtrToNode List;
+typedef PtrToNode Position;
+typedef struct ElementType ElementType;
+List MakeEmpty(List L);
+int IsEmpty(List L);
+int IsLast(Position P,List L);
+Position Find(ElementType X,List L);
+void Delete(ElementType X,List L);
+Position FindPrevious(ElementType X,List L);
+void Insert(ElementType X,List L,Position P);
+void DeleteList(List L);
+Position Header(List L);
+Position First(List L);
+void printList(List L);
 
-typedef struct Queue{
-    Node* base;
-    int front;
-    int rear;
-}Queue;
-</code></pre><h3 id="链表方式实现"><a href="#链表方式实现" class="headerlink" title="链表方式实现"></a>链表方式实现</h3><pre><code>typedef struct _Node{
+//在具体的实现文件中定义每个节点中的数据，这里选择int类型的数据
+struct ElementType{
     int data;
-    struct _Node* next;
-}Node;
+};
 
-typedef struct Queue{
-    Node* head;
-    Node* last;
-    int length;
-}Queue;
-</code></pre><h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><blockquote>
-<p>Queue<em> InitQueue();<br>int QueueClear(Queue</em> Q);<br>int QueueIsEmpty(Queue<em> Q);<br>int QueueLength(Queue</em> Q);<br>Node<em> GetHead(Queue</em> Q);<br>Node<em> DeQueue(Queue</em> Q);<br>int EnQueue(Queue<em> Q,Node</em> n);  </p>
-</blockquote>
-<h2 id="队列的初始化"><a href="#队列的初始化" class="headerlink" title="队列的初始化"></a>队列的初始化</h2><h3 id="顺序表方式实现-1"><a href="#顺序表方式实现-1" class="headerlink" title="顺序表方式实现"></a>顺序表方式实现</h3><pre><code>Queue* Q = (Queue*)malloc(sizeof(Queue));
-if(Q == NULL) return NULL;
-Q-&gt;base = (Node*)malloc(sizeof(Node) * SIZE);
-if(Q-&gt;base == NULL) return NULL;
-Q-&gt;front = 0;
-Q-&gt;rear = 0;
-return Q;
-</code></pre><h3 id="链表方式实现-1"><a href="#链表方式实现-1" class="headerlink" title="链表方式实现"></a>链表方式实现</h3><pre><code>Queue* Q = (Queue*)malloc(sizeof(Queue));
-  if(Q == NULL) return NULL;
-  Q-&gt;head = (Node*)malloc(sizeof(Node));
-  if(Q-&gt;head == NULL)return NULL;
-  Q-&gt;length = 0;
-  Q-&gt;head-&gt;next = NULL;
-  Q-&gt;last = Q-&gt;head;
-  return Q;
-</code></pre><h2 id="入队操作"><a href="#入队操作" class="headerlink" title="入队操作"></a>入队操作</h2><h3 id="顺序表入队"><a href="#顺序表入队" class="headerlink" title="顺序表入队"></a>顺序表入队</h3><pre><code>if(QueueIsDestroy(Q) == 1) return 0;
-  if(QueueLength(Q) == SIZE - 1) return 0;
-  Q-&gt;base[Q-&gt;rear] = *n;
-  Q-&gt;rear = (Q-&gt;rear + 1) % SIZE;
-  return 1;
-</code></pre><h3 id="链表入队"><a href="#链表入队" class="headerlink" title="链表入队"></a>链表入队</h3><pre><code>//尾插法插入链表
-if(Q-&gt;head == NULL) return 0;
-Q-&gt;last-&gt;next = n;
-n-&gt;next = NULL;
-Q-&gt;last = n;
-Q-&gt;length++;
-return 1;
-</code></pre><h2 id="出队操作"><a href="#出队操作" class="headerlink" title="出队操作"></a>出队操作</h2><h3 id="顺序表出队"><a href="#顺序表出队" class="headerlink" title="顺序表出队"></a>顺序表出队</h3><pre><code>if(QueueIsDestroy(Q) == 1) return NULL;
-  if(QueueIsEmpty(Q) == 1) return NULL;
-  Node* n = &amp;Q-&gt;base[Q-&gt;front];
-  Q-&gt;front = (++Q-&gt;front) % SIZE;
-  return n;
-</code></pre><h3 id="链表出队"><a href="#链表出队" class="headerlink" title="链表出队"></a>链表出队</h3><pre><code>if(Q-&gt;head == NULL || Q-&gt;head-&gt;next == NULL) return NULL;
-Node* ptr = Q-&gt;head-&gt;next;
-Q-&gt;head-&gt;next = ptr-&gt;next;
-ptr-&gt;next = NULL;
-Q-&gt;length--;
-return ptr;
-</code></pre><p><a href="https://github.com/canxing/data_structure/blob/master/queue/queue_order.c" target="_blank" rel="noopener">队列的顺序表实现源码</a><br><a href="https://github.com/canxing/data_structure/blob/master/queue/queue_list.c" target="_blank" rel="noopener">队列的链表实现源码</a></p>
+struct Node{
+    ElementType Element;
+    Position Next;
+};
+</code></pre><h2 id="主要功能实现"><a href="#主要功能实现" class="headerlink" title="主要功能实现"></a>主要功能实现</h2><p>链表中稍微复杂的功能主要集中在删除和插入操作，删除和插入功能主要涉及到链表指针的移动以及内存的分配和释放<br><img src="链表的删除.png" alt="链表的删除"><br>当链表删除时，就需要调整指针，将删除节点的前驱节点的后继指针指向删除节点的后继节点，并释放删除节点所占用的内存空间<br><img src="链表的插入.png" alt="链表的插入"><br>当链表插入元素时，需要分配内存空间，创建一个新的节点，并将指定节点的后继指针指向新增节点，再把新增节点的后继指针指向原来指定节点的后继节点</p>
+<h3 id="链表插入操作实现代码"><a href="#链表插入操作实现代码" class="headerlink" title="链表插入操作实现代码"></a>链表插入操作实现代码</h3><pre><code>void Insert(ElementType X,List L,Position P){
+    Position ptr ;
+    ptr = (Position)malloc(sizeof(struct Node));
+    if(ptr == NULL) exit(0);
+    ptr-&gt;Element = X;
+    ptr-&gt;Next = P-&gt;Next;
+    P-&gt;Next = ptr;
+}
+</code></pre><h3 id="链表删除操作实现代码"><a href="#链表删除操作实现代码" class="headerlink" title="链表删除操作实现代码"></a>链表删除操作实现代码</h3><pre><code>void DeleteList(List L){
+    if(L == NULL || L-&gt;Next == NULL) return;
+    Position ptr = NULL;
+    Position temp = NULL;
+    ptr = L-&gt;Next;
+    L-&gt;Next = NULL;
+    while(ptr != NULL){
+        temp = ptr;
+        ptr = ptr-&gt;Next;
+        temp-&gt;Next = NULL;
+        free(temp);
+    }
+}
+</code></pre><p><a href="https://github.com/canxing/data_structure_and_algorithm_analysis/tree/master/chapter3" target="_blank" rel="noopener">参考源码</a></p>
 
       
     </div>
@@ -445,8 +439,8 @@ return ptr;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/14/数据结构c语言描述四-栈/" rel="next" title="数据结构c语言描述四-栈">
-                <i class="fa fa-chevron-left"></i> 数据结构c语言描述四-栈
+              <a href="/2017/12/10/ubuntu下gpg的基本使用/" rel="next" title="ubuntu下gpg的基本使用">
+                <i class="fa fa-chevron-left"></i> ubuntu下gpg的基本使用
               </a>
             
           </div>
@@ -455,8 +449,8 @@ return ptr;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/16/spring-mvc返回json数据/" rel="prev" title="spring-mvc返回json数据">
-                spring-mvc返回json数据 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/14/数据结构c语言描述二-栈/" rel="prev" title="数据结构c语言描述二-栈">
+                数据结构c语言描述二-栈 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -534,7 +528,7 @@ return ptr;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,7 +593,7 @@ return ptr;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#队列的定义"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x961F;&#x5217;&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="&#x961F;&#x5217;&#x7684;&#x5B9A;&#x4E49;"></a>&#x961F;&#x5217;&#x7684;&#x5B9A;&#x4E49;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表方式实现"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x987A;&#x5E8F;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;" class="headerlink" title="&#x987A;&#x5E8F;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;"></a>&#x987A;&#x5E8F;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表方式实现"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x94FE;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;" class="headerlink" title="&#x94FE;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;"></a>&#x94FE;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x57FA;&#x672C;&#x64CD;&#x4F5C;" class="headerlink" title="&#x57FA;&#x672C;&#x64CD;&#x4F5C;"></a>&#x57FA;&#x672C;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列的初始化"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x961F;&#x5217;&#x7684;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x961F;&#x5217;&#x7684;&#x521D;&#x59CB;&#x5316;"></a>&#x961F;&#x5217;&#x7684;&#x521D;&#x59CB;&#x5316;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表方式实现-1"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x987A;&#x5E8F;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;-1" class="headerlink" title="&#x987A;&#x5E8F;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;"></a>&#x987A;&#x5E8F;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表方式实现-1"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x94FE;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;-1" class="headerlink" title="&#x94FE;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;"></a>&#x94FE;&#x8868;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入队操作"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x5165;&#x961F;&#x64CD;&#x4F5C;" class="headerlink" title="&#x5165;&#x961F;&#x64CD;&#x4F5C;"></a>&#x5165;&#x961F;&#x64CD;&#x4F5C;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表入队"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x987A;&#x5E8F;&#x8868;&#x5165;&#x961F;" class="headerlink" title="&#x987A;&#x5E8F;&#x8868;&#x5165;&#x961F;"></a>&#x987A;&#x5E8F;&#x8868;&#x5165;&#x961F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表入队"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#&#x94FE;&#x8868;&#x5165;&#x961F;" class="headerlink" title="&#x94FE;&#x8868;&#x5165;&#x961F;"></a>&#x94FE;&#x8868;&#x5165;&#x961F;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出队操作"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x51FA;&#x961F;&#x64CD;&#x4F5C;" class="headerlink" title="&#x51FA;&#x961F;&#x64CD;&#x4F5C;"></a>&#x51FA;&#x961F;&#x64CD;&#x4F5C;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序表出队"><span class="nav-number">5.1.</span> <span class="nav-text"><a href="#&#x987A;&#x5E8F;&#x8868;&#x51FA;&#x961F;" class="headerlink" title="&#x987A;&#x5E8F;&#x8868;&#x51FA;&#x961F;"></a>&#x987A;&#x5E8F;&#x8868;&#x51FA;&#x961F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表出队"><span class="nav-number">5.2.</span> <span class="nav-text"><a href="#&#x94FE;&#x8868;&#x51FA;&#x961F;" class="headerlink" title="&#x94FE;&#x8868;&#x51FA;&#x961F;"></a>&#x94FE;&#x8868;&#x51FA;&#x961F;</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要功能实现"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4E3B;&#x8981;&#x529F;&#x80FD;&#x5B9E;&#x73B0;" class="headerlink" title="&#x4E3B;&#x8981;&#x529F;&#x80FD;&#x5B9E;&#x73B0;"></a>&#x4E3B;&#x8981;&#x529F;&#x80FD;&#x5B9E;&#x73B0;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链表插入操作实现代码"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x94FE;&#x8868;&#x63D2;&#x5165;&#x64CD;&#x4F5C;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;" class="headerlink" title="&#x94FE;&#x8868;&#x63D2;&#x5165;&#x64CD;&#x4F5C;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;"></a>&#x94FE;&#x8868;&#x63D2;&#x5165;&#x64CD;&#x4F5C;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表删除操作实现代码"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x94FE;&#x8868;&#x5220;&#x9664;&#x64CD;&#x4F5C;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;" class="headerlink" title="&#x94FE;&#x8868;&#x5220;&#x9664;&#x64CD;&#x4F5C;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;"></a>&#x94FE;&#x8868;&#x5220;&#x9664;&#x64CD;&#x4F5C;&#x5B9E;&#x73B0;&#x4EE3;&#x7801;</span></a></li></ol></li></ol></div>
             
 
           </div>
