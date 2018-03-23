@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="c语言," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是伸展树伸展树保证了从空树开始任意连续M次对树的操作最多话费O(M log N)时间，伸展树是二叉搜索树的一种变形，不同于AVL树，伸展树不需要维护节点的高度，相对AVL树来说比较容易实现    当一个节点被访问时它就有可能在不久之后被再次访问，因此，伸展树的基本思想是：当一个节点被访问，它就经过一系列AVL树的旋转操作将该节点放到根上 将某个节点经过一系列的变形移动到树根上的操作称之为伸展(">
+<meta name="keywords" content="c语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构c语言描述五-伸展树">
+<meta property="og:url" content="http://yoursite.com/2018/03/22/数据结构c语言描述五-伸展树/index.html">
+<meta property="og:site_name" content="残星">
+<meta property="og:description" content="什么是伸展树伸展树保证了从空树开始任意连续M次对树的操作最多话费O(M log N)时间，伸展树是二叉搜索树的一种变形，不同于AVL树，伸展树不需要维护节点的高度，相对AVL树来说比较容易实现    当一个节点被访问时它就有可能在不久之后被再次访问，因此，伸展树的基本思想是：当一个节点被访问，它就经过一系列AVL树的旋转操作将该节点放到根上 将某个节点经过一系列的变形移动到树根上的操作称之为伸展(">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/数据结构c语言描述五-伸展树/根结点的左儿子是伸展节点.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/数据结构c语言描述五-伸展树/根结点的右儿子是伸展节点.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/数据结构c语言描述五-伸展树/祖父节点的左儿子是伸展节点的父儿子并且伸展节点是父结点的左儿子.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/数据结构c语言描述五-伸展树/祖父节点的左儿子是伸展节点的父儿子并且伸展节点是父结点的右儿子.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/数据结构c语言描述五-伸展树/祖父节点的右儿子是伸展节点的父儿子并且伸展节点是父结点的左儿子.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/数据结构c语言描述五-伸展树/祖父节点的右儿子是伸展节点的父儿子并且伸展节点是父结点的右儿子.png">
+<meta property="og:updated_time" content="2018-03-23T08:41:44.897Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构c语言描述五-伸展树">
+<meta name="twitter:description" content="什么是伸展树伸展树保证了从空树开始任意连续M次对树的操作最多话费O(M log N)时间，伸展树是二叉搜索树的一种变形，不同于AVL树，伸展树不需要维护节点的高度，相对AVL树来说比较容易实现    当一个节点被访问时它就有可能在不久之后被再次访问，因此，伸展树的基本思想是：当一个节点被访问，它就经过一系列AVL树的旋转操作将该节点放到根上 将某个节点经过一系列的变形移动到树根上的操作称之为伸展(">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/22/数据结构c语言描述五-伸展树/根结点的左儿子是伸展节点.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/22/数据结构c语言描述五-伸展树/"/>
+
+
+
+
+
+  <title>数据结构c语言描述五-伸展树 | 残星</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">残星</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/22/数据结构c语言描述五-伸展树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="残星">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="残星">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构c语言描述五-伸展树</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-22T20:37:04+08:00">
+                2018-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是伸展树"><a href="#什么是伸展树" class="headerlink" title="什么是伸展树"></a>什么是伸展树</h1><p>伸展树保证了从空树开始任意连续M次对树的操作最多话费O(M log N)时间，伸展树是二叉搜索树的一种变形，不同于AVL树，伸展树不需要维护节点的高度，相对AVL树来说比较容易实现<br>    当一个节点被访问时它就有可能在不久之后被再次访问，因此，伸展树的基本思想是：当一个节点被访问，它就经过一系列AVL树的旋转操作将该节点放到根上</p>
+<p>将某个节点经过一系列的变形移动到树根上的操作称之为伸展(Splay)，伸展操作主要进行六个形态的转变，再将伸展节点伸展之后会再次检查伸展节点的位置，如果伸展节点是根结点则返回，否则继续伸展</p>
+<ol>
+<li><img src="根结点的左儿子是伸展节点.png" alt="根结点的左儿子是伸展节点"></li>
+<li><img src="根结点的右儿子是伸展节点.png" alt="根结点的右儿子是伸展节点"></li>
+<li><img src="祖父节点的左儿子是伸展节点的父儿子并且伸展节点是父结点的左儿子.png" alt="父结点的左儿子是伸展节点并且父结点是父结点的左儿子"></li>
+<li><img src="祖父节点的左儿子是伸展节点的父儿子并且伸展节点是父结点的右儿子.png" alt="父结点的右儿子是伸展节点并且父结点是父结点的左儿子"></li>
+<li><img src="祖父节点的右儿子是伸展节点的父儿子并且伸展节点是父结点的左儿子.png" alt="父结点的左儿子是伸展节点并且父结点是父结点的右儿子"></li>
+<li><img src="祖父节点的右儿子是伸展节点的父儿子并且伸展节点是父结点的右儿子.png" alt="父结点的右儿子是伸展节点并且父结点是父结点的右儿子"></li>
+</ol>
+<h1 id="伸展树声明"><a href="#伸展树声明" class="headerlink" title="伸展树声明"></a>伸展树声明</h1><pre><code>SplayTree MakeEmpty(SplayTree T);
+Position Find(ElementType X,SplayTree T);
+Position FindMin(SplayTree T);    
+Position FindMax(SplayTree T);
+SplayTree Insert(ElementType X,SplayTree T);    
+SplayTree Delete(ElementType X,SplayTree T);
+ElementType Retrieve(Position P);
+Position FindPositionUp(SplayTree T,ElementType X);
+void printTree(SplayTree T);
+static Position SingleRotaleWithLeft(Position T);
+static Position SingleRotaleWithRight(Position T);
+static Position ContinuRotaleWithLeft(Position T);
+static Position ContinuRotaleWithRight(Position T);
+static Position DoubleRotaleWithLeft(Position T);
+static Position DoubleRotaleWithRight(Position T);
+static Position Splay(ElementType X,SplayTree T);
+
+struct TreeNode{
+    ElementType Element;
+    SplayTree Left;
+    SplayTree Right;
+};
+</code></pre><h1 id="伸展功能"><a href="#伸展功能" class="headerlink" title="伸展功能"></a>伸展功能</h1><p>伸展功能依赖于6个函数分别时左旋转，右旋转，连续左旋转，连续右旋转，左双旋转，右双旋转，分别对应6中变形</p>
+<pre><code>//左旋转
+static Position SingleRotaleWithLeft(Position T){
+    Position ptr = T-&gt;Left;
+    T-&gt;Left = ptr-&gt;Right;
+    ptr-&gt;Right = T;
+    return ptr;
+}
+//右旋转
+static Position SingleRotaleWithRight(Position T){
+    Position ptr = T-&gt;Right;
+    T-&gt;Right = ptr-&gt;Left;
+    ptr-&gt;Left = T;
+    return ptr;
+}
+//连续左旋转
+static Position ContinuRotaleWithLeft(Position T){
+    Position ptr = SingleRotaleWithLeft(T);
+    return SingleRotaleWithLeft(ptr);
+}
+//左双旋转
+static Position DoubleRotaleWithLeft(Position T){
+    T-&gt;Right = SingleRotaleWithLeft(T-&gt;Right);
+    return SingleRotaleWithRight(T);
+}
+//连续右旋转
+static Position ContinuRotaleWithRight(Position T){
+    Position ptr = SingleRotaleWithRight(T);
+    return SingleRotaleWithRight(ptr);
+}
+//右双旋转
+static Position DoubleRotaleWithRight(Position T){
+    T-&gt;Left = SingleRotaleWithRight(T-&gt;Left);
+    return SingleRotaleWithLeft(T);
+}
+</code></pre><p>伸展树的伸展流程如下:</p>
+<ol>
+<li>伸展节点为根节点，不做任何改变，并返回</li>
+<li>伸展节点是根结点的左儿子，将伸展节点向左旋转</li>
+<li>伸展节点是根结点的右儿子，将伸展节点向左旋转</li>
+<li>伸展节点不属于上述三种情况，将伸展节点称为X,X的父结点称为F，F的父结点称为G，G节点就是X节点的’祖父’节点<br> 4.1. 如果G的左儿子是F，并且F的左儿子是X，进行连续左旋转<br> 4.2. 如果G的右儿子是F，并且F的右儿子是X，进行连续右旋转<br> 4.3. 如果G的左儿子是F，并且F的右儿子是X，进行左双旋转<br> 4.4. 如果G的右儿子是F，并且F的左儿子是X，进行有双旋转</li>
+</ol>
+<pre><code>static Position Splay(ElementType X,SplayTree T){
+    if(T == NULL || T-&gt;Element == X) return T;
+    //查找伸展节点的父结点
+    Position fatherNode = FindPositionUp(T,X);
+    if(fatherNode == T){
+        if(fatherNode-&gt;Left != NULL &amp;&amp; fatherNode-&gt;Left-&gt;Element == X){
+            //伸展节点属于根结点的左儿子
+            return SingleRotaleWithLeft(fatherNode);
+        }else if(fatherNode-&gt;Right != NULL &amp;&amp; fatherNode-&gt;Right-&gt;Element == X){
+            //伸展节点属于根结点的右儿子
+            return SingleRotaleWithRight(fatherNode);
+        }
+    }else{
+        Position grandNode = FindPositionUp(T,fatherNode-&gt;Element);
+        Position grandGrandNode = FindPositionUp(T,grandNode-&gt;Element);
+        Position temp = NULL;
+        int level = -1;
+        //判断伸展节点，父结点和祖父节点的关系
+        if(grandNode-&gt;Left != NULL &amp;&amp; grandNode-&gt;Left == fatherNode){
+            if(fatherNode-&gt;Left != NULL &amp;&amp; fatherNode-&gt;Left-&gt;Element == X){
+                level = 1;
+            }else if(fatherNode-&gt;Right != NULL &amp;&amp; fatherNode-&gt;Right-&gt;Element == X){
+                level = 2;
+            }
+        }else if(grandNode-&gt;Right != NULL &amp;&amp; grandNode-&gt;Right == fatherNode){
+            if(fatherNode-&gt;Left != NULL &amp;&amp; fatherNode-&gt;Left-&gt;Element == X){
+                level = 3;
+            }else if(fatherNode-&gt;Right != NULL &amp;&amp; fatherNode-&gt;Right-&gt;Element == X){
+                level = 4;
+            }
+        }
+        switch(level){
+        case 1://左左
+            temp = ContinuRotaleWithLeft(grandNode);
+            break;
+        case 2://左右
+            temp = DoubleRotaleWithRight(grandNode);
+            break;
+        case 3://右左
+            temp = DoubleRotaleWithLeft(grandNode);
+            break;
+        case 4://右右
+            temp = ContinuRotaleWithRight(grandNode);
+            break;
+        }
+
+        if(grandNode == T)
+            return temp;
+        else if(grandGrandNode-&gt;Left == grandNode)
+            grandGrandNode-&gt;Left = temp;
+        else if(grandGrandNode-&gt;Right == grandNode)
+            grandGrandNode-&gt;Right = temp;
+        return Splay(X,T);
+    }
+}
+</code></pre><h1 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h1><p>查询操作先要确定树中含有要查询的节点，如果没有则直接返回，否则将查询到的节点进行伸展移动到根结点然后返回</p>
+<pre><code>Position Find(ElementType X,SplayTree T){
+    if(T-&gt;Element == X) return T;
+    Position dst = T;
+    while(dst != NULL &amp;&amp; X != dst-&gt;Element){
+        if(X &lt; dst-&gt;Element)
+            dst = dst-&gt;Left;
+        else if(X &gt; dst-&gt;Element)
+            dst = dst-&gt;Right;
+    }
+    if(dst != NULL)
+        return Splay(X,T);
+    return T;
+}
+</code></pre><h1 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h1><p>插入操作先将元素按照二叉搜索树的性质插入树中，然后在将插入的节点伸展到根结点</p>
+<pre><code>SplayTree Insert(ElementType X,SplayTree T){
+    Position temp = NULL;
+    temp = (SplayTree)malloc(sizeof(struct TreeNode));
+    if(temp == NULL){
+        printf(&quot;初始化树失败\n&quot;);
+        return NULL;
+    }
+    temp-&gt;Element = X;
+    temp-&gt;Left = temp-&gt;Right = NULL;
+
+    if(T == NULL){
+        T = temp;
+        return T;
+    }
+    Position ptr = T;
+    //按照二叉搜索树的性质插入节点
+    while(1){
+        if(X &lt; ptr-&gt;Element &amp;&amp; ptr-&gt;Left != NULL){
+            ptr = ptr-&gt;Left;
+        }else if(X &gt; ptr-&gt;Element &amp;&amp; ptr-&gt;Right != NULL){
+            ptr = ptr-&gt;Right;
+        }else if(X &lt; ptr-&gt;Element &amp;&amp; ptr-&gt;Left == NULL){
+            ptr-&gt;Left = temp;
+            break;
+        }else if(X &gt; ptr-&gt;Element &amp;&amp; ptr-&gt;Right == NULL){
+            ptr-&gt;Right = temp;
+            break;
+        }
+    }
+    return Splay(X,T);
+}
+</code></pre><h1 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h1><pre><code>删除操作先将删除节点伸展到根结点，此时，根结点的左子树元素都小于根节点，右子树元素都大于根结点，删除根结点，然后将左子树的最大元素进行伸展，此时左子树根结点是左子树中的最大元素，没有右儿子，然后再将左子树的右指针指向右子树，删除完成
+
+SplayTree Delete(ElementType X,SplayTree T){
+    if(T == NULL) return NULL;
+    if(X == T-&gt;Element){
+        if(T-&gt;Left == NULL) return T-&gt;Right;
+        else if(T-&gt;Right == NULL) return T-&gt;Left;
+        //再查找最大元素的同时就对最大元素进行了伸展操作
+        Position left = FindMax(T-&gt;Left);
+        left-&gt;Right = T-&gt;Right;
+        free(T);
+        return left;
+    }
+    T = Splay(X,T);
+    return Delete(X,T);
+}
+</code></pre><p><a href="https://github.com/canxing/data_structure_and_algorithm_analysis/tree/master/chapter4" target="_blank" rel="noopener">参考源码</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c语言/" rel="tag"># c语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/03/数据结构c语言描述四-AVL树/" rel="next" title="数据结构c语言描述四-AVL树">
+                <i class="fa fa-chevron-left"></i> 数据结构c语言描述四-AVL树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/23/数据结构c语言描述六-分离链接散列表/" rel="prev" title="数据结构c语言描述六-分离链接散列表">
+                数据结构c语言描述六-分离链接散列表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">残星</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/canxing/" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是伸展树"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4EC0;&#x4E48;&#x662F;&#x4F38;&#x5C55;&#x6811;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;&#x4F38;&#x5C55;&#x6811;"></a>&#x4EC0;&#x4E48;&#x662F;&#x4F38;&#x5C55;&#x6811;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伸展树声明"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x4F38;&#x5C55;&#x6811;&#x58F0;&#x660E;" class="headerlink" title="&#x4F38;&#x5C55;&#x6811;&#x58F0;&#x660E;"></a>&#x4F38;&#x5C55;&#x6811;&#x58F0;&#x660E;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伸展功能"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x4F38;&#x5C55;&#x529F;&#x80FD;" class="headerlink" title="&#x4F38;&#x5C55;&#x529F;&#x80FD;"></a>&#x4F38;&#x5C55;&#x529F;&#x80FD;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询操作"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x67E5;&#x8BE2;&#x64CD;&#x4F5C;" class="headerlink" title="&#x67E5;&#x8BE2;&#x64CD;&#x4F5C;"></a>&#x67E5;&#x8BE2;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插入操作"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x63D2;&#x5165;&#x64CD;&#x4F5C;" class="headerlink" title="&#x63D2;&#x5165;&#x64CD;&#x4F5C;"></a>&#x63D2;&#x5165;&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除操作"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x5220;&#x9664;&#x64CD;&#x4F5C;" class="headerlink" title="&#x5220;&#x9664;&#x64CD;&#x4F5C;"></a>&#x5220;&#x9664;&#x64CD;&#x4F5C;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">残星</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
