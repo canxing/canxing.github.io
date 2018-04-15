@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="测试环境 JDK 10 ，JUnit4 如何使用lambda表达式 定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)  public interface AbstractFuncOfSingle { int print(int a, int b);  }传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为AbstractFuncOfSing">
+<meta name="description" content="测试环境 JDK 10 ，JUnit4 如何使用lambda表达式 定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)  public interface AbstractFuncOfSingle {     int print(int a, int b); } 传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为AbstractFuncOf">
 <meta name="keywords" content="java,java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java8-lambda表达式">
 <meta property="og:url" content="http://yoursite.com/2018/01/04/java8-lambda表达式/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="测试环境 JDK 10 ，JUnit4 如何使用lambda表达式 定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)  public interface AbstractFuncOfSingle { int print(int a, int b);  }传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为AbstractFuncOfSing">
+<meta property="og:description" content="测试环境 JDK 10 ，JUnit4 如何使用lambda表达式 定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)  public interface AbstractFuncOfSingle {     int print(int a, int b); } 传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为AbstractFuncOf">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-15T19:19:53.175Z">
+<meta property="og:updated_time" content="2018-04-15T19:21:52.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-lambda表达式">
-<meta name="twitter:description" content="测试环境 JDK 10 ，JUnit4 如何使用lambda表达式 定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)  public interface AbstractFuncOfSingle { int print(int a, int b);  }传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为AbstractFuncOfSing">
+<meta name="twitter:description" content="测试环境 JDK 10 ，JUnit4 如何使用lambda表达式 定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)  public interface AbstractFuncOfSingle {     int print(int a, int b); } 传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为AbstractFuncOf">
 
 
 
@@ -308,7 +308,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-04-16T03:19:53+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-04-16T03:21:52+08:00">
                 2018-04-16
               </time>
             
@@ -366,26 +366,31 @@
       
         <p>测试环境 JDK 10 ，JUnit4</p>
 <h1 id="如何使用lambda表达式"><a href="#如何使用lambda表达式" class="headerlink" title="如何使用lambda表达式"></a>如何使用lambda表达式</h1><ol>
-<li><p>定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)</p>
-<p> public interface AbstractFuncOfSingle {</p>
-<pre><code>int print(int a, int b);
-</code></pre><p> }<br>传入两个int类型的参数，返回一个类型的参数</p>
-</li>
-<li><p>定义一个方法，传入参数为AbstractFuncOfSingle</p>
-<p> public void callAbstractFuncOfSingle(AbstractFuncOfSingle singleFunc, int a, int b){</p>
-<pre><code>int result = singleFunc.print(a, b);
-System.out.println(result * 2);
-</code></pre><p> }<br>在方法中将方法参数a，b作为参数传入AbstractFuncOfSingle.print()方法，并使用result接收返回参数然后打印 </p>
-</li>
-<li><p>调用上述方法</p>
-<p> @Test<br> public void testAbstractFuncOfSingle(){</p>
-<pre><code>callAbstractFuncOfSingle((a, b)-&gt;{
-    System.out.println(a + b);
-    return a + b;
-}, 10, 23);
-</code></pre><p> }<br>使用lambda表达式创建一个内部类，打印a + b的和并返回a + b和</p>
-</li>
+<li>定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)</li>
 </ol>
+<pre><code>public interface AbstractFuncOfSingle {
+    int print(int a, int b);
+}
+</code></pre><p>传入两个int类型的参数，返回一个类型的参数</p>
+<ol>
+<li>定义一个方法，传入参数为AbstractFuncOfSingle</li>
+</ol>
+<pre><code>public void callAbstractFuncOfSingle(AbstractFuncOfSingle singleFunc, int a, int b){
+    int result = singleFunc.print(a, b);
+    System.out.println(result * 2);
+}
+</code></pre><p>在方法中将方法参数a，b作为参数传入AbstractFuncOfSingle.print()方法，并使用result接收返回参数然后打印 </p>
+<ol>
+<li>调用上述方法</li>
+</ol>
+<pre><code>@Test
+public void testAbstractFuncOfSingle(){
+    callAbstractFuncOfSingle((a, b)-&gt;{
+        System.out.println(a + b);
+        return a + b;
+    }, 10, 23);
+}
+</code></pre><p>使用lambda表达式创建一个内部类，打印a + b的和并返回a + b和</p>
 <blockquote>
 <p>如果接口的抽象方法具有多个参数，那么lambda的传入参数个数也要一一对应，<br>如果抽象方法具有返回值，在lambda表达式中也要有返回值，否则可以省略retur语句<br>注意：lambda表达式的参数类型和返回类型要和抽象方法的参数类型和返回类型相同</p>
 </blockquote>
