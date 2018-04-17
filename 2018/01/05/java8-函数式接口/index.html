@@ -88,7 +88,7 @@
 <meta property="og:description" content="在上一次使用自定义的函数接口来使用lambda表达式，每一个lambda都要自定义一个已知的接口来实现，这样比较麻烦，如果可以使用通用的函数式接口，那么会方便很多。幸运的是java8中新增了一些通用的函数式接口供我们使用。下面就来看看吧。 函数式接口对于只有一个抽象方法的接口，需要这种接口的对象时，就可以提供一个lambda表达式。这种接口称为函数式接口 —《java核心技术卷I基础知识第10版》">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/01/05/java8-函数式接口/函数式接口.png">
-<meta property="og:updated_time" content="2018-03-22T13:51:00.377Z">
+<meta property="og:updated_time" content="2018-04-15T19:24:40.820Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-函数式接口">
 <meta name="twitter:description" content="在上一次使用自定义的函数接口来使用lambda表达式，每一个lambda都要自定义一个已知的接口来实现，这样比较麻烦，如果可以使用通用的函数式接口，那么会方便很多。幸运的是java8中新增了一些通用的函数式接口供我们使用。下面就来看看吧。 函数式接口对于只有一个抽象方法的接口，需要这种接口的对象时，就可以提供一个lambda表达式。这种接口称为函数式接口 —《java核心技术卷I基础知识第10版》">
@@ -310,8 +310,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-03-22T21:51:00+08:00">
-                2018-03-22
+              <time title="更新于" itemprop="dateModified" datetime="2018-04-16T03:24:40+08:00">
+                2018-04-16
               </time>
             
           </span>
@@ -368,7 +368,7 @@
       
         <p>在上一次使用自定义的函数接口来使用lambda表达式，每一个lambda都要自定义一个已知的接口来实现，这样比较麻烦，如果可以使用通用的函数式接口，那么会方便很多。幸运的是java8中新增了一些通用的函数式接口供我们使用。下面就来看看吧。</p>
 <h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>对于只有一个抽象方法的接口，需要这种接口的对象时，就可以提供一个lambda表达式。这种接口称为函数式接口 —《java核心技术卷I基础知识第10版》<br>一言蔽之，只有一个抽象方法的接口称为函数式接口 —《java8实战》</p>
-<p>对于java8-lambda表达式一节中使用的ApplePredicate,AppleWeight,AppleWeightAdd接口都是函数接口，但是这些函数接口不具有通用性。java8提供了一系列通用的函数式接口，位于java.util.function包中<br><img src="函数式接口.png" alt="函数式接口图片"><br>    可以看见这个包中只有含有接口，没有任何的抽象类，类，这些接口都需于函数接口，不要慌张，这些接口大部分表达的意思相同，只有少量的区别</p>
+<p>java8提供了一系列通用的函数式接口，位于java.util.function包中<br><img src="函数式接口.png" alt="函数式接口图片"><br>    可以看见这个包中只有含有接口，没有任何的抽象类，类，这些接口都需于函数接口，不要慌张，这些接口大部分表达的意思相同，只有少量的区别</p>
 <h2 id="函数描述符"><a href="#函数描述符" class="headerlink" title="函数描述符"></a>函数描述符</h2><p>函数式接口的抽象方法的签名基本上就是lambda表达式的签名。我们将这种抽象方法叫做函数描述符<br>lambda表达式的参数和返回值都要和函数式接口的签名对应，比如说函数式接口ApplePredicate的签名就是接收一个Apple类型的参数返回一个boolean类型的参数<br>所以基本上满足接收一个Apple类型返回一个boolean类型的lambda表达式都可以看作是ApplePredicate的实现<br>    下面来介绍几个函数式接口</p>
 <h2 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h2><p>翻译过来为消费者，接收一个参数没有返回值。<br>源码接口如下：</p>
 <pre><code>public interface Consumer&lt;T&gt; {
@@ -445,7 +445,7 @@ DoubleSupplier                    double get();
 IntSupplier                        int get();
 LongSupplier                    long get();
 </code></pre><h2 id="其他函数式接口"><a href="#其他函数式接口" class="headerlink" title="其他函数式接口"></a>其他函数式接口</h2><p>java.util.function包中还有几个使用Operator结尾的接口，现在还不太明白如何使用，以后再加。</p>
-<p><a href="https://github.com/canxing/java8/tree/master/2/src/com/canxing" target="_blank" rel="noopener">参考源码</a><br>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至liuxin739525@163.com邮箱指正，我将不胜感激。</p>
+<p><a href="https://github.com/canxing/java8/tree/master/2/src/com/canxing" target="_blank" rel="noopener">参考源码</a>  </p>
 
       
     </div>
@@ -567,7 +567,7 @@ LongSupplier                    long get();
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
