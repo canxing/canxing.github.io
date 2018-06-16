@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[software_engineering_review]]></title>
+    <url>%2F2018%2F06%2F17%2Fsoftware-engineering-review%2F</url>
+    <content type="text"><![CDATA[这是一个为了应对六月二十二日的软件工程考试所制作的复习资料，这个资料只包含只要的答题部分其中关于环形负责度的定义在老师提供的ppt上没有，而起制作时教材也没有在我身边，因此这部分内容后续添加NS盒图和流程转换图的转换大部分是简单的，如果不懂的应该翻阅资料 翻译软件工程 Software Engineering 软件需求 Software Requirements 软件设计 Software Design 软件过程 Software Process 开源项目 Open Source project 人工智能 Articial intelligence 软件部署 Software deployment 软件建构 Software Construction 嵌入式软件 Embedded software 分布式计算 Distributed computing 软件工程的特点 软件工程关注于大型程序的构造 软件工程的中心课题是控制复杂度 软件经常变化 开发软件的效率非常重要 和谐地合作是开发软件的关键 软件必须有效地支持它的用户 在软件工程领域中是由具有一种文化背景的人替具有另一种文化背景的人 软件工程的七条基本原理 用分阶段的生命周期计划严格管理 坚持进行阶段评审 实行严格的产品控制 采用现代程序设计技术 结果应能清楚地审查 开发小组的人员应该少而精 承认不断改进软件工程实践的必要性 总体设计过程包含的步骤 设想供选择的方案 选择合理的方案 推荐最佳方案 功能分解 设计软件结构 数据库设计 制定测试计划 书写文档 审查和复审 结构程序设计经典： 只允许使用顺序，IF_THEN_ELSE选择和DO_WHILE循环 扩展： 除了三种基本控制结构，还使用DO_CASE和DO_UNTIL循环 修正： 除了三种基本控制结构和两种扩充，还使用BREAK等结构 NS盒图和程序流程图的相互转换环形复杂度的定义和三种计算方法计算方法： 环形复杂度 = 流图划分的区域 环形复杂度 = 总边数 - 总节点数 + 2 环形复杂度 = 分支节点数 + 1]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[IDEA社区版使用maven搭建web开发环境]]></title>
     <url>%2F2018%2F04%2F17%2FIntelljJ-IDEA-Community-Edition-maven-webapp%2F</url>
     <content type="text"><![CDATA[IDEA社区版是不支持web应用程序开发，但是IDEA支持Maven，在Maven配置文件中可以添加tomcat插件，因此可以使用IDEA进行web应用程序开发 一 新建Maven项目在选择新项目时选择maven项目，勾选 Create from archetype，在下方选择maven-archetype-webapp，点击Next 输入GroupId和ArtifactId 选择Maven位置，如果Maven已经添加到环境变量，那么可以自动找到，如果没有配置，那么需要手动添加User setting file为你的Maven配置文件，如果不是默认路径需要手动添加Local repository为你的Maven仓库，如果不是默认路径需要手动添加 最后输入工程名称和工程位置 首次使用Maven会下载一些东西需要一些时间 二 配置tomcat 首先在tomcat中添加tomcat插件 &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt; &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt; &lt;version&gt;2.1&lt;/version&gt; &lt;configuration&gt; &lt;hostName&gt;localhost&lt;/hostName&gt; &lt;!-- Default: localhost --&gt; &lt;port&gt;8080&lt;/port&gt; &lt;!-- 启动端口 Default:8080 --&gt; &lt;uriEncoding&gt;UTF-8&lt;/uriEncoding&gt; &lt;!-- uri编码 Default: ISO-8859-1 --&gt; &lt;/configuration&gt; 这里使用的tomcat7 配置tomcat7 单击菜单栏 Run，选择Edit Configurations…，进入如下界面 默认只有一个Defaults，Maven是我配置好了的 选择+-&gt;Maven输入Tomcat7，在Command line输入tomcat7:run完成配置 点击Run开始运行，打开浏览器查看结果如下]]></content>
