@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="spring-mvc返回json数据在使用spring-mvc过程中遇到很多问题，记录下来方便查看  开发环境如下:eclipse Oxygen Release (4.7.0)java1.8spring 4.3.3freemarker 2.3.26(这个不是必须的)  maven依赖包如下:&amp;lt;!-- spring mvc返回json所需依赖  --&amp;gt;     &amp;lt;dependenc">
+<meta name="description" content="spring-mvc返回json数据在使用spring-mvc过程中遇到很多问题，记录下来方便查看  开发环境如下:eclipse Oxygen Release (4.7.0)java1.8spring 4.3.3freemarker 2.3.26(这个不是必须的)  maven依赖包如下：&amp;lt;!-- spring mvc返回json所需依赖  --&amp;gt;     &amp;lt;dependenc">
 <meta name="keywords" content="ajax,json,spring-mvc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring-mvc返回json数据">
 <meta property="og:url" content="http://yoursite.com/2017/12/16/spring-mvc返回json数据/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="spring-mvc返回json数据在使用spring-mvc过程中遇到很多问题，记录下来方便查看  开发环境如下:eclipse Oxygen Release (4.7.0)java1.8spring 4.3.3freemarker 2.3.26(这个不是必须的)  maven依赖包如下:&amp;lt;!-- spring mvc返回json所需依赖  --&amp;gt;     &amp;lt;dependenc">
+<meta property="og:description" content="spring-mvc返回json数据在使用spring-mvc过程中遇到很多问题，记录下来方便查看  开发环境如下:eclipse Oxygen Release (4.7.0)java1.8spring 4.3.3freemarker 2.3.26(这个不是必须的)  maven依赖包如下：&amp;lt;!-- spring mvc返回json所需依赖  --&amp;gt;     &amp;lt;dependenc">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-12T09:57:17.455Z">
+<meta property="og:updated_time" content="2018-07-26T15:26:46.195Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-mvc返回json数据">
-<meta name="twitter:description" content="spring-mvc返回json数据在使用spring-mvc过程中遇到很多问题，记录下来方便查看  开发环境如下:eclipse Oxygen Release (4.7.0)java1.8spring 4.3.3freemarker 2.3.26(这个不是必须的)  maven依赖包如下:&amp;lt;!-- spring mvc返回json所需依赖  --&amp;gt;     &amp;lt;dependenc">
+<meta name="twitter:description" content="spring-mvc返回json数据在使用spring-mvc过程中遇到很多问题，记录下来方便查看  开发环境如下:eclipse Oxygen Release (4.7.0)java1.8spring 4.3.3freemarker 2.3.26(这个不是必须的)  maven依赖包如下：&amp;lt;!-- spring mvc返回json所需依赖  --&amp;gt;     &amp;lt;dependenc">
 
 
 
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-12T17:57:17+08:00">
-                2018-07-12
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-26T23:26:46+08:00">
+                2018-07-26
               </time>
             
           </span>
@@ -400,7 +400,7 @@
 <blockquote>
 <p>开发环境如下:<br>eclipse Oxygen Release (4.7.0)<br>java1.8<br>spring 4.3.3<br>freemarker 2.3.26(这个不是必须的)</p>
 </blockquote>
-<h2 id="maven依赖包如下"><a href="#maven依赖包如下" class="headerlink" title="maven依赖包如下:"></a>maven依赖包如下:</h2><pre><code>&lt;!-- spring mvc返回json所需依赖  --&gt;
+<h2 id="maven依赖包如下："><a href="#maven依赖包如下：" class="headerlink" title="maven依赖包如下："></a>maven依赖包如下：</h2><pre><code>&lt;!-- spring mvc返回json所需依赖  --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
         &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
@@ -487,7 +487,7 @@ public class JSONController {
         return &quot;test&quot;;
     }
 }
-</code></pre><h2 id="User-java"><a href="#User-java" class="headerlink" title="User.java:"></a>User.java:</h2><pre><code>//类不需要进行处理，只是一个普通的pojo类
+</code></pre><h2 id="User-java："><a href="#User-java：" class="headerlink" title="User.java："></a>User.java：</h2><pre><code>//类不需要进行处理，只是一个普通的pojo类
 public class User{
         private String username;
         private String password;
@@ -548,7 +548,7 @@ public class User{
     &lt;button type=&apos;button&apos; onclick=&quot;loadXMLDoc()&quot;&gt;adfads&lt;/button&gt;
 &lt;/body&gt;
 </code></pre><p></p>
-<h2 id="参考源码"><a href="#参考源码" class="headerlink" title="参考源码"></a><a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">参考源码</a></h2><h1 id="寻找答案中遇到的问题"><a href="#寻找答案中遇到的问题" class="headerlink" title="寻找答案中遇到的问题"></a>寻找答案中遇到的问题</h1><ol>
+<h2 id="参考源码"><a href="#参考源码" class="headerlink" title="参考源码"></a><a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">参考源码</a></h2><h3 id="寻找答案中遇到的问题"><a href="#寻找答案中遇到的问题" class="headerlink" title="寻找答案中遇到的问题"></a>寻找答案中遇到的问题</h3><ol>
 <li>依赖问题，spring默认的对象转化为json的jar包依赖，网上多是直接使用并没有说明依赖</li>
 <li>还是依赖问题，spring和jackson之间版本的兼容性太差，稍微更改以下jackson或者spring的版本就会导致NoSuchMethodError错误，据说这里可以看见<a href="https://jira.spring.io/browse/SPR/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel" target="_blank" rel="noopener">版本支持</a>，但是看不懂</li>
 </ol>
@@ -686,7 +686,7 @@ public class User{
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -740,7 +740,7 @@ public class User{
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#spring-mvc返回json数据"><span class="nav-number">1.</span> <span class="nav-text"><a href="#spring-mvc&#x8FD4;&#x56DE;json&#x6570;&#x636E;" class="headerlink" title="spring-mvc&#x8FD4;&#x56DE;json&#x6570;&#x636E;"></a>spring-mvc&#x8FD4;&#x56DE;json&#x6570;&#x636E;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖包如下"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#maven&#x4F9D;&#x8D56;&#x5305;&#x5982;&#x4E0B;" class="headerlink" title="maven&#x4F9D;&#x8D56;&#x5305;&#x5982;&#x4E0B;:"></a>maven&#x4F9D;&#x8D56;&#x5305;&#x5982;&#x4E0B;:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web-xml-配置"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#web-xml-&#x914D;&#x7F6E;" class="headerlink" title="web.xml &#x914D;&#x7F6E;:"></a>web.xml &#x914D;&#x7F6E;:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-mvc配置"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#spring-mvc&#x914D;&#x7F6E;" class="headerlink" title="spring-mvc&#x914D;&#x7F6E;:"></a>spring-mvc&#x914D;&#x7F6E;:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-mvc配置freemarker"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#spring-mvc&#x914D;&#x7F6E;freemarker" class="headerlink" title="spring-mvc&#x914D;&#x7F6E;freemarker:"></a>spring-mvc&#x914D;&#x7F6E;freemarker:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONController-java"><span class="nav-number">1.5.</span> <span class="nav-text"><a href="#JSONController-java" class="headerlink" title="JSONController.java:"></a>JSONController.java:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User-java"><span class="nav-number">1.6.</span> <span class="nav-text"><a href="#User-java" class="headerlink" title="User.java:"></a>User.java:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#test-flt"><span class="nav-number">1.7.</span> <span class="nav-text"><a href="#test-flt" class="headerlink" title="test.flt:"></a>test.flt:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考源码"><span class="nav-number">1.8.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6E90;&#x7801;" class="headerlink" title="&#x53C2;&#x8003;&#x6E90;&#x7801;"></a><a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">&#x53C2;&#x8003;&#x6E90;&#x7801;</a></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寻找答案中遇到的问题"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5BFB;&#x627E;&#x7B54;&#x6848;&#x4E2D;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;" class="headerlink" title="&#x5BFB;&#x627E;&#x7B54;&#x6848;&#x4E2D;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;"></a>&#x5BFB;&#x627E;&#x7B54;&#x6848;&#x4E2D;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#spring-mvc返回json数据"><span class="nav-number">1.</span> <span class="nav-text"><a href="#spring-mvc&#x8FD4;&#x56DE;json&#x6570;&#x636E;" class="headerlink" title="spring-mvc&#x8FD4;&#x56DE;json&#x6570;&#x636E;"></a>spring-mvc&#x8FD4;&#x56DE;json&#x6570;&#x636E;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖包如下："><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#maven&#x4F9D;&#x8D56;&#x5305;&#x5982;&#x4E0B;&#xFF1A;" class="headerlink" title="maven&#x4F9D;&#x8D56;&#x5305;&#x5982;&#x4E0B;&#xFF1A;"></a>maven&#x4F9D;&#x8D56;&#x5305;&#x5982;&#x4E0B;&#xFF1A;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web-xml-配置"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#web-xml-&#x914D;&#x7F6E;" class="headerlink" title="web.xml &#x914D;&#x7F6E;:"></a>web.xml &#x914D;&#x7F6E;:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-mvc配置"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#spring-mvc&#x914D;&#x7F6E;" class="headerlink" title="spring-mvc&#x914D;&#x7F6E;:"></a>spring-mvc&#x914D;&#x7F6E;:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-mvc配置freemarker"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#spring-mvc&#x914D;&#x7F6E;freemarker" class="headerlink" title="spring-mvc&#x914D;&#x7F6E;freemarker:"></a>spring-mvc&#x914D;&#x7F6E;freemarker:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONController-java"><span class="nav-number">1.5.</span> <span class="nav-text"><a href="#JSONController-java" class="headerlink" title="JSONController.java:"></a>JSONController.java:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User-java："><span class="nav-number">1.6.</span> <span class="nav-text"><a href="#User-java&#xFF1A;" class="headerlink" title="User.java&#xFF1A;"></a>User.java&#xFF1A;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#test-flt"><span class="nav-number">1.7.</span> <span class="nav-text"><a href="#test-flt" class="headerlink" title="test.flt:"></a>test.flt:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考源码"><span class="nav-number">1.8.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#x6E90;&#x7801;" class="headerlink" title="&#x53C2;&#x8003;&#x6E90;&#x7801;"></a><a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">&#x53C2;&#x8003;&#x6E90;&#x7801;</a></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找答案中遇到的问题"><span class="nav-number">1.8.1.</span> <span class="nav-text"><a href="#&#x5BFB;&#x627E;&#x7B54;&#x6848;&#x4E2D;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;" class="headerlink" title="&#x5BFB;&#x627E;&#x7B54;&#x6848;&#x4E2D;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;"></a>&#x5BFB;&#x627E;&#x7B54;&#x6848;&#x4E2D;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

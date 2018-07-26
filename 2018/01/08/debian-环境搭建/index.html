@@ -400,13 +400,11 @@
 <h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><p>三个挂载目录，/,/home，/opt，其中/home和/opt是原来使用的挂载目录，没有改变，只覆盖了/目录<br>debian桌面环境选择xfce桌面，核心功能模块</p>
 <h2 id="联网"><a href="#联网" class="headerlink" title="联网"></a>联网</h2><p>安装完系统后，第一步就是联网，正常连接校园网，免去了回退ubuntu的烦恼</p>
 <h2 id="设置镜像源"><a href="#设置镜像源" class="headerlink" title="设置镜像源"></a>设置镜像源</h2><p>debian在中国有两个主镜像源</p>
-<pre><code>ftp2.cn.debian.org/debian/
-ftp.cn.debian.org/debian/
-</code></pre><p>debian的主镜像源在国内也可以正常访问<br>在/etc/apt/source.list文件中添加以下类似的源<br>deb <a href="http://ftp.cn.debian.org/debian" target="_blank" rel="noopener">http://ftp.cn.debian.org/debian</a> stretch main non-free </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ftp2.cn.debian.org/debian/</span><br><span class="line">ftp.cn.debian.org/debian/</span><br></pre></td></tr></table></figure>
+<p>debian的主镜像源在国内也可以正常访问<br>在/etc/apt/source.list文件中添加以下类似的源<br>deb <a href="http://ftp.cn.debian.org/debian" target="_blank" rel="noopener">http://ftp.cn.debian.org/debian</a> stretch main non-free </p>
 <h2 id="安装vim"><a href="#安装vim" class="headerlink" title="安装vim"></a>安装vim</h2><p>切换管理员用户  </p>
-<pre><code>su   
-apt-get install vim-gnome
-</code></pre><h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a>安装中文输入法</h2><p>linux下的中文输入法有很多，这里选择fcitx，其他的ibus和搜狗输入法都与各种原因没有安装上，很遗憾没有体验一次<br>切换管理员用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su</span><br><span class="line">apt-get install vim-gnome</span><br></pre></td></tr></table></figure>
+<h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a>安装中文输入法</h2><p>linux下的中文输入法有很多，这里选择fcitx，其他的ibus和搜狗输入法都与各种原因没有安装上，很遗憾没有体验一次<br>切换管理员用户</p>
 <pre><code>su
 apt install fcitx
 apt install im-config
@@ -481,7 +479,7 @@ apt-get install -f 解决冲突问题
 </code></pre><h2 id="安装shadowsocks-qt5客户端"><a href="#安装shadowsocks-qt5客户端" class="headerlink" title="安装shadowsocks-qt5客户端"></a>安装shadowsocks-qt5客户端</h2><p>感谢网友提供的<a href="https://github.com/try1try/shadowsocks-qt5" target="_blank" rel="noopener">连接</a>安装成功</p>
 <h2 id="安装无线网卡驱动"><a href="#安装无线网卡驱动" class="headerlink" title="安装无线网卡驱动"></a>安装无线网卡驱动</h2><pre><code>apt install firmware-iwlwifi
 modprobe -r iwlwifi ; modprobe iwlwifi
-</code></pre><h2 id="安装virtualbox"><a href="#安装virtualbox" class="headerlink" title="安装virtualbox"></a>安装virtualbox</h2><p>(官方指南)[<a href="https://www.virtualbox.org/wiki/Linux_Downloads" target="_blank" rel="noopener">https://www.virtualbox.org/wiki/Linux_Downloads</a>]</p>
+</code></pre><h2 id="安装virtualbox"><a href="#安装virtualbox" class="headerlink" title="安装virtualbox"></a>安装virtualbox</h2><p>[官方指南][<a href="https://www.virtualbox.org/wiki/Linux_Downloads" target="_blank" rel="noopener">https://www.virtualbox.org/wiki/Linux_Downloads</a>]</p>
 <ol>
 <li><p>先将virtualbox的源添加到主机，这里的mydist指的是你的系统名称</p>
 <p> deb <a href="https://download.virtualbox.org/virtualbox/debian" target="_blank" rel="noopener">https://download.virtualbox.org/virtualbox/debian</a> <code>&lt;mydist&gt;</code> contrib</p>
@@ -494,18 +492,16 @@ modprobe -r iwlwifi ; modprobe iwlwifi
 </li>
 </ol>
 <h2 id="安装kazam"><a href="#安装kazam" class="headerlink" title="安装kazam"></a>安装kazam</h2><pre><code>apt install kazam
-</code></pre><h2 id="安装dia"><a href="#安装dia" class="headerlink" title="安装dia"></a>安装dia</h2><pre><code>apt install dia
-</code></pre><p>安装dia有可能会遇到无法输入中文字符的问题，解决方法如下:</p>
-<pre><code>1. 点击一个流程图下的图形
-2. 绘出图形
-3. 在图形上右键`-&gt;`Input Methods 选择X输入法
-</code></pre><h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><p>如果是第一次使用ssh可以使用ssh-keygen生成密钥对</p>
-<pre><code>ssh-keygen
-</code></pre><p>然后使用ssh-copy-id 将公钥发送给远程主机</p>
-<pre><code>ssh-copy-id username@ip-addr
-</code></pre><p>然后在远程主机上将公钥文件名称修改为authorized_keys<br>接着使用ssh登陆远程主机，如果不要密钥可以成功登陆那么完成如果不行你也许还要做这一步</p>
-<pre><code>ssh-add private-key
-</code></pre><p>将你的私钥保存起来</p>
+</code></pre><h2 id="安装dia"><a href="#安装dia" class="headerlink" title="安装dia"></a>安装dia</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install dia</span><br></pre></td></tr></table></figure>
+<p>安装dia有可能会遇到无法输入中文字符的问题，解决方法如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 点击一个流程图下的图形</span><br><span class="line">2. 绘出图形</span><br><span class="line">3. 在图形上右键`-&gt;`Input Methods 选择X输入法</span><br></pre></td></tr></table></figure>
+<h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><p>如果是第一次使用ssh可以使用ssh-keygen生成密钥对</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+<p>然后使用ssh-copy-id 将公钥发送给远程主机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id username@ip-addr</span><br></pre></td></tr></table></figure>
+<p>然后在远程主机上将公钥文件名称修改为authorized_keys<br>接着使用ssh登陆远程主机，如果不要密钥可以成功登陆那么完成如果不行你也许还要做这一步</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add private-key</span><br></pre></td></tr></table></figure>
+<p>将你的私钥保存起来</p>
 
       
     </div>
@@ -630,7 +626,7 @@ modprobe -r iwlwifi ; modprobe iwlwifi
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

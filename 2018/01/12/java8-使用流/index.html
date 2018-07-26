@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数">
+<meta name="description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中   使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据   像我们前面处理苹果集合时那样，可以实现一个方法来收集">
 <meta name="keywords" content="java,java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java8-使用流">
 <meta property="og:url" content="http://yoursite.com/2018/01/12/java8-使用流/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数">
+<meta property="og:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中   使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据   像我们前面处理苹果集合时那样，可以实现一个方法来收集">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-12T09:57:17.455Z">
+<meta property="og:updated_time" content="2018-07-26T15:24:04.896Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-使用流">
-<meta name="twitter:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数">
+<meta name="twitter:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中   使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据   像我们前面处理苹果集合时那样，可以实现一个方法来收集">
 
 
 
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-12T17:57:17+08:00">
-                2018-07-12
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-26T23:24:04+08:00">
+                2018-07-26
               </time>
             
           </span>
@@ -397,7 +397,9 @@
 
       
         <h1 id="流介绍"><a href="#流介绍" class="headerlink" title="流介绍"></a>流介绍</h1><p>流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现）</p>
-<h1 id="使用流"><a href="#使用流" class="headerlink" title="使用流"></a>使用流</h1><p>集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中<br>使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据<br>像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数据，比如过滤颜色不是红色的苹果，收集苹果的重量列表，但是每一次都需要调用一个方法，流为我们处理这种“一系列”数据提供了一些方法，可以像工厂流水线的方法对流数据进行处理  </p>
+<h1 id="使用流"><a href="#使用流" class="headerlink" title="使用流"></a>使用流</h1><p>集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中  </p>
+<p>使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据  </p>
+<p>像我们前面处理苹果集合时那样，可以实现一个方法来收集或处理某些数据，比如过滤颜色不是红色的苹果，收集苹果的重量列表，但是每一次都需要调用一个方法，流为我们处理这种“一系列”数据提供了一些方法，可以像工厂流水线的方法对流数据进行处理  </p>
 <p>比如要收集颜色是红色苹果的重量集合，可以想这样写</p>
 <pre><code>inventory.stream().filter(apple -&gt; apple.getColor().equals(&quot;red&quot;)).map(Apple::getWeight).forEach(System.out::println);
 </code></pre><p>这里先通过方法stream()生成一个流对象，再使用filter方法过滤掉颜色不是红色的苹果，接着通过map将所有颜色是红色的苹果的重量返回成一个<code>数值流</code>也就是剩下苹果重量的集合，接着调用forEach方法打印剩下苹果的重量。可以读作先过滤掉颜色不是红色的苹果，接着返回所有苹果重量的集合，然后打印<br>如果使用上一节自定义方法实现这些操作书写格式如下:</p>
@@ -483,7 +485,8 @@ Object[] toArray()                                                              
     sorted()                                                            默认排序，排序类需要实现默认排序接口
     sorted(Comparator&lt;? super T&gt; comparator)                            使用自定义排序对流数据进行排序
 值得注意的是flatMap方法，这个方法和map方法不同，map方法会将每一个流对象都作用于Function&lt;? super T,? extends R&gt;返回一个R对象，flatMap方法也会将所有的流对象作用于Function的方法，但是只会返回一个`流对象`，这个方法可以用作一个流中的对象的属性是集合，并且需要将所有流对象为集合的属性收集起来的情况，比如收集几个字符串中所有不重复的字符。
-</code></pre><p><a href="https://github.com/canxing/java8/tree/master/5/src/com/canxing" target="_blank" rel="noopener">参考源码</a><br>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至canxing_zh@163.com邮箱指正，我将不胜感激。</p>
+</code></pre><p><a href="https://github.com/canxing/java8/tree/master/5/src/com/canxing" target="_blank" rel="noopener">参考源码</a>  </p>
+<p>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至canxing_zh@163.com邮箱指正，我将不胜感激。</p>
 
       
     </div>
@@ -616,7 +619,7 @@ Object[] toArray()                                                              
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
