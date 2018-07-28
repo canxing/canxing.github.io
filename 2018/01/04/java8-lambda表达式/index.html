@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="测试环境 JDK 10 ，JUnit4 如何使用lambda表达式 定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)  public interface AbstractFuncOfSingle {     int print(int a, int b); } 传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为AbstractFuncOf">
+<meta name="description" content="测试环境 JDK 10 ，JUnit4 如何使用 lambda 表达式 定义一个只含有一个抽象方法的接口 AbstractFuncOfSingle (只能是接口)  123public interface AbstractFuncOfSingle &amp;#123;	int print(int a, int b);&amp;#125; 传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为 A">
 <meta name="keywords" content="java,java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java8-lambda表达式">
 <meta property="og:url" content="http://yoursite.com/2018/01/04/java8-lambda表达式/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="测试环境 JDK 10 ，JUnit4 如何使用lambda表达式 定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)  public interface AbstractFuncOfSingle {     int print(int a, int b); } 传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为AbstractFuncOf">
+<meta property="og:description" content="测试环境 JDK 10 ，JUnit4 如何使用 lambda 表达式 定义一个只含有一个抽象方法的接口 AbstractFuncOfSingle (只能是接口)  123public interface AbstractFuncOfSingle &amp;#123;	int print(int a, int b);&amp;#125; 传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为 A">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-26T15:23:35.144Z">
+<meta property="og:updated_time" content="2018-07-28T12:48:32.212Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-lambda表达式">
-<meta name="twitter:description" content="测试环境 JDK 10 ，JUnit4 如何使用lambda表达式 定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)  public interface AbstractFuncOfSingle {     int print(int a, int b); } 传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为AbstractFuncOf">
+<meta name="twitter:description" content="测试环境 JDK 10 ，JUnit4 如何使用 lambda 表达式 定义一个只含有一个抽象方法的接口 AbstractFuncOfSingle (只能是接口)  123public interface AbstractFuncOfSingle &amp;#123;	int print(int a, int b);&amp;#125; 传入两个int类型的参数，返回一个类型的参数  定义一个方法，传入参数为 A">
 
 
 
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-26T23:23:35+08:00">
-                2018-07-26
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-28T20:48:32+08:00">
+                2018-07-28
               </time>
             
           </span>
@@ -397,36 +397,25 @@
 
       
         <p>测试环境 JDK 10 ，JUnit4</p>
-<h1 id="如何使用lambda表达式"><a href="#如何使用lambda表达式" class="headerlink" title="如何使用lambda表达式"></a>如何使用lambda表达式</h1><ol>
-<li>定义一个只含有一个抽象方法的接口AbstractFuncOfSingle(只能是接口)</li>
+<h1 id="如何使用-lambda-表达式"><a href="#如何使用-lambda-表达式" class="headerlink" title="如何使用 lambda 表达式"></a>如何使用 lambda 表达式</h1><ol>
+<li>定义一个只含有一个抽象方法的接口 AbstractFuncOfSingle (只能是接口)</li>
 </ol>
-<pre><code>public interface AbstractFuncOfSingle {
-    int print(int a, int b);
-}
-</code></pre><p>传入两个int类型的参数，返回一个类型的参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractFuncOfSingle</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>传入两个int类型的参数，返回一个类型的参数</p>
 <ol>
-<li>定义一个方法，传入参数为AbstractFuncOfSingle</li>
+<li>定义一个方法，传入参数为 AbstractFuncOfSingle</li>
 </ol>
-<pre><code>public void callAbstractFuncOfSingle(AbstractFuncOfSingle singleFunc, int a, int b){
-    int result = singleFunc.print(a, b);
-    System.out.println(result * 2);
-}
-</code></pre><p>在方法中将方法参数a，b作为参数传入AbstractFuncOfSingle.print()方法，并使用result接收返回参数然后打印 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callAbstractFuncOfSingle</span><span class="params">(AbstractFuncOfSingle singleFunc, <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> result = singleFunc.print(a, b);</span><br><span class="line">	System.out.println(result * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在方法中将方法参数 a，b 作为参数传入 <code>AbstractFuncOfSingle.print()</code> 方法，并使用 result 接收返回参数然后打印 </p>
 <ol>
 <li>调用上述方法</li>
 </ol>
-<pre><code>@Test
-public void testAbstractFuncOfSingle(){
-    callAbstractFuncOfSingle((a, b)-&gt;{
-        System.out.println(a + b);
-        return a + b;
-    }, 10, 23);
-}
-</code></pre><p>使用lambda表达式创建一个内部类，打印a + b的和并返回a + b和</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAbstractFuncOfSingle</span><span class="params">()</span></span>&#123;</span><br><span class="line">	callAbstractFuncOfSingle((a, b)-&gt;&#123;</span><br><span class="line">		System.out.println(a + b);</span><br><span class="line">		<span class="keyword">return</span> a + b;</span><br><span class="line">	&#125;, <span class="number">10</span>, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 lambda 表达式创建一个内部类，打印 a + b 的和并返回 a + b 和</p>
 <blockquote>
-<p>如果接口的抽象方法具有多个参数，那么lambda的传入参数个数也要一一对应，<br>如果抽象方法具有返回值，在lambda表达式中也要有返回值，否则可以省略retur语句<br>注意：lambda表达式的参数类型和返回类型要和抽象方法的参数类型和返回类型相同</p>
+<p>如果接口的抽象方法具有多个参数，那么 lambda 的传入参数个数也要一一对应，<br>如果抽象方法具有返回值，在 lambda 表达式中也要有返回值，否则可以省略 return 语句<br>注意：lambda 表达式的参数类型和返回类型要和抽象方法的参数类型和返回类型相同</p>
 </blockquote>
-<h1 id="lambda表达式和匿名内部类"><a href="#lambda表达式和匿名内部类" class="headerlink" title="lambda表达式和匿名内部类"></a>lambda表达式和匿名内部类</h1><p>lambda表达式是匿名内部类的一种简化形式，lambda表达式只能书写于只有一个抽象方法的接口，匿名内部类可以书写具有多个抽象方法的接口和抽象类</p>
+<h1 id="lambda-表达式和匿名内部类"><a href="#lambda-表达式和匿名内部类" class="headerlink" title="lambda 表达式和匿名内部类"></a>lambda 表达式和匿名内部类</h1><p>lambda 表达式是匿名内部类的一种简化形式，lambda 表达式只能书写于只有一个抽象方法的接口，匿名内部类可以书写具有多个抽象方法的接口和抽象类</p>
 <p><a href="https://github.com/canxing/java8/tree/master/1" target="_blank" rel="noopener">实例代码</a></p>
 
       
@@ -549,7 +538,7 @@ public void testAbstractFuncOfSingle(){
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -560,7 +549,7 @@ public void testAbstractFuncOfSingle(){
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -571,7 +560,7 @@ public void testAbstractFuncOfSingle(){
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -614,7 +603,7 @@ public void testAbstractFuncOfSingle(){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何使用lambda表达式"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5982;&#x4F55;&#x4F7F;&#x7528;lambda&#x8868;&#x8FBE;&#x5F0F;" class="headerlink" title="&#x5982;&#x4F55;&#x4F7F;&#x7528;lambda&#x8868;&#x8FBE;&#x5F0F;"></a>&#x5982;&#x4F55;&#x4F7F;&#x7528;lambda&#x8868;&#x8FBE;&#x5F0F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lambda表达式和匿名内部类"><span class="nav-number">2.</span> <span class="nav-text"><a href="#lambda&#x8868;&#x8FBE;&#x5F0F;&#x548C;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;" class="headerlink" title="lambda&#x8868;&#x8FBE;&#x5F0F;&#x548C;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;"></a>lambda&#x8868;&#x8FBE;&#x5F0F;&#x548C;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何使用-lambda-表达式"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5982;&#x4F55;&#x4F7F;&#x7528;-lambda-&#x8868;&#x8FBE;&#x5F0F;" class="headerlink" title="&#x5982;&#x4F55;&#x4F7F;&#x7528; lambda &#x8868;&#x8FBE;&#x5F0F;"></a>&#x5982;&#x4F55;&#x4F7F;&#x7528; lambda &#x8868;&#x8FBE;&#x5F0F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lambda-表达式和匿名内部类"><span class="nav-number">2.</span> <span class="nav-text"><a href="#lambda-&#x8868;&#x8FBE;&#x5F0F;&#x548C;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;" class="headerlink" title="lambda &#x8868;&#x8FBE;&#x5F0F;&#x548C;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;"></a>lambda &#x8868;&#x8FBE;&#x5F0F;&#x548C;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;</span></a></li></ol></div>
             
 
           </div>

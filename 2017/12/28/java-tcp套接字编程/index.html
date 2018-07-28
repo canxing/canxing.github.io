@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="什么是套接字传送们维基百科java中的套接字屏蔽了许多细节，不需要关注更多的底层信息。在java中套接字服务器可以使用java.net.ServerSocket创建一个常用的构造方法如下: ServerSocket server = new ServerSocket(int    port); port: 表示套接字服务器需要监听的本机的端口，常见的端口有80端口，3306端口等，这个监听的端口不">
+<meta name="description" content="什么是套接字传送们维基百科java中的套接字屏蔽了许多细节，不需要关注更多的底层信息。在java中套接字服务器可以使用java.net.ServerSocket创建一个常用的构造方法如下: 1ServerSocket server = new ServerSocket(int	port); port: 表示套接字服务器需要监听的本机的端口，常见的端口有80端口，3306端口等，这个监听的端口不允许">
 <meta name="keywords" content="java,socket">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java-tcp套接字编程">
 <meta property="og:url" content="http://yoursite.com/2017/12/28/java-tcp套接字编程/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="什么是套接字传送们维基百科java中的套接字屏蔽了许多细节，不需要关注更多的底层信息。在java中套接字服务器可以使用java.net.ServerSocket创建一个常用的构造方法如下: ServerSocket server = new ServerSocket(int    port); port: 表示套接字服务器需要监听的本机的端口，常见的端口有80端口，3306端口等，这个监听的端口不">
+<meta property="og:description" content="什么是套接字传送们维基百科java中的套接字屏蔽了许多细节，不需要关注更多的底层信息。在java中套接字服务器可以使用java.net.ServerSocket创建一个常用的构造方法如下: 1ServerSocket server = new ServerSocket(int	port); port: 表示套接字服务器需要监听的本机的端口，常见的端口有80端口，3306端口等，这个监听的端口不允许">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-26T15:22:44.882Z">
+<meta property="og:updated_time" content="2018-07-28T12:19:14.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-tcp套接字编程">
-<meta name="twitter:description" content="什么是套接字传送们维基百科java中的套接字屏蔽了许多细节，不需要关注更多的底层信息。在java中套接字服务器可以使用java.net.ServerSocket创建一个常用的构造方法如下: ServerSocket server = new ServerSocket(int    port); port: 表示套接字服务器需要监听的本机的端口，常见的端口有80端口，3306端口等，这个监听的端口不">
+<meta name="twitter:description" content="什么是套接字传送们维基百科java中的套接字屏蔽了许多细节，不需要关注更多的底层信息。在java中套接字服务器可以使用java.net.ServerSocket创建一个常用的构造方法如下: 1ServerSocket server = new ServerSocket(int	port); port: 表示套接字服务器需要监听的本机的端口，常见的端口有80端口，3306端口等，这个监听的端口不允许">
 
 
 
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-26T23:22:44+08:00">
-                2018-07-26
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-28T20:19:14+08:00">
+                2018-07-28
               </time>
             
           </span>
@@ -397,51 +397,19 @@
 
       
         <h1 id="什么是套接字传送们维基百科"><a href="#什么是套接字传送们维基百科" class="headerlink" title="什么是套接字传送们维基百科"></a>什么是套接字<a href="https://zh.wikipedia.org/wiki/Berkeley%E5%A5%97%E6%8E%A5%E5%AD%97" target="_blank" rel="noopener">传送们维基百科</a></h1><p>java中的套接字屏蔽了许多细节，不需要关注更多的底层信息。<br>在java中套接字服务器可以使用java.net.ServerSocket创建<br>一个常用的构造方法如下:</p>
-<pre><code>ServerSocket server = new ServerSocket(int    port);
-</code></pre><p>port: 表示套接字服务器需要监听的本机的端口，常见的端口有80端口，3306端口等，这个监听的端口不允许重复监听，建议使用靠后面的端口号<br>然后可以使用 Socket client = server.accept()等待客户端的连接并返回一个Socket对象，通过这个Socket对象可以和客户端进行通信:</p>
-<pre><code>OutputStream out = client.getOutputStream();
-InputStream in = client.getInputStream();
-out可以向客户端输出消息，in可以接受客户端的消息（消息的输入和输出都是相对于内存而言的，如果是写入内存中，那么就是输入，如果是从内存中读出，那么就是输出）
-服务器一般都是长时间运行服务多个客户端，所以服务器一般不会关闭，在客户端和服务器中端连接时，只需要关闭输入输出流就行了。
-
-套接字客户端的创建使用Socket创建，需要指定要连接的ip地址和端口，这个端口要和套接字服务器监听的端口号相同，ip地址要和套接字服务器所在主机的ip地址相同，linux下可以使用ifconfig命令查看ip地址，如果是在本机进行套接字编程，可以使用127.0.0.1或者localhost确定本机ip
-
-Socket socket = new Socket(Stirng ipAddress,int port);
-</code></pre><p>创建套接字之后就可以获取输入输出流和服务器交流，这里的输入输出流是相对于客户端的输入输出，客户端的输入是服务器端的输出。</p>
-<pre><code>客户端不同于服务器，客户端关闭时需要关闭Socket，使用socket.close()关闭
-</code></pre><p>一个简单的服务器Socket：</p>
-<pre><code>//创建套接字服务器
-ServerSocket server = new ServerSocket(int port);
-//套接字服务器一般不会关闭，所以使用死循环不同的获取连接，在获取客户端连接是一般要开线程
-while(true){
-    //获取客户端连接
-    Socket socket = server.accept();
-    //获取输入输出流,按情况获取，如果即需要输入也需要输出那么两个都需要获取，io可以包装成Reader和Writer
-    OutputStream out = socket.getOutputStream();//获取输出流
-    InputStream in = socket.getInputStream();//获取输入流
-    //进行消息的获取或发送
-    //...
-    //关闭输入输出流
-    out.close();
-    in.close();
-}
-</code></pre><p>简单的客户端套接字:</p>
-<pre><code>//创建客户端套接字
-Socket socket = new Socket(String serverIp,int port);
-//获取输入输出流（一般来说客户端都是会先获取输出流发送消息到服务器，服务器返回消息，客户端使用输入流获取）
-OutputStream out = socket.getOutputStream();
-InputStream in = socket.getInputStream();
-//进行消息的发送与接收,可以使用死循环，在循环使用特殊字符串之类的东西退出
-while(true){
-    //flag;
-    //发送和接受
-}
-//关闭输入输出流
-out.close();
-in.close();
-//关闭套接字
-socket.close();
-</code></pre><p><a href="https://github.com/canxing/java/tree/master/socket/src/concurrent/tcpsocket" target="_blank" rel="noopener">参考源码</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServerSocket server = <span class="keyword">new</span> ServerSocket(<span class="keyword">int</span>	port);</span><br></pre></td></tr></table></figure>
+<p>port: 表示套接字服务器需要监听的本机的端口，常见的端口有80端口，3306端口等，这个监听的端口不允许重复监听，建议使用靠后面的端口号<br>然后可以使用 Socket client = server.accept()等待客户端的连接并返回一个Socket对象，通过这个Socket对象可以和客户端进行通信:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OutputStream out = client.getOutputStream();</span><br><span class="line">InputStream in = client.getInputStream();</span><br></pre></td></tr></table></figure>
+<p>out可以向客户端输出消息，in可以接受客户端的消息（消息的输入和输出都是相对于内存而言的，如果是写入内存中，那么就是输入，如果是从内存中读出，那么就是输出）<br>服务器一般都是长时间运行服务多个客户端，所以服务器一般不会关闭，在客户端和服务器中端连接时，只需要关闭输入输出流就行了。</p>
+<p>套接字客户端的创建使用Socket创建，需要指定要连接的ip地址和端口，这个端口要和套接字服务器监听的端口号相同，ip地址要和套接字服务器所在主机的ip地址相同，linux下可以使用ifconfig命令查看ip地址，如果是在本机进行套接字编程，可以使用127.0.0.1或者localhost确定本机ip</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Socket socket = <span class="keyword">new</span> Socket(Stirng ipAddress,<span class="keyword">int</span> port);</span><br></pre></td></tr></table></figure>
+<p>创建套接字之后就可以获取输入输出流和服务器交流，这里的输入输出流是相对于客户端的输入输出，客户端的输入是服务器端的输出。</p>
+<p>客户端不同于服务器，客户端关闭时需要关闭Socket，使用socket.close()关闭</p>
+<p>一个简单的服务器Socket：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建套接字服务器</span></span><br><span class="line">ServerSocket server = <span class="keyword">new</span> ServerSocket(<span class="keyword">int</span> port);</span><br><span class="line"><span class="comment">//套接字服务器一般不会关闭，所以使用死循环不同的获取连接，在获取客户端连接是一般要开线程</span></span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">    <span class="comment">//获取客户端连接</span></span><br><span class="line">    Socket socket = server.accept();</span><br><span class="line">    <span class="comment">//获取输入输出流,按情况获取，如果即需要输入也需要输出那么两个都需要获取，io可以包装成Reader和Writer</span></span><br><span class="line">    OutputStream out = socket.getOutputStream();<span class="comment">//获取输出流</span></span><br><span class="line">    InputStream in = socket.getInputStream();<span class="comment">//获取输入流</span></span><br><span class="line">    <span class="comment">//进行消息的获取或发送</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//关闭输入输出流</span></span><br><span class="line">    out.close();</span><br><span class="line">    in.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>简单的客户端套接字:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建客户端套接字</span></span><br><span class="line">Socket socket = <span class="keyword">new</span> Socket(String serverIp,<span class="keyword">int</span> port);</span><br><span class="line"><span class="comment">//获取输入输出流（一般来说客户端都是会先获取输出流发送消息到服务器，服务器返回消息，客户端使用输入流获取）</span></span><br><span class="line">OutputStream out = socket.getOutputStream();</span><br><span class="line">InputStream in = socket.getInputStream();</span><br><span class="line"><span class="comment">//进行消息的发送与接收,可以使用死循环，在循环使用特殊字符串之类的东西退出</span></span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">    <span class="comment">//flag;</span></span><br><span class="line">    <span class="comment">//发送和接受</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关闭输入输出流</span></span><br><span class="line">out.close();</span><br><span class="line">in.close();</span><br><span class="line"><span class="comment">//关闭套接字</span></span><br><span class="line">socket.close();</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/canxing/code-repository/tree/master/java/socket" target="_blank" rel="noopener">参考源码</a></p>
 
       
     </div>
@@ -563,7 +531,7 @@ socket.close();
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -574,7 +542,7 @@ socket.close();
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -585,7 +553,7 @@ socket.close();
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="残星">
 <meta property="og:description" content="collect方法collect 方法是Stream中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是Stream用于收集某种形式的数据信息，基本上所有的Stream的终端操作都可以使用collect方法来实现 collect的定义collect方法有两">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-26T15:23:10.722Z">
+<meta property="og:updated_time" content="2018-07-28T12:36:38.366Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-collect方法">
 <meta name="twitter:description" content="collect方法collect 方法是Stream中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是Stream用于收集某种形式的数据信息，基本上所有的Stream的终端操作都可以使用collect方法来实现 collect的定义collect方法有两">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-26T23:23:10+08:00">
-                2018-07-26
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-28T20:36:38+08:00">
+                2018-07-28
               </time>
             
           </span>
@@ -495,7 +495,7 @@
 <p>其中分组和分区是有区别的，分区可以看做是分组的特殊形式，分区只会有两个区别满足条件的（true）和不满足条件的（false），不管是分区还是分组，都可以再分,分组是根据返回的条件进行分组  </p>
 </blockquote>
 <pre><code>Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));
-</code></pre><p>这里就是根据苹果的颜色进行分组，map中只会有两个主键，red或者green。如果将条件改为Apple::getWeight,那么主键就会有10,20,12,25,因为有两个重量为12的苹果，这两个苹果就会分在一组</p>
+</code></pre><p>这里就是根据苹果的颜色进行分组，map 中只会有两个主键，red 或者 green。如果将条件改为Apple::getWeight,那么主键就会有10,20,12,25,因为有两个重量为12的苹果，这两个苹果就会分在一组</p>
 <pre><code>Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(&quot;red&quot;)));
 </code></pre><p>这里根据苹果颜色是不是红色进行分区，只会有两个主键，true或者false，true分区里的苹果都是红色的，false分区里的值都不是红色的，但是partitioningBy里面可以传第二个参数，可以对分区里面再进行<code>收集</code>（collect方法）操作</p>
 <p>容器可以为三种，List，Set，Map容器，只需要调用Collectors.toXxxx()方法就可以将流最后组装成一个容易<br>简单的数值计算可以直接通过流计算得出，例如Stream.max()方法和Stream.collect(Collectors.maxBy())方法是相同的，在某些方面，如</p>
@@ -504,7 +504,7 @@
 <blockquote>
 <p>collect方法接收一个Collector对象，而大多数的Collector对象都可以通过Collectors对象的静态工厂方法获取，如果有需要可以查阅手册</p>
 </blockquote>
-<p><a href="https://github.com/canxing/java8/tree/master/6/src/com/canxing" target="_blank" rel="noopener">参考源码</a><br>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至liuxin739525@163.com邮箱指正，我将不胜感激。</p>
+<p><a href="https://github.com/canxing/java8/tree/master/6/src/com/canxing" target="_blank" rel="noopener">参考源码</a>  </p>
 
       
     </div>
@@ -547,8 +547,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/02/数据结构c语言描述三-二叉查找树/" rel="prev" title="数据结构c语言描述三-二叉查找树">
-                数据结构c语言描述三-二叉查找树 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/17/IntelljJ-IDEA-Community-Edition-maven-webapp/" rel="prev" title="IDEA社区版使用maven搭建web开发环境">
+                IDEA社区版使用maven搭建web开发环境 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -626,7 +626,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -637,7 +637,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -648,7 +648,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
