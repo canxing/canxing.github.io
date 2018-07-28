@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="残星">
 <meta property="og:description" content="什么是方法引用方法引用是lambd表达式的一种特殊形式。看起来更易读更自然 如果想要对苹果的重量进行排序我们可以这样写: inventory.sort((a1,a2) -&amp;gt; a1.getWeight() - a2.getWeight()); 使用方法引用之后是这样的 inventory.sort(Apple::getWeight); 方法引用的语法格式 指向静态方法的引用Class::sta">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-12T09:57:17.455Z">
+<meta property="og:updated_time" content="2018-07-28T15:25:50.663Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-方法引用">
 <meta name="twitter:description" content="什么是方法引用方法引用是lambd表达式的一种特殊形式。看起来更易读更自然 如果想要对苹果的重量进行排序我们可以这样写: inventory.sort((a1,a2) -&amp;gt; a1.getWeight() - a2.getWeight()); 使用方法引用之后是这样的 inventory.sort(Apple::getWeight); 方法引用的语法格式 指向静态方法的引用Class::sta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-12T17:57:17+08:00">
-                2018-07-12
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-28T23:25:50+08:00">
+                2018-07-28
               </time>
             
           </span>
@@ -532,7 +532,6 @@ public class Main {
     }
 }
 </code></pre><p>可以看见方法引用的可读性是要强于lanbda表达式的，如：<br>    List<apple> redApples = filter(inventory,Apple::getColor,”red”);<br>    可以读作:筛选苹果库存中颜色为红色的苹果<br>    inventory.sort(Comparator.comparing(Apple::getColor));<br>    可以读作:库存根据苹果的颜色进行排序<br>但是方法引用在某些方面的比较复杂的，比如要将所有苹果的重量加10,需要使用两个方法引用<br>    addWeight(inventory,Apple::getWeight,Apple::setWeight,10);  </apple></p>
-<p><a href="https://github.com/canxing/java8/tree/master/3/src/com/canxing" target="_blank" rel="noopener">参考源码</a><br>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至liuxin739525@163.com邮箱指正，我将不胜感激。</p>
 
       
     </div>
@@ -654,7 +653,7 @@ public class Main {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -665,7 +664,7 @@ public class Main {
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -676,7 +675,7 @@ public class Main {
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

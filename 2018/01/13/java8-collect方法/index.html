@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="collect方法collect 方法是Stream中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是Stream用于收集某种形式的数据信息，基本上所有的Stream的终端操作都可以使用collect方法来实现 collect的定义collect方法有两">
+<meta name="description" content="collect方法collect 方法是 Stream 中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是 Stream 用于收集某种形式的数据信息，基本上所有的 Stream 的终端操作都可以使用 collect 方法来实现 collect的定义col">
 <meta name="keywords" content="java,java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java8-collect方法">
 <meta property="og:url" content="http://yoursite.com/2018/01/13/java8-collect方法/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="collect方法collect 方法是Stream中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是Stream用于收集某种形式的数据信息，基本上所有的Stream的终端操作都可以使用collect方法来实现 collect的定义collect方法有两">
+<meta property="og:description" content="collect方法collect 方法是 Stream 中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是 Stream 用于收集某种形式的数据信息，基本上所有的 Stream 的终端操作都可以使用 collect 方法来实现 collect的定义col">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-28T12:36:38.366Z">
+<meta property="og:updated_time" content="2018-07-28T15:25:23.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-collect方法">
-<meta name="twitter:description" content="collect方法collect 方法是Stream中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是Stream用于收集某种形式的数据信息，基本上所有的Stream的终端操作都可以使用collect方法来实现 collect的定义collect方法有两">
+<meta name="twitter:description" content="collect方法collect 方法是 Stream 中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。 收集器是 Stream 用于收集某种形式的数据信息，基本上所有的 Stream 的终端操作都可以使用 collect 方法来实现 collect的定义col">
 
 
 
@@ -340,7 +340,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-28T20:36:38+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-28T23:25:23+08:00">
                 2018-07-28
               </time>
             
@@ -396,115 +396,27 @@
       
 
       
-        <h1 id="collect方法"><a href="#collect方法" class="headerlink" title="collect方法"></a>collect方法</h1><p>collect 方法是Stream中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。</p>
-<p>收集器是Stream用于收集某种形式的数据信息，基本上所有的Stream的终端操作都可以使用collect方法来实现</p>
-<h1 id="collect的定义"><a href="#collect的定义" class="headerlink" title="collect的定义"></a>collect的定义</h1><p>collect方法有两种形式  </p>
-<pre><code>方法原型1
-&lt;R&gt; R collect(Supplier&lt;R&gt; supplier,
-              BiConsumer&lt;R, ? super T&gt; accumulator,
-              BiConsumer&lt;R, R&gt; combiner);
-方法原型2
-   &lt;R, A&gt; R collect(Collector&lt;? super T, A, R&gt; collector);
-</code></pre><p>这里主要使用方法原型2,这个方法原型接收一个实现了Collector接口的对象，Collector接口有五个抽象方法，幸运的是java8封装了一些常用的方法供我们使用，这些常用方法封装在java.util.stream.Collectors对象中，这个对象含有多个静态方法，用来返回Collector对象  </p>
-<h1 id="collect方法示例"><a href="#collect方法示例" class="headerlink" title="collect方法示例"></a>collect方法示例</h1><p>Apple.java</p>
-<pre><code>public class Apple {
-    private int weight;
-    private String color;
-    public Apple(int weight, String color) {
-        super();
-        this.weight = weight;
-        this.color = color;
-    }
-    //getter
-    //setter
-}
-</code></pre><p>Main.java</p>
-<pre><code>public class Main {
-    public static void main(String[] args) {
-        List&lt;Apple&gt; inventory = Arrays.asList(
-                new Apple(10,&quot;green&quot;),
-                new Apple(20,&quot;red&quot;),
-                new Apple(12,&quot;red&quot;),
-                new Apple(12,&quot;red&quot;),
-                new Apple(25,&quot;green&quot;));
-        //返回重量最重的苹果
-        System.out.println(&quot;-------------------返回重量最重的苹果----------------&quot;);
-        Optional&lt;Apple&gt; heaviestApple = inventory.stream().collect(Collectors.maxBy(Comparator.comparing(Apple::getWeight)));
-        System.out.println(heaviestApple);
-        //返回重量最轻的苹果
-        System.out.println(&quot;-------------------返回重量最轻的苹果----------------&quot;);
-        Optional&lt;Apple&gt; lightestApple = inventory.stream().collect(Collectors.minBy(Comparator.comparing(Apple::getWeight)));
-        System.out.println(lightestApple);
-        //返回苹果的总重量
-        System.out.println(&quot;-------------------返回苹果的总重量----------------&quot;);
-        int sumInt = inventory.stream().collect(Collectors.summingInt(Apple::getWeight));
-        System.out.println(sumInt);
-        //使用Collectors.averagingInt方法求苹果的平均重量
-        System.out.println(&quot;-------------------求苹果的平均重量-----------------&quot;);
-        double averageWeight = inventory.stream().collect(Collectors.averagingDouble(Apple::getWeight));
-        System.out.println(averageWeight);
-        //返回苹果的重量的各个数据
-        System.out.println(&quot;-------------------返回苹果重量的各个数据属性-----------------&quot;);
-        IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));
-        System.out.println(intSummartStatistics);
-        //将所有苹果颜色拼接为一个字符串
-        System.out.println(&quot;-------------------将所有苹果颜色拼接为一个字符串-----------------&quot;);
-        //joining会自动将流中的数据拼接为字符串，在处理时需要保证流中的数据都是字符串
-        String appleColors = inventory.stream()
-            .map(Apple::getColor)    //将流中的apple转换为apple的颜色
-            .collect(Collectors.joining(/*将每一个颜色后面加上一个空格*/&quot; &quot;));
-        System.out.println(appleColors);
-        //返回苹果数量
-        System.out.println(&quot;-------------------返回苹果的总数量-----------------&quot;);
-        Long count = inventory.stream().collect(Collectors.counting());
-        System.out.println(count);
-        //分组
-        System.out.println(&quot;-------------------将苹果按照苹果颜色进行分组----------------&quot;);
-        Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));
-        System.out.println(appleColorMap);
-        System.out.println(&quot;-------------------将苹果按照苹果颜色和重量进行分组     ----------------&quot;);
-        System.out.println(inventory.stream().collect(Collectors.groupingBy(Apple::getColor,
-                Collectors.groupingBy(apple -&gt; {
-                    if(apple.getWeight() &gt; 10 &amp;&amp; apple.getWeight() &lt; 20) return &quot;一般&quot;;
-                    else if(apple.getWeight() &gt;= 20 ) return &quot;很重&quot;;
-                    else return &quot;轻&quot;;
-                }))));
-        //收集每个颜色的苹果有多少个
-        System.out.println(&quot;-------------------收集每个颜色的苹果有多少个----------------&quot;);
-        Map&lt;String, Long&gt; colorCount = inventory.stream().collect(Collectors.groupingBy(Apple::getColor,Collectors.counting()));
-        System.out.println(colorCount);
-        //分区
-        System.out.println(&quot;-------------------根据苹果颜色进行分区----------------&quot;);
-        Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(&quot;red&quot;)));
-        System.out.println(colorPartition);
-        //归约
-        System.out.println(&quot;-------------------归约操作----------------&quot;);
-        System.out.println(inventory.stream().collect(Collectors.reducing(0,Apple::getWeight,(a,b) -&gt; a + b)));
-        System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.reducing((a,b) -&gt; {
-            if(a &gt; b) return a;
-            else return b;
-        })));
-        System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.reducing(100,(a,b) -&gt; {
-            if(a &gt; b) return a;
-            else return b;
-        })));
-    }
-}
-</code></pre><blockquote>
-<p>上面代码使用了大多数Collectors的方法，还有一些类型的方法,如:averagingDouble,averagingInt,averagingLong都是相同的。<br>Collectors中的方法大致分为分组，分区，容器（返回list，set，map），简单的数值计算和其他  </p>
+        <h2 id="collect方法"><a href="#collect方法" class="headerlink" title="collect方法"></a>collect方法</h2><p>collect 方法是 Stream 中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。</p>
+<p>收集器是 Stream 用于收集某种形式的数据信息，基本上所有的 Stream 的终端操作都可以使用 collect 方法来实现</p>
+<h2 id="collect的定义"><a href="#collect的定义" class="headerlink" title="collect的定义"></a>collect的定义</h2><p>collect 方法有两种形式  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">方法原型<span class="number">1</span></span><br><span class="line">&lt;R&gt; <span class="function">R <span class="title">collect</span><span class="params">(Supplier&lt;R&gt; supplier,</span></span></span><br><span class="line"><span class="function"><span class="params">			  BiConsumer&lt;R, ? <span class="keyword">super</span> T&gt; accumulator,</span></span></span><br><span class="line"><span class="function"><span class="params">			  BiConsumer&lt;R, R&gt; combiner)</span></span>;</span><br><span class="line">方法原型<span class="number">2</span></span><br><span class="line">&lt;R, A&gt; <span class="function">R <span class="title">collect</span><span class="params">(Collector&lt;? <span class="keyword">super</span> T, A, R&gt; collector)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这里主要使用方法原型 2,这个方法原型接收一个实现了 Collector 接口的对象，Collector 接口有五个抽象方法，幸运的是 java8 封装了一些常用的方法供我们使用，这些常用方法封装在 <code>java.util.stream.Collectors</code> 对象中，这个对象含有多个静态方法，用来返回 Collector 对象  </p>
+<h1 id="collect-方法示例"><a href="#collect-方法示例" class="headerlink" title="collect 方法示例"></a>collect 方法示例</h1><p>Apple.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> weight;</span><br><span class="line">	<span class="keyword">private</span> String color;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(<span class="keyword">int</span> weight, String color)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.weight = weight;</span><br><span class="line">		<span class="keyword">this</span>.color = color;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//getter</span></span><br><span class="line">	<span class="comment">//setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Main.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;Apple&gt; inventory = Arrays.asList(</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">10</span>,<span class="string">"green"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">20</span>,<span class="string">"red"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">12</span>,<span class="string">"red"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">12</span>,<span class="string">"red"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">25</span>,<span class="string">"green"</span>));</span><br><span class="line">		<span class="comment">//返回重量最重的苹果</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回重量最重的苹果----------------"</span>);</span><br><span class="line">		Optional&lt;Apple&gt; heaviestApple = inventory.stream().collect(Collectors.maxBy(Comparator.comparing(Apple::getWeight)));</span><br><span class="line">		System.out.println(heaviestApple);</span><br><span class="line">		<span class="comment">//返回重量最轻的苹果</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回重量最轻的苹果----------------"</span>);</span><br><span class="line">		Optional&lt;Apple&gt; lightestApple = inventory.stream().collect(Collectors.minBy(Comparator.comparing(Apple::getWeight)));</span><br><span class="line">		System.out.println(lightestApple);</span><br><span class="line">		<span class="comment">//返回苹果的总重量</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回苹果的总重量----------------"</span>);</span><br><span class="line">		<span class="keyword">int</span> sumInt = inventory.stream().collect(Collectors.summingInt(Apple::getWeight));</span><br><span class="line">		System.out.println(sumInt);</span><br><span class="line">		<span class="comment">//使用Collectors.averagingInt方法求苹果的平均重量</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------求苹果的平均重量-----------------"</span>);</span><br><span class="line">		<span class="keyword">double</span> averageWeight = inventory.stream().collect(Collectors.averagingDouble(Apple::getWeight));</span><br><span class="line">		System.out.println(averageWeight);</span><br><span class="line">		<span class="comment">//返回苹果的重量的各个数据</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回苹果重量的各个数据属性-----------------"</span>);</span><br><span class="line">		IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));</span><br><span class="line">		System.out.println(intSummartStatistics);</span><br><span class="line">		<span class="comment">//将所有苹果颜色拼接为一个字符串</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------将所有苹果颜色拼接为一个字符串-----------------"</span>);</span><br><span class="line">		<span class="comment">//joining会自动将流中的数据拼接为字符串，在处理时需要保证流中的数据都是字符串</span></span><br><span class="line">		String appleColors = inventory.stream()</span><br><span class="line">			.map(Apple::getColor)	<span class="comment">//将流中的apple转换为apple的颜色</span></span><br><span class="line">			.collect(Collectors.joining(<span class="comment">/*将每一个颜色后面加上一个空格*/</span><span class="string">" "</span>));</span><br><span class="line">		System.out.println(appleColors);</span><br><span class="line">		<span class="comment">//返回苹果数量</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回苹果的总数量-----------------"</span>);</span><br><span class="line">		Long count = inventory.stream().collect(Collectors.counting());</span><br><span class="line">		System.out.println(count);</span><br><span class="line">		<span class="comment">//分组</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------将苹果按照苹果颜色进行分组----------------"</span>);</span><br><span class="line">		Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));</span><br><span class="line">		System.out.println(appleColorMap);</span><br><span class="line">		System.out.println(<span class="string">"-------------------将苹果按照苹果颜色和重量进行分组 	----------------"</span>);</span><br><span class="line">		System.out.println(inventory.stream().collect(Collectors.groupingBy(Apple::getColor,</span><br><span class="line">				Collectors.groupingBy(apple -&gt; &#123;</span><br><span class="line">					<span class="keyword">if</span>(apple.getWeight() &gt; <span class="number">10</span> &amp;&amp; apple.getWeight() &lt; <span class="number">20</span>) <span class="keyword">return</span> <span class="string">"一般"</span>;</span><br><span class="line">					<span class="keyword">else</span> <span class="keyword">if</span>(apple.getWeight() &gt;= <span class="number">20</span> ) <span class="keyword">return</span> <span class="string">"很重"</span>;</span><br><span class="line">					<span class="keyword">else</span> <span class="keyword">return</span> <span class="string">"轻"</span>;</span><br><span class="line">				&#125;))));</span><br><span class="line">		<span class="comment">//收集每个颜色的苹果有多少个</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------收集每个颜色的苹果有多少个----------------"</span>);</span><br><span class="line">		Map&lt;String, Long&gt; colorCount = inventory.stream().collect(Collectors.groupingBy(Apple::getColor,Collectors.counting()));</span><br><span class="line">		System.out.println(colorCount);</span><br><span class="line">		<span class="comment">//分区</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------根据苹果颜色进行分区----------------"</span>);</span><br><span class="line">		Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(<span class="string">"red"</span>)));</span><br><span class="line">		System.out.println(colorPartition);</span><br><span class="line">		<span class="comment">//归约</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------归约操作----------------"</span>);</span><br><span class="line">		System.out.println(inventory.stream().collect(Collectors.reducing(<span class="number">0</span>,Apple::getWeight,(a,b) -&gt; a + b)));</span><br><span class="line">		System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.reducing((a,b) -&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span>(a &gt; b) <span class="keyword">return</span> a;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> b;</span><br><span class="line">		&#125;)));</span><br><span class="line">		System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.reducing(<span class="number">100</span>,(a,b) -&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span>(a &gt; b) <span class="keyword">return</span> a;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> b;</span><br><span class="line">		&#125;)));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码使用了大多数 Collectors 的方法，还有一些类型的方法,如: averagingDouble,averagingInt,averagingLong 都是相同的。</p>
+<p>Collectors 中的方法大致分为分组，分区，容器（返回list，set，map），简单的数值计算和其他</p>
 <p>其中分组和分区是有区别的，分区可以看做是分组的特殊形式，分区只会有两个区别满足条件的（true）和不满足条件的（false），不管是分区还是分组，都可以再分,分组是根据返回的条件进行分组  </p>
-</blockquote>
-<pre><code>Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));
-</code></pre><p>这里就是根据苹果的颜色进行分组，map 中只会有两个主键，red 或者 green。如果将条件改为Apple::getWeight,那么主键就会有10,20,12,25,因为有两个重量为12的苹果，这两个苹果就会分在一组</p>
-<pre><code>Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(&quot;red&quot;)));
-</code></pre><p>这里根据苹果颜色是不是红色进行分区，只会有两个主键，true或者false，true分区里的苹果都是红色的，false分区里的值都不是红色的，但是partitioningBy里面可以传第二个参数，可以对分区里面再进行<code>收集</code>（collect方法）操作</p>
-<p>容器可以为三种，List，Set，Map容器，只需要调用Collectors.toXxxx()方法就可以将流最后组装成一个容易<br>简单的数值计算可以直接通过流计算得出，例如Stream.max()方法和Stream.collect(Collectors.maxBy())方法是相同的，在某些方面，如</p>
-<pre><code>IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));
-</code></pre><p>可以返回多种数据的不同运算结果，还是很方便的</p>
-<blockquote>
-<p>collect方法接收一个Collector对象，而大多数的Collector对象都可以通过Collectors对象的静态工厂方法获取，如果有需要可以查阅手册</p>
-</blockquote>
-<p><a href="https://github.com/canxing/java8/tree/master/6/src/com/canxing" target="_blank" rel="noopener">参考源码</a>  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));</span><br></pre></td></tr></table></figure>
+<p>这里就是根据苹果的颜色进行分组，map 中只会有两个主键，red 或者 green。如果将条件改为 Apple::getWeight，那么主键就会有 10,20,12,25，因为有两个重量为 12 的苹果，这两个苹果就会分在一组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(<span class="string">"red"</span>)));</span><br></pre></td></tr></table></figure>
+<p>这里根据苹果颜色是不是红色进行分区，只会有两个主键，true 或者 false，true 分区里的苹果都是红色的，false 分区里的值都不是红色的，但是 partitioningBy 里面可以传第二个参数，可以对分区里面再进行<code>收集</code>（collect方法）操作</p>
+<p>容器可以为三种，List，Set，Map 容器，只需要调用 Collectors.toXxxx() 方法就可以将流最后组装成一个容易</p>
+<p>简单的数值计算可以直接通过流计算得出，例如 Stream.max() 方法和 Stream.collect(Collectors.maxBy()) 方法是相同的，在某些方面，如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));</span><br></pre></td></tr></table></figure>
+<p>可以返回多种数据的不同运算结果，还是很方便的</p>
+<p>collect 方法接收一个 Collector 对象，而大多数的 Collector 对象都可以通过 Collectors 对象的静态工厂方法获取，如果有需要可以查阅手册</p>
 
       
     </div>
@@ -547,8 +459,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/17/IntelljJ-IDEA-Community-Edition-maven-webapp/" rel="prev" title="IDEA社区版使用maven搭建web开发环境">
-                IDEA社区版使用maven搭建web开发环境 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/02/数据结构c语言描述三-二叉查找树/" rel="prev" title="数据结构c语言描述三-二叉查找树">
+                数据结构c语言描述三-二叉查找树 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -626,7 +538,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -637,7 +549,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -648,7 +560,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -691,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#collect方法"><span class="nav-number">1.</span> <span class="nav-text"><a href="#collect&#x65B9;&#x6CD5;" class="headerlink" title="collect&#x65B9;&#x6CD5;"></a>collect&#x65B9;&#x6CD5;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#collect的定义"><span class="nav-number">2.</span> <span class="nav-text"><a href="#collect&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="collect&#x7684;&#x5B9A;&#x4E49;"></a>collect&#x7684;&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#collect方法示例"><span class="nav-number">3.</span> <span class="nav-text"><a href="#collect&#x65B9;&#x6CD5;&#x793A;&#x4F8B;" class="headerlink" title="collect&#x65B9;&#x6CD5;&#x793A;&#x4F8B;"></a>collect&#x65B9;&#x6CD5;&#x793A;&#x4F8B;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#collect方法"><span class="nav-number">1.</span> <span class="nav-text"><a href="#collect&#x65B9;&#x6CD5;" class="headerlink" title="collect&#x65B9;&#x6CD5;"></a>collect&#x65B9;&#x6CD5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#collect的定义"><span class="nav-number">2.</span> <span class="nav-text"><a href="#collect&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="collect&#x7684;&#x5B9A;&#x4E49;"></a>collect&#x7684;&#x5B9A;&#x4E49;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#collect-方法示例"><span class="nav-number"></span> <span class="nav-text"><a href="#collect-&#x65B9;&#x6CD5;&#x793A;&#x4F8B;" class="headerlink" title="collect &#x65B9;&#x6CD5;&#x793A;&#x4F8B;"></a>collect &#x65B9;&#x6CD5;&#x793A;&#x4F8B;</span></a></div>
             
 
           </div>

@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="残星">
 <meta property="og:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中   使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据   像我们前面处理苹果集合时那样，可以实现一个方法来收集">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-26T15:24:04.896Z">
+<meta property="og:updated_time" content="2018-07-28T15:25:36.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-使用流">
 <meta name="twitter:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中   使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据   像我们前面处理苹果集合时那样，可以实现一个方法来收集">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-07-26T23:24:04+08:00">
-                2018-07-26
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-28T23:25:36+08:00">
+                2018-07-28
               </time>
             
           </span>
@@ -485,9 +485,7 @@ Object[] toArray()                                                              
     sorted()                                                            默认排序，排序类需要实现默认排序接口
     sorted(Comparator&lt;? super T&gt; comparator)                            使用自定义排序对流数据进行排序
 值得注意的是flatMap方法，这个方法和map方法不同，map方法会将每一个流对象都作用于Function&lt;? super T,? extends R&gt;返回一个R对象，flatMap方法也会将所有的流对象作用于Function的方法，但是只会返回一个`流对象`，这个方法可以用作一个流中的对象的属性是集合，并且需要将所有流对象为集合的属性收集起来的情况，比如收集几个字符串中所有不重复的字符。
-</code></pre><p><a href="https://github.com/canxing/java8/tree/master/5/src/com/canxing" target="_blank" rel="noopener">参考源码</a>  </p>
-<p>限于知识和认识有限，页面中难免出现纰漏，如有错误可以发送邮件至canxing_zh@163.com邮箱指正，我将不胜感激。</p>
-
+</code></pre>
       
     </div>
     
@@ -608,7 +606,7 @@ Object[] toArray()                                                              
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -619,7 +617,7 @@ Object[] toArray()                                                              
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -630,7 +628,7 @@ Object[] toArray()                                                              
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
