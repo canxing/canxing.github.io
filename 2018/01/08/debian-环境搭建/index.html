@@ -500,7 +500,7 @@ modprobe -r iwlwifi ; modprobe iwlwifi
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
 <p>然后使用ssh-copy-id 将公钥发送给远程主机</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id username@ip-addr</span><br></pre></td></tr></table></figure>
-<p>然后在远程主机上将公钥文件名称修改为authorized_keys<br>接着使用ssh登陆远程主机，如果不要密钥可以成功登陆那么完成如果不行你也许还要做这一步</p>
+<p>然后在远程主机上将公钥文件名称修改为authorized_keys<br>接着使用ssh登陆远程主机，如果不行你也许还要做这一步</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add private-key</span><br></pre></td></tr></table></figure>
 <p>将你的私钥保存起来</p>
 
