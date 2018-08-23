@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next muse" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="nginx," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Nginx 有核心模块和第三方模块，我们也可以自定义模块来使用。Nginx 就像一个小型的编程语言，要添加自定义模块就要满足一些 Nginx 的编写要求，就像 C 语言必须有一个 main 函数一样。 这里大部分的内容來自于《Nginx 开发从入门到精通》，只不过整理了一下以满足我自己的思考方式，更详细的内容可以访问 《Nginx 开发从入门到精通》。ngx_http_hello_module.c">
+<meta name="keywords" content="nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx 自定义模块">
+<meta property="og:url" content="http://yoursite.com/2018/08/23/ngxin-customize-module/index.html">
+<meta property="og:site_name" content="残星">
+<meta property="og:description" content="Nginx 有核心模块和第三方模块，我们也可以自定义模块来使用。Nginx 就像一个小型的编程语言，要添加自定义模块就要满足一些 Nginx 的编写要求，就像 C 语言必须有一个 main 函数一样。 这里大部分的内容來自于《Nginx 开发从入门到精通》，只不过整理了一下以满足我自己的思考方式，更详细的内容可以访问 《Nginx 开发从入门到精通》。ngx_http_hello_module.c">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-23T11:56:57.441Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nginx 自定义模块">
+<meta name="twitter:description" content="Nginx 有核心模块和第三方模块，我们也可以自定义模块来使用。Nginx 就像一个小型的编程语言，要添加自定义模块就要满足一些 Nginx 的编写要求，就像 C 语言必须有一个 main 函数一样。 这里大部分的内容來自于《Nginx 开发从入门到精通》，只不过整理了一下以满足我自己的思考方式，更详细的内容可以访问 《Nginx 开发从入门到精通》。ngx_http_hello_module.c">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/23/ngxin-customize-module/"/>
+
+
+
+
+
+  <title>nginx 自定义模块 | 残星</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">残星</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/23/ngxin-customize-module/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="残星">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="残星">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nginx 自定义模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T19:30:46+08:00">
+                2018-08-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-23T19:56:57+08:00">
+                2018-08-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">nginx</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Nginx 有核心模块和第三方模块，我们也可以自定义模块来使用。Nginx 就像一个小型的编程语言，要添加自定义模块就要满足一些 Nginx 的编写要求，就像 C 语言必须有一个 main 函数一样。</p>
+<p>这里大部分的内容來自于《Nginx 开发从入门到精通》，只不过整理了一下以满足我自己的思考方式，更详细的内容可以访问 <a href="http://tengine.taobao.org/book/chapter_03.html" target="_blank" rel="noopener">《Nginx 开发从入门到精通》</a>。<code>ngx_http_hello_module.c</code> 为主要模块，<code>config</code> 是添加自定义模块到 Nginx 时使用的。</p>
+<p>模块所有代码在<a href="https://github.com/canxing/the-road-to-learning/tree/master/nginx/module" target="_blank" rel="noopener">这里</a></p>
+<h2 id="配置指令"><a href="#配置指令" class="headerlink" title="配置指令"></a>配置指令</h2><p>Nginx 都是以指令的形式进行配置的，所以我们的自定义模块也需要自定义指令来实现功能。自定义指令需要借助于 <code>ngx_command_t</code> 结构体。<code>ngx_command_t</code> 结构体定义在 <code>src/core/ngx_conf_file.h</code> 文件中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ngx_command_s</span> &#123;</span></span><br><span class="line">    <span class="keyword">ngx_str_t</span>             name;</span><br><span class="line">    <span class="keyword">ngx_uint_t</span>            type;</span><br><span class="line">    <span class="keyword">char</span>               *(*<span class="built_in">set</span>)(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">ngx_command_t</span> *cmd, <span class="keyword">void</span> *conf);</span><br><span class="line">    <span class="keyword">ngx_uint_t</span>            conf;</span><br><span class="line">    <span class="keyword">ngx_uint_t</span>            offset;</span><br><span class="line">    <span class="keyword">void</span>                 *post;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在 <code>src/core/ngx_core.h</code> 文件中将使用 <code>ngx_command_t</code> 来表示 <code>struct ngx_command_s</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ngx_command_s</span>         <span class="title">ngx_command_t</span>;</span></span><br></pre></td></tr></table></figure>
+<p>这是关于自定义指令的描述。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">ngx_command_t</span> ngx_http_hello_commands[] = &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        ngx_string(<span class="string">"hello_string"</span>),</span><br><span class="line">        NGX_HTTP_LOC_CONF|NGX_CONF_NOARGS|NGX_CONF_TAKE1,</span><br><span class="line">        ngx_http_hello_string,</span><br><span class="line">        NGX_HTTP_LOC_CONF_OFFSET,</span><br><span class="line">        offsetof(<span class="keyword">ngx_http_hello_loc_conf_t</span>, hello_string),</span><br><span class="line">        <span class="literal">NULL</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        ngx_string(<span class="string">"hello_counter"</span>),</span><br><span class="line">        NGX_HTTP_LOC_CONF|NGX_CONF_FLAG,</span><br><span class="line">        ngx_http_hello_counter,</span><br><span class="line">        NGX_HTTP_LOC_CONF_OFFSET,</span><br><span class="line">        offsetof(<span class="keyword">ngx_http_hello_loc_conf_t</span>, hello_counter),</span><br><span class="line">        <span class="literal">NULL</span></span><br><span class="line">    &#125;,</span><br><span class="line">    ngx_null_command</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>name</strong> 表示指令的名称，定义好后在 Nginx 配置文件中就可以直接使用该名称作为指令，比如在配置文件中可以使用 <code>hello_string</code> 来配置。</li>
+<li><strong>type</strong> 为指令接受参数的条件。条件由两部分构成：位置和参数个数。 </li>
+</ul>
+<p>位置由以下参数表示</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>    NGX_DIRECT_CONF</td>
+<td>可以出现在配置文件中最外层。例如已经提供的配置指令 daemon, master_process 等。</td>
+</tr>
+<tr>
+<td>    NGX_MAIN_CONF</td>
+<td>http, mail, events, error_log 等。</td>
+</tr>
+<tr>
+<td>    NGX_ANY_CONF</td>
+<td>该配置指令可以出现在任意配置级别上。</td>
+</tr>
+<tr>
+<td>    NGX_HTTP_MAIN_CONF</td>
+<td>可以直接出现在 http 配置指令里。</td>
+</tr>
+<tr>
+<td>    NGX_HTTP_SRV_CONF</td>
+<td>可以出现在 http 里面的 server 配置指令里。</td>
+</tr>
+<tr>
+<td>    NGX_HTTP_LOC_CONF</td>
+<td>可以出现在 http server 块里面的 location 配置指令里。</td>
+</tr>
+<tr>
+<td>    NGX_HTTP_UPS_CONF</td>
+<td>可以出现在 http 里面的 upstream 配置指令里。</td>
+</tr>
+<tr>
+<td>    NGX_HTTP_SIF_CONF</td>
+<td>可以出现在 http 里面的 server 配置指令里的 if 语句所在的 block 中。</td>
+</tr>
+<tr>
+<td>    NGX_HTTP_LMT_CONF</td>
+<td>可以出现在 http 里面的 limit_except 指令的 block 中。</td>
+</tr>
+<tr>
+<td>    NGX_HTTP_LIF_CONF</td>
+<td>可以出现在 http server 块里面的 location 配置指令里的 if 语句所在 block 中。</td>
+</tr>
+</tbody>
+</table>
+<p>参数个数由以下参数表示</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NGX_CONF_NOARGS</td>
+<td>配置指令不接受任何参数。</td>
+</tr>
+<tr>
+<td>NGX_CONF_TAKE1</td>
+<td>配置指令接受 1 个参数。</td>
+</tr>
+<tr>
+<td>NGX_CONF_TAKE2</td>
+<td>配置指令接受 2 个参数。</td>
+</tr>
+<tr>
+<td>NGX_CONF_TAKE3</td>
+<td>配置指令接受 3 个参数。</td>
+</tr>
+<tr>
+<td>NGX_CONF_TAKE4</td>
+<td>配置指令接受 4 个参数。</td>
+</tr>
+<tr>
+<td>NGX_CONF_TAKE5</td>
+<td>配置指令接受 5 个参数。</td>
+</tr>
+<tr>
+<td>NGX_CONF_TAKE6</td>
+<td>配置指令接受 6 个参数。</td>
+</tr>
+<tr>
+<td>NGX_CONF_TAKE7</td>
+<td>配置指令接受 7 个参数。</td>
+</tr>
+<tr>
+<td>NGX_CONF_MULTI</td>
+<td>配置指令接受多个参数，即个数不定。</td>
+</tr>
+<tr>
+<td>NGX_CONF_BLOCK</td>
+<td>配置指令可以接受的值是一个配置信息。也就是一对大括号扩起来的内容。里面可以再包括很多个配置指令。比如常见的 server 指令就是这个属性。</td>
+</tr>
+<tr>
+<td>NGX_CONF_FLAG</td>
+<td>配置指令可以接受的值是 on 或者 off，最终会被转成 bool 值。</td>
+</tr>
+<tr>
+<td>NGX_CONF_ANY</td>
+<td>配置指令可以接受的任意的参数值</td>
+</tr>
+</tbody>
+</table>
+<p>上面这些参数可以使用 <code>|</code> 进行组合，比如上面配置中 <code>NGX_HTTP_LOC_CONF|NGX_CONF_NOARGS|NGX_CONF_TAKE1</code> 就表示定义在 http server 块中的 location 配置指令中，接受 0 个或者 1 个参数。</p>
+<ul>
+<li><strong><em>set</em></strong> 是一个函数指针，为该指令的处理函数，因为指令如何处理只有定义这个指令的人最清楚。</li>
+</ul>
+<p>函数处理成功时返回 <code>NGX_OK</code>，否则返回 <code>NGX_CONF_ERROR</code> 或者一个自定义的错误信息的字符串。</p>
+<p>函数调用时会传入三个参数：</p>
+<ol>
+<li>cf: 该参数里面保存从配置文件读取到的原始字符串以及相关的一些信息。特别注意的是这个参数的 args 字段是一个 ngx_str_t 类型的数组，该数组的首个元素是这个配置指令本身，第二个元素是指令的第一个参数，第三个元素是第二个参数，依次类推。</li>
+<li>cmd: 这个配置指令对应的 ngx_command_t 结构。</li>
+<li>conf: 就是定义的存储这个配置值的结构体。</li>
+</ol>
+<p>为了方便对配置指令参数的读取，Nginx 默认提供了一些对标准类型的参数进行读取的函数，可以直接复制给 set 字段使用。</p>
+<table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ngx_conf_set_flag_slot</td>
+<td>读取 NGX_CONF_FLAG 类型的参数。</td>
+</tr>
+<tr>
+<td>ngx_conf_set_str_slot</td>
+<td>读取字符串类型的参数。</td>
+</tr>
+<tr>
+<td>ngx_conf_set_str_array_slot</td>
+<td>读取字符串数组类型的参数。</td>
+</tr>
+<tr>
+<td>ngx_conf_set_keyval_slot</td>
+<td>读取键值对类型的参数。</td>
+</tr>
+<tr>
+<td>ngx_conf_set_num_slot</td>
+<td>读取整数类型（有符号）的参数</td>
+</tr>
+<tr>
+<td>ngx_conf_set_size_slot</td>
+<td>读取 size_t 类型的参数，也就是无符号数。</td>
+</tr>
+<tr>
+<td>ngx_conf_set_off_slot</td>
+<td>读取 off_t 类型的参数。</td>
+</tr>
+<tr>
+<td>ngx_conf_set_msec_slot</td>
+<td>读取毫秒值类型的参数。</td>
+</tr>
+<tr>
+<td>ngx_conf_set_sec_slot</td>
+<td>读取秒值类型的参数。</td>
+</tr>
+<tr>
+<td>ngx_conf_set_bufs_slot</td>
+<td>读取的参数值是 2 个，一个是 buf 的个数，一个是 buf 的大小。</td>
+</tr>
+<tr>
+<td>ngx_conf_set_enum_slot</td>
+<td>读取枚举类型的参数，将其转换成 ngx_uint_t 类型。</td>
+</tr>
+<tr>
+<td>ngx_conf_set_bitmask_slot</td>
+<td>读取参数的值，并将这些参数以 bit 位的形式存储。</td>
+</tr>
+</tbody>
+</table>
+<p>下面是对 hello_string 进行处理的代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">char</span> *<span class="title">ngx_http_hello_counter</span><span class="params">(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">ngx_command_t</span> *cmd, <span class="keyword">void</span> *conf)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">ngx_http_hello_loc_conf_t</span>* local_conf;</span><br><span class="line">    local_conf = conf;</span><br><span class="line">    <span class="keyword">char</span>* rv = <span class="literal">NULL</span>;</span><br><span class="line">    rv = ngx_conf_set_flag_slot(cf, cmd, conf);</span><br><span class="line">    ngx_conf_log_error(NGX_LOG_EMERG, cf, <span class="number">0</span>, <span class="string">"hello_counter:%d"</span>, local_conf-&gt;hello_counter);</span><br><span class="line">    <span class="keyword">return</span> rv;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该函数返回的是指令接收的参数，使用 ntx_http_hello_loc_conf_t 只是为了打印一下输出。</p>
+<p>ngx_http_hello_loc_conf_t 的定义如下。在传入 set 函数指针时，conf 指向的就是这个结构体。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">ngx_str_t</span> hello_string;</span><br><span class="line">    <span class="keyword">ngx_int_t</span> hello_counter;</span><br><span class="line">&#125;<span class="keyword">ngx_http_hello_loc_conf_t</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><em>conf</em></strong> 该字段被NGX_HTTP_MODULE类型模块所用 (我们编写的基本上都是NGX_HTTP_MOUDLE，只有一些nginx核心模块是非NGX_HTTP_MODULE)，该字段指定当前配置项存储的内存位置。实际上是使用哪个内存池的问题。因为http模块对所有http模块所要保存的配置信息，划分了main, server和location三个地方进行存储，每个地方都有一个内存池用来分配存储这些信息的内存。这里可能的值为 NGX_HTTP_MAIN_CONF_OFFSET、NGX_HTTP_SRV_CONF_OFFSET或NGX_HTTP_LOC_CONF_OFFSET。当然也可以直接置为0，就是NGX_HTTP_MAIN_CONF_OFFSET。</li>
+<li><strong><em>offset</em></strong>: 指定该配置项值的精确存放位置，一般指定为某一个结构体变量的字段偏移。因为对于配置信息的存储，一般我们都是定义个结构体来存储的。那么比如我们定义了一个结构体A，该项配置的值需要存储到该结构体的b字段。那么在这里就可以填写为offsetof(A, b)。</li>
+<li>该字段存储一个指针。可以指向任何一个在读取配置过程中需要的数据，以便于进行配置读取的处理。大多数时候，都不需要，所以简单地设为0即可。</li>
+</ul>
+<p><strong><em>需要注意的是，就是在ngx_http_hello_commands这个数组定义的最后，都要加一个ngx_null_command作为结尾。</em></strong></p>
+<h2 id="模块上下文"><a href="#模块上下文" class="headerlink" title="模块上下文"></a>模块上下文</h2><p>模块上下文和 <code>ngx_http_module_t</code> 有关，这个结构体的定义在 <code>src/http/ngx_http_config.h</code> 文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">ngx_int_t</span>   (*preconfiguration)(<span class="keyword">ngx_conf_t</span> *cf);</span><br><span class="line">    <span class="keyword">ngx_int_t</span>   (*postconfiguration)(<span class="keyword">ngx_conf_t</span> *cf);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span>       *(*create_main_conf)(<span class="keyword">ngx_conf_t</span> *cf);</span><br><span class="line">    <span class="keyword">char</span>       *(*init_main_conf)(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">void</span> *conf);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span>       *(*create_srv_conf)(<span class="keyword">ngx_conf_t</span> *cf);</span><br><span class="line">    <span class="keyword">char</span>       *(*merge_srv_conf)(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">void</span> *prev, <span class="keyword">void</span> *conf);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span>       *(*create_loc_conf)(<span class="keyword">ngx_conf_t</span> *cf);</span><br><span class="line">    <span class="keyword">char</span>       *(*merge_loc_conf)(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">void</span> *prev, <span class="keyword">void</span> *conf);</span><br><span class="line">&#125; <span class="keyword">ngx_http_module_t</span>;</span><br></pre></td></tr></table></figure>
+<p>这个变量实际上是提供一组回调函数指针，这些函数有在创建存储配置信息的对象的函数，也有在创建前和创建后会调用的函数。这些函数都将被nginx在合适的时间进行调用。</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>preconfiguration</td>
+<td>在创建和读取该模块的配置信息之前被调用。</td>
+</tr>
+<tr>
+<td>postconfiguration</td>
+<td>在创建和读取该模块的配置信息之后被调用。</td>
+</tr>
+<tr>
+<td>create_main_conf</td>
+<td>调用该函数创建本模块位于 http block 的配置信息存储结构。该函数成功的时候，返回创建的配置对象。失败的话，返回 NULL。</td>
+</tr>
+<tr>
+<td>init_main_conf</td>
+<td>调用该函数初始化本模块位于 http block 的配置信息存储结构。该函数成功的时候，返回 NGX_CONF_OK。失败的话，返回 NGX_CONF_ERROR 或错误字符串</td>
+</tr>
+<tr>
+<td>create_srv_conf</td>
+<td>调用该函数创建本模块位于 http server block 的配置信息存储结构，每个 server block 会创建一个。该函数成功的时候，返回创建的配置对象。失败的话，返回 NULL。</td>
+</tr>
+<tr>
+<td>merge_srv_conf</td>
+<td>因为有些配置指令既可以出现在 http block，也可以出现在 http server block 中。那么遇到这种情况，每个 server都会有自己存储结构来存储该 server 的配置，但是在这种情况下 http block 中的配置与 server block 中的配置信息发生冲突的时候，就需要调用此函数进行合并，该函数并非必须提供，当预计到绝对不会发生需要合并的情况的时候，就无需提供。当然为了安全起见还是建议提供。该函数执行成功的时候，返回 NGX_CONF_OK。失败的话，返回 NGX_CONF_ERROR 或错误字符串。</td>
+</tr>
+<tr>
+<td>create_loc_conf</td>
+<td>调用该函数创建本模块位于 location block 的配置信息存储结构。每个在配置中指明的 location 创建一个。该函数执行成功，返回创建的配置对象。失败的话，返回 NULL。</td>
+</tr>
+<tr>
+<td>merge_loc_conf</td>
+<td>与 merge_srv_conf 类似，这个也是进行配置值合并的地方。该函数成功的时候，返回 NGX_CONF_OK。失败的话，返回 NGX_CONF_ERROR 或错误字符串。</td>
+</tr>
+</tbody>
+</table>
+<p>Nginx 里面的配置信息都是上下一层层的嵌套的，对于具体某个 location 的话，对于同一个配置，如果当前层次没有定义，那么就使用上层的配置，否则使用当前层次的配置。</p>
+<p>下面为该自定义模块的上下文定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">ngx_http_module_t</span> ngx_http_hello_module_ctx = &#123;</span><br><span class="line">    <span class="literal">NULL</span>,</span><br><span class="line">    ngx_http_hello_init,</span><br><span class="line"></span><br><span class="line">    <span class="literal">NULL</span>,</span><br><span class="line">    <span class="literal">NULL</span>,</span><br><span class="line"></span><br><span class="line">    <span class="literal">NULL</span>,</span><br><span class="line">    <span class="literal">NULL</span>,</span><br><span class="line"></span><br><span class="line">    ngx_http_hello_create_loc_conf,</span><br><span class="line">    <span class="literal">NULL</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上述配置说明了在创建和读取该模块的配置信息之后调用初始化函数，并且在 location 块中配配置信息存储结构。</p>
+<p>ngx_http_hello_init 函数定义如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">ngx_int_t</span></span><br><span class="line">ngx_http_hello_init(<span class="keyword">ngx_conf_t</span> *cf) </span><br><span class="line">&#123;</span><br><span class="line">    ngx_http_handler_pt *h;</span><br><span class="line">    <span class="keyword">ngx_http_core_main_conf_t</span> *cmcf;</span><br><span class="line"></span><br><span class="line">    cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);</span><br><span class="line">    </span><br><span class="line">    h = ngx_array_push(&amp;cmcf-&gt;phases[NGX_HTTP_CONTENT_PHASE].handlers);</span><br><span class="line">    <span class="keyword">if</span> (h == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> NGX_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *h = ngx_http_hello_handler;</span><br><span class="line">    <span class="keyword">return</span> NGX_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ngx_http_hello_handler 函数定义如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">ngx_int_t</span></span><br><span class="line">ngx_http_hello_handler(<span class="keyword">ngx_http_request_t</span> *r)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">ngx_int_t</span> rc;</span><br><span class="line">    <span class="keyword">ngx_buf_t</span> *b;</span><br><span class="line">    <span class="keyword">ngx_chain_t</span> out;</span><br><span class="line">    <span class="keyword">ngx_http_hello_loc_conf_t</span>* my_conf;</span><br><span class="line">    u_char ngx_hello_string[<span class="number">1024</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">ngx_uint_t</span> content_length = <span class="number">0</span>;</span><br><span class="line">    ngx_log_error(NGX_LOG_EMERG, r-&gt;connection-&gt;<span class="built_in">log</span>, <span class="number">0</span>, <span class="string">"ngx_http_hello_handler is called!"</span>);</span><br><span class="line"></span><br><span class="line">    my_conf = ngx_http_get_module_loc_conf(r, ngx_http_hello_module);</span><br><span class="line">    <span class="keyword">if</span> (my_conf-&gt;hello_string.len == <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        ngx_log_error(NGX_LOG_EMERG, r-&gt;connection-&gt;<span class="built_in">log</span>, <span class="number">0</span>, <span class="string">"hello string is empty!"</span>);</span><br><span class="line">        <span class="keyword">return</span> NGX_DECLINED;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (my_conf-&gt;hello_counter == NGX_CONF_UNSET || my_conf-&gt;hello_counter == <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        ngx_sprintf(ngx_hello_string, <span class="string">"%s"</span>, my_conf-&gt;hello_string.data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;</span><br><span class="line">        ngx_sprintf(ngx_hello_string, <span class="string">"%s Visited Times:%d"</span>, my_conf-&gt;hello_string.data, </span><br><span class="line">                ++ngx_hello_visited_times);</span><br><span class="line">    &#125;</span><br><span class="line">    ngx_log_error(NGX_LOG_EMERG, r-&gt;connection-&gt;<span class="built_in">log</span>, <span class="number">0</span>, <span class="string">"hello_string:%s"</span>, ngx_hello_string);</span><br><span class="line">    content_length = ngx_strlen(ngx_hello_string);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!(r-&gt;method &amp; (NGX_HTTP_GET|NGX_HTTP_HEAD))) &#123;</span><br><span class="line">        <span class="keyword">return</span> NGX_HTTP_NOT_ALLOWED;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    rc = ngx_http_discard_request_body(r);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (rc != NGX_OK) &#123;</span><br><span class="line">        <span class="keyword">return</span> rc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ngx_str_set(&amp;r-&gt;headers_out.content_type, <span class="string">"text/html"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (r-&gt;method == NGX_HTTP_HEAD) &#123;</span><br><span class="line">        r-&gt;headers_out.status = NGX_HTTP_OK;</span><br><span class="line">        r-&gt;headers_out.content_length_n = content_length;</span><br><span class="line">        <span class="keyword">return</span> ngx_http_send_header(r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    b = ngx_pcalloc(r-&gt;pool, <span class="keyword">sizeof</span>(<span class="keyword">ngx_buf_t</span>));</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> NGX_HTTP_INTERNAL_SERVER_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    out.buf = b;</span><br><span class="line">    out.next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    b-&gt;pos = ngx_hello_string;</span><br><span class="line">    b-&gt;last = ngx_hello_string + content_length;</span><br><span class="line">    b-&gt;memory = <span class="number">1</span>;</span><br><span class="line">    b-&gt;last_buf = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    r-&gt;headers_out.status = NGX_HTTP_OK;</span><br><span class="line">    r-&gt;headers_out.content_length_n = content_length;</span><br><span class="line"></span><br><span class="line">    rc = ngx_http_send_header(r);</span><br><span class="line">    <span class="keyword">if</span> (rc == NGX_ERROR || rc &gt; NGX_OK || r-&gt;header_only) &#123;</span><br><span class="line">        <span class="keyword">return</span> rc;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ngx_http_output_filter(r, &amp;out);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="模块的定义"><a href="#模块的定义" class="headerlink" title="模块的定义"></a>模块的定义</h2><p>上面分别说了指令的配置以及模块的上下文定义，关于模块本身的定义说的不多。</p>
+<p>对于开发一个模块来说，我们都需要定义一个 <code>ngx_module_t</code> 类型的变量来说明这个模块本身的信息，从某种意义上来说，这是这个模块最重要的一个信息，它告诉了 Nginx 这个模块的一些信息，上面定义的配置信息，还有模块上下文信息，都是通过这个结构来告诉 Nginx 系统的，也就是加载模块的上层代码，都需要通过定义的这个结构，来获取这些信息。</p>
+<p><code>ngx_module_t</code> 的定义在 <code>src/core/ngx_module.h</code> 文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ngx_module_s</span> &#123;</span></span><br><span class="line">    <span class="keyword">ngx_uint_t</span>            ctx_index;</span><br><span class="line">    <span class="keyword">ngx_uint_t</span>            index;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>                 *name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">ngx_uint_t</span>            spare0;</span><br><span class="line">    <span class="keyword">ngx_uint_t</span>            spare1;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">ngx_uint_t</span>            version;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>           *signature;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span>                 *ctx;</span><br><span class="line">    <span class="keyword">ngx_command_t</span>        *commands;</span><br><span class="line">    <span class="keyword">ngx_uint_t</span>            type;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">ngx_int_t</span>           (*init_master)(<span class="keyword">ngx_log_t</span> *<span class="built_in">log</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">ngx_int_t</span>           (*init_module)(<span class="keyword">ngx_cycle_t</span> *cycle);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">ngx_int_t</span>           (*init_process)(<span class="keyword">ngx_cycle_t</span> *cycle);</span><br><span class="line">    <span class="keyword">ngx_int_t</span>           (*init_thread)(<span class="keyword">ngx_cycle_t</span> *cycle);</span><br><span class="line">    <span class="keyword">void</span>                (*exit_thread)(<span class="keyword">ngx_cycle_t</span> *cycle);</span><br><span class="line">    <span class="keyword">void</span>                (*exit_process)(<span class="keyword">ngx_cycle_t</span> *cycle);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span>                (*exit_master)(<span class="keyword">ngx_cycle_t</span> *cycle);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">uintptr_t</span>             spare_hook0;</span><br><span class="line">    <span class="keyword">uintptr_t</span>             spare_hook1;</span><br><span class="line">    <span class="keyword">uintptr_t</span>             spare_hook2;</span><br><span class="line">    <span class="keyword">uintptr_t</span>             spare_hook3;</span><br><span class="line">    <span class="keyword">uintptr_t</span>             spare_hook4;</span><br><span class="line">    <span class="keyword">uintptr_t</span>             spare_hook5;</span><br><span class="line">    <span class="keyword">uintptr_t</span>             spare_hook6;</span><br><span class="line">    <span class="keyword">uintptr_t</span>             spare_hook7;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NGX_MODULE_V1                                                         \</span></span><br><span class="line">    NGX_MODULE_UNSET_INDEX, NGX_MODULE_UNSET_INDEX,                           \</span><br><span class="line">    <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>, nginx_version, NGX_MODULE_SIGNATURE</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NGX_MODULE_V1_PADDING  0, 0, 0, 0, 0, 0, 0, 0</span></span><br></pre></td></tr></table></figure>
+<p>在 <code>src/core/ngx_core.h</code> 中有如下定义:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ngx_module_s</span>          <span class="title">ngx_module_t</span>;</span></span><br></pre></td></tr></table></figure>
+<p>Nginx 为了简化配置，将前面 7 个配置使用 <code>NGX_MODULE_V1</code> 宏来表示，后 8 个配置使用 <code>NGX_MODULE_V1_PADDING</code> 宏来表示。因此只需要配置 10 个参数就行了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ngx_module_t</span> ngx_http_hello_module = &#123;</span><br><span class="line">    NGX_MODULE_V1,</span><br><span class="line">    &amp;ngx_http_hello_module_ctx,   <span class="comment">//该模块的上下文</span></span><br><span class="line">    ngx_http_hello_commands,      <span class="comment">//该模块的指令集合</span></span><br><span class="line">    NGX_HTTP_MODULE,              <span class="comment">//该模块的种类</span></span><br><span class="line">    <span class="literal">NULL</span>,                         <span class="comment">//在 master 初始化的函数</span></span><br><span class="line">    <span class="literal">NULL</span>,                         <span class="comment">//模块初始化函数</span></span><br><span class="line">    <span class="literal">NULL</span>,                         <span class="comment">//初始化工作进程</span></span><br><span class="line">    <span class="literal">NULL</span>,                         <span class="comment">//初始化线程</span></span><br><span class="line">    <span class="literal">NULL</span>,                         <span class="comment">//离开线程</span></span><br><span class="line">    <span class="literal">NULL</span>,                         <span class="comment">//离开工作进程</span></span><br><span class="line">    <span class="literal">NULL</span>,                         <span class="comment">//离开 master</span></span><br><span class="line">    NGX_MODULE_V1_PADDING</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="模块挂载"><a href="#模块挂载" class="headerlink" title="模块挂载"></a>模块挂载</h2><p>定义好一个模块之后还需要把模块挂载到相应的请求处理阶段上，Nginx 有 11 个请求处理阶段，其中有 4 个阶段不能配置，剩下 7 个可以进行挂载。在 <code>ngx_http_hello_module_ctx</code> 中传入的指针函数 <code>ngx_http_hello_init</code> 就是用来挂载到相应模块上的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">ngx_int_t</span></span><br><span class="line">ngx_http_hello_init(<span class="keyword">ngx_conf_t</span> *cf) </span><br><span class="line">&#123;</span><br><span class="line">    ngx_http_handler_pt *h;</span><br><span class="line">    <span class="keyword">ngx_http_core_main_conf_t</span> *cmcf;</span><br><span class="line"></span><br><span class="line">    cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);</span><br><span class="line">    </span><br><span class="line">    h = ngx_array_push(&amp;cmcf-&gt;phases[NGX_HTTP_CONTENT_PHASE].handlers);</span><br><span class="line">    <span class="keyword">if</span> (h == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> NGX_ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    *h = ngx_http_hello_handler;</span><br><span class="line">    <span class="keyword">return</span> NGX_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>ngx_http_conf_get_module_main_conf</code> 根据 conf 结构和模块得到主配置，然后使用 ngx_array_push 在 <code>NGX_HTTP_CONTENT_PHASE</code> 阶段进行挂载。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一个模块可以有多个指令，Nginx 使用 <code>ngx_command_t</code> 来描述一个指令，比如指令名称，指令所在位置，指令参数，指令处理函数，指令存储空间以及指令参数在哪个结构体的哪个属性等。</p>
+<p>为了将指令的参数在回调函数中可以被明白的解析，需要定义一个结构体来存储传入的参数，这里使用的结构体是 <code>ngx_http_hello_loc_conf_t</code>，其中 hello_string 指令的参数通过 offsetof(ngx_http_hello_loc_conf_t, hello_string) 传入 <code>ngx_http_hello_loc_conf_t</code> 的 hello_string 属性。封装好后 Nginx 会将 ngx_http_hello_loc_conf_t 传入处理回调函数，因为 C 语言的原因，所以传入的指针为 void* 类型的指针，在处理函数中需要进行转换。hello_string 指令的处理函数为 <code>ngx_http_hello_string</code>，hello_counter 指令的处理函数为 <code>ngx_http_hello_counter</code>。</p>
+<p>指令在不同阶段可能进行各种初始化工作，Nginx 定义了 <code>ngx_http_module_t</code> 结构体来描述一个指令的上下文环境。可以根据情况来进行上下文的初始化。</p>
+<p>最后需要使用 <code>ngx_module_t</code> 结构体来描述该模块本身的信息，模块本身的信息需要传入模块上下文，模块的指令，模块的类型，以及各种钩子函数等。值得注意的是，Nginx 提供了两个宏来减少配置操作，分别时 <code>NGX_MODULE_V1</code> 和 <code>NGX_MODULE_V1_PADDING</code>。</p>
+<p>hello 模块在模块上下文定义中，在配置读取和创建结束之后传入了 <code>ngx_http_hello_init</code> 函数，该函数会将模块挂载到 <code>NGX_HTTP_CONTENT_PHASE</code>，并且将 <code>ngx_hettp_hello_handler</code> 函数作为主要的处理函数。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/12/VIM-config/" rel="next" title="VIM 配置">
+                <i class="fa fa-chevron-left"></i> VIM 配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">残星</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/canxing/" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置指令"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;&#x6307;&#x4EE4;" class="headerlink" title="&#x914D;&#x7F6E;&#x6307;&#x4EE4;"></a>&#x914D;&#x7F6E;&#x6307;&#x4EE4;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块上下文"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x6A21;&#x5757;&#x4E0A;&#x4E0B;&#x6587;" class="headerlink" title="&#x6A21;&#x5757;&#x4E0A;&#x4E0B;&#x6587;"></a>&#x6A21;&#x5757;&#x4E0A;&#x4E0B;&#x6587;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块的定义"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x6A21;&#x5757;&#x7684;&#x5B9A;&#x4E49;" class="headerlink" title="&#x6A21;&#x5757;&#x7684;&#x5B9A;&#x4E49;"></a>&#x6A21;&#x5757;&#x7684;&#x5B9A;&#x4E49;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块挂载"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x6A21;&#x5757;&#x6302;&#x8F7D;" class="headerlink" title="&#x6A21;&#x5757;&#x6302;&#x8F7D;"></a>&#x6A21;&#x5757;&#x6302;&#x8F7D;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">残星</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
