@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="残星">
 <meta property="og:description" content="Docker基础本文参考自 &amp;lt;&amp;lt;Docker--从入门到实践&amp;gt;&amp;gt;，该书github 地址，国内镜像  基本概念 镜像 获取镜像 查看本地镜像 运行镜像 停止容器 删除本地镜像 定制镜像 Dockerfile 指令 导入导出镜像   容器 启动容器 查看容器信息 终止容器 进入容器 删除容器   数据管理 数据卷 挂载主机目录    基本概念Docker 包含三个基本概念:">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-27T09:52:27.629Z">
+<meta property="og:updated_time" content="2019-05-14T06:59:56.525Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker基础">
 <meta name="twitter:description" content="Docker基础本文参考自 &amp;lt;&amp;lt;Docker--从入门到实践&amp;gt;&amp;gt;，该书github 地址，国内镜像  基本概念 镜像 获取镜像 查看本地镜像 运行镜像 停止容器 删除本地镜像 定制镜像 Dockerfile 指令 导入导出镜像   容器 启动容器 查看容器信息 终止容器 进入容器 删除容器   数据管理 数据卷 挂载主机目录    基本概念Docker 包含三个基本概念:">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-11-27T17:52:27+08:00">
-                2018-11-27
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-14T14:59:56+08:00">
+                2019-05-14
               </time>
             
           </span>
@@ -601,7 +601,10 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker volume ls</span><br><span class="line">DRIVER              VOLUME NAME</span><br><span class="line"><span class="built_in">local</span>               my_vol</span><br></pre></td></tr></table></figure>
 <p>查看数据卷详细信息</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ docker volume inspect my_vol</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"CreatedAt"</span>: <span class="string">"2018-10-31T17:21:01+08:00"</span>,</span><br><span class="line">        <span class="string">"Driver"</span>: <span class="string">"local"</span>,</span><br><span class="line">        <span class="string">"Labels"</span>: &#123;&#125;,</span><br><span class="line">        <span class="string">"Mountpoint"</span>: <span class="string">"/var/lib/docker/volumes/my_vol/_data"</span>,</span><br><span class="line">        <span class="string">"Name"</span>: <span class="string">"my_vol"</span>,</span><br><span class="line">        <span class="string">"Options"</span>: &#123;&#125;,</span><br><span class="line">        <span class="string">"Scope"</span>: <span class="string">"local"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p>查看 <code>docker volume create --hellp</code> 之后发现数据卷创建的位置似乎不能改变。</p>
+<p>数据卷的位置不能自定义，数据卷存放在 Docker 目录下的 volumes 文件夹中。Docker 目录下存放了 Docker 镜像，数据卷等，可以通过修改 Docker 目录的方式转移数据卷的位置。</p>
+<p>在 <code>/etc/docker/daemon.json</code> 文件夹中写入下面内容</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"graph"</span>: <span class="string">"/home/canxing/.docker/registry"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>graph 对应的路径就是 Docker 目录对应的路径，可以修改为实际路径。修改之后，使用 <code>systemctl restart docker</code> 重启 Docker。</p>
 <p>删除数据卷</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker volume rm my_vol</span><br><span class="line">my_vol</span><br><span class="line">$ docker volume ls</span><br><span class="line">DRIVER              VOLUME NAME</span><br></pre></td></tr></table></figure>
 <p>挂载数据卷</p>
@@ -732,7 +735,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -754,7 +757,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -817,7 +820,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
