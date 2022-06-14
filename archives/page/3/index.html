@@ -35,13 +35,13 @@
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
+    isHome : false,
     isPost : false,
     lang   : 'zh-Hans'
   };
 </script>
 
-  <title>残星</title>
+  <title>Archive | 残星</title>
   
 
 
@@ -182,1246 +182,233 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content archive">
             
-      
+
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/07/java8-方法引用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="残星">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="残星">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/07/java8-方法引用/" class="post-title-link" itemprop="url">java8-方法引用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-07 11:25:47" itemprop="dateCreated datePublished" datetime="2018-01-07T11:25:47+08:00">2018-01-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-13 13:58:09" itemprop="dateModified" datetime="2022-06-13T13:58:09+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        
+        <span class="collection-header">OK! 31 posts in total. Keep on posting.</span>
+      </div>
 
       
-          <h1 id="什么是方法引用"><a href="#什么是方法引用" class="headerlink" title="什么是方法引用"></a>什么是方法引用</h1><p>方法引用是lambd表达式的一种特殊形式。看起来更易读更自然</p>
-<p>如果想要对苹果的重量进行排序我们可以这样写:</p>
-<pre><code>inventory.sort((a1,a2) -&gt; a1.getWeight() - a2.getWeight());
-</code></pre><p>使用方法引用之后是这样的</p>
-<pre><code>inventory.sort(Apple::getWeight);
-</code></pre><h1 id="方法引用的语法格式"><a href="#方法引用的语法格式" class="headerlink" title="方法引用的语法格式"></a>方法引用的语法格式</h1><ol>
-<li>指向静态方法的引用<pre><code>Class::staticMethod
-</code></pre></li>
-<li>指向现有对象的实例方法的方法引用<pre><code>object::instanceMethod
-</code></pre></li>
-<li>指向任意类型实例方法的方法引用<pre><code>Class::instanceMethod
-</code></pre></li>
-</ol>
-<h2 id="语法简述"><a href="#语法简述" class="headerlink" title="语法简述"></a>语法简述</h2><h3 id="指向静态方法的引用"><a href="#指向静态方法的引用" class="headerlink" title="指向静态方法的引用"></a>指向静态方法的引用</h3><p>类的静态方法必须满足函数描述符，也就是Class.staticMethod的参数和返回值要和函数描述符一致</p>
-<h4 id="对于Function-lt-Integer-Integer-gt-function-Class-staticMethod"><a href="#对于Function-lt-Integer-Integer-gt-function-Class-staticMethod" class="headerlink" title="对于Function&lt;Integer,Integer&gt; function = Class::staticMethod;"></a>对于Function&lt;Integer,Integer&gt; function = Class::staticMethod;</h4><p>Class的staticMethod的静态方法定义应该是:</p>
-<pre><code>public static intstaticMethod(int number){
-    //一个返回int类型的代码块
-}
-</code></pre><h4 id="对于Consumer-consumer-Class-staticMethod"><a href="#对于Consumer-consumer-Class-staticMethod" class="headerlink" title="对于Consumer consumer = Class:staticMethod;"></a>对于Consumer<integer> consumer = Class:staticMethod;</integer></h4><p>Class的staticMethod的静态方法定义应该是:</p>
-<pre><code>public static void staticMethod(int number){
-    //没有返回值的代码块
-}
-</code></pre><h4 id="对于Predicate-pred-Class-staticMethod"><a href="#对于Predicate-pred-Class-staticMethod" class="headerlink" title="对于Predicate pred = Class::staticMethod;"></a>对于Predicate<integer> pred = Class::staticMethod;</integer></h4><p>Class.staticMethod的静态方法定义应该是:</p>
-<pre><code>public static boolean staticMethod(int number){
-    //返回boolean类型的代码块
-}
-</code></pre><h4 id="对于Supplier-supplier-Class-staticMethod"><a href="#对于Supplier-supplier-Class-staticMethod" class="headerlink" title="对于Supplier supplier = Class::staticMethod;"></a>对于Supplier<integer> supplier = Class::staticMethod;</integer></h4><p>Class.staticMethod的静态方法定义应该是:</p>
-<pre><code>public static int staticMethod(){
-    //返回int类型的代码块
-}
-</code></pre><h3 id="指向现有对象的实例方法的方法引用"><a href="#指向现有对象的实例方法的方法引用" class="headerlink" title="指向现有对象的实例方法的方法引用"></a>指向现有对象的实例方法的方法引用</h3><p>类的实例方法必须满足函数描述符，也就是对象调用的方法的参数和返回值要和函数描述法一致</p>
-<h4 id="对于Function-lt-Class-Integer-gt-function-object-instanceMethod"><a href="#对于Function-lt-Class-Integer-gt-function-object-instanceMethod" class="headerlink" title="对于Function&lt;Class,Integer&gt; function = object::instanceMethod;"></a>对于Function&lt;Class,Integer&gt; function = object::instanceMethod;</h4><p>Class的实例方法定义应该是:</p>
-<pre><code>public int instanceMethod(){
-    //返回int类型的代码块
-}
-</code></pre><p>如果是BiFunction&lt;Class,Integer,Integer&gt; function = object::instanceMethod;<br>Class的实例方法定义应该是:</p>
-<pre><code>public int instacneMethod(int number){
-    //返回int类型的代码块
-}
-</code></pre><p>下同</p>
-<h4 id="对于Consumer-lt-Class-Integer-gt-consumer-object-instanceMethod"><a href="#对于Consumer-lt-Class-Integer-gt-consumer-object-instanceMethod" class="headerlink" title="对于Consumer&lt;Class,Integer&gt; consumer = object::instanceMethod;"></a>对于Consumer&lt;Class,Integer&gt; consumer = object::instanceMethod;</h4><p>Class的实例方法定义应该是:</p>
-<pre><code>public void instacneMethod(int number){
-    //没有返回值的代码块
-}
-</code></pre><h4 id="对于Predicate-predicate-object-instanceMethod"><a href="#对于Predicate-predicate-object-instanceMethod" class="headerlink" title="对于Predicate predicate = object::instanceMethod;"></a>对于Predicate<class> predicate = object::instanceMethod;</class></h4><p>Class的实例方法定义应该是:</p>
-<pre><code>public boolean instanceMethod(){
-    //返回boolean类型的代码块
-}
-</code></pre><h4 id="对于Suplier-supplier-object-instanceMethod"><a href="#对于Suplier-supplier-object-instanceMethod" class="headerlink" title="对于Suplier supplier = object::instanceMethod;"></a>对于Suplier<integer> supplier = object::instanceMethod;</integer></h4><p>Class的实例方法定义应该是:</p>
-<pre><code>public int instanceMethod(){
-    //返回int类型的代码块
-
-对于第三种格式，函数描述符至少含有一个参数，也就是说必须有一个参数用来调用方法
-</code></pre><h4 id="对于Function-lt-Class-Integer-gt-function-Class-instanceMethod"><a href="#对于Function-lt-Class-Integer-gt-function-Class-instanceMethod" class="headerlink" title="对于Function&lt;Class,Integer&gt; function = Class::instanceMethod;"></a>对于Function&lt;Class,Integer&gt; function = Class::instanceMethod;</h4><p>Class的实例方法定义应该是:</p>
-<pre><code>public int instanceMethod(){
-    //返回int类型的代码块
-}
-</code></pre><h4 id="对于Function-lt-Class-Integer-Integer-gt-function-Class-instanceMethod"><a href="#对于Function-lt-Class-Integer-Integer-gt-function-Class-instanceMethod" class="headerlink" title="对于Function&lt;Class,Integer,Integer&gt; function = Class::instanceMethod;"></a>对于Function&lt;Class,Integer,Integer&gt; function = Class::instanceMethod;</h4><pre><code>Class的实例方法定义应该是:
-
-public int instanceMethod(int number){
-    //返回int类型的代码块
-}
-</code></pre><h4 id="对于Consumer-consumer-Class-instanceMethod"><a href="#对于Consumer-consumer-Class-instanceMethod" class="headerlink" title="对于Consumer consumer = Class::instanceMethod;"></a>对于Consumer<class> consumer = Class::instanceMethod;</class></h4><p>Class的实例方法定义应该是:</p>
-<pre><code>public void instanceMethod(){
-    //没有返回值的代码块
-}
-</code></pre><h4 id="对于Comparator-lt-Class-Class-gt-comparator-Class-instanceMethod"><a href="#对于Comparator-lt-Class-Class-gt-comparator-Class-instanceMethod" class="headerlink" title="对于Comparator&lt;Class,Class&gt; comparator = Class::instanceMethod;"></a>对于Comparator&lt;Class,Class&gt; comparator = Class::instanceMethod;</h4><p>Class的实例方法定义应该是:</p>
-<pre><code>public int instanceMethod(Class clazz){
-    //比较两个数大小的代码块，最后返回一个数用来表示大于，小于，等于
-}
-</code></pre><h1 id="实例"><a href="#实例" class="headerlink" title="实例:"></a>实例:</h1><pre><code>使用方法引用来完成列表苹果的筛选，排序，输出，增加重量，返回对应的苹果重量列表
-Apple.java
-public class Apple {
-    private int weight;
-    private String color;
-    //getter setter
-}
-Main.java
-
-public class Main {
-    public static void main(String[] args) {
-        List&lt;Apple&gt; inventory = Arrays.asList(
-                new Apple(10,&quot;green&quot;),
-                new Apple(20,&quot;red&quot;),
-                new Apple(12,&quot;red&quot;),
-                new Apple(25,&quot;green&quot;));
-        List&lt;String&gt; strs = Arrays.asList(
-                &quot;red&quot;,&quot;green&quot;,&quot;red&quot;,&quot;black&quot;
-                );
-        //筛选
-        List&lt;Apple&gt; redApples = filter(inventory,Apple::getColor,&quot;red&quot;);
-        forEach(redApples,System.out::println);
-
-        List&lt;String&gt; red = filter(strs,String::toString,&quot;red&quot;);
-        forEach(red,System.out::println);
-
-        //将所有苹果的重量表示为一个列表
-        List&lt;Integer&gt; appleWeight = map(inventory,Apple::getWeight);
-        forEach(appleWeight,System.out::println);
-
-        //将所有苹果的重量加10
-        addWeight(inventory,Apple::getWeight,Apple::setWeight,10);
-        forEach(inventory,System.out::println);
-
-        //排序
-        inventory.sort(Comparator.comparing(Apple::getColor));
-        forEach(inventory,System.out::println);
-    }
-    public static &lt;T&gt; void forEach(List&lt;T&gt; inventory,Consumer&lt;T&gt; consumer) {
-        for(T t : inventory) {
-            consumer.accept(t);
-        }
-    }
-    public static &lt;T&gt; void addWeight(List&lt;T&gt; inventory,ToIntFunction&lt;T&gt; func,ObjIntConsumer&lt;T&gt; consumer,int added) {
-        for(T t : inventory) {
-            consumer.accept(t,func.applyAsInt(t) + added);
-        }
-    }
-    public static &lt;T,R&gt; List&lt;R&gt; map(List&lt;T&gt; inventory,Function&lt;T,R&gt; func){
-        List&lt;R&gt; result = new ArrayList&lt;&gt;();
-        for(T t : inventory) {
-            result.add(func.apply(t));
-        }
-        return result;
-    }
-    public static &lt;T,R&gt; List&lt;T&gt; filter(List&lt;T&gt; inventory,Function&lt;T,R&gt; func,Object obj){
-        List&lt;T&gt; result = new ArrayList&lt;&gt;();
-        for(T t : inventory) {
-            if(func.apply(t).equals(obj)) {
-                result.add(t);
-            }
-        }
-        return result;
-    }
-}
-</code></pre><p>可以看见方法引用的可读性是要强于lanbda表达式的，如：<br>    List<apple> redApples = filter(inventory,Apple::getColor,”red”);<br>    可以读作:筛选苹果库存中颜色为红色的苹果<br>    inventory.sort(Comparator.comparing(Apple::getColor));<br>    可以读作:库存根据苹果的颜色进行排序<br>但是方法引用在某些方面的比较复杂的，比如要将所有苹果的重量加10,需要使用两个方法引用<br>    addWeight(inventory,Apple::getWeight,Apple::setWeight,10);  </apple></p>
-
-      
+    <div class="collection-year">
+      <span class="collection-header">2018</span>
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2018-01-07T11:25:47+08:00"
+              content="2018-01-07">
+          01-07
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/01/07/java8-方法引用/" itemprop="url">
+            <span itemprop="name">java8-方法引用</span>
+          </a>
+      </div>
+
+    </header>
   </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/05/java8-函数式接口/">
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="残星">
-      <meta itemprop="description" content="">
-    </span>
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2018-01-05T17:08:18+08:00"
+              content="2018-01-05">
+          01-05
+        </time>
+      </div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="残星">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/05/java8-函数式接口/" class="post-title-link" itemprop="url">java8-函数式接口</a>
-        </h2>
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/01/05/java8-函数式接口/" itemprop="url">
+            <span itemprop="name">java8-函数式接口</span>
+          </a>
+      </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+    </header>
+  </article>
 
-              <time title="Created: 2018-01-05 17:08:18" itemprop="dateCreated datePublished" datetime="2018-01-05T17:08:18+08:00">2018-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-13 13:58:09" itemprop="dateModified" datetime="2022-06-13T13:58:09+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-          
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2018-01-04T20:55:23+08:00"
+              content="2018-01-04">
+          01-04
+        </time>
+      </div>
 
-        </div>
-      </header>
+      <div class="post-title">
+          <a class="post-title-link" href="/2018/01/04/java8-lambda表达式/" itemprop="url">
+            <span itemprop="name">java8-lambda表达式</span>
+          </a>
+      </div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在上一次使用自定义的函数接口来使用lambda表达式，每一个lambda都要自定义一个已知的接口来实现，这样比较麻烦，如果可以使用通用的函数式接口，那么会方便很多。幸运的是java8中新增了一些通用的函数式接口供我们使用。下面就来看看吧。</p>
-<h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>对于只有一个抽象方法的接口，需要这种接口的对象时，就可以提供一个lambda表达式。这种接口称为函数式接口 —《java核心技术卷I基础知识第10版》<br>一言蔽之，只有一个抽象方法的接口称为函数式接口 —《java8实战》</p>
-<p>java8提供了一系列通用的函数式接口，位于java.util.function包中<br><img src="函数式接口.png" alt="函数式接口图片"><br>    可以看见这个包中只有含有接口，没有任何的抽象类，类，这些接口都需于函数接口，不要慌张，这些接口大部分表达的意思相同，只有少量的区别</p>
-<h2 id="函数描述符"><a href="#函数描述符" class="headerlink" title="函数描述符"></a>函数描述符</h2><p>函数式接口的抽象方法的签名基本上就是lambda表达式的签名。我们将这种抽象方法叫做函数描述符<br>lambda表达式的参数和返回值都要和函数式接口的签名对应，比如说函数式接口ApplePredicate的签名就是接收一个Apple类型的参数返回一个boolean类型的参数<br>所以基本上满足接收一个Apple类型返回一个boolean类型的lambda表达式都可以看作是ApplePredicate的实现<br>    下面来介绍几个函数式接口</p>
-<h2 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h2><p>翻译过来为消费者，接收一个参数没有返回值。<br>源码接口如下：</p>
-<pre><code>public interface Consumer&lt;T&gt; {
-    void accept(T t);
-}
-</code></pre><h3 id="使用Consumer来实现一个List的遍厉"><a href="#使用Consumer来实现一个List的遍厉" class="headerlink" title="使用Consumer来实现一个List的遍厉"></a>使用Consumer来实现一个List的遍厉</h3><pre><code>public static &lt;T&gt; void forEach(List&lt;T&gt; inventory,Consumer&lt;T&gt; consumer) {
-    for(T t : inventory) {
-        consumer.accept(t);
-    }
-}
-//使用forEach遍历列表
-forEach(redApples,apple -&gt; System.out.println(apple));
-</code></pre><h3 id="其他Consumer系列接口"><a href="#其他Consumer系列接口" class="headerlink" title="其他Consumer系列接口"></a>其他Consumer系列接口</h3><blockquote>
-<pre><code> 接口                                    抽象方法  
-DoubleConsumer                     void accept(double value);  
-IntConsumer                        void accept(int value);  
-LongConsumer                       void accept(long value);  
-ObjDoubleConsumer&lt;T&gt;               void accept(T t,double value);  
-ObjIntConsumer&lt;T&gt;                  void accept(T t,int value);  
-ObjLongConsumer&lt;T&gt;                 void accept(T t,int long value);  
-BiConsumer&lt;T,U&gt;                    void accept(T t,U u);  
-</code></pre></blockquote>
-<h2 id="Predicate"><a href="#Predicate" class="headerlink" title="Predicate"></a>Predicate</h2><p>谓词，用来描述或判断客体性质等(百度百科),这里用来表示判断<br>    Predicate接口有5个方法，包括4个默认方法，1个抽象方法，默认方法以后再说，这里主要关注抽现方法<br>    接口源码如下,接收一个泛型参数，返回一个boolean型数据，至于根据什么返回，怎么判断交给用户来实现</p>
-<pre><code>public interface Predicate&lt;T&gt;{
-    boolean test(T t);
-}
-</code></pre><p>使用Predicate来实现过滤</p>
-<pre><code>public static &lt;T&gt; List&lt;T&gt; filter(List&lt;T&gt; inventory,Predicate&lt;T&gt; pred){
-    List&lt;T&gt; result = new ArrayList&lt;&gt;();
-    for(T t : inventory)
-        if(pred.test(t))
-            result.add(t);
-    return result;
-}
-</code></pre><p>筛选红色苹果</p>
-<pre><code>List&lt;Apple&gt; redApples = filter(inventory,(Apple apple) -&gt; apple.getColor().equals(&quot;red&quot;));
-forEach(redApples,apple -&gt; System.out.println(apple));
-</code></pre><h3 id="其他Predicate系列接口"><a href="#其他Predicate系列接口" class="headerlink" title="其他Predicate系列接口"></a>其他Predicate系列接口</h3><pre><code>    接口                                抽象方法
-DoublePredicate                    boolean test(double value);
-IntPredicate                       boolean test(int value);
-LongPredicate                      boolean  test(long value);
-BiPredicate&lt;T,U&gt;                   boolean test(T t,U u);
-</code></pre><p>DoublePredicate,LongPredicate,IntPredicate分别是用来判断double,long,int类型，由于double,long,int类型在使用泛型时会有一个自动装箱拆箱的过程，这是为了提高效率实现的三个类,使用上和Predicate没有什么区别</p>
-<h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><p>函数，接收一个参数返回一个值</p>
-<pre><code>public interface Function&lt;T,R&gt;{
-    R apply(T t);
-}
-</code></pre><p>使用Function来实现遍历列表，并对列表进行某种操作，操作后返回一个值</p>
-<pre><code>public static &lt;T,R&gt; List&lt;R&gt; map(List&lt;T&gt; inventory,Function&lt;T,R&gt; func){
-    List&lt;R&gt; result = new ArrayList&lt;&gt;();
-    for(T t : inventory)
-        result.add(func.apply(t));
-    return result;
-}
-</code></pre><p>使用map来将列表中的所有苹果的重量返回并用列表返回</p>
-<pre><code>List&lt;Integer&gt; weights = map(inventory,(Apple apple) -&gt; apple.getWeight());
-</code></pre><h3 id="其他Function系列接口"><a href="#其他Function系列接口" class="headerlink" title="其他Function系列接口"></a>其他Function系列接口</h3><pre><code>    接口                            抽象方法
-DoubleFunction&lt;R&gt;                    R apply(double value);
-IntFunction&lt;R&gt;                       R apply(int value);
-LongFunction&lt;R&gt;                      R apply(long value);
-ToDoubleFunction&lt;T&gt;                  double apply(T value);
-ToIntFunction&lt;T&gt;                     int apply(T value);
-ToLongFunction&lt;T&gt;                    long apply(T value);
-BiFunction&lt;T,U,R&gt;                    R apply(T t,U u);
-ToDoubleBiFunction&lt;T,U&gt;              double apply(T t,U u);
-ToIntBiFunction&lt;T,U&gt;                 int apply(T t,U u);
-ToLongBuFunction&lt;T,U&gt;                long apply(T t,U u);
-</code></pre><p>可以看见大多数接口都是为了解决基本类型的封箱拆箱进行优化的接口</p>
-<h2 id="Supplier"><a href="#Supplier" class="headerlink" title="Supplier"></a>Supplier</h2><pre><code>供应商，没有参数，只有返回值。少有使用，这里只提供接口
-    接口                            抽象方法
-Supplier&lt;T&gt;                        T get();
-BooleanSupplier                    boolean get();
-DoubleSupplier                    double get();
-IntSupplier                        int get();
-LongSupplier                    long get();
-</code></pre><h2 id="其他函数式接口"><a href="#其他函数式接口" class="headerlink" title="其他函数式接口"></a>其他函数式接口</h2><p>java.util.function包中还有几个使用Operator结尾的接口，现在还不太明白如何使用，以后再加。</p>
-
-      
+    </header>
+  </article>
+    <div class="collection-year">
+      <span class="collection-header">2017</span>
     </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2017-12-28T23:33:34+08:00"
+              content="2017-12-28">
+          12-28
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/12/28/java-tcp套接字编程/" itemprop="url">
+            <span itemprop="name">java-tcp套接字编程</span>
+          </a>
+      </div>
+
+    </header>
   </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/java8-lambda表达式/">
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="残星">
-      <meta itemprop="description" content="">
-    </span>
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2017-12-16T19:50:11+08:00"
+              content="2017-12-16">
+          12-16
+        </time>
+      </div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="残星">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/04/java8-lambda表达式/" class="post-title-link" itemprop="url">java8-lambda表达式</a>
-        </h2>
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/12/16/ajax异步处理/" itemprop="url">
+            <span itemprop="name">ajax异步处理</span>
+          </a>
+      </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+    </header>
+  </article>
 
-              <time title="Created: 2018-01-04 20:55:23" itemprop="dateCreated datePublished" datetime="2018-01-04T20:55:23+08:00">2018-01-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-13 13:58:09" itemprop="dateModified" datetime="2022-06-13T13:58:09+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-          
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2017-12-16T19:49:55+08:00"
+              content="2017-12-16">
+          12-16
+        </time>
+      </div>
 
-        </div>
-      </header>
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/12/16/json数据/" itemprop="url">
+            <span itemprop="name">json数据</span>
+          </a>
+      </div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+    </header>
+  </article>
 
-      
-          <p>测试环境 JDK 10 ，JUnit4</p>
-<h1 id="如何使用-lambda-表达式"><a href="#如何使用-lambda-表达式" class="headerlink" title="如何使用 lambda 表达式"></a>如何使用 lambda 表达式</h1><ol>
-<li>定义一个只含有一个抽象方法的接口 AbstractFuncOfSingle (只能是接口)</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractFuncOfSingle</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>传入两个int类型的参数，返回一个类型的参数</p>
-<ol start="2">
-<li>定义一个方法，传入参数为 AbstractFuncOfSingle</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callAbstractFuncOfSingle</span><span class="params">(AbstractFuncOfSingle singleFunc, <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> result = singleFunc.print(a, b);</span><br><span class="line">	System.out.println(result * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在方法中将方法参数 a，b 作为参数传入 <code>AbstractFuncOfSingle.print()</code> 方法，并使用 result 接收返回参数然后打印 </p>
-<ol start="3">
-<li>调用上述方法</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAbstractFuncOfSingle</span><span class="params">()</span></span>&#123;</span><br><span class="line">	callAbstractFuncOfSingle((a, b)-&gt;&#123;</span><br><span class="line">		System.out.println(a + b);</span><br><span class="line">		<span class="keyword">return</span> a + b;</span><br><span class="line">	&#125;, <span class="number">10</span>, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 lambda 表达式创建一个内部类，打印 a + b 的和并返回 a + b 和</p>
-<blockquote>
-<p>如果接口的抽象方法具有多个参数，那么 lambda 的传入参数个数也要一一对应，<br>如果抽象方法具有返回值，在 lambda 表达式中也要有返回值，否则可以省略 return 语句<br>注意：lambda 表达式的参数类型和返回类型要和抽象方法的参数类型和返回类型相同</p>
-</blockquote>
-<h1 id="lambda-表达式和匿名内部类"><a href="#lambda-表达式和匿名内部类" class="headerlink" title="lambda 表达式和匿名内部类"></a>lambda 表达式和匿名内部类</h1><p>lambda 表达式是匿名内部类的一种简化形式，lambda 表达式只能书写于只有一个抽象方法的接口，匿名内部类可以书写具有多个抽象方法的接口和抽象类</p>
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-      
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2017-12-16T19:49:30+08:00"
+              content="2017-12-16">
+          12-16
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/12/16/spring-mvc返回json数据/" itemprop="url">
+            <span itemprop="name">spring-mvc返回json数据</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2017-12-14T22:33:07+08:00"
+              content="2017-12-14">
+          12-14
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/12/14/数据结构c语言描述二-栈/" itemprop="url">
+            <span itemprop="name">数据结构c语言描述二-栈</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2017-12-11T22:34:26+08:00"
+              content="2017-12-11">
+          12-11
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/12/11/数据结构c语言描述一-链表/" itemprop="url">
+            <span itemprop="name">数据结构c语言描述一-链表</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2017-12-10T21:03:56+08:00"
+              content="2017-12-10">
+          12-10
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/2017/12/10/ubuntu下gpg的基本使用/" itemprop="url">
+            <span itemprop="name">ubuntu下gpg的基本使用</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
+
+
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
+  </div>
   
   
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/java-tcp套接字编程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="残星">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="残星">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/28/java-tcp套接字编程/" class="post-title-link" itemprop="url">java-tcp套接字编程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-28 23:33:34" itemprop="dateCreated datePublished" datetime="2017-12-28T23:33:34+08:00">2017-12-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-13 13:58:09" itemprop="dateModified" datetime="2022-06-13T13:58:09+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="什么是套接字传送们维基百科"><a href="#什么是套接字传送们维基百科" class="headerlink" title="什么是套接字传送们维基百科"></a>什么是套接字<a href="https://zh.wikipedia.org/wiki/Berkeley%E5%A5%97%E6%8E%A5%E5%AD%97" target="_blank" rel="noopener">传送们维基百科</a></h1><p>java中的套接字屏蔽了许多细节，不需要关注更多的底层信息。<br>在java中套接字服务器可以使用java.net.ServerSocket创建<br>一个常用的构造方法如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServerSocket server = <span class="keyword">new</span> ServerSocket(<span class="keyword">int</span>	port);</span><br></pre></td></tr></table></figure>
-<p>port: 表示套接字服务器需要监听的本机的端口，常见的端口有 80 端口，3306 端口等，这个监听的端口不允许重复监听，建议使用靠后面的端口号<br>然后可以使用 <code>Socket client = server.accept()</code> 等待客户端的连接并返回一个 Socket 对象，通过这个 Socket 对象可以和客户端进行通信:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OutputStream out = client.getOutputStream();</span><br><span class="line">InputStream in = client.getInputStream();</span><br></pre></td></tr></table></figure>
-<p>out 可以向客户端输出消息，in 可以接受客户端的消息（消息的输入和输出都是相对于内存而言的，如果是写入内存中，那么就是输入，如果是从内存中读出，那么就是输出）</p>
-<p>服务器一般都是长时间运行服务多个客户端，所以服务器一般不会关闭，在客户端和服务器中端连接时，只需要关闭输入输出流就行了。</p>
-<p>套接字客户端的创建使用 Socket 创建，需要指定要连接的 ip 地址和端口，这个端口要和套接字服务器监听的端口号相同，ip 地址要和套接字服务器所在主机的 ip 地址相同，linux 下可以使用 ifconfig 命令查看 ip 地址，如果是在本机进行套接字编程，可以使用 127.0.0.1 或者 localhost 确定本机 ip</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Socket socket = <span class="keyword">new</span> Socket(Stirng ipAddress,<span class="keyword">int</span> port);</span><br></pre></td></tr></table></figure>
-<p>创建套接字之后就可以获取输入输出流和服务器交流，这里的输入输出流是相对于客户端的输入输出，客户端的输入是服务器端的输出。</p>
-<p>客户端不同于服务器，客户端关闭时需要关闭 Socket，使用 socket.close() 关闭</p>
-<p>一个简单的服务器 Socket：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建套接字服务器</span></span><br><span class="line">ServerSocket server = <span class="keyword">new</span> ServerSocket(<span class="keyword">int</span> port);</span><br><span class="line"><span class="comment">//套接字服务器一般不会关闭，所以使用死循环不同的获取连接，在获取客户端连接是一般要开线程</span></span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">    <span class="comment">//获取客户端连接</span></span><br><span class="line">    Socket socket = server.accept();</span><br><span class="line">    <span class="comment">//获取输入输出流,按情况获取，如果即需要输入也需要输出那么两个都需要获取，io可以包装成Reader和Writer</span></span><br><span class="line">    OutputStream out = socket.getOutputStream();<span class="comment">//获取输出流</span></span><br><span class="line">    InputStream in = socket.getInputStream();<span class="comment">//获取输入流</span></span><br><span class="line">    <span class="comment">//进行消息的获取或发送</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//关闭输入输出流</span></span><br><span class="line">    out.close();</span><br><span class="line">    in.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>简单的客户端套接字:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建客户端套接字</span></span><br><span class="line">Socket socket = <span class="keyword">new</span> Socket(String serverIp,<span class="keyword">int</span> port);</span><br><span class="line"><span class="comment">//获取输入输出流（一般来说客户端都是会先获取输出流发送消息到服务器，服务器返回消息，客户端使用输入流获取）</span></span><br><span class="line">OutputStream out = socket.getOutputStream();</span><br><span class="line">InputStream in = socket.getInputStream();</span><br><span class="line"><span class="comment">//进行消息的发送与接收,可以使用死循环，在循环使用特殊字符串之类的东西退出</span></span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">    <span class="comment">//flag;</span></span><br><span class="line">    <span class="comment">//发送和接受</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关闭输入输出流</span></span><br><span class="line">out.close();</span><br><span class="line">in.close();</span><br><span class="line"><span class="comment">//关闭套接字</span></span><br><span class="line">socket.close();</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/canxing/code-repository/tree/master/java/socket" target="_blank" rel="noopener">参考源码</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/16/ajax异步处理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="残星">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="残星">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/16/ajax异步处理/" class="post-title-link" itemprop="url">ajax异步处理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-16 19:50:11" itemprop="dateCreated datePublished" datetime="2017-12-16T19:50:11+08:00">2017-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-13 13:58:09" itemprop="dateModified" datetime="2022-06-13T13:58:09+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ajax/" itemprop="url" rel="index"><span itemprop="name">ajax</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="AJAX-异步处理"><a href="#AJAX-异步处理" class="headerlink" title="AJAX 异步处理"></a>AJAX 异步处理</h1><p>AJAX异步处理基本操作,参考教程<a href="http://www.w3school.com.cn/ajax/index.asp" target="_blank" rel="noopener">w3school</a></p>
-<h2 id="AJAX是什么"><a href="#AJAX是什么" class="headerlink" title="AJAX是什么"></a>AJAX是什么</h2><p>AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。<br>AJAX可以在页面不刷新的情况更新局部页面，也可以在页面加载过程中先加载重要部分在加载不那么重要的部分，提高页面加载速度</p>
-<h2 id="AJAX工作流程"><a href="#AJAX工作流程" class="headerlink" title="AJAX工作流程"></a>AJAX工作流程</h2><h3 id="AJAX基本对象"><a href="#AJAX基本对象" class="headerlink" title="AJAX基本对象"></a>AJAX基本对象</h3><p> XMLHttpRequest是AJAX的基础，XMLHttpRequest 用于在后台与服务器交换数据</p>
-<h4 id="1-XMLHttpRequest的创建"><a href="#1-XMLHttpRequest的创建" class="headerlink" title="1. XMLHttpRequest的创建"></a>1. XMLHttpRequest的创建</h4><p>现代浏览器内置XMLHttpRequest对象使用如下方式创建  </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br></pre></td></tr></table></figure>
-<p>老版本的IE浏览器不支持XMLHttpRequest对象，使用ActiveXObject对象创建:  </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span><br></pre></td></tr></table></figure>
-<p>根据浏览器的不同使用不同的方式创建对象  </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xmlhttp = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest)&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-使用AJAX发送请求"><a href="#2-使用AJAX发送请求" class="headerlink" title="2. 使用AJAX发送请求"></a>2. 使用AJAX发送请求</h4><p>使用的方法如下:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">open(method,url,<span class="keyword">async</span>)          规定请求类型，URL，是否异步处理请求</span><br><span class="line">    method:请求类型;GET/POST</span><br><span class="line">    url:要请求的连接;如www.google.com</span><br><span class="line">    <span class="keyword">async</span>:是否同步;<span class="literal">true</span>(异步)/<span class="literal">false</span>(同步)</span><br><span class="line">send(<span class="built_in">String</span>)                    发送请求到服务器</span><br><span class="line">    string:仅用于post请求</span><br><span class="line">setRequestHeader(header,value)  向请求添加HTTP头</span><br><span class="line">    header:规定头的名称</span><br><span class="line">    value:规定头的值</span><br></pre></td></tr></table></figure>
-<h4 id="3-获取响应"><a href="#3-获取响应" class="headerlink" title="3. 获取响应"></a>3. 获取响应</h4><p>涉及属性如下:</p>
-<pre><code>responseText                  获得字符串形式的相应数据
-responseXML                   获得XML形式的响应数据
-</code></pre><h4 id="4-onreadystatechange事件"><a href="#4-onreadystatechange事件" class="headerlink" title="4. onreadystatechange事件"></a>4. onreadystatechange事件</h4><p>onreadystatechange是当AJAX请求发送到服务器时，根据服务器的处理进度进行反馈的标志</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">readyState 属性               存储XMLHttpRequest的状态，从<span class="number">0</span>到<span class="number">4</span>变化</span><br><span class="line">      <span class="number">0</span>：请求为初始化</span><br><span class="line">      <span class="number">1</span>：服务器连接已建立</span><br><span class="line">      <span class="number">2</span>：请求已接收</span><br><span class="line">      <span class="number">3</span>：请求处理中</span><br><span class="line">      <span class="number">4</span>：请求已完成，且响应已就绪</span><br><span class="line">status</span><br><span class="line">      <span class="number">200</span>：“ok”</span><br><span class="line">      <span class="number">404</span>：paga not found</span><br><span class="line">onreadystatechange          存储函数名，在每次readyState变化时调用存储的函数</span><br></pre></td></tr></table></figure>
-<h3 id="一个基本的请求相映模板"><a href="#一个基本的请求相映模板" class="headerlink" title="一个基本的请求相映模板"></a>一个基本的请求相映模板</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadXMLDoc</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> xmlhttp = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest)&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  xmlhttp.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(xmlhttp.state == <span class="number">200</span> &amp;&amp; xmlhttp.readeyState == <span class="number">4</span>)&#123;</span><br><span class="line">      <span class="comment">//获取响应数据</span></span><br><span class="line">      <span class="keyword">var</span> responseT = xmlhttp.responseText;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"www.baidu.com"</span>,<span class="literal">true</span>);</span><br><span class="line">  xmlhttp.send(<span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/canxing/code-repository/tree/master/java/spring_return_json" target="_blank" rel="noopener">一个使用ajax发送到服务器，服务器使用spring-mvc返回JSON数据并在页面显示的实例源码</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/16/json数据/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="残星">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="残星">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/16/json数据/" class="post-title-link" itemprop="url">json数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-16 19:49:55" itemprop="dateCreated datePublished" datetime="2017-12-16T19:49:55+08:00">2017-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-13 13:58:09" itemprop="dateModified" datetime="2022-06-13T13:58:09+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h1><p>JSON：JavaScript 对象表示法（JavaScript Object Notation）。<br>JSON 是存储和交换文本信息的语法。类似 XML。<br>JSON 比 XML 更小、更快，更易解析。<br>参考<a href="http://www.w3school.com.cn/json/index.asp" target="_blank" rel="noopener">w3school</a></p>
-<h1 id="JSON实例"><a href="#JSON实例" class="headerlink" title="JSON实例"></a>JSON实例</h1><pre><code>{
-    &quot;employees&quot;: [
-        { &quot;firstName&quot;:&quot;Bill&quot; , &quot;lastName&quot;:&quot;Gates&quot; },
-        { &quot;firstName&quot;:&quot;George&quot; , &quot;lastName&quot;:&quot;Bush&quot; },
-        { &quot;firstName&quot;:&quot;Thomas&quot; , &quot;lastName&quot;:&quot;Carter&quot; }
-    ]
-}
-</code></pre><h2 id="使用python表示JSON实例"><a href="#使用python表示JSON实例" class="headerlink" title="使用python表示JSON实例"></a>使用python表示JSON实例</h2><pre><code>one = {&quot;firstName&quot;:&quot;Bill&quot;,&quot;lastName&quot;:&quot;Gates&quot;}
-two = {&quot;firstName&quot;:&quot;George&quot;,&quot;lastName&quot;:&quot;Bush&quot;}
-three = {&quot;firstName&quot;:&quot;Thomas&quot;,&quot;lastName&quot;:&quot;Carter&quot;}
-employees = [one,two,three]
-o = {&quot;employess&quot;:employees}
-</code></pre><h2 id="使用java表示JSON实例"><a href="#使用java表示JSON实例" class="headerlink" title="使用java表示JSON实例"></a>使用java表示JSON实例</h2><pre><code>Map&lt;String,String&gt; one = new HashMap&lt;&gt;();
-Map&lt;String,String&gt; two = new HashMap&lt;&gt;();
-Map&lt;String,String&gt; three = new HashMap&lt;&gt;();
-one.put(&quot;firstName&quot;,&quot;Bill&quot;);
-one.put(&quot;lastName&quot;,&quot;Gates&quot;);
-two.put(&quot;firstName&quot;,&quot;George&quot;);
-two.put(&quot;lastName&quot;,&quot;Bush&quot;);
-three.put(&quot;firstName&quot;,&quot;Thomas&quot;);
-three.put(&quot;lastName&quot;,&quot;Carter&quot;);
-List&lt;Map&lt;String,String&gt;&gt; employees = new LinkedList&lt;&gt;(Arrays.asList(one,two,three));
-Map&lt;String,List&lt;Map&lt;String,String&gt;&gt;&gt; o = new HashMap&lt;&gt;();
-o.put(&quot;employees&quot;,employees);
-</code></pre><p>可以发现JSON并没有什么神奇的地方，只不过是一群人定义的字符床规范格式而已，用的人多了就成了标准</p>
-<h2 id="将JSON转换为javascript对象"><a href="#将JSON转换为javascript对象" class="headerlink" title="将JSON转换为javascript对象"></a>将JSON转换为javascript对象</h2><blockquote>
-<p>javascript 可以使用内置eval()函数将JSON数据生成原生的javascript对象<br>var obj = eval(“(“ + JSON + “)”);</p>
-</blockquote>
-<h2 id="JSON值有以下几种"><a href="#JSON值有以下几种" class="headerlink" title="JSON值有以下几种"></a>JSON值有以下几种</h2><blockquote>
-<p>数字(整数或浮点数)<br>字符串(双引号中)<br>逻辑值(true或false)<br>数组(在方括号中)<br>对象(在花括号中)<br>null</p>
-</blockquote>
-<p>使用本地JSON构建javascript对象实例可以在w3school找到，这里给出一个使用java:spring-mvc返回json对象并转换成javascript对象的实例<a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/16/spring-mvc返回json数据/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="残星">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="残星">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/16/spring-mvc返回json数据/" class="post-title-link" itemprop="url">spring-mvc返回json数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-16 19:49:30" itemprop="dateCreated datePublished" datetime="2017-12-16T19:49:30+08:00">2017-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-13 13:58:09" itemprop="dateModified" datetime="2022-06-13T13:58:09+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在使用spring-mvc过程中遇到很多问题，记录下来方便查看</p>
-<p>开发环境如下:</p>
-<p>eclipse Oxygen Release (4.7.0)</p>
-<p>java1.8</p>
-<p>spring 4.3.3</p>
-<p>freemarker 2.3.26(这个不是必须的)</p>
-<h2 id="maven依赖包如下："><a href="#maven依赖包如下：" class="headerlink" title="maven依赖包如下："></a>maven依赖包如下：</h2><pre><code>&lt;!-- spring mvc返回json所需依赖  --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-        &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
-        &lt;version&gt;2.7.0&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
-        &lt;version&gt;2.7.0&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;!-- freemarker 引擎，有了这个就不需要使用jstl了，只需要使用freemarker表达式就行了 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.freemarker&lt;/groupId&gt;
-        &lt;artifactId&gt;freemarker&lt;/artifactId&gt;
-        &lt;version&gt;2.3.26-incubating&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;!-- spring 核心 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;!-- springmvc 核心 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;!-- spring bean 核心 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-</code></pre><h2 id="web-xml-配置"><a href="#web-xml-配置" class="headerlink" title="web.xml 配置:"></a>web.xml 配置:</h2><pre><code>&lt;servlet&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
-    &lt;init-param&gt;
-        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
-        &lt;param-value&gt;/WEB-INF/applicationContext.xml&lt;/param-value&gt;
-    &lt;/init-param&gt;
-    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;&lt;!--启动顺序，让这个Servlet随Servletp容器一起启动。 --&gt;
-&lt;/servlet&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;/&lt;/url-pattern&gt; &lt;!--会拦截URL中带“/”的请求。 --&gt;
-&lt;/servlet-mapping&gt;
-</code></pre><h2 id="spring-mvc配置"><a href="#spring-mvc配置" class="headerlink" title="spring-mvc配置:"></a>spring-mvc配置:</h2><pre><code>&lt;mvc:annotation-driven /&gt;
-&lt;context:component-scan base-package=&quot;canxing.web&quot; /&gt;
-</code></pre><h2 id="spring-mvc配置freemarker"><a href="#spring-mvc配置freemarker" class="headerlink" title="spring-mvc配置freemarker:"></a>spring-mvc配置freemarker:</h2><pre><code>&lt;!-- freemarker 配置文件 --&gt;
-&lt;!-- freemarker config --&gt;
-&lt;bean id=&quot;freemarkerConfig&quot;
-    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer&quot;&gt;
-    &lt;property name=&quot;templateLoaderPath&quot; value=&quot;/WEB-INF/freemarker/&quot; /&gt;
-&lt;/bean&gt;
-
-&lt;!-- View resolvers can also be configured with ResourceBundles or XML files.
-    If you need different view resolving based on Locale, you have to use the
-    resource bundle resolver. --&gt;
-&lt;bean id=&quot;viewResolver&quot;
-    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;
-    &lt;property name=&quot;cache&quot; value=&quot;true&quot; /&gt;
-    &lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;
-    &lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;
-&lt;/bean&gt;
-</code></pre><h2 id="JSONController-java"><a href="#JSONController-java" class="headerlink" title="JSONController.java:"></a>JSONController.java:</h2><pre><code>@Controller
-public class JSONController {
-    @RequestMapping(path=&quot;/json&quot;,produces=&quot;application/json&quot;)
-    public @ResponseBody User index() {//使用@RespnseBody将返回的对象转化为JSON数据
-        System.out.println(&quot;index start&quot;);
-        User user = new User();
-        user.setUsername(&quot;canxing&quot;);
-        user.setPassword(&quot;123&quot;);
-        System.out.println(&quot;index end&quot;);
-        return user;
-    }
-    @RequestMapping(path=&quot;/&quot;)
-    public String test() {
-        return &quot;test&quot;;
-    }
-}
-</code></pre><h2 id="User-java："><a href="#User-java：" class="headerlink" title="User.java："></a>User.java：</h2><pre><code>//类不需要进行处理，只是一个普通的pojo类
-public class User{
-        private String username;
-        private String password;
-        public String getUsername() {
-            return username;
-        }
-        public void setUsername(String username) {
-            this.username = username;
-        }
-        public String getPassword() {
-            return password;
-        }
-        public void setPassword(String password) {
-            this.password = password;
-        }
-        @Override
-        public String toString() {
-            return &quot;User [username=&quot; + username + &quot;, password=&quot; + password + &quot;]&quot;;
-        }
-    }
-</code></pre><h2 id="test-flt"><a href="#test-flt" class="headerlink" title="test.flt:"></a>test.flt:</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>freemarker test <span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">loadXMLDoc</span>(<span class="params"></span>)</span></span></span><br><span class="line">			&#123;</span><br><span class="line"><span class="javascript">				xmlhttp=<span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest)</span></span><br><span class="line"><span class="javascript">				  &#123;<span class="comment">// code for Firefox, Mozilla, IE7, etc.</span></span></span><br><span class="line"><span class="javascript">				  xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject)</span></span><br><span class="line"><span class="javascript">				  &#123;<span class="comment">// code for IE6, IE5</span></span></span><br><span class="line"><span class="javascript">				  xmlhttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">if</span> (xmlhttp!=<span class="literal">null</span>)</span></span><br><span class="line">				  &#123;</span><br><span class="line">				  xmlhttp.onreadystatechange=state_Change;</span><br><span class="line"><span class="javascript">				  xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"http://localhost:8080/spring_web_test/json"</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">				  xmlhttp.send(<span class="literal">null</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">else</span></span></span><br><span class="line">				  &#123;</span><br><span class="line"><span class="javascript">				  alert(<span class="string">"Your browser does not support XMLHTTP."</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line">			&#125;</span><br><span class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">state_Change</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">var</span> obj = <span class="built_in">eval</span>(<span class="string">"("</span> + xmlhttp.responseText + <span class="string">")"</span>);</span></span><br><span class="line"><span class="javascript">				<span class="built_in">document</span>.getElementById(<span class="string">"username"</span>).innerHTML=obj.username</span></span><br><span class="line"><span class="javascript">				<span class="built_in">document</span>.getElementById(<span class="string">"password"</span>).innerHTML=obj.password</span></span><br><span class="line">			&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>freemarker test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">		username : <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'username'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		password : <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'password'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">'button'</span> <span class="attr">onclick</span>=<span class="string">"loadXMLDoc()"</span>&gt;</span>adfads<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
-<h3 id="寻找答案中遇到的问题"><a href="#寻找答案中遇到的问题" class="headerlink" title="寻找答案中遇到的问题"></a>寻找答案中遇到的问题</h3><ol>
-<li>依赖问题，spring 默认的对象转化为 json 的 jar 包依赖，网上多是直接使用并没有说明依赖</li>
-<li>还是依赖问题，spring 和 jackson 之间版本的兼容性太差，稍微更改以下 jackson 或者 spring 的版本就会导致 NoSuchMethodError 错误，据说这里可以看见<a href="https://jira.spring.io/browse/SPR/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel" target="_blank" rel="noopener">版本支持</a>，但是看不懂</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/14/数据结构c语言描述二-栈/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="残星">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="残星">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/14/数据结构c语言描述二-栈/" class="post-title-link" itemprop="url">数据结构c语言描述二-栈</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-14 22:33:07" itemprop="dateCreated datePublished" datetime="2017-12-14T22:33:07+08:00">2017-12-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-13 13:58:09" itemprop="dateModified" datetime="2022-06-13T13:58:09+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/data-structure/" itemprop="url" rel="index"><span itemprop="name">data_structure</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>栈又称堆栈，仅允许在表的一端进行插入和删除操作的线性表，该位置位于表尾，称为栈顶(Top)，相对地，另一端称为栈底。由于栈的插入和删除运算只能在栈顶一端进行，后进栈元素必定先出栈，所以把栈称为后进先出表(last in first out 简称 LIFO)</p>
-<p>这里使用链表实现栈</p>
-<p><img src="栈模型.png" alt="栈模型"></p>
-<h2 id="栈的定义"><a href="#栈的定义" class="headerlink" title="栈的定义"></a>栈的定义</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//头文件中的函数定义</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">PtrToNode</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> PtrToNode Stack;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElementType;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">IsEmpty</span><span class="params">(Stack S)</span></span>;<span class="comment">//判断栈是否为空</span></span><br><span class="line"><span class="function">Stack <span class="title">CreateStack</span><span class="params">(<span class="keyword">void</span>)</span></span>;<span class="comment">//创建一个空栈</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MakeEmpty</span><span class="params">(Stack S)</span></span>;<span class="comment">//删除栈中的所有数据</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(ElementType X,Stack S)</span></span>;<span class="comment">//将数据压入栈栈有两种实现方式，一种使用顺序表，另一种使用链表方式实现</span></span><br><span class="line"><span class="function">ElementType <span class="title">Top</span><span class="params">(Stack S)</span></span>;<span class="comment">//返回栈顶的数据</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Pop</span><span class="params">(Stack S)</span></span>;<span class="comment">//弹出栈顶的元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printStack</span><span class="params">(Stack S)</span></span>;<span class="comment">//遍历栈</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//具体实现文件中栈节点的定义，使用int类型</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElementType;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">	ElementType Element;</span><br><span class="line">	PtrToNode Next;<span class="comment">//因为是使用链表，所以这个执行下一个节点地址</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="栈的实现"><a href="#栈的实现" class="headerlink" title="栈的实现"></a>栈的实现</h2><p>栈的主要操作集中在Push和Pop操作，前者向栈中压入一个数据，后者从栈中弹出一个数据</p>
-<h3 id="Push功能实现"><a href="#Push功能实现" class="headerlink" title="Push功能实现"></a>Push功能实现</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(ElementType X,Stack S)</span></span>&#123;</span><br><span class="line">	PtrToNode Node;</span><br><span class="line">	Node = (PtrToNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Node));</span><br><span class="line">	<span class="keyword">if</span>(Node == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">	Node-&gt;Element = X;</span><br><span class="line">	Node-&gt;Next = S-&gt;Next;</span><br><span class="line">	S-&gt;Next = Node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Pop功能实现"><a href="#Pop功能实现" class="headerlink" title="Pop功能实现"></a>Pop功能实现</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Pop</span><span class="params">(Stack S)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(IsEmpty(S)) <span class="keyword">return</span>;</span><br><span class="line">	PtrToNode temp = S-&gt;Next;</span><br><span class="line">	S-&gt;Next = temp-&gt;Next;</span><br><span class="line">	temp-&gt;Next = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="built_in">free</span>(temp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/canxing/code-repository/blob/master/c/data_structure_and_algorithm_analysis" target="_blank" rel="noopener">参考源码</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/11/数据结构c语言描述一-链表/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="残星">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="残星">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/11/数据结构c语言描述一-链表/" class="post-title-link" itemprop="url">数据结构c语言描述一-链表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-11 22:34:26" itemprop="dateCreated datePublished" datetime="2017-12-11T22:34:26+08:00">2017-12-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-13 13:58:09" itemprop="dateModified" datetime="2022-06-13T13:58:09+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/data-structure/" itemprop="url" rel="index"><span itemprop="name">data_structure</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>链表由一系列不必在内存中相连的结构组成，每一个结构单元均含有表元素和指向包含该元素后继元素的结构的指针</p>
-<p>如图所示<br><img src="有头节点的链表.png" alt="带头节点的链表"></p>
-<p>链表可以有两种表现形式，一种是带有头节点的链表(如上图所示)，另一种是不带有头节点的链表，一般来说带有头节点的链表很多时候处理起来比不带头节点的方便，因此这里选择带有头节点的链表展示</p>
-<p>链表定义如下:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//头文件中定义</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">PtrToNode</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> PtrToNode List;</span><br><span class="line"><span class="keyword">typedef</span> PtrToNode Position;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ElementType</span> <span class="title">ElementType</span>;</span></span><br><span class="line"><span class="function">List <span class="title">MakeEmpty</span><span class="params">(List L)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">IsEmpty</span><span class="params">(List L)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">IsLast</span><span class="params">(Position P,List L)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType X,List L)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">(ElementType X,List L)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">FindPrevious</span><span class="params">(ElementType X,List L)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(ElementType X,List L,Position P)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteList</span><span class="params">(List L)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Header</span><span class="params">(List L)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">First</span><span class="params">(List L)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(List L)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在具体的实现文件中定义每个节点中的数据，这里选择int类型的数据</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ElementType</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">	ElementType Element;</span><br><span class="line">	Position Next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="主要功能实现"><a href="#主要功能实现" class="headerlink" title="主要功能实现"></a>主要功能实现</h2><p>链表中稍微复杂的功能主要集中在删除和插入操作，删除和插入功能主要涉及到链表指针的移动以及内存的分配和释放</p>
-<p><img src="链表的删除.png" alt="链表的删除"></p>
-<p>当链表删除时，就需要调整指针，将删除节点的前驱节点的后继指针指向删除节点的后继节点，并释放删除节点所占用的内存空间</p>
-<p><img src="链表的插入.png" alt="链表的插入"></p>
-<p>当链表插入元素时，需要分配内存空间，创建一个新的节点，并将指定节点的后继指针指向新增节点，再把新增节点的后继指针指向原来指定节点的后继节点</p>
-<h3 id="链表插入操作实现代码"><a href="#链表插入操作实现代码" class="headerlink" title="链表插入操作实现代码"></a>链表插入操作实现代码</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(ElementType X,List L,Position P)</span></span>&#123;</span><br><span class="line">	Position ptr ;</span><br><span class="line">	ptr = (Position)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Node));</span><br><span class="line">	<span class="keyword">if</span>(ptr == <span class="literal">NULL</span>) <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">	ptr-&gt;Element = X;</span><br><span class="line">	ptr-&gt;Next = P-&gt;Next;</span><br><span class="line">	P-&gt;Next = ptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="链表删除操作实现代码"><a href="#链表删除操作实现代码" class="headerlink" title="链表删除操作实现代码"></a>链表删除操作实现代码</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteList</span><span class="params">(List L)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(L == <span class="literal">NULL</span> || L-&gt;Next == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">	Position ptr = <span class="literal">NULL</span>;</span><br><span class="line">	Position temp = <span class="literal">NULL</span>;</span><br><span class="line">	ptr = L-&gt;Next;</span><br><span class="line">	L-&gt;Next = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span>(ptr != <span class="literal">NULL</span>)&#123;</span><br><span class="line">		temp = ptr;</span><br><span class="line">		ptr = ptr-&gt;Next;</span><br><span class="line">		temp-&gt;Next = <span class="literal">NULL</span>;</span><br><span class="line">		<span class="built_in">free</span>(temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/canxing/code-repository/blob/master/c/data_structure_and_algorithm_analysis" target="_blank" rel="noopener">参考源码</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/10/ubuntu下gpg的基本使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="残星">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="残星">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/12/10/ubuntu下gpg的基本使用/" class="post-title-link" itemprop="url">ubuntu下gpg的基本使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-12-10 21:03:56" itemprop="dateCreated datePublished" datetime="2017-12-10T21:03:56+08:00">2017-12-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-13 13:58:09" itemprop="dateModified" datetime="2022-06-13T13:58:09+08:00">2022-06-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
-<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
-</blockquote>
-<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
-<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
-</blockquote>
-<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
-<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
-<p>  输入以下命令开始生成密钥对  </p>
-<ul>
-<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
-</ul>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
-<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
-<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>##4.上出公钥</p>
-<blockquote>
-<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
-<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
-<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
-<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
-<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
-<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
-</blockquote>
-</blockquote>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
-</blockquote>
-<blockquote>
-<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
