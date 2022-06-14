@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中   使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据   像我们前面处理苹果集合时那样，可以实现一个方法来收集">
+  <meta name="description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现）">
 <meta name="keywords" content="java,java8">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java8-使用流">
 <meta property="og:url" content="http://yoursite.com/2018/01/12/java8-使用流/index.html">
 <meta property="og:site_name" content="残星">
-<meta property="og:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中   使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据   像我们前面处理苹果集合时那样，可以实现一个方法来收集">
+<meta property="og:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-06-14T01:50:02.449Z">
+<meta property="og:updated_time" content="2022-06-14T02:10:46.888Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java8-使用流">
-<meta name="twitter:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现） 使用流集合是流最容易上手的方式，Java8 中的集合支持一个新的stream方法，他会放回一个流对象（接口定义在java.util.stream.Stream）中   使用流可以完成什么事？他可以让我们以一种流水线的方法处理集合数据   像我们前面处理苹果集合时那样，可以实现一个方法来收集">
+<meta name="twitter:description" content="流介绍流是java API的新成员，他允许你以声明的方式处理数据集合（通过查询语句，而不是临时编写一个实现）">
 
 <link rel="canonical" href="http://yoursite.com/2018/01/12/java8-使用流/">
 
@@ -224,7 +224,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-14 09:50:02" itemprop="dateModified" datetime="2022-06-14T09:50:02+08:00">2022-06-14</time>
+                <time title="Modified: 2022-06-14 10:10:46" itemprop="dateModified" datetime="2022-06-14T10:10:46+08:00">2022-06-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">

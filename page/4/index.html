@@ -219,7 +219,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-14 09:50:02" itemprop="dateModified" datetime="2022-06-14T09:50:02+08:00">2022-06-14</time>
+                <time title="Modified: 2022-06-14 10:10:46" itemprop="dateModified" datetime="2022-06-14T10:10:46+08:00">2022-06-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,89 +242,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="基于github-hexo的个人博客"><a href="#基于github-hexo的个人博客" class="headerlink" title="基于github+hexo的个人博客"></a>基于github+hexo的个人博客</h1><h2 id="1-本地环境配置"><a href="#1-本地环境配置" class="headerlink" title="1. 本地环境配置"></a>1. 本地环境配置</h2><blockquote>
-<p>操作系统为 ubuntu16.04</p>
-</blockquote>
-<h3 id="1-git"><a href="#1-git" class="headerlink" title="1. git"></a>1. git</h3><blockquote>
-<p>使用 <code>sudo apt install git</code>下载git</p>
-</blockquote>
-<h3 id="2-node-js"><a href="#2-node-js" class="headerlink" title="2. node.js"></a>2. node.js</h3><blockquote>
-<p>安装命令 <code>wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</code></p>
-</blockquote>
-<blockquote>
-<p> <code>nvm install stable</code></p>
-</blockquote>
-<h3 id="3-hexo"><a href="#3-hexo" class="headerlink" title="3. hexo"></a>3. hexo</h3><blockquote>
-<p><code>npm install -g hexo-cli</code> 安装hexo</p>
-</blockquote>
-<blockquote>
-<p><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">hexo安装</a></p>
-</blockquote>
-<h2 id="2-github-配置"><a href="#2-github-配置" class="headerlink" title="2. github 配置"></a>2. github 配置</h2><blockquote>
-<p>前往github主页新建一个仓库，仓库名为 xxx.github.io(到时候通过xxx.github.io就可以访问个人博客，xxx最好是和github账户名相同，不同不知道是否可以)</p>
-</blockquote>
-<h2 id="3-创建本地文件资源"><a href="#3-创建本地文件资源" class="headerlink" title="3.创建本地文件资源"></a>3.创建本地文件资源</h2><blockquote>
-<p>在/home/canxing/目录下创建保存博客资源文件夹</p>
-</blockquote>
-<blockquote>
-<p><code>makir myblog</code></p>
-</blockquote>
-<blockquote>
-<p>使用hexo初始化</p>
-</blockquote>
-<blockquote>
-<p><code>hexo init ~/myblog</code></p>
-</blockquote>
-<blockquote>
-<p>进入myblog文件夹</p>
-</blockquote>
-<blockquote>
-<p>生成hexo所需要的文件目录</p>
-</blockquote>
-<blockquote>
-<p><code>npm install</code></p>
-</blockquote>
-<blockquote>
-<p>使用 <code>hexo s</code> 命令开启hexo服务，并通过localhost:4000 就可以访问一个初始的模板</p>
-</blockquote>
-<h2 id="4-配置hexo"><a href="#4-配置hexo" class="headerlink" title="4. 配置hexo"></a>4. 配置hexo</h2><blockquote>
-<p>hexo文件夹根目录下的_config.yml 文件为hexo的配置文件<br><a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="noopener">官方配置参数</a><br><a href="http://blog.junyu.io/posts/0004-hexo-config-settings.html" target="_blank" rel="noopener">参考配置说明</a></p>
-</blockquote>
-<blockquote>
-<p>部分参数说明如下</p>
-</blockquote>
-<blockquote>
-<blockquote>
-<ol>
-<li>title:网站主标题</li>
-<li>subtitle: 子标题</li>
-<li>description: 网站描述</li>
-<li>author: 作者</li>
-<li>language: zh_CN</li>
-<li>timezone: 时区，没有设置为本地时区设置</li>
-<li>url: 你的网站域名</li>
-<li>root: 根路径</li>
-<li>permalink:生成的链接的格式</li>
-<li>theme:生成的博客系统样式，就是视图表示，可以前往<a href="https://hexo.io/themes/#responsive" target="_blank" rel="noopener">hexo样式</a>选择喜欢的样式然后使用git clone到本地</li>
-<li>deploy: 部署选项，包括部署类型，仓库url，分支等<blockquote>
-<ul>
-<li>type: git</li>
-<li>repo: 仓库url</li>
-<li>branch: 一般是master</li>
-</ul>
-</blockquote>
-</li>
-</ol>
-</blockquote>
-</blockquote>
-<h2 id="5-hexo预览和部署"><a href="#5-hexo预览和部署" class="headerlink" title="5. hexo预览和部署"></a>5. hexo预览和部署</h2><blockquote>
-<ol>
-<li><code>hexo s</code>开启hexo服务器，在网页中可以输入localhost:4000可以查看预览</li>
-<li><code>hexo g</code>生成新的文件资源</li>
-<li><code>hexo d</code>部署到github上，部署路径为_config.yml文件中的deploy的选项</li>
-</ol>
-</blockquote>
-
+          <h1 id="基于github-hexo的个人博客"><a href="#基于github-hexo的个人博客" class="headerlink" title="基于github+hexo的个人博客"></a>基于github+hexo的个人博客</h1><h2 id="1-本地环境配置"><a href="#1-本地环境配置" class="headerlink" title="1. 本地环境配置"></a>1. 本地环境配置</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2017/12/09/基于github-hexo的个人博客/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
