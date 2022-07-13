@@ -567,6 +567,33 @@ responseXML                   获得XML形式的响应数据
       </tags>
   </entry>
   <entry>
+    <title>使用 docker buildx 构建多 CPU 架构镜像</title>
+    <url>/2022/07/13/docker%E5%A4%9A%E6%9E%B6%E6%9E%84%E6%9E%84%E5%BB%BA/</url>
+    <content><![CDATA[<h1 id="使用-docker-buildx-构建多-CPU-架构镜像"><a href="#使用-docker-buildx-构建多-CPU-架构镜像" class="headerlink" title="使用 docker buildx 构建多 CPU 架构镜像"></a>使用 docker buildx 构建多 CPU 架构镜像</h1><p>docker 版本大于等于 19.03 支持使用 docker buildx 方式构建多 CPU 架构镜像</p>
+<h2 id="启动-docker-buildx"><a href="#启动-docker-buildx" class="headerlink" title="启动 docker buildx"></a>启动 docker buildx</h2><p>在最新的 docker 20.10.7 版本中，docker buildx 已经默认启动，可以通过 <code>docker buildx version</code> 查看。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker buildx version</span></span><br><span class="line">github.com/docker/buildx v0.5.1-docker 11057da37336192bfc57d81e02359ba7ba848e4a</span><br></pre></td></tr></table></figure>
+<p>如果返回找不到命令，那么需要为当前版本 docker 开启这项功能。编辑 <code>/etc/docker/daemon.json</code> 文件，写入 <code>&quot;experimetal&quot;: true</code>，保存退出后重启 docker。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 请备份 daemon.json 文件！！！</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"&#123;"</span>experimetal<span class="string">": true&#125;"</span> &gt; /etc/docker/daemon.json;</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h2 id="开启-binfmt-misc"><a href="#开启-binfmt-misc" class="headerlink" title="开启 binfmt_misc"></a>开启 binfmt_misc</h2><p>通过一个特权容器来开启 Linux 系统上的 binfmt_misc</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>DockerHub 地址: <a href="https://hub.docker.com/r/docker/binfmt" target="_blank" rel="noopener">docker/binfmt</a></p>
+</blockquote>
+<p>查看是否设置正确</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># ls -al /proc/sys/fs/binfmt_misc/</span></span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x 2 root root 0 Jul  7 06:27 .</span><br><span class="line">dr-xr-xr-x 1 root root 0 Jul  7 06:08 ..</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-aarch64</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-arm</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-ppc64le</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-riscv64</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-s390x</span><br><span class="line">--w------- 1 root root 0 Jul  7 06:27 register</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 status</span><br></pre></td></tr></table></figure>
+<h2 id="切换镜像构建为多架构构建器"><a href="#切换镜像构建为多架构构建器" class="headerlink" title="切换镜像构建为多架构构建器"></a>切换镜像构建为多架构构建器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker buildx create --use --name mybuilder</span><br></pre></td></tr></table></figure>
+<p>验证构建器是否生效</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker buildx ls</span></span><br><span class="line">NAME/NODE    DRIVER/ENDPOINT             STATUS   PLATFORMS</span><br><span class="line">mybuilder *  docker-container                     </span><br><span class="line">  mybuilder0 unix:///var/run/docker.sock inactive </span><br><span class="line">default      docker                               </span><br><span class="line">  default    default                     running  linux/amd64, linux/386, linux/arm64, linux/riscv64, linux/ppc64le, linux/s390x, linux/arm/v7, linux/arm/v6</span><br></pre></td></tr></table></figure>
+<h2 id="在-amd64-机器上启动-arm-架构容器"><a href="#在-amd64-机器上启动-arm-架构容器" class="headerlink" title="在 amd64 机器上启动 arm 架构容器"></a>在 amd64 机器上启动 arm 架构容器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker pull --platform arm64 nginx</span></span><br><span class="line">root@:~<span class="comment"># docker run -d -p 80:80 --platform arm64 nginx</span></span><br><span class="line">root@:~<span class="comment"># curl localhost</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Welcome to nginx!&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    body &#123;</span><br><span class="line">        width: 35em;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        font-family: Tahoma, Verdana, Arial, sans-serif;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;If you see this page, the nginx web server is successfully installed and</span><br><span class="line">working. Further configuration is required.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;For online documentation and support please refer to</span><br><span class="line">&lt;a href=<span class="string">"http://nginx.org/"</span>&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;</span><br><span class="line">Commercial support is available at</span><br><span class="line">&lt;a href=<span class="string">"http://nginx.com/"</span>&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;&lt;em&gt;Thank you <span class="keyword">for</span> using nginx.&lt;/em&gt;&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java-tcp套接字编程</title>
     <url>/2017/12/28/java-tcp%E5%A5%97%E6%8E%A5%E5%AD%97%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="什么是套接字传送们维基百科"><a href="#什么是套接字传送们维基百科" class="headerlink" title="什么是套接字传送们维基百科"></a>什么是套接字<a href="https://zh.wikipedia.org/wiki/Berkeley%E5%A5%97%E6%8E%A5%E5%AD%97" target="_blank" rel="noopener">传送们维基百科</a></h1><p>java中的套接字屏蔽了许多细节，不需要关注更多的底层信息。<br>在java中套接字服务器可以使用java.net.ServerSocket创建<br>一个常用的构造方法如下:</p>
