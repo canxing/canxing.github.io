@@ -1337,6 +1337,52 @@ o.put(&quot;employees&quot;,employees);
       </tags>
   </entry>
   <entry>
+    <title>python-简单爬虫</title>
+    <url>/2018/06/30/python-reptile/</url>
+    <content><![CDATA[<h1 id="python-简单爬虫"><a href="#python-简单爬虫" class="headerlink" title="python 简单爬虫"></a>python 简单爬虫</h1><blockquote>
+<p>这不是一篇完整的爬虫教程，这是一篇使用python完成简单爬虫的使用过程记录。<br>使用 python3 以及第三方库 requests 和 lxml 以及 xpath 技术来爬取一些网页数据<br>这里只是用了 GET 请求，没有使用 POST 请求</p>
+</blockquote>
+<h2 id="第三方库和技术介绍"><a href="#第三方库和技术介绍" class="headerlink" title="第三方库和技术介绍"></a>第三方库和技术介绍</h2><p>requests: 这里使用 requests 来请求一个网页，并将响应结果封装在一个对象中返回</p>
+<p>lxml: 使用 lxml 中的 etree 库对响应的 HTML 页面进行解析</p>
+<p>xpath: 一种解析 xml 文档的技术，也可以解析 HTML 页面。在w3c可以找到文档</p>
+<h2 id="过程介绍"><a href="#过程介绍" class="headerlink" title="过程介绍"></a>过程介绍</h2><ol>
+<li>使用 <code>requests.get</code> 函数请求对应的<code>URL</code></li>
+<li>如果请求正常并有返回，将返回结果通过<code>etree.HTML</code>处理</li>
+<li>使用<code>xpath</code>技术对<code>etree.HTML</code>处理过的对象进行解析，获取对应的数据</li>
+<li>数据存储</li>
+</ol>
+<h2 id="请求页面"><a href="#请求页面" class="headerlink" title="请求页面"></a>请求页面</h2><h3 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h3><p>使用<code>requests.get(url)</code>方式可以请求对应的<code>url</code>内容，并将响应结果封装在一个对象中返回，但是直接使用这种方式的请求头中包含这个<code>&quot;User-Agent&quot;:&quot;python-requests/2.19.1&quot;</code><br>有些服务器会通过这个请求头得知这是一个python爬虫请求从而拒绝响应。为了正常访问，需要传入一个请求头来覆盖这个属性，从而骗过请求服务器。</p>
+<p>在<code>firefox</code>浏览器中通过请求<code>http://httpbin.org/get</code>可以获得本机的请求头，下面是我请求的该链接的部分内容</p>
+<p><img src="httpbing-request.png" alt="本机请求httpbin.org"></p>
+<p>将请求中的<code>User-Agent</code>对应的属性作为键值对形式传入<code>requests.get()</code>的<code>headers</code>参数，如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">header = &#123;<span class="string">"User-Agent"</span>:<span class="string">"Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"</span>&#125;</span><br><span class="line">response = requests.get(url, headers=header)</span><br></pre></td></tr></table></figure>
+<h3 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h3><p>如果你想要传入查询参数，只需要以键值对的形式传入<code>requests.get</code>中的<code>params</code>，下面的查询键为’user’，对应的值为’tom’</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data = &#123;<span class="string">"user"</span>:<span class="string">"tom"</span>&#125;</span><br><span class="line">response = requests.get(url, params=data)</span><br><span class="line">```python</span><br><span class="line"></span><br><span class="line">如果你有多个查询值也可以添加多个键值对</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">data = &#123;<span class="string">"user"</span>:<span class="string">"tom"</span>,<span class="string">"pwd"</span>:<span class="string">"jerry"</span>&#125;</span><br><span class="line">response = requests.get(url, params=data)</span><br></pre></td></tr></table></figure>
+<h3 id="请求超时设置"><a href="#请求超时设置" class="headerlink" title="请求超时设置"></a>请求超时设置</h3><p>对<code>requests.get</code>函数的<code>timeout</code>参数传入一个数字可以设置请求的最长时间</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">response = requests.get(url, timeout=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="响应处理"><a href="#响应处理" class="headerlink" title="响应处理"></a>响应处理</h2><p>使用<code>response = requests.get()</code>之后就获取了响应结果，这时可以对响应做一些处理</p>
+<h3 id="响应码"><a href="#响应码" class="headerlink" title="响应码"></a>响应码</h3><p><code>response.status_code</code>返回请求的响应码，正常情况下返回<code>200</code></p>
+<h3 id="字符设置"><a href="#字符设置" class="headerlink" title="字符设置"></a>字符设置</h3><p>响应返回的结果不一定可以正常显示，对<code>response.encoding</code>属性进行赋值可以修改返回的字符集，一般设置为<code>utf-8</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">response.encoding = <span class="string">'utf-8'</span></span><br></pre></td></tr></table></figure>
+<h3 id="返回结果"><a href="#返回结果" class="headerlink" title="返回结果"></a>返回结果</h3><p><code>response.text</code>将数据以文本形式返回，文本形式的字符集和字符设置有关，如果没有设置则返回响应数据设置的字符集</p>
+<p><code>response.content</code>将数据以字节形式返回，使用这种方式返回就不用担心返回的数据出现乱码问题</p>
+<h2 id="一个完整的请求实例"><a href="#一个完整的请求实例" class="headerlink" title="一个完整的请求实例"></a>一个完整的请求实例</h2><p>请求一个<code>url</code>并将响应结果以文本的形式返回</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user_agent = <span class="string">"User-Agent"</span></span><br><span class="line">my_user_agent = <span class="string">"Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"</span></span><br><span class="line">header = &#123;user_agent: my_user_agent&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getPage</span><span class="params">(url, data=None)</span> :</span></span><br><span class="line">    <span class="string">'''根据url请求一个html页面并返回'''</span></span><br><span class="line">    <span class="keyword">try</span> :</span><br><span class="line">        r = requests.get(url, headers=header, params=data)</span><br><span class="line">        r.encoding = <span class="string">'utf-8'</span></span><br><span class="line">        <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">return</span> r.text</span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"返回页面信息失败"</span>)</span><br><span class="line">    <span class="keyword">except</span> :</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"请求链接失败"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="xpath处理"><a href="#xpath处理" class="headerlink" title="xpath处理"></a>xpath处理</h2><p>使用<code>lxml</code>中的<code>etree</code>库中的<code>HTML</code>函数可以将一个<code>HTML</code>页面转换为一个对象，对该对象使用<code>xpath</code>语法即可获取对应的数据。有关更多的<code>xpath</code>技术点击<a href="http://www.w3school.com.cn/xpath/" target="_blank" rel="noopener">这里</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">html = etree.HTML(html)</span><br><span class="line">html.xpath(xpath)</span><br></pre></td></tr></table></figure>
+<p>对于使用<code>xpath</code>语法来获取数据，在<code>firefox</code>浏览器中使用<a href="https://addons.mozilla.org/zh-CN/firefox/addon/try-xpath/?src=search" target="_blank" rel="noopener">这个</a>插件，可以在线使用<code>xpath</code>语法来匹配</p>
+<p>注意:使用<code>xpath</code>语法返回的数据都是以列表形式返回</p>
+<p><a href="https://github.com/canxing/code-repository/blob/master/python/reptile/tencent_job_reptile.py" target="_blank" rel="noopener">一个完整的可以爬取腾讯社招技术类的所有招聘信息的爬虫程序</a></p>
+]]></content>
+      <categories>
+        <category>python3</category>
+      </categories>
+      <tags>
+        <tag>python3</tag>
+        <tag>reptile</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nginx 自定义模块</title>
     <url>/2018/08/23/ngxin-customize-module/</url>
     <content><![CDATA[<p>Nginx 有核心模块和第三方模块，我们也可以自定义模块来使用。Nginx 就像一个小型的编程语言，要添加自定义模块就要满足一些 Nginx 的编写要求，就像 C 语言必须有一个 main 函数一样。</p>
@@ -1618,52 +1664,6 @@ o.put(&quot;employees&quot;,employees);
       </categories>
       <tags>
         <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python-简单爬虫</title>
-    <url>/2018/06/30/python-reptile/</url>
-    <content><![CDATA[<h1 id="python-简单爬虫"><a href="#python-简单爬虫" class="headerlink" title="python 简单爬虫"></a>python 简单爬虫</h1><blockquote>
-<p>这不是一篇完整的爬虫教程，这是一篇使用python完成简单爬虫的使用过程记录。<br>使用 python3 以及第三方库 requests 和 lxml 以及 xpath 技术来爬取一些网页数据<br>这里只是用了 GET 请求，没有使用 POST 请求</p>
-</blockquote>
-<h2 id="第三方库和技术介绍"><a href="#第三方库和技术介绍" class="headerlink" title="第三方库和技术介绍"></a>第三方库和技术介绍</h2><p>requests: 这里使用 requests 来请求一个网页，并将响应结果封装在一个对象中返回</p>
-<p>lxml: 使用 lxml 中的 etree 库对响应的 HTML 页面进行解析</p>
-<p>xpath: 一种解析 xml 文档的技术，也可以解析 HTML 页面。在w3c可以找到文档</p>
-<h2 id="过程介绍"><a href="#过程介绍" class="headerlink" title="过程介绍"></a>过程介绍</h2><ol>
-<li>使用 <code>requests.get</code> 函数请求对应的<code>URL</code></li>
-<li>如果请求正常并有返回，将返回结果通过<code>etree.HTML</code>处理</li>
-<li>使用<code>xpath</code>技术对<code>etree.HTML</code>处理过的对象进行解析，获取对应的数据</li>
-<li>数据存储</li>
-</ol>
-<h2 id="请求页面"><a href="#请求页面" class="headerlink" title="请求页面"></a>请求页面</h2><h3 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h3><p>使用<code>requests.get(url)</code>方式可以请求对应的<code>url</code>内容，并将响应结果封装在一个对象中返回，但是直接使用这种方式的请求头中包含这个<code>&quot;User-Agent&quot;:&quot;python-requests/2.19.1&quot;</code><br>有些服务器会通过这个请求头得知这是一个python爬虫请求从而拒绝响应。为了正常访问，需要传入一个请求头来覆盖这个属性，从而骗过请求服务器。</p>
-<p>在<code>firefox</code>浏览器中通过请求<code>http://httpbin.org/get</code>可以获得本机的请求头，下面是我请求的该链接的部分内容</p>
-<p><img src="httpbing-request.png" alt="本机请求httpbin.org"></p>
-<p>将请求中的<code>User-Agent</code>对应的属性作为键值对形式传入<code>requests.get()</code>的<code>headers</code>参数，如下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">header = &#123;<span class="string">"User-Agent"</span>:<span class="string">"Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"</span>&#125;</span><br><span class="line">response = requests.get(url, headers=header)</span><br></pre></td></tr></table></figure>
-<h3 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h3><p>如果你想要传入查询参数，只需要以键值对的形式传入<code>requests.get</code>中的<code>params</code>，下面的查询键为’user’，对应的值为’tom’</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data = &#123;<span class="string">"user"</span>:<span class="string">"tom"</span>&#125;</span><br><span class="line">response = requests.get(url, params=data)</span><br><span class="line">```python</span><br><span class="line"></span><br><span class="line">如果你有多个查询值也可以添加多个键值对</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">data = &#123;<span class="string">"user"</span>:<span class="string">"tom"</span>,<span class="string">"pwd"</span>:<span class="string">"jerry"</span>&#125;</span><br><span class="line">response = requests.get(url, params=data)</span><br></pre></td></tr></table></figure>
-<h3 id="请求超时设置"><a href="#请求超时设置" class="headerlink" title="请求超时设置"></a>请求超时设置</h3><p>对<code>requests.get</code>函数的<code>timeout</code>参数传入一个数字可以设置请求的最长时间</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">response = requests.get(url, timeout=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="响应处理"><a href="#响应处理" class="headerlink" title="响应处理"></a>响应处理</h2><p>使用<code>response = requests.get()</code>之后就获取了响应结果，这时可以对响应做一些处理</p>
-<h3 id="响应码"><a href="#响应码" class="headerlink" title="响应码"></a>响应码</h3><p><code>response.status_code</code>返回请求的响应码，正常情况下返回<code>200</code></p>
-<h3 id="字符设置"><a href="#字符设置" class="headerlink" title="字符设置"></a>字符设置</h3><p>响应返回的结果不一定可以正常显示，对<code>response.encoding</code>属性进行赋值可以修改返回的字符集，一般设置为<code>utf-8</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">response.encoding = <span class="string">'utf-8'</span></span><br></pre></td></tr></table></figure>
-<h3 id="返回结果"><a href="#返回结果" class="headerlink" title="返回结果"></a>返回结果</h3><p><code>response.text</code>将数据以文本形式返回，文本形式的字符集和字符设置有关，如果没有设置则返回响应数据设置的字符集</p>
-<p><code>response.content</code>将数据以字节形式返回，使用这种方式返回就不用担心返回的数据出现乱码问题</p>
-<h2 id="一个完整的请求实例"><a href="#一个完整的请求实例" class="headerlink" title="一个完整的请求实例"></a>一个完整的请求实例</h2><p>请求一个<code>url</code>并将响应结果以文本的形式返回</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user_agent = <span class="string">"User-Agent"</span></span><br><span class="line">my_user_agent = <span class="string">"Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"</span></span><br><span class="line">header = &#123;user_agent: my_user_agent&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getPage</span><span class="params">(url, data=None)</span> :</span></span><br><span class="line">    <span class="string">'''根据url请求一个html页面并返回'''</span></span><br><span class="line">    <span class="keyword">try</span> :</span><br><span class="line">        r = requests.get(url, headers=header, params=data)</span><br><span class="line">        r.encoding = <span class="string">'utf-8'</span></span><br><span class="line">        <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">return</span> r.text</span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"返回页面信息失败"</span>)</span><br><span class="line">    <span class="keyword">except</span> :</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"请求链接失败"</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="xpath处理"><a href="#xpath处理" class="headerlink" title="xpath处理"></a>xpath处理</h2><p>使用<code>lxml</code>中的<code>etree</code>库中的<code>HTML</code>函数可以将一个<code>HTML</code>页面转换为一个对象，对该对象使用<code>xpath</code>语法即可获取对应的数据。有关更多的<code>xpath</code>技术点击<a href="http://www.w3school.com.cn/xpath/" target="_blank" rel="noopener">这里</a></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">html = etree.HTML(html)</span><br><span class="line">html.xpath(xpath)</span><br></pre></td></tr></table></figure>
-<p>对于使用<code>xpath</code>语法来获取数据，在<code>firefox</code>浏览器中使用<a href="https://addons.mozilla.org/zh-CN/firefox/addon/try-xpath/?src=search" target="_blank" rel="noopener">这个</a>插件，可以在线使用<code>xpath</code>语法来匹配</p>
-<p>注意:使用<code>xpath</code>语法返回的数据都是以列表形式返回</p>
-<p><a href="https://github.com/canxing/code-repository/blob/master/python/reptile/tencent_job_reptile.py" target="_blank" rel="noopener">一个完整的可以爬取腾讯社招技术类的所有招聘信息的爬虫程序</a></p>
-]]></content>
-      <categories>
-        <category>python3</category>
-      </categories>
-      <tags>
-        <tag>python3</tag>
-        <tag>reptile</tag>
       </tags>
   </entry>
   <entry>
@@ -2102,6 +2102,83 @@ o.put(&quot;employees&quot;,employees);
       </tags>
   </entry>
   <entry>
+    <title>ubuntu下gpg的基本使用</title>
+    <url>/2017/12/10/ubuntu%E4%B8%8Bgpg%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
+<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
+</blockquote>
+<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
+<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
+</blockquote>
+<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
+<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
+<p>  输入以下命令开始生成密钥对  </p>
+<ul>
+<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
+<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
+<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>##4.上出公钥</p>
+<blockquote>
+<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
+<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
+<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
+<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
+<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
+<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
+</blockquote>
+</blockquote>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
+</blockquote>
+<blockquote>
+<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>pgp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>spring-mvc返回json数据</title>
     <url>/2017/12/16/spring-mvc%E8%BF%94%E5%9B%9Ejson%E6%95%B0%E6%8D%AE/</url>
     <content><![CDATA[<p>在使用spring-mvc过程中遇到很多问题，记录下来方便查看</p>
@@ -2233,83 +2310,6 @@ public class User{
         <tag>ajax</tag>
         <tag>json</tag>
         <tag>spring-mvc</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ubuntu下gpg的基本使用</title>
-    <url>/2017/12/10/ubuntu%E4%B8%8Bgpg%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
-<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
-</blockquote>
-<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
-<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
-</blockquote>
-<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
-<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
-<p>  输入以下命令开始生成密钥对  </p>
-<ul>
-<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
-</ul>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
-<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
-<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>##4.上出公钥</p>
-<blockquote>
-<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
-<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
-<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
-<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
-<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
-<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
-</blockquote>
-</blockquote>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
-</blockquote>
-<blockquote>
-<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>pgp</tag>
       </tags>
   </entry>
   <entry>
