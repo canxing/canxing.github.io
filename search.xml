@@ -1150,10 +1150,11 @@ o.put(&quot;employees&quot;,employees);
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>kubernetes 安装---单节点安装</title>
     <url>/2023/04/11/kubernetes%20%E5%AE%89%E8%A3%85---%E5%8D%95%E8%8A%82%E7%82%B9%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h1 id="kubeadm-部署-kubernetes"><a href="#kubeadm-部署-kubernetes" class="headerlink" title="kubeadm 部署 kubernetes"></a>kubeadm 部署 kubernetes</h1><ul>
-<li><a href="#kubeadm-部署-kubernetes">kubeadm 部署 kubernetes</a><ul>
+    <content><![CDATA[<h1 id="kubernetes-安装—单节点安装"><a href="#kubernetes-安装—单节点安装" class="headerlink" title="kubernetes 安装—单节点安装"></a>kubernetes 安装—单节点安装</h1><p><a href="https://canxing.github.io/2023/04/11/kubernetes%20%E5%AE%89%E8%A3%85---%E5%8D%95%E8%8A%82%E7%82%B9%E5%AE%89%E8%A3%85/!--%EF%BF%BC11--" target="_blank" rel="noopener">https://canxing.github.io/2023/04/11/kubernetes%20%E5%AE%89%E8%A3%85---%E5%8D%95%E8%8A%82%E7%82%B9%E5%AE%89%E8%A3%85/!--%EF%BF%BC11--</a></p>
+<ul>
+<li><a href="#kubernetes-安装---单节点安装">kubernetes 安装—单节点安装</a><ul>
 <li><a href="#前提条件">前提条件</a></li>
 <li><a href="#安装步骤">安装步骤</a></li>
 <li><a href="#多网卡问题">多网卡问题</a></li>
@@ -1226,6 +1227,12 @@ o.put(&quot;employees&quot;,employees);
 </ol>
 <h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p><a href="https://docs.projectcalico.org/getting-started/kubernetes/quickstart" target="_blank" rel="noopener">calico 安装指南</a></p>
 ]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
   </entry>
   <entry>
     <title>kubernetes 安装---基础环境准备</title>
