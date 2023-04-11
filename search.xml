@@ -340,6 +340,7 @@ responseXML                   获得XML形式的响应数据
     <url>/2018/11/26/docker%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="Docker基础"><a href="#Docker基础" class="headerlink" title="Docker基础"></a>Docker基础</h1><p>本文参考自 <code>&lt;&lt;Docker--从入门到实践&gt;&gt;</code>，该书<a href="https://github.com/yeasy/docker_practice" target="_blank" rel="noopener">github 地址</a>，<a href="https://gitee.com/docker_practice/docker_practice" target="_blank" rel="noopener">国内镜像</a></p>
 <ul>
+<li><a href="#docker基础">Docker基础</a><ul>
 <li><a href="#基本概念">基本概念</a></li>
 <li><a href="#镜像">镜像</a><ul>
 <li><a href="#获取镜像">获取镜像</a></li>
@@ -348,7 +349,7 @@ responseXML                   获得XML形式的响应数据
 <li><a href="#停止容器">停止容器</a></li>
 <li><a href="#删除本地镜像">删除本地镜像</a></li>
 <li><a href="#定制镜像">定制镜像</a></li>
-<li><a href="#Dockerfile指令">Dockerfile 指令</a></li>
+<li><a href="#dockerfile指令">Dockerfile指令</a></li>
 <li><a href="#导入导出镜像">导入导出镜像</a></li>
 </ul>
 </li>
@@ -363,6 +364,8 @@ responseXML                   获得XML形式的响应数据
 <li><a href="#数据管理">数据管理</a><ul>
 <li><a href="#数据卷">数据卷</a></li>
 <li><a href="#挂载主机目录">挂载主机目录</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -524,6 +527,7 @@ responseXML                   获得XML形式的响应数据
 <li>-t 让 Docker 分配一个伪终端到容器的标准输入上</li>
 <li>-d 保持容器后台运行</li>
 <li>-p 指定宿主和容器之间的端口映射</li>
+<li>-u 指定启动容器的用户名称或者 id，格式是 <code>&lt;name|uid&gt;[:&lt;group|gid&gt;]</code>。不指定，默认以 Dockerfile 中 <code>USER</code> 字段指定的用户启动</li>
 <li>–name 指定容器运行的名称</li>
 </ul>
 <p>也可以使用 <code>docker container start</code> 命令启动一个已经终止了的容器。</p>
@@ -1143,6 +1147,159 @@ o.put(&quot;employees&quot;,employees);
       </categories>
       <tags>
         <tag>json</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/04/11/kubernetes%20%E5%AE%89%E8%A3%85---%E5%8D%95%E8%8A%82%E7%82%B9%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1 id="kubeadm-部署-kubernetes"><a href="#kubeadm-部署-kubernetes" class="headerlink" title="kubeadm 部署 kubernetes"></a>kubeadm 部署 kubernetes</h1><ul>
+<li><a href="#kubeadm-部署-kubernetes">kubeadm 部署 kubernetes</a><ul>
+<li><a href="#前提条件">前提条件</a></li>
+<li><a href="#安装步骤">安装步骤</a></li>
+<li><a href="#多网卡问题">多网卡问题</a></li>
+<li><a href="#附录">附录</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>多块网卡安装 kubernetes 请先看<a href="#多网卡问题">多网卡问题</a></p>
+</blockquote>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>Ubuntu Linux 或者 CentOS</p>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><ol>
+<li><p>参考 <a href="!--￼11--">基础环境准备</a></p>
+</li>
+<li><p>主节点配置</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">kubeadm init \</span><br><span class="line">  --pod-network-cidr=192.168.0.0/16 \</span><br><span class="line">  --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers \</span><br><span class="line">  --ignore-preflight-errors=NumCPU</span><br></pre></td></tr></table></figure>
+<p> 这里使用的网络方案为 Calico 因此 <code>--pod-network-cidr</code> 等于  <code>192.168.0.0/16</code> 更多网络方案点击<a href="https://kubernetes.io/docs/concepts/cluster-administration/addons/" target="_blank" rel="noopener">这里</a>和<a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/" target="_blank" rel="noopener">这里</a></p>
+<blockquote>
+<p>如果计算机 CPU 只有一个，需要加参数来忽略错误 –ignore-preflight-errors=NumCPU</p>
+<p>可以通过 –kubernetes-version 指定要安装的 kubernetes 版本，比如 –kubernetes-version v1.14.1</p>
+<p>如果没有先拉取启动所需要的镜像，那么因为网络关系，需要指定拉取镜像的仓库地址，需要追加参数 –image-repository，比如 –image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers</p>
+<p>kubernetes 从 1.10 开始没有开放 10255 端口用于监控，如果需要监控需要配置</p>
+  <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">&gt;   <span class="built_in">echo</span> <span class="string">'readOnlyPort: 10255'</span> &gt;&gt; /var/lib/kubelet/config.yaml</span><br><span class="line">&gt;   systemctl restart kubelet</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p> 按照 kubeadm 的要求设置</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir -p <span class="variable">$HOME</span>/.kube</span><br><span class="line">sudo cp -i /etc/kubernetes/admin.conf <span class="variable">$HOME</span>/.kube/config</span><br><span class="line">sudo chown $(id -u):$(id -g) <span class="variable">$HOME</span>/.kube/config</span><br></pre></td></tr></table></figure>
+<p> 安装网络插件</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml</span><br><span class="line">kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml</span><br></pre></td></tr></table></figure>
+<p> master 节点参与调度（多节点可选，单节点必选）</p>
+<p> kubeadm 安装的 kubernetes 环境默认情况下 Master 节点不会参与调度，想要让 Master 节点参与调度需要使用下面命令</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">kubectl taint nodes --all node-role.kubernetes.io/master-</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>或者通过节点名称让 Master 不参与调度</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; kubectl taint nodes &lt;master-node-name&gt; node-role.kubernetes.io/master=:NoSchedule</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>加入集群（可选）</p>
+<p> 将一个节点加入集群需要进行<a href="!--￼12--">基础环境准备</a>，之后使用下面命令将节点添加到集群</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">kubeadm join &lt;master-ip&gt; --token &lt;join-token&gt; --discovery-token-unsafe-skip-ca-verification</span><br></pre></td></tr></table></figure>
+<p> <code>&lt;master-ip&gt;</code> Kubernetes 集群 master 节点所在的 ip 地址，例如: 192.168.17.139:6443</p>
+<p> <code>&lt;join-token&gt;</code> 为加入 Kubernetes 集群所需要的 token，可以通过 <code>kubeadm token list</code> 查看，如果没有，可以通过 <code>kubeadm token create</code> 创建 token</p>
+</li>
+<li><p>额外配置（可选）</p>
+<p> 上述安装配置无法对集权状态进行监控，如需监控功能需要将 10255 端口添加到配置文件，设置方式如下。配置文件在 <code>kubeadm init</code> 或 <code>kubeadm join</code> 命令生效后生成，使用 <code>kubeadm reset</code> 之后该文件会被删除。</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'readOnlyPort: 10255'</span> &gt;&gt; /var/lib/kubelet/config.yaml</span><br><span class="line">systemctl restart kubelet</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="多网卡问题"><a href="#多网卡问题" class="headerlink" title="多网卡问题"></a>多网卡问题</h2><blockquote>
+<p>实验环境最好不要使用多网卡机器，容易出现各种问题</p>
+</blockquote>
+<ol>
+<li><p>安装 kubernetes</p>
+<p> 在 <code>安装步骤-&gt; 2. 主节点配置</code>中使用 <code>kubeadm init</code> 来安装 kubernetes，在安装过程中，kubeadm 会自动寻找可用的网卡做为 kubernetes 的服务 ip。如果计算机存在多张网卡，那么有可能选择的网卡并不是预期的网卡。为了解决这个问题，kubeadm 提供了 <code>--apiserver-advertise-address</code> 参数来指定网卡的 ip，完整命令如下:</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">kubeadm init --apiserver-advertise-address &lt;targetIP&gt; --pod-network-cidr=192.168.0.0/16</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> –pod-network-cidr=192.168.0.0/16 为 calico 网络插件指定的网段</p>
+</blockquote>
+<p> 对于想要加入 kubernetes 集群的节点来，如果有多网卡，也可以使用该参数来指定加入的网卡</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">kubeadm join &lt;k8s-master-ip&gt; --token &lt;token&gt; --apiserver-advertise-address &lt;targetIP&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>网络插件选择网卡</p>
+<p> 除了 kubernetes 以外，网络插件也需要选择网卡来保证节点间容器的通信，不同的网络插件对于网卡的选择不同，具体请查看实际网络插件的文档。这里以 <code>calico</code> 网络插件为例。<a href="https://docs.projectcalico.org/v3.7/reference/node/configuration#ip-autodetection-methods" target="_blank" rel="noopener">calico 官方文档</a></p>
+<p> calico 对于网卡的选择使用的默认策略是 <code>first-found</code>，也就是第一块找到的可用的网卡，如果每个节点选择的网卡对应的 ip 不在同一网段，那么很可能出现某一节点上的 pod ping 不通另一节点上的 pod。</p>
+<p> 对于这种情况，可以根据不同方式来自行选择网卡，这里使用的网卡选择策略是 <code>interface</code>，根据正则表达式来选择网卡，不同的网卡选择策略还是看<a href="https://docs.projectcalico.org/v3.7/reference/node/configuration#ip-autodetection-methods" target="_blank" rel="noopener">calico 官方文档</a>。</p>
+<p> 在 <code>kube-system</code> 命令空间下，找到 <code>守护进程集(daemonse) calico-node</code>，其中包含两个 container，为 <code>calico-node</code> container 增加两个环境变量 <code>IP_AUTODETECTION_METHOD</code> 和 <code>IP6_AUTODETECTION_METHOD</code>，值为 <code>interface=eth0</code>。保存即可，和下面类似</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">env:</span></span><br><span class="line"><span class="string">....</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">IP_AUTODETECTION_METHOD</span></span><br><span class="line">  <span class="attr">value:</span> <span class="string">interface=eth0</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">IP6_AUTODETECTION_METHOD</span></span><br><span class="line">  <span class="attr">value:</span> <span class="string">interface=eth0</span></span><br><span class="line"><span class="string">....</span></span><br></pre></td></tr></table></figure>
+<p> 这个环境变量的意思是 calico 选择网卡，根据正则表达式去匹配每个节点上网卡名称，找到的第一个网卡就作为 pod 通信的网卡。这里要选择的网卡就是包含 <code>eht0</code> 的网卡。</p>
+<p> 与此相反，可以使用 <code>skip-interface</code> 来进行配置要跳过哪些网卡</p>
+</li>
+</ol>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p><a href="https://docs.projectcalico.org/getting-started/kubernetes/quickstart" target="_blank" rel="noopener">calico 安装指南</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>kubernetes 安装---基础环境准备</title>
+    <url>/2023/04/07/kubernetes%20%E5%AE%89%E8%A3%85---%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</url>
+    <content><![CDATA[<h1 id="kubernetes-安装—基础环境准备"><a href="#kubernetes-安装—基础环境准备" class="headerlink" title="kubernetes 安装—基础环境准备"></a>kubernetes 安装—基础环境准备</h1><ul>
+<li><a href="#kubernetes-安装---基础环境准备">kubernetes 安装—基础环境准备</a><ul>
+<li><a href="#前提条件">前提条件</a></li>
+<li><a href="#环境初始化">环境初始化</a><ul>
+<li><a href="#设置仓库源">设置仓库源</a></li>
+<li><a href="#系统配置">系统配置</a></li>
+<li><a href="#安装-docker">安装 Docker</a></li>
+<li><a href="#安装-kubeadm">安装 kubeadm</a></li>
+<li><a href="#初始化-kubernetes-设置可选">初始化 Kubernetes 设置（可选）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>Ubuntu Linux 或者 CentOS</p>
+<h2 id="环境初始化"><a href="#环境初始化" class="headerlink" title="环境初始化"></a>环境初始化</h2><h3 id="设置仓库源"><a href="#设置仓库源" class="headerlink" title="设置仓库源"></a>设置仓库源</h3><p>CentOS 系统在<code>/etc/yum.repos.d/</code>目录下，使用下面命令设置仓库源<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 可选的，更换基础源为阿里云源，注意备份同名的镜像源文件</span></span><br><span class="line"><span class="comment"># Centos 7 使用下面命令更换阿里云源</span></span><br><span class="line">curl -o CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"><span class="comment"># Centos 8 使用下面命令更新阿里云源</span></span><br><span class="line">curl -o CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo</span><br><span class="line"></span><br><span class="line">curl -o docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</span><br><span class="line">        http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br><span class="line">EOF</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure></p>
+<p>Ubuntu 系统使用下面命令设置仓库</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line"></span><br><span class="line">curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">add-apt-repository \</span><br><span class="line">   <span class="string">"deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \</span></span><br><span class="line"><span class="string">   <span class="variable">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">   stable"</span></span><br><span class="line"></span><br><span class="line">curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - </span><br><span class="line"></span><br><span class="line">sudo tee /etc/apt/sources.list.d/kubernetes.list &lt;&lt;-<span class="string">'EOF'</span></span><br><span class="line">deb https://mirrors.aliyun.com/kubernetes/apt kubernetes-xenial main</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
+<h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><ol>
+<li><p>关闭交换空间（如果有）</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">swapoff -a</span><br><span class="line">sed -ri <span class="string">"s/.*.swap.*/#&amp;/"</span> /etc/fstab</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>禁用 SELinux（如果有）</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">setenforce 0</span><br><span class="line">sed -i --follow-symlinks <span class="string">'s/SELINUX=enforcing/SELINUX=disabled/g'</span> /etc/sysconfig/selinux</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭防火墙（如果有）</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置内核参数</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'net.bridge.bridge-nf-call-ip6tables = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'net.bridge.bridge-nf-call-iptables = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'net.ipv4.ip_forward = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line">modprobe br_netfilter</span><br><span class="line">sysctl -p /etc/sysctl.d/k8s.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置 hostname （单机可选，多节点需要设置防止冲突）</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname master</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ubuntu-server 18.04 在执行上述命令之前需要执行 <code>sed -i &quot;s|preserve_hostname: false|preserve_hostname: true|g&quot; /etc/cloud/cloud.cfg</code> 防止重启 hostname 失效。桌面版本不用设置</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h3><blockquote>
+<p><a href="https://github.com/kubernetes/kubernetes/" target="_blank" rel="noopener">kubernetes github</a> 上的 CHANGELOG 记录了 kubernetes 对 Docker 版本的要求，建议选好对应的 kubernetes 版本再安装 Docker。例如如果希望安装 Kubernetes 1.15，那么查看 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.15.md" target="_blank" rel="noopener">CHANGELOG-1.15.md</a>，可以查看到 Kuberentes 1.15 对 Docker 的最低版本要求是 1.13.1。</p>
+</blockquote>
+<p>CentOS 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum install -y docker-ce <span class="comment"># 安装最新版</span></span><br><span class="line">yum install -y docker-ce-18.06.3.ce-3.el7 <span class="comment"># 安装 18.06.3 版本</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用 <code>yum list all docker-ce --showduplicates | sort -r</code> 查看可安装的版本</p>
+</blockquote>
+<p>Ubuntu 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install -y docker-ce <span class="comment"># 安装最新版</span></span><br><span class="line">apt-get install -y docker-ce=5:18.09.7~3-0~ubuntu-bionic <span class="comment"># 安装指定版本</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用 <code>apt-cache madison docker-ce</code> 查看可安装的版本</p>
+</blockquote>
+<p>Docker 设置</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'&#123;"insecure-registries": ["0.0.0.0/0"]&#125;'</span> &gt;&gt; /etc/docker/daemon.json</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h3 id="安装-kubeadm"><a href="#安装-kubeadm" class="headerlink" title="安装 kubeadm"></a>安装 kubeadm</h3><p>CentOS 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum install -y kubeadm <span class="comment"># 安装最新的 kubeadm</span></span><br><span class="line">yum install -y kubeadm-1.14.1-0 <span class="comment"># 安装 kubeadm 1.14.1</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用 <code>yum list all kubeadm --showduplicates | sort -r</code> 查看可安装的版本</p>
+</blockquote>
+<p>Ubuntu 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install -y kubeadm <span class="comment"># 安装最新的 kubeadm</span></span><br><span class="line">apt-get install -y kubeadm=1.14.1-00 <span class="comment"># 安装 kubeadm 1.14.1</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用 <code>apt-cache madison kubeadm</code> 查看可安装的版本</p>
+</blockquote>
+<p>配置 kubelet</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubelet 使用的 cgroup 要和 Docker 的 cgroup 一致</span></span><br><span class="line">sed -i <span class="string">'0,/"$/s/"$/ --cgroup-driver=cgroupfs"/'</span> /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl <span class="built_in">enable</span> kubelet</span><br><span class="line">systemctl start kubelet</span><br></pre></td></tr></table></figure>
+<h3 id="初始化-Kubernetes-设置（可选）"><a href="#初始化-Kubernetes-设置（可选）" class="headerlink" title="初始化 Kubernetes 设置（可选）"></a>初始化 Kubernetes 设置（可选）</h3><p>使用 <code>kubeadm config images list</code> 查看初始化所需要的镜像，当前版本为 1.14.1，需要的镜像有<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">k8s.gcr.io/kube-apiserver:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-controller-manager:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-scheduler:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-proxy:v1.14.1</span><br><span class="line">k8s.gcr.io/pause:3.1</span><br><span class="line">k8s.gcr.io/etcd:3.3.10</span><br><span class="line">k8s.gcr.io/coredns:1.3.1</span><br><span class="line"># kubernetes-dashboard 镜像，使用的 dashboard ui 不同版本也不同</span><br><span class="line">k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1</span><br></pre></td></tr></table></figure></p>
+<p>编写脚本从阿里云拉取镜像再 tag</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">images=( <span class="comment"># 这里的镜像列表是 kubeadm config images list 查看的列表去掉 k8s.gcr.io/ 得到的</span></span><br><span class="line">kube-apiserver:v1.14.1</span><br><span class="line">kube-controller-manager:v1.14.1</span><br><span class="line">kube-scheduler:v1.14.1</span><br><span class="line">kube-proxy:v1.14.1</span><br><span class="line">pause:3.1</span><br><span class="line">etcd:3.3.10</span><br><span class="line">coredns:1.3.1</span><br><span class="line">kubernetes-dashboard-amd64:v1.10.1</span><br><span class="line">)</span><br><span class="line"><span class="keyword">for</span> imageName <span class="keyword">in</span> <span class="variable">$&#123;images[@]&#125;</span> ; <span class="keyword">do</span></span><br><span class="line">  docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span></span><br><span class="line">  docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span> k8s.gcr.io/<span class="variable">$imageName</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
       </tags>
   </entry>
   <entry>
@@ -2404,81 +2561,6 @@ public class User{
       <tags>
         <tag>hexo</tag>
         <tag>node.js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>kubernetes 安装---基础环境准备</title>
-    <url>/2023/04/07/%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</url>
-    <content><![CDATA[<h1 id="kubernetes-安装—基础环境准备"><a href="#kubernetes-安装—基础环境准备" class="headerlink" title="kubernetes 安装—基础环境准备"></a>kubernetes 安装—基础环境准备</h1><ul>
-<li><a href="#kubernetes-安装---基础环境准备">kubernetes 安装—基础环境准备</a><ul>
-<li><a href="#前提条件">前提条件</a></li>
-<li><a href="#环境初始化">环境初始化</a><ul>
-<li><a href="#设置仓库源">设置仓库源</a></li>
-<li><a href="#系统配置">系统配置</a></li>
-<li><a href="#安装-docker">安装 Docker</a></li>
-<li><a href="#安装-kubeadm">安装 kubeadm</a></li>
-<li><a href="#初始化-kubernetes-设置可选">初始化 Kubernetes 设置（可选）</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>Ubuntu Linux 或者 CentOS</p>
-<h2 id="环境初始化"><a href="#环境初始化" class="headerlink" title="环境初始化"></a>环境初始化</h2><h3 id="设置仓库源"><a href="#设置仓库源" class="headerlink" title="设置仓库源"></a>设置仓库源</h3><p>CentOS 系统在<code>/etc/yum.repos.d/</code>目录下，使用下面命令设置仓库源<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 可选的，更换基础源为阿里云源，注意备份同名的镜像源文件</span></span><br><span class="line"><span class="comment"># Centos 7 使用下面命令更换阿里云源</span></span><br><span class="line">curl -o CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"><span class="comment"># Centos 8 使用下面命令更新阿里云源</span></span><br><span class="line">curl -o CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo</span><br><span class="line"></span><br><span class="line">curl -o docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</span><br><span class="line">        http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br><span class="line">EOF</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure></p>
-<p>Ubuntu 系统使用下面命令设置仓库</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line"></span><br><span class="line">curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">add-apt-repository \</span><br><span class="line">   <span class="string">"deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \</span></span><br><span class="line"><span class="string">   <span class="variable">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">   stable"</span></span><br><span class="line"></span><br><span class="line">curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - </span><br><span class="line"></span><br><span class="line">sudo tee /etc/apt/sources.list.d/kubernetes.list &lt;&lt;-<span class="string">'EOF'</span></span><br><span class="line">deb https://mirrors.aliyun.com/kubernetes/apt kubernetes-xenial main</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
-<h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><ol>
-<li><p>关闭交换空间（如果有）</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">swapoff -a</span><br><span class="line">sed -ri <span class="string">"s/.*.swap.*/#&amp;/"</span> /etc/fstab</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>禁用 SELinux（如果有）</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">setenforce 0</span><br><span class="line">sed -i --follow-symlinks <span class="string">'s/SELINUX=enforcing/SELINUX=disabled/g'</span> /etc/sysconfig/selinux</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关闭防火墙（如果有）</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置内核参数</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'net.bridge.bridge-nf-call-ip6tables = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'net.bridge.bridge-nf-call-iptables = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'net.ipv4.ip_forward = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line">modprobe br_netfilter</span><br><span class="line">sysctl -p /etc/sysctl.d/k8s.conf</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置 hostname （单机可选，多节点需要设置防止冲突）</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname master</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>ubuntu-server 18.04 在执行上述命令之前需要执行 <code>sed -i &quot;s|preserve_hostname: false|preserve_hostname: true|g&quot; /etc/cloud/cloud.cfg</code> 防止重启 hostname 失效。桌面版本不用设置</p>
-</blockquote>
-</li>
-</ol>
-<h3 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h3><blockquote>
-<p><a href="https://github.com/kubernetes/kubernetes/" target="_blank" rel="noopener">kubernetes github</a> 上的 CHANGELOG 记录了 kubernetes 对 Docker 版本的要求，建议选好对应的 kubernetes 版本再安装 Docker。例如如果希望安装 Kubernetes 1.15，那么查看 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.15.md" target="_blank" rel="noopener">CHANGELOG-1.15.md</a>，可以查看到 Kuberentes 1.15 对 Docker 的最低版本要求是 1.13.1。</p>
-</blockquote>
-<p>CentOS 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum install -y docker-ce <span class="comment"># 安装最新版</span></span><br><span class="line">yum install -y docker-ce-18.06.3.ce-3.el7 <span class="comment"># 安装 18.06.3 版本</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>使用 <code>yum list all docker-ce --showduplicates | sort -r</code> 查看可安装的版本</p>
-</blockquote>
-<p>Ubuntu 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install -y docker-ce <span class="comment"># 安装最新版</span></span><br><span class="line">apt-get install -y docker-ce=5:18.09.7~3-0~ubuntu-bionic <span class="comment"># 安装指定版本</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>使用 <code>apt-cache madison docker-ce</code> 查看可安装的版本</p>
-</blockquote>
-<p>Docker 设置</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'&#123;"insecure-registries": ["0.0.0.0/0"]&#125;'</span> &gt;&gt; /etc/docker/daemon.json</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
-<h3 id="安装-kubeadm"><a href="#安装-kubeadm" class="headerlink" title="安装 kubeadm"></a>安装 kubeadm</h3><p>CentOS 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum install -y kubeadm <span class="comment"># 安装最新的 kubeadm</span></span><br><span class="line">yum install -y kubeadm-1.14.1-0 <span class="comment"># 安装 kubeadm 1.14.1</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>使用 <code>yum list all kubeadm --showduplicates | sort -r</code> 查看可安装的版本</p>
-</blockquote>
-<p>Ubuntu 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install -y kubeadm <span class="comment"># 安装最新的 kubeadm</span></span><br><span class="line">apt-get install -y kubeadm=1.14.1-00 <span class="comment"># 安装 kubeadm 1.14.1</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>使用 <code>apt-cache madison kubeadm</code> 查看可安装的版本</p>
-</blockquote>
-<p>配置 kubelet</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubelet 使用的 cgroup 要和 Docker 的 cgroup 一致</span></span><br><span class="line">sed -i <span class="string">'0,/"$/s/"$/ --cgroup-driver=cgroupfs"/'</span> /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl <span class="built_in">enable</span> kubelet</span><br><span class="line">systemctl start kubelet</span><br></pre></td></tr></table></figure>
-<h3 id="初始化-Kubernetes-设置（可选）"><a href="#初始化-Kubernetes-设置（可选）" class="headerlink" title="初始化 Kubernetes 设置（可选）"></a>初始化 Kubernetes 设置（可选）</h3><p>使用 <code>kubeadm config images list</code> 查看初始化所需要的镜像，当前版本为 1.14.1，需要的镜像有<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">k8s.gcr.io/kube-apiserver:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-controller-manager:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-scheduler:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-proxy:v1.14.1</span><br><span class="line">k8s.gcr.io/pause:3.1</span><br><span class="line">k8s.gcr.io/etcd:3.3.10</span><br><span class="line">k8s.gcr.io/coredns:1.3.1</span><br><span class="line"># kubernetes-dashboard 镜像，使用的 dashboard ui 不同版本也不同</span><br><span class="line">k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1</span><br></pre></td></tr></table></figure></p>
-<p>编写脚本从阿里云拉取镜像再 tag</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">images=( <span class="comment"># 这里的镜像列表是 kubeadm config images list 查看的列表去掉 k8s.gcr.io/ 得到的</span></span><br><span class="line">kube-apiserver:v1.14.1</span><br><span class="line">kube-controller-manager:v1.14.1</span><br><span class="line">kube-scheduler:v1.14.1</span><br><span class="line">kube-proxy:v1.14.1</span><br><span class="line">pause:3.1</span><br><span class="line">etcd:3.3.10</span><br><span class="line">coredns:1.3.1</span><br><span class="line">kubernetes-dashboard-amd64:v1.10.1</span><br><span class="line">)</span><br><span class="line"><span class="keyword">for</span> imageName <span class="keyword">in</span> <span class="variable">$&#123;images[@]&#125;</span> ; <span class="keyword">do</span></span><br><span class="line">  docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span></span><br><span class="line">  docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span> k8s.gcr.io/<span class="variable">$imageName</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
       </tags>
   </entry>
   <entry>
