@@ -220,119 +220,38 @@ responseXML                   获得XML形式的响应数据
       </tags>
   </entry>
   <entry>
-    <title>debian-环境搭建</title>
-    <url>/2018/01/08/debian-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h2 id="使用usb-installer创建debian启动盘"><a href="#使用usb-installer创建debian启动盘" class="headerlink" title="使用usb installer创建debian启动盘"></a>使用usb installer创建debian启动盘</h2><p>选择系统类型时，选择debian系统无法正确的创建启动盘，要选择其他linux系统类型才能正常创建</p>
-<h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><p>三个挂载目录，/,/home，/opt，其中/home和/opt是原来使用的挂载目录，没有改变，只覆盖了/目录<br>debian桌面环境选择xfce桌面，核心功能模块</p>
-<h2 id="联网"><a href="#联网" class="headerlink" title="联网"></a>联网</h2><p>安装完系统后，第一步就是联网，正常连接校园网，免去了回退ubuntu的烦恼</p>
-<h2 id="设置镜像源"><a href="#设置镜像源" class="headerlink" title="设置镜像源"></a>设置镜像源</h2><p>debian在中国有两个主镜像源</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deb http://security.debian.org/debian-security stretch/updates main contrib</span><br><span class="line">deb-src http://security.debian.org/debian-security stretch/updates main contrib</span><br><span class="line">deb http://ftp2.cn.debian.org/debian/ stretch main contrib non-free</span><br><span class="line">deb-src http://ftp2.cn.debian.org/debian/ stretch main contrib non-free</span><br><span class="line">deb http://ftp2.cn.debian.org/debian/ stretch-updates main contrib non-free</span><br><span class="line">deb-src http://ftp2.cn.debian.org/debian/ stretch-updates main contrib non-free</span><br></pre></td></tr></table></figure>
-<p>debian的主镜像源在国内也可以正常访问<br>在/etc/apt/source.list文件中添加以下类似的源  </p>
-<h2 id="安装vim"><a href="#安装vim" class="headerlink" title="安装vim"></a>安装vim</h2><p>切换管理员用户  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">su</span><br><span class="line">apt-get install vim-gnome</span><br></pre></td></tr></table></figure>
-<h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a>安装中文输入法</h2><p>linux下的中文输入法有很多，这里选择fcitx，其他的ibus和搜狗输入法都与各种原因没有安装上，很遗憾没有体验一次<br>切换管理员用户</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">su</span><br><span class="line">apt install fcitx</span><br><span class="line">apt install im-config</span><br><span class="line">apt install fcitx-sunpinyin  这个中文输入可以自行更换，不一定只能是这个</span><br></pre></td></tr></table></figure>
-<p>然后输入im-config进行配置，将下载的输入法添加到fcitx中就行了</p>
-<p>如果 <code>im-config</code> 命令提示缺少什么就需要下载什么</p>
-<p>设置完成之后无法显示输入法的提示框，先删除 <code>~/.config/fcitx</code> 目录，然后卸载已将安装的 <code>fcitx</code> 重新安装</p>
-<h2 id="安装无线网卡驱动"><a href="#安装无线网卡驱动" class="headerlink" title="安装无线网卡驱动"></a>安装无线网卡驱动</h2><p>debian 不会自动安装无线网卡驱动，如果需要手动安装</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install firmware-iwlwifi</span><br><span class="line">modprobe -r iwlwifi ; modprobe iwlwifi</span><br></pre></td></tr></table></figure>
-<h2 id="配置java环境"><a href="#配置java环境" class="headerlink" title="配置java环境"></a>配置java环境</h2><p>原来的java文件夹位于/opt/jdk下，因为没有覆盖/opt，所以不用重新下载</p>
-<p>修改.bashrc文件，在哪个用户目录下修改.bashrc就只会影响该用户 </p>
-<p>在最后添加</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/opt/jdk</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib</span><br></pre></td></tr></table></figure>
-<p>修改完成后，使用输入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source ～/.baserc</span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
-<p>如果看见java信息说明安装成功</p>
-<p>但是注销后进入发现运行的java不是sunjdk，而是openjdk，直接卸载openjdk，发现由于依赖关系，debian自动又下载了一个gcj-jdk，将依赖的libreoffice卸载后，sunjdk运行成功</p>
-<h2 id="配置maven环境"><a href="#配置maven环境" class="headerlink" title="配置maven环境"></a>配置maven环境</h2><p>同样修改.bashrc,在最后添加下面语句</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH=$&#123;PATH&#125;:/opt/maven/bin</span><br></pre></td></tr></table></figure>
-<h2 id="配置eclipse"><a href="#配置eclipse" class="headerlink" title="配置eclipse"></a>配置eclipse</h2><p>eclipse也是放在/opt目录下，没有修改，但是无法运行，报错缺少java运行时的环境。</p>
-<p>解决方法，修改eclipse目录下的eclipse.ini文件，在最开始添加</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-vm</span><br><span class="line">/opt/jdk/bin</span><br></pre></td></tr></table></figure>
-<p>运行成功</p>
-<h2 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h2><p>前往<a href="https://dev.mysql.com/downloads/repo/apt/" target="_blank" rel="noopener">mysql下载页面</a>根据版本下载mysql包</p>
-<p>在mysql包下载目录下打开终端，输入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dpkg -i mysql-apt-config_w.x.y-z_all.deb</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install mysql-server</span><br></pre></td></tr></table></figure>
-<p>下载mysql server，中途会选择版本，输入管理员密码</p>
-<h3 id="修改mysql字符集，解决中文乱码问题"><a href="#修改mysql字符集，解决中文乱码问题" class="headerlink" title="修改mysql字符集，解决中文乱码问题"></a>修改mysql字符集，解决中文乱码问题</h3><p>编辑/etc/mysql/my.cnf，输入下面几句话</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[client]</span><br><span class="line">default-character-set=utf8</span><br><span class="line">[mysqld]</span><br><span class="line">character-set-server=utf8</span><br></pre></td></tr></table></figure>
-<p>退出，使用service mysql stop 停止mysql 服务</p>
-<p>然后在使用service mysql start 开启mysql服务</p>
-<p>进入mysql</p>
-<p>输入</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show variables like &quot;%char%&quot;;</span><br></pre></td></tr></table></figure>
-<p>查看字符集，如果都是utf8说明修改成功，如果失败，再去找找其他办法吧</p>
-<h3 id="下载msyql-workbench"><a href="#下载msyql-workbench" class="headerlink" title="下载msyql-workbench"></a>下载msyql-workbench</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install mysql-workbench</span><br></pre></td></tr></table></figure>
-<h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install git</span><br></pre></td></tr></table></figure>
-<h2 id="安装visual-studio-code"><a href="#安装visual-studio-code" class="headerlink" title="安装visual studio code"></a>安装visual studio code</h2><p>前往visual studio code官网，下载deb包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dpkg -i codeXXXXX.deb</span><br><span class="line">apt-get install -f 解决冲突问题</span><br></pre></td></tr></table></figure>
-<h2 id="安装chrome"><a href="#安装chrome" class="headerlink" title="安装chrome"></a>安装chrome</h2><p>下载文件包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</span><br></pre></td></tr></table></figure>
-<p>执行安装命令 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dpkg -i google-chrome-stableXXX.deb</span><br></pre></td></tr></table></figure>
-<p>解决依赖问题 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install -f</span><br></pre></td></tr></table></figure>
-<p>根据选择的架构不同，安装的chrome版本不同</p>
-<h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>nvm安装命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br></pre></td></tr></table></figure>
-<p>安装之后需要配置到用户环境变量 ~/.bashrc</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export NVM_DIR=&quot;$HOME/.nvm&quot;</span><br><span class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm</span><br><span class="line">[ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion</span><br></pre></td></tr></table></figure>
-<p>下载最新的 Node</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nvm install stable</span><br></pre></td></tr></table></figure>
-<p>hexo 安装命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<h2 id="安装pip3"><a href="#安装pip3" class="headerlink" title="安装pip3"></a>安装pip3</h2><p>根据python版本，python2使用如下命令下载</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
-<p>python3 使用如下命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install python3-pip</span><br></pre></td></tr></table></figure>
-<h2 id="安装jupyter-notebook"><a href="#安装jupyter-notebook" class="headerlink" title="安装jupyter notebook"></a>安装jupyter notebook</h2><p><a href="https://jupyter.readthedocs.io/en/latest/install.html" target="_blank" rel="noopener">jupyter官方安装指南</a></p>
-<ol>
-<li>更新 pip</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install --upgrade pip</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>下载 jupyter</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install jupyter</span><br></pre></td></tr></table></figure>
-<p>安装 jupyter 之后因该是可以直接启动，但是输入命令 <code>jupyter notebook</code> 无法正常启动，重启后输入命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jupyter notebook</span><br></pre></td></tr></table></figure>
-<p>可以正常启动</p>
-<p><code>注意</code>:如果在第 2 步安装 jupyter 时出错，无法导入 name 为 ‘main’ 可以尝试使用以下命令修复</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install --reinstall python3-requests</span><br></pre></td></tr></table></figure>
-<h2 id="安装-idle3"><a href="#安装-idle3" class="headerlink" title="安装  idle3"></a>安装  idle3</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install idle3</span><br></pre></td></tr></table></figure>
-<h2 id="安装-shadowsocks-qt5-客户端"><a href="#安装-shadowsocks-qt5-客户端" class="headerlink" title="安装 shadowsocks-qt5 客户端"></a>安装 shadowsocks-qt5 客户端</h2><p>感谢网友提供的<a href="https://github.com/try1try/shadowsocks-qt5" target="_blank" rel="noopener">连接</a>安装成功</p>
-<h2 id="安装-virtualbox"><a href="#安装-virtualbox" class="headerlink" title="安装 virtualbox"></a>安装 virtualbox</h2><p>[官方指南][<a href="https://www.virtualbox.org/wiki/Linux_Downloads]" target="_blank" rel="noopener">https://www.virtualbox.org/wiki/Linux_Downloads]</a></p>
-<ol>
-<li>先将virtualbox的源添加到主机，这里的mydist指的是你的系统名称</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deb https://download.virtualbox.org/virtualbox/debian `&lt;mydist&gt;` contrib</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>添加密钥到主机</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -</span><br><span class="line">wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>更新源并下载virtualbox，并不是只能下载virtualbox5.2版本可以选择其他版本下载</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install virtualbox-5.2</span><br></pre></td></tr></table></figure>
-<h2 id="安装-kazam"><a href="#安装-kazam" class="headerlink" title="安装 kazam"></a>安装 kazam</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install kazam</span><br></pre></td></tr></table></figure>
-<h2 id="安装-dia"><a href="#安装-dia" class="headerlink" title="安装 dia"></a>安装 dia</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt install dia</span><br></pre></td></tr></table></figure>
-<p>安装dia有可能会遇到无法输入中文字符的问题，解决方法如下:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1. 点击一个流程图下的图形</span><br><span class="line">2. 绘出图形</span><br><span class="line">3. 在图形上右键`-&gt;`Input Methods 选择X输入法</span><br></pre></td></tr></table></figure>
-<h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><p>如果是第一次使用ssh可以使用ssh-keygen生成密钥对</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
-<p>然后使用ssh-copy-id 将公钥发送给远程主机</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-copy-id username@ip-addr</span><br></pre></td></tr></table></figure>
-<p>然后在远程主机上将公钥文件名称修改为authorized_keys</p>
-<p>接着使用ssh登陆远程主机，如果不行你也许还要做这一步</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-add private-key</span><br></pre></td></tr></table></figure>
-<p>将你的私钥保存起来</p>
+    <title>containerd</title>
+    <url>/2023/10/15/containerd/</url>
+    <content><![CDATA[<h1 id="Containerd"><a href="#Containerd" class="headerlink" title="Containerd"></a>Containerd</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Containerd 的安装方式和安装 Docker 相似，Docker 内部操作的也是 Containerd，只不过 Docker 通过 Docker-cli 提供了一些面向用户的，更友好的接口。</p>
+<p>设置仓库源</p>
+<p>Ubuntu 系统使用下面命令设置仓库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line"></span><br><span class="line">curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">add-apt-repository \</span><br><span class="line">   <span class="string">"deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \</span></span><br><span class="line"><span class="string">   <span class="variable">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">   stable"</span></span><br><span class="line"></span><br><span class="line">apt-get update</span><br><span class="line"></span><br><span class="line">apt-get install -y containerd.io <span class="comment"># 安装最新版</span></span><br><span class="line">apt-get install -y containerd.io=1.6.24-1 <span class="comment"># 安装指定版本</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 apt-cache madison containerd.io 查看可安装的版本</p>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>使用以下命令可以生成默认配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">containerd config default &gt; /etc/containerd/config.toml</span><br></pre></td></tr></table></figure>
+<p>containerd 配置文件内容可以从以下网址获取</p>
+<ul>
+<li><a href="https://github.com/containerd/containerd/blob/main/docs/man/containerd-config.toml.5.md" target="_blank" rel="noopener">https://github.com/containerd/containerd/blob/main/docs/man/containerd-config.toml.5.md</a></li>
+<li><a href="https://github.com/containerd/containerd/issues/7937" target="_blank" rel="noopener">https://github.com/containerd/containerd/issues/7937</a></li>
+<li><a href="https://github.com/containerd/containerd/blob/main/docs/cri/config.md" target="_blank" rel="noopener">https://github.com/containerd/containerd/blob/main/docs/cri/config.md</a></li>
+</ul>
+<h2 id="安装-crictl"><a href="#安装-crictl" class="headerlink" title="安装 crictl"></a>安装 crictl</h2><p>Docker 之所以为 Docker 是因为 Docker 在 containerd 之上提供了 Docker-cli，安装 containerd 之后还无法进行向 Docker 那样查看镜像，查看正在运行的容器。需要安装 crictl。</p>
+<p>cri 是容器运行时接口，crictl 就是通过命令行操作容器运行时接口，只要满足是基于 cri 接口都可以通过 crictl 进行操作</p>
+<p><a href="https://kubernetes.io/zh-cn/docs/tasks/debug/debug-cluster/crictl/" target="_blank" rel="noopener">安装文档</a></p>
+<p>从 <a href="https://github.com/kubernetes-sigs/cri-tools/releases" target="_blank" rel="noopener">crictl release</a> 页面下载对应平台的压缩包，将解压后的可执行文件放在 <code>/usr/bin</code> 目录下</p>
+<p>执行如下命令进行配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat &gt; /etc/crictl.yaml &lt;&lt; \EOF</span><br><span class="line">runtime-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">image-endpoint: unix:///run/containerd/containerd.sock</span><br><span class="line">timeout: 2</span><br><span class="line">debug: <span class="literal">false</span></span><br><span class="line">pull-image-on-create: <span class="literal">false</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p>接着通过 <code>crictl images</code> 查看已有镜像</p>
 ]]></content>
       <categories>
-        <category>linux</category>
+        <category>containerd</category>
       </categories>
       <tags>
-        <tag>debian</tag>
+        <tag>containerd</tag>
+        <tag>容器</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -571,6 +490,122 @@ responseXML                   获得XML形式的响应数据
       </tags>
   </entry>
   <entry>
+    <title>debian-环境搭建</title>
+    <url>/2018/01/08/debian-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h2 id="使用usb-installer创建debian启动盘"><a href="#使用usb-installer创建debian启动盘" class="headerlink" title="使用usb installer创建debian启动盘"></a>使用usb installer创建debian启动盘</h2><p>选择系统类型时，选择debian系统无法正确的创建启动盘，要选择其他linux系统类型才能正常创建</p>
+<h2 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h2><p>三个挂载目录，/,/home，/opt，其中/home和/opt是原来使用的挂载目录，没有改变，只覆盖了/目录<br>debian桌面环境选择xfce桌面，核心功能模块</p>
+<h2 id="联网"><a href="#联网" class="headerlink" title="联网"></a>联网</h2><p>安装完系统后，第一步就是联网，正常连接校园网，免去了回退ubuntu的烦恼</p>
+<h2 id="设置镜像源"><a href="#设置镜像源" class="headerlink" title="设置镜像源"></a>设置镜像源</h2><p>debian在中国有两个主镜像源</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deb http://security.debian.org/debian-security stretch/updates main contrib</span><br><span class="line">deb-src http://security.debian.org/debian-security stretch/updates main contrib</span><br><span class="line">deb http://ftp2.cn.debian.org/debian/ stretch main contrib non-free</span><br><span class="line">deb-src http://ftp2.cn.debian.org/debian/ stretch main contrib non-free</span><br><span class="line">deb http://ftp2.cn.debian.org/debian/ stretch-updates main contrib non-free</span><br><span class="line">deb-src http://ftp2.cn.debian.org/debian/ stretch-updates main contrib non-free</span><br></pre></td></tr></table></figure>
+<p>debian的主镜像源在国内也可以正常访问<br>在/etc/apt/source.list文件中添加以下类似的源  </p>
+<h2 id="安装vim"><a href="#安装vim" class="headerlink" title="安装vim"></a>安装vim</h2><p>切换管理员用户  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">su</span><br><span class="line">apt-get install vim-gnome</span><br></pre></td></tr></table></figure>
+<h2 id="安装中文输入法"><a href="#安装中文输入法" class="headerlink" title="安装中文输入法"></a>安装中文输入法</h2><p>linux下的中文输入法有很多，这里选择fcitx，其他的ibus和搜狗输入法都与各种原因没有安装上，很遗憾没有体验一次<br>切换管理员用户</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">su</span><br><span class="line">apt install fcitx</span><br><span class="line">apt install im-config</span><br><span class="line">apt install fcitx-sunpinyin  这个中文输入可以自行更换，不一定只能是这个</span><br></pre></td></tr></table></figure>
+<p>然后输入im-config进行配置，将下载的输入法添加到fcitx中就行了</p>
+<p>如果 <code>im-config</code> 命令提示缺少什么就需要下载什么</p>
+<p>设置完成之后无法显示输入法的提示框，先删除 <code>~/.config/fcitx</code> 目录，然后卸载已将安装的 <code>fcitx</code> 重新安装</p>
+<h2 id="安装无线网卡驱动"><a href="#安装无线网卡驱动" class="headerlink" title="安装无线网卡驱动"></a>安装无线网卡驱动</h2><p>debian 不会自动安装无线网卡驱动，如果需要手动安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install firmware-iwlwifi</span><br><span class="line">modprobe -r iwlwifi ; modprobe iwlwifi</span><br></pre></td></tr></table></figure>
+<h2 id="配置java环境"><a href="#配置java环境" class="headerlink" title="配置java环境"></a>配置java环境</h2><p>原来的java文件夹位于/opt/jdk下，因为没有覆盖/opt，所以不用重新下载</p>
+<p>修改.bashrc文件，在哪个用户目录下修改.bashrc就只会影响该用户 </p>
+<p>在最后添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME=/opt/jdk</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib</span><br></pre></td></tr></table></figure>
+<p>修改完成后，使用输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source ～/.baserc</span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+<p>如果看见java信息说明安装成功</p>
+<p>但是注销后进入发现运行的java不是sunjdk，而是openjdk，直接卸载openjdk，发现由于依赖关系，debian自动又下载了一个gcj-jdk，将依赖的libreoffice卸载后，sunjdk运行成功</p>
+<h2 id="配置maven环境"><a href="#配置maven环境" class="headerlink" title="配置maven环境"></a>配置maven环境</h2><p>同样修改.bashrc,在最后添加下面语句</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH=$&#123;PATH&#125;:/opt/maven/bin</span><br></pre></td></tr></table></figure>
+<h2 id="配置eclipse"><a href="#配置eclipse" class="headerlink" title="配置eclipse"></a>配置eclipse</h2><p>eclipse也是放在/opt目录下，没有修改，但是无法运行，报错缺少java运行时的环境。</p>
+<p>解决方法，修改eclipse目录下的eclipse.ini文件，在最开始添加</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-vm</span><br><span class="line">/opt/jdk/bin</span><br></pre></td></tr></table></figure>
+<p>运行成功</p>
+<h2 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h2><p>前往<a href="https://dev.mysql.com/downloads/repo/apt/" target="_blank" rel="noopener">mysql下载页面</a>根据版本下载mysql包</p>
+<p>在mysql包下载目录下打开终端，输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dpkg -i mysql-apt-config_w.x.y-z_all.deb</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install mysql-server</span><br></pre></td></tr></table></figure>
+<p>下载mysql server，中途会选择版本，输入管理员密码</p>
+<h3 id="修改mysql字符集，解决中文乱码问题"><a href="#修改mysql字符集，解决中文乱码问题" class="headerlink" title="修改mysql字符集，解决中文乱码问题"></a>修改mysql字符集，解决中文乱码问题</h3><p>编辑/etc/mysql/my.cnf，输入下面几句话</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[client]</span><br><span class="line">default-character-set=utf8</span><br><span class="line">[mysqld]</span><br><span class="line">character-set-server=utf8</span><br></pre></td></tr></table></figure>
+<p>退出，使用service mysql stop 停止mysql 服务</p>
+<p>然后在使用service mysql start 开启mysql服务</p>
+<p>进入mysql</p>
+<p>输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show variables like &quot;%char%&quot;;</span><br></pre></td></tr></table></figure>
+<p>查看字符集，如果都是utf8说明修改成功，如果失败，再去找找其他办法吧</p>
+<h3 id="下载msyql-workbench"><a href="#下载msyql-workbench" class="headerlink" title="下载msyql-workbench"></a>下载msyql-workbench</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install mysql-workbench</span><br></pre></td></tr></table></figure>
+<h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install git</span><br></pre></td></tr></table></figure>
+<h2 id="安装visual-studio-code"><a href="#安装visual-studio-code" class="headerlink" title="安装visual studio code"></a>安装visual studio code</h2><p>前往visual studio code官网，下载deb包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dpkg -i codeXXXXX.deb</span><br><span class="line">apt-get install -f 解决冲突问题</span><br></pre></td></tr></table></figure>
+<h2 id="安装chrome"><a href="#安装chrome" class="headerlink" title="安装chrome"></a>安装chrome</h2><p>下载文件包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</span><br></pre></td></tr></table></figure>
+<p>执行安装命令 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dpkg -i google-chrome-stableXXX.deb</span><br></pre></td></tr></table></figure>
+<p>解决依赖问题 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install -f</span><br></pre></td></tr></table></figure>
+<p>根据选择的架构不同，安装的chrome版本不同</p>
+<h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>nvm安装命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</span><br></pre></td></tr></table></figure>
+<p>安装之后需要配置到用户环境变量 ~/.bashrc</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export NVM_DIR=&quot;$HOME/.nvm&quot;</span><br><span class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm</span><br><span class="line">[ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion</span><br></pre></td></tr></table></figure>
+<p>下载最新的 Node</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nvm install stable</span><br></pre></td></tr></table></figure>
+<p>hexo 安装命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<h2 id="安装pip3"><a href="#安装pip3" class="headerlink" title="安装pip3"></a>安装pip3</h2><p>根据python版本，python2使用如下命令下载</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
+<p>python3 使用如下命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install python3-pip</span><br></pre></td></tr></table></figure>
+<h2 id="安装jupyter-notebook"><a href="#安装jupyter-notebook" class="headerlink" title="安装jupyter notebook"></a>安装jupyter notebook</h2><p><a href="https://jupyter.readthedocs.io/en/latest/install.html" target="_blank" rel="noopener">jupyter官方安装指南</a></p>
+<ol>
+<li>更新 pip</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install --upgrade pip</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>下载 jupyter</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install jupyter</span><br></pre></td></tr></table></figure>
+<p>安装 jupyter 之后因该是可以直接启动，但是输入命令 <code>jupyter notebook</code> 无法正常启动，重启后输入命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jupyter notebook</span><br></pre></td></tr></table></figure>
+<p>可以正常启动</p>
+<p><code>注意</code>:如果在第 2 步安装 jupyter 时出错，无法导入 name 为 ‘main’ 可以尝试使用以下命令修复</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install --reinstall python3-requests</span><br></pre></td></tr></table></figure>
+<h2 id="安装-idle3"><a href="#安装-idle3" class="headerlink" title="安装  idle3"></a>安装  idle3</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install idle3</span><br></pre></td></tr></table></figure>
+<h2 id="安装-shadowsocks-qt5-客户端"><a href="#安装-shadowsocks-qt5-客户端" class="headerlink" title="安装 shadowsocks-qt5 客户端"></a>安装 shadowsocks-qt5 客户端</h2><p>感谢网友提供的<a href="https://github.com/try1try/shadowsocks-qt5" target="_blank" rel="noopener">连接</a>安装成功</p>
+<h2 id="安装-virtualbox"><a href="#安装-virtualbox" class="headerlink" title="安装 virtualbox"></a>安装 virtualbox</h2><p>[官方指南][<a href="https://www.virtualbox.org/wiki/Linux_Downloads]" target="_blank" rel="noopener">https://www.virtualbox.org/wiki/Linux_Downloads]</a></p>
+<ol>
+<li>先将virtualbox的源添加到主机，这里的mydist指的是你的系统名称</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deb https://download.virtualbox.org/virtualbox/debian `&lt;mydist&gt;` contrib</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>添加密钥到主机</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -</span><br><span class="line">wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>更新源并下载virtualbox，并不是只能下载virtualbox5.2版本可以选择其他版本下载</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install virtualbox-5.2</span><br></pre></td></tr></table></figure>
+<h2 id="安装-kazam"><a href="#安装-kazam" class="headerlink" title="安装 kazam"></a>安装 kazam</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install kazam</span><br></pre></td></tr></table></figure>
+<h2 id="安装-dia"><a href="#安装-dia" class="headerlink" title="安装 dia"></a>安装 dia</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt install dia</span><br></pre></td></tr></table></figure>
+<p>安装dia有可能会遇到无法输入中文字符的问题，解决方法如下:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1. 点击一个流程图下的图形</span><br><span class="line">2. 绘出图形</span><br><span class="line">3. 在图形上右键`-&gt;`Input Methods 选择X输入法</span><br></pre></td></tr></table></figure>
+<h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><p>如果是第一次使用ssh可以使用ssh-keygen生成密钥对</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+<p>然后使用ssh-copy-id 将公钥发送给远程主机</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-copy-id username@ip-addr</span><br></pre></td></tr></table></figure>
+<p>然后在远程主机上将公钥文件名称修改为authorized_keys</p>
+<p>接着使用ssh登陆远程主机，如果不行你也许还要做这一步</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-add private-key</span><br></pre></td></tr></table></figure>
+<p>将你的私钥保存起来</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>debian</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用 docker buildx 构建多 CPU 架构镜像</title>
     <url>/2022/07/13/docker%E5%A4%9A%E6%9E%B6%E6%9E%84%E6%9E%84%E5%BB%BA/</url>
     <content><![CDATA[<h1 id="使用-docker-buildx-构建多-CPU-架构镜像"><a href="#使用-docker-buildx-构建多-CPU-架构镜像" class="headerlink" title="使用 docker buildx 构建多 CPU 架构镜像"></a>使用 docker buildx 构建多 CPU 架构镜像</h1><p>docker 版本大于等于 19.03 支持使用 docker buildx 方式构建多 CPU 架构镜像</p>
@@ -625,6 +660,38 @@ responseXML                   获得XML形式的响应数据
       </tags>
   </entry>
   <entry>
+    <title>java8-lambda表达式</title>
+    <url>/2018/01/04/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<p>测试环境 JDK 10 ，JUnit4</p>
+<h1 id="如何使用-lambda-表达式"><a href="#如何使用-lambda-表达式" class="headerlink" title="如何使用 lambda 表达式"></a>如何使用 lambda 表达式</h1><ol>
+<li>定义一个只含有一个抽象方法的接口 AbstractFuncOfSingle (只能是接口)</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractFuncOfSingle</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>传入两个int类型的参数，返回一个类型的参数</p>
+<ol start="2">
+<li>定义一个方法，传入参数为 AbstractFuncOfSingle</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callAbstractFuncOfSingle</span><span class="params">(AbstractFuncOfSingle singleFunc, <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> result = singleFunc.print(a, b);</span><br><span class="line">	System.out.println(result * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在方法中将方法参数 a，b 作为参数传入 <code>AbstractFuncOfSingle.print()</code> 方法，并使用 result 接收返回参数然后打印 </p>
+<ol start="3">
+<li>调用上述方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAbstractFuncOfSingle</span><span class="params">()</span></span>&#123;</span><br><span class="line">	callAbstractFuncOfSingle((a, b)-&gt;&#123;</span><br><span class="line">		System.out.println(a + b);</span><br><span class="line">		<span class="keyword">return</span> a + b;</span><br><span class="line">	&#125;, <span class="number">10</span>, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 lambda 表达式创建一个内部类，打印 a + b 的和并返回 a + b 和</p>
+<blockquote>
+<p>如果接口的抽象方法具有多个参数，那么 lambda 的传入参数个数也要一一对应，<br>如果抽象方法具有返回值，在 lambda 表达式中也要有返回值，否则可以省略 return 语句<br>注意：lambda 表达式的参数类型和返回类型要和抽象方法的参数类型和返回类型相同</p>
+</blockquote>
+<h1 id="lambda-表达式和匿名内部类"><a href="#lambda-表达式和匿名内部类" class="headerlink" title="lambda 表达式和匿名内部类"></a>lambda 表达式和匿名内部类</h1><p>lambda 表达式是匿名内部类的一种简化形式，lambda 表达式只能书写于只有一个抽象方法的接口，匿名内部类可以书写具有多个抽象方法的接口和抽象类</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java8</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java8-collect方法</title>
     <url>/2018/01/13/java8-collect%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h2 id="collect方法"><a href="#collect方法" class="headerlink" title="collect方法"></a>collect方法</h2><p>collect 方法是 Stream 中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。</p>
@@ -648,38 +715,6 @@ responseXML                   获得XML形式的响应数据
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));</span><br></pre></td></tr></table></figure>
 <p>可以返回多种数据的不同运算结果，还是很方便的</p>
 <p>collect 方法接收一个 Collector 对象，而大多数的 Collector 对象都可以通过 Collectors 对象的静态工厂方法获取，如果有需要可以查阅手册</p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java8-lambda表达式</title>
-    <url>/2018/01/04/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<p>测试环境 JDK 10 ，JUnit4</p>
-<h1 id="如何使用-lambda-表达式"><a href="#如何使用-lambda-表达式" class="headerlink" title="如何使用 lambda 表达式"></a>如何使用 lambda 表达式</h1><ol>
-<li>定义一个只含有一个抽象方法的接口 AbstractFuncOfSingle (只能是接口)</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractFuncOfSingle</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>传入两个int类型的参数，返回一个类型的参数</p>
-<ol start="2">
-<li>定义一个方法，传入参数为 AbstractFuncOfSingle</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callAbstractFuncOfSingle</span><span class="params">(AbstractFuncOfSingle singleFunc, <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> result = singleFunc.print(a, b);</span><br><span class="line">	System.out.println(result * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在方法中将方法参数 a，b 作为参数传入 <code>AbstractFuncOfSingle.print()</code> 方法，并使用 result 接收返回参数然后打印 </p>
-<ol start="3">
-<li>调用上述方法</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAbstractFuncOfSingle</span><span class="params">()</span></span>&#123;</span><br><span class="line">	callAbstractFuncOfSingle((a, b)-&gt;&#123;</span><br><span class="line">		System.out.println(a + b);</span><br><span class="line">		<span class="keyword">return</span> a + b;</span><br><span class="line">	&#125;, <span class="number">10</span>, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 lambda 表达式创建一个内部类，打印 a + b 的和并返回 a + b 和</p>
-<blockquote>
-<p>如果接口的抽象方法具有多个参数，那么 lambda 的传入参数个数也要一一对应，<br>如果抽象方法具有返回值，在 lambda 表达式中也要有返回值，否则可以省略 return 语句<br>注意：lambda 表达式的参数类型和返回类型要和抽象方法的参数类型和返回类型相同</p>
-</blockquote>
-<h1 id="lambda-表达式和匿名内部类"><a href="#lambda-表达式和匿名内部类" class="headerlink" title="lambda 表达式和匿名内部类"></a>lambda 表达式和匿名内部类</h1><p>lambda 表达式是匿名内部类的一种简化形式，lambda 表达式只能书写于只有一个抽象方法的接口，匿名内部类可以书写具有多个抽象方法的接口和抽象类</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1500,52 +1535,6 @@ o.put(&quot;employees&quot;,employees);
       </tags>
   </entry>
   <entry>
-    <title>python-简单爬虫</title>
-    <url>/2018/06/30/python-reptile/</url>
-    <content><![CDATA[<h1 id="python-简单爬虫"><a href="#python-简单爬虫" class="headerlink" title="python 简单爬虫"></a>python 简单爬虫</h1><blockquote>
-<p>这不是一篇完整的爬虫教程，这是一篇使用python完成简单爬虫的使用过程记录。<br>使用 python3 以及第三方库 requests 和 lxml 以及 xpath 技术来爬取一些网页数据<br>这里只是用了 GET 请求，没有使用 POST 请求</p>
-</blockquote>
-<h2 id="第三方库和技术介绍"><a href="#第三方库和技术介绍" class="headerlink" title="第三方库和技术介绍"></a>第三方库和技术介绍</h2><p>requests: 这里使用 requests 来请求一个网页，并将响应结果封装在一个对象中返回</p>
-<p>lxml: 使用 lxml 中的 etree 库对响应的 HTML 页面进行解析</p>
-<p>xpath: 一种解析 xml 文档的技术，也可以解析 HTML 页面。在w3c可以找到文档</p>
-<h2 id="过程介绍"><a href="#过程介绍" class="headerlink" title="过程介绍"></a>过程介绍</h2><ol>
-<li>使用 <code>requests.get</code> 函数请求对应的<code>URL</code></li>
-<li>如果请求正常并有返回，将返回结果通过<code>etree.HTML</code>处理</li>
-<li>使用<code>xpath</code>技术对<code>etree.HTML</code>处理过的对象进行解析，获取对应的数据</li>
-<li>数据存储</li>
-</ol>
-<h2 id="请求页面"><a href="#请求页面" class="headerlink" title="请求页面"></a>请求页面</h2><h3 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h3><p>使用<code>requests.get(url)</code>方式可以请求对应的<code>url</code>内容，并将响应结果封装在一个对象中返回，但是直接使用这种方式的请求头中包含这个<code>&quot;User-Agent&quot;:&quot;python-requests/2.19.1&quot;</code><br>有些服务器会通过这个请求头得知这是一个python爬虫请求从而拒绝响应。为了正常访问，需要传入一个请求头来覆盖这个属性，从而骗过请求服务器。</p>
-<p>在<code>firefox</code>浏览器中通过请求<code>http://httpbin.org/get</code>可以获得本机的请求头，下面是我请求的该链接的部分内容</p>
-<p><img src="httpbing-request.png" alt="本机请求httpbin.org"></p>
-<p>将请求中的<code>User-Agent</code>对应的属性作为键值对形式传入<code>requests.get()</code>的<code>headers</code>参数，如下</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">header = &#123;<span class="string">"User-Agent"</span>:<span class="string">"Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"</span>&#125;</span><br><span class="line">response = requests.get(url, headers=header)</span><br></pre></td></tr></table></figure>
-<h3 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h3><p>如果你想要传入查询参数，只需要以键值对的形式传入<code>requests.get</code>中的<code>params</code>，下面的查询键为’user’，对应的值为’tom’</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data = &#123;<span class="string">"user"</span>:<span class="string">"tom"</span>&#125;</span><br><span class="line">response = requests.get(url, params=data)</span><br><span class="line">```python</span><br><span class="line"></span><br><span class="line">如果你有多个查询值也可以添加多个键值对</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">data = &#123;<span class="string">"user"</span>:<span class="string">"tom"</span>,<span class="string">"pwd"</span>:<span class="string">"jerry"</span>&#125;</span><br><span class="line">response = requests.get(url, params=data)</span><br></pre></td></tr></table></figure>
-<h3 id="请求超时设置"><a href="#请求超时设置" class="headerlink" title="请求超时设置"></a>请求超时设置</h3><p>对<code>requests.get</code>函数的<code>timeout</code>参数传入一个数字可以设置请求的最长时间</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">response = requests.get(url, timeout=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="响应处理"><a href="#响应处理" class="headerlink" title="响应处理"></a>响应处理</h2><p>使用<code>response = requests.get()</code>之后就获取了响应结果，这时可以对响应做一些处理</p>
-<h3 id="响应码"><a href="#响应码" class="headerlink" title="响应码"></a>响应码</h3><p><code>response.status_code</code>返回请求的响应码，正常情况下返回<code>200</code></p>
-<h3 id="字符设置"><a href="#字符设置" class="headerlink" title="字符设置"></a>字符设置</h3><p>响应返回的结果不一定可以正常显示，对<code>response.encoding</code>属性进行赋值可以修改返回的字符集，一般设置为<code>utf-8</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">response.encoding = <span class="string">'utf-8'</span></span><br></pre></td></tr></table></figure>
-<h3 id="返回结果"><a href="#返回结果" class="headerlink" title="返回结果"></a>返回结果</h3><p><code>response.text</code>将数据以文本形式返回，文本形式的字符集和字符设置有关，如果没有设置则返回响应数据设置的字符集</p>
-<p><code>response.content</code>将数据以字节形式返回，使用这种方式返回就不用担心返回的数据出现乱码问题</p>
-<h2 id="一个完整的请求实例"><a href="#一个完整的请求实例" class="headerlink" title="一个完整的请求实例"></a>一个完整的请求实例</h2><p>请求一个<code>url</code>并将响应结果以文本的形式返回</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user_agent = <span class="string">"User-Agent"</span></span><br><span class="line">my_user_agent = <span class="string">"Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"</span></span><br><span class="line">header = &#123;user_agent: my_user_agent&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getPage</span><span class="params">(url, data=None)</span> :</span></span><br><span class="line">    <span class="string">'''根据url请求一个html页面并返回'''</span></span><br><span class="line">    <span class="keyword">try</span> :</span><br><span class="line">        r = requests.get(url, headers=header, params=data)</span><br><span class="line">        r.encoding = <span class="string">'utf-8'</span></span><br><span class="line">        <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">return</span> r.text</span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"返回页面信息失败"</span>)</span><br><span class="line">    <span class="keyword">except</span> :</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"请求链接失败"</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="xpath处理"><a href="#xpath处理" class="headerlink" title="xpath处理"></a>xpath处理</h2><p>使用<code>lxml</code>中的<code>etree</code>库中的<code>HTML</code>函数可以将一个<code>HTML</code>页面转换为一个对象，对该对象使用<code>xpath</code>语法即可获取对应的数据。有关更多的<code>xpath</code>技术点击<a href="http://www.w3school.com.cn/xpath/" target="_blank" rel="noopener">这里</a></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">html = etree.HTML(html)</span><br><span class="line">html.xpath(xpath)</span><br></pre></td></tr></table></figure>
-<p>对于使用<code>xpath</code>语法来获取数据，在<code>firefox</code>浏览器中使用<a href="https://addons.mozilla.org/zh-CN/firefox/addon/try-xpath/?src=search" target="_blank" rel="noopener">这个</a>插件，可以在线使用<code>xpath</code>语法来匹配</p>
-<p>注意:使用<code>xpath</code>语法返回的数据都是以列表形式返回</p>
-<p><a href="https://github.com/canxing/code-repository/blob/master/python/reptile/tencent_job_reptile.py" target="_blank" rel="noopener">一个完整的可以爬取腾讯社招技术类的所有招聘信息的爬虫程序</a></p>
-]]></content>
-      <categories>
-        <category>python3</category>
-      </categories>
-      <tags>
-        <tag>python3</tag>
-        <tag>reptile</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>nginx 自定义模块</title>
     <url>/2018/08/23/ngxin-customize-module/</url>
     <content><![CDATA[<p>Nginx 有核心模块和第三方模块，我们也可以自定义模块来使用。Nginx 就像一个小型的编程语言，要添加自定义模块就要满足一些 Nginx 的编写要求，就像 C 语言必须有一个 main 函数一样。</p>
@@ -1827,6 +1816,52 @@ o.put(&quot;employees&quot;,employees);
       </categories>
       <tags>
         <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python-简单爬虫</title>
+    <url>/2018/06/30/python-reptile/</url>
+    <content><![CDATA[<h1 id="python-简单爬虫"><a href="#python-简单爬虫" class="headerlink" title="python 简单爬虫"></a>python 简单爬虫</h1><blockquote>
+<p>这不是一篇完整的爬虫教程，这是一篇使用python完成简单爬虫的使用过程记录。<br>使用 python3 以及第三方库 requests 和 lxml 以及 xpath 技术来爬取一些网页数据<br>这里只是用了 GET 请求，没有使用 POST 请求</p>
+</blockquote>
+<h2 id="第三方库和技术介绍"><a href="#第三方库和技术介绍" class="headerlink" title="第三方库和技术介绍"></a>第三方库和技术介绍</h2><p>requests: 这里使用 requests 来请求一个网页，并将响应结果封装在一个对象中返回</p>
+<p>lxml: 使用 lxml 中的 etree 库对响应的 HTML 页面进行解析</p>
+<p>xpath: 一种解析 xml 文档的技术，也可以解析 HTML 页面。在w3c可以找到文档</p>
+<h2 id="过程介绍"><a href="#过程介绍" class="headerlink" title="过程介绍"></a>过程介绍</h2><ol>
+<li>使用 <code>requests.get</code> 函数请求对应的<code>URL</code></li>
+<li>如果请求正常并有返回，将返回结果通过<code>etree.HTML</code>处理</li>
+<li>使用<code>xpath</code>技术对<code>etree.HTML</code>处理过的对象进行解析，获取对应的数据</li>
+<li>数据存储</li>
+</ol>
+<h2 id="请求页面"><a href="#请求页面" class="headerlink" title="请求页面"></a>请求页面</h2><h3 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h3><p>使用<code>requests.get(url)</code>方式可以请求对应的<code>url</code>内容，并将响应结果封装在一个对象中返回，但是直接使用这种方式的请求头中包含这个<code>&quot;User-Agent&quot;:&quot;python-requests/2.19.1&quot;</code><br>有些服务器会通过这个请求头得知这是一个python爬虫请求从而拒绝响应。为了正常访问，需要传入一个请求头来覆盖这个属性，从而骗过请求服务器。</p>
+<p>在<code>firefox</code>浏览器中通过请求<code>http://httpbin.org/get</code>可以获得本机的请求头，下面是我请求的该链接的部分内容</p>
+<p><img src="httpbing-request.png" alt="本机请求httpbin.org"></p>
+<p>将请求中的<code>User-Agent</code>对应的属性作为键值对形式传入<code>requests.get()</code>的<code>headers</code>参数，如下</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">header = &#123;<span class="string">"User-Agent"</span>:<span class="string">"Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"</span>&#125;</span><br><span class="line">response = requests.get(url, headers=header)</span><br></pre></td></tr></table></figure>
+<h3 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h3><p>如果你想要传入查询参数，只需要以键值对的形式传入<code>requests.get</code>中的<code>params</code>，下面的查询键为’user’，对应的值为’tom’</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data = &#123;<span class="string">"user"</span>:<span class="string">"tom"</span>&#125;</span><br><span class="line">response = requests.get(url, params=data)</span><br><span class="line">```python</span><br><span class="line"></span><br><span class="line">如果你有多个查询值也可以添加多个键值对</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">data = &#123;<span class="string">"user"</span>:<span class="string">"tom"</span>,<span class="string">"pwd"</span>:<span class="string">"jerry"</span>&#125;</span><br><span class="line">response = requests.get(url, params=data)</span><br></pre></td></tr></table></figure>
+<h3 id="请求超时设置"><a href="#请求超时设置" class="headerlink" title="请求超时设置"></a>请求超时设置</h3><p>对<code>requests.get</code>函数的<code>timeout</code>参数传入一个数字可以设置请求的最长时间</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">response = requests.get(url, timeout=<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="响应处理"><a href="#响应处理" class="headerlink" title="响应处理"></a>响应处理</h2><p>使用<code>response = requests.get()</code>之后就获取了响应结果，这时可以对响应做一些处理</p>
+<h3 id="响应码"><a href="#响应码" class="headerlink" title="响应码"></a>响应码</h3><p><code>response.status_code</code>返回请求的响应码，正常情况下返回<code>200</code></p>
+<h3 id="字符设置"><a href="#字符设置" class="headerlink" title="字符设置"></a>字符设置</h3><p>响应返回的结果不一定可以正常显示，对<code>response.encoding</code>属性进行赋值可以修改返回的字符集，一般设置为<code>utf-8</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">response.encoding = <span class="string">'utf-8'</span></span><br></pre></td></tr></table></figure>
+<h3 id="返回结果"><a href="#返回结果" class="headerlink" title="返回结果"></a>返回结果</h3><p><code>response.text</code>将数据以文本形式返回，文本形式的字符集和字符设置有关，如果没有设置则返回响应数据设置的字符集</p>
+<p><code>response.content</code>将数据以字节形式返回，使用这种方式返回就不用担心返回的数据出现乱码问题</p>
+<h2 id="一个完整的请求实例"><a href="#一个完整的请求实例" class="headerlink" title="一个完整的请求实例"></a>一个完整的请求实例</h2><p>请求一个<code>url</code>并将响应结果以文本的形式返回</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">user_agent = <span class="string">"User-Agent"</span></span><br><span class="line">my_user_agent = <span class="string">"Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"</span></span><br><span class="line">header = &#123;user_agent: my_user_agent&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getPage</span><span class="params">(url, data=None)</span> :</span></span><br><span class="line">    <span class="string">'''根据url请求一个html页面并返回'''</span></span><br><span class="line">    <span class="keyword">try</span> :</span><br><span class="line">        r = requests.get(url, headers=header, params=data)</span><br><span class="line">        r.encoding = <span class="string">'utf-8'</span></span><br><span class="line">        <span class="keyword">if</span> r.status_code == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">return</span> r.text</span><br><span class="line">        <span class="keyword">else</span> :</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"返回页面信息失败"</span>)</span><br><span class="line">    <span class="keyword">except</span> :</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">"请求链接失败"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="xpath处理"><a href="#xpath处理" class="headerlink" title="xpath处理"></a>xpath处理</h2><p>使用<code>lxml</code>中的<code>etree</code>库中的<code>HTML</code>函数可以将一个<code>HTML</code>页面转换为一个对象，对该对象使用<code>xpath</code>语法即可获取对应的数据。有关更多的<code>xpath</code>技术点击<a href="http://www.w3school.com.cn/xpath/" target="_blank" rel="noopener">这里</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">html = etree.HTML(html)</span><br><span class="line">html.xpath(xpath)</span><br></pre></td></tr></table></figure>
+<p>对于使用<code>xpath</code>语法来获取数据，在<code>firefox</code>浏览器中使用<a href="https://addons.mozilla.org/zh-CN/firefox/addon/try-xpath/?src=search" target="_blank" rel="noopener">这个</a>插件，可以在线使用<code>xpath</code>语法来匹配</p>
+<p>注意:使用<code>xpath</code>语法返回的数据都是以列表形式返回</p>
+<p><a href="https://github.com/canxing/code-repository/blob/master/python/reptile/tencent_job_reptile.py" target="_blank" rel="noopener">一个完整的可以爬取腾讯社招技术类的所有招聘信息的爬虫程序</a></p>
+]]></content>
+      <categories>
+        <category>python3</category>
+      </categories>
+      <tags>
+        <tag>python3</tag>
+        <tag>reptile</tag>
       </tags>
   </entry>
   <entry>
