@@ -38,6 +38,33 @@
       </tags>
   </entry>
   <entry>
+    <title>VIM 配置</title>
+    <url>/2018/08/12/VIM-config/</url>
+    <content><![CDATA[<p>VIM 配置</p>
+<p>这个配置比较简单，只有有限的几个插件，涉及少数几个 VIM 命令，不同于其他 VIM 成熟的配置，如果你需要的是一个成熟的 VIM 配置，那么你应该去别的地方找找，如果你只需要一份简单的配置以便与后续的自定义，这个说不定就是你想要的。</p>
+<p>VIM 显示界面</p>
+<p><img src="./VIM图形.png" alt="VIM图形"></p>
+<p>上述 VIM 样式是终端 VIM，对于 GUI VIM 也有一定的效果，但是不一定完全一样。</p>
+<p>VIM 配置包括两部分，一部分是 VIM 插件，一部分 VIM 配置文件。</p>
+<p>VIM 插件集中在 bundle 目录下，bundle 应该放在 <code>~/.vim/</code> 目录下，对于 windows 用户需要自行搜索插件存放目录。</p>
+<p>VIM 配置文件 <code>.vimrc</code> 应该放在用户的根目录下，用于启动 VIM 时加载。</p>
+<p>VIM 配置使用了以下几个插件</p>
+<ul>
+<li>Vundle 用于管理其他插件的插件</li>
+<li>nerdtree 用于在 VIM 中显示目录树的插件 </li>
+<li>gruvbox VIM 的主题插件</li>
+<li>tabular 和 vim-markdown 是让 VIM 可以支持 Markdonw 的插件</li>
+</ul>
+<p>插件和配置文件可以在<a href="https://github.com/canxing/the-road-to-learning/tree/master/vim" target="_blank" rel="noopener">这里</a>找到</p>
+]]></content>
+      <categories>
+        <category>VIM</category>
+      </categories>
+      <tags>
+        <tag>VIM 配置</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java_基本类型</title>
     <url>/2018/10/10/Java-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<ul>
@@ -163,63 +190,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VIM 配置</title>
-    <url>/2018/08/12/VIM-config/</url>
-    <content><![CDATA[<p>VIM 配置</p>
-<p>这个配置比较简单，只有有限的几个插件，涉及少数几个 VIM 命令，不同于其他 VIM 成熟的配置，如果你需要的是一个成熟的 VIM 配置，那么你应该去别的地方找找，如果你只需要一份简单的配置以便与后续的自定义，这个说不定就是你想要的。</p>
-<p>VIM 显示界面</p>
-<p><img src="./VIM图形.png" alt="VIM图形"></p>
-<p>上述 VIM 样式是终端 VIM，对于 GUI VIM 也有一定的效果，但是不一定完全一样。</p>
-<p>VIM 配置包括两部分，一部分是 VIM 插件，一部分 VIM 配置文件。</p>
-<p>VIM 插件集中在 bundle 目录下，bundle 应该放在 <code>~/.vim/</code> 目录下，对于 windows 用户需要自行搜索插件存放目录。</p>
-<p>VIM 配置文件 <code>.vimrc</code> 应该放在用户的根目录下，用于启动 VIM 时加载。</p>
-<p>VIM 配置使用了以下几个插件</p>
-<ul>
-<li>Vundle 用于管理其他插件的插件</li>
-<li>nerdtree 用于在 VIM 中显示目录树的插件 </li>
-<li>gruvbox VIM 的主题插件</li>
-<li>tabular 和 vim-markdown 是让 VIM 可以支持 Markdonw 的插件</li>
-</ul>
-<p>插件和配置文件可以在<a href="https://github.com/canxing/the-road-to-learning/tree/master/vim" target="_blank" rel="noopener">这里</a>找到</p>
-]]></content>
-      <categories>
-        <category>VIM</category>
-      </categories>
-      <tags>
-        <tag>VIM 配置</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ajax异步处理</title>
-    <url>/2017/12/16/ajax%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/</url>
-    <content><![CDATA[<h1 id="AJAX-异步处理"><a href="#AJAX-异步处理" class="headerlink" title="AJAX 异步处理"></a>AJAX 异步处理</h1><p>AJAX异步处理基本操作,参考教程<a href="http://www.w3school.com.cn/ajax/index.asp" target="_blank" rel="noopener">w3school</a></p>
-<h2 id="AJAX是什么"><a href="#AJAX是什么" class="headerlink" title="AJAX是什么"></a>AJAX是什么</h2><p>AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。<br>AJAX可以在页面不刷新的情况更新局部页面，也可以在页面加载过程中先加载重要部分在加载不那么重要的部分，提高页面加载速度</p>
-<h2 id="AJAX工作流程"><a href="#AJAX工作流程" class="headerlink" title="AJAX工作流程"></a>AJAX工作流程</h2><h3 id="AJAX基本对象"><a href="#AJAX基本对象" class="headerlink" title="AJAX基本对象"></a>AJAX基本对象</h3><p> XMLHttpRequest是AJAX的基础，XMLHttpRequest 用于在后台与服务器交换数据</p>
-<h4 id="1-XMLHttpRequest的创建"><a href="#1-XMLHttpRequest的创建" class="headerlink" title="1. XMLHttpRequest的创建"></a>1. XMLHttpRequest的创建</h4><p>现代浏览器内置XMLHttpRequest对象使用如下方式创建  </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br></pre></td></tr></table></figure>
-<p>老版本的IE浏览器不支持XMLHttpRequest对象，使用ActiveXObject对象创建:  </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span><br></pre></td></tr></table></figure>
-<p>根据浏览器的不同使用不同的方式创建对象  </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> xmlhttp = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest)&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-使用AJAX发送请求"><a href="#2-使用AJAX发送请求" class="headerlink" title="2. 使用AJAX发送请求"></a>2. 使用AJAX发送请求</h4><p>使用的方法如下:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">open(method,url,<span class="keyword">async</span>)          规定请求类型，URL，是否异步处理请求</span><br><span class="line">    method:请求类型;GET/POST</span><br><span class="line">    url:要请求的连接;如www.google.com</span><br><span class="line">    <span class="keyword">async</span>:是否同步;<span class="literal">true</span>(异步)/<span class="literal">false</span>(同步)</span><br><span class="line">send(<span class="built_in">String</span>)                    发送请求到服务器</span><br><span class="line">    string:仅用于post请求</span><br><span class="line">setRequestHeader(header,value)  向请求添加HTTP头</span><br><span class="line">    header:规定头的名称</span><br><span class="line">    value:规定头的值</span><br></pre></td></tr></table></figure>
-<h4 id="3-获取响应"><a href="#3-获取响应" class="headerlink" title="3. 获取响应"></a>3. 获取响应</h4><p>涉及属性如下:</p>
-<pre><code>responseText                  获得字符串形式的相应数据
-responseXML                   获得XML形式的响应数据
-</code></pre><h4 id="4-onreadystatechange事件"><a href="#4-onreadystatechange事件" class="headerlink" title="4. onreadystatechange事件"></a>4. onreadystatechange事件</h4><p>onreadystatechange是当AJAX请求发送到服务器时，根据服务器的处理进度进行反馈的标志</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">readyState 属性               存储XMLHttpRequest的状态，从<span class="number">0</span>到<span class="number">4</span>变化</span><br><span class="line">      <span class="number">0</span>：请求为初始化</span><br><span class="line">      <span class="number">1</span>：服务器连接已建立</span><br><span class="line">      <span class="number">2</span>：请求已接收</span><br><span class="line">      <span class="number">3</span>：请求处理中</span><br><span class="line">      <span class="number">4</span>：请求已完成，且响应已就绪</span><br><span class="line">status</span><br><span class="line">      <span class="number">200</span>：“ok”</span><br><span class="line">      <span class="number">404</span>：paga not found</span><br><span class="line">onreadystatechange          存储函数名，在每次readyState变化时调用存储的函数</span><br></pre></td></tr></table></figure>
-<h3 id="一个基本的请求相映模板"><a href="#一个基本的请求相映模板" class="headerlink" title="一个基本的请求相映模板"></a>一个基本的请求相映模板</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadXMLDoc</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> xmlhttp = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest)&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  xmlhttp.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(xmlhttp.state == <span class="number">200</span> &amp;&amp; xmlhttp.readeyState == <span class="number">4</span>)&#123;</span><br><span class="line">      <span class="comment">//获取响应数据</span></span><br><span class="line">      <span class="keyword">var</span> responseT = xmlhttp.responseText;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"www.baidu.com"</span>,<span class="literal">true</span>);</span><br><span class="line">  xmlhttp.send(<span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/canxing/code-repository/tree/master/java/spring_return_json" target="_blank" rel="noopener">一个使用ajax发送到服务器，服务器使用spring-mvc返回JSON数据并在页面显示的实例源码</a></p>
-]]></content>
-      <categories>
-        <category>ajax</category>
-      </categories>
-      <tags>
-        <tag>ajax</tag>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>containerd</title>
     <url>/2023/10/15/containerd/</url>
     <content><![CDATA[<h1 id="Containerd"><a href="#Containerd" class="headerlink" title="Containerd"></a>Containerd</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Containerd 的安装方式和安装 Docker 相似，Docker 内部操作的也是 Containerd，只不过 Docker 通过 Docker-cli 提供了一些面向用户的，更友好的接口。</p>
@@ -252,6 +222,36 @@ responseXML                   获得XML形式的响应数据
         <tag>containerd</tag>
         <tag>容器</tag>
         <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ajax异步处理</title>
+    <url>/2017/12/16/ajax%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/</url>
+    <content><![CDATA[<h1 id="AJAX-异步处理"><a href="#AJAX-异步处理" class="headerlink" title="AJAX 异步处理"></a>AJAX 异步处理</h1><p>AJAX异步处理基本操作,参考教程<a href="http://www.w3school.com.cn/ajax/index.asp" target="_blank" rel="noopener">w3school</a></p>
+<h2 id="AJAX是什么"><a href="#AJAX是什么" class="headerlink" title="AJAX是什么"></a>AJAX是什么</h2><p>AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。<br>AJAX可以在页面不刷新的情况更新局部页面，也可以在页面加载过程中先加载重要部分在加载不那么重要的部分，提高页面加载速度</p>
+<h2 id="AJAX工作流程"><a href="#AJAX工作流程" class="headerlink" title="AJAX工作流程"></a>AJAX工作流程</h2><h3 id="AJAX基本对象"><a href="#AJAX基本对象" class="headerlink" title="AJAX基本对象"></a>AJAX基本对象</h3><p> XMLHttpRequest是AJAX的基础，XMLHttpRequest 用于在后台与服务器交换数据</p>
+<h4 id="1-XMLHttpRequest的创建"><a href="#1-XMLHttpRequest的创建" class="headerlink" title="1. XMLHttpRequest的创建"></a>1. XMLHttpRequest的创建</h4><p>现代浏览器内置XMLHttpRequest对象使用如下方式创建  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br></pre></td></tr></table></figure>
+<p>老版本的IE浏览器不支持XMLHttpRequest对象，使用ActiveXObject对象创建:  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span><br></pre></td></tr></table></figure>
+<p>根据浏览器的不同使用不同的方式创建对象  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> xmlhttp = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest)&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-使用AJAX发送请求"><a href="#2-使用AJAX发送请求" class="headerlink" title="2. 使用AJAX发送请求"></a>2. 使用AJAX发送请求</h4><p>使用的方法如下:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">open(method,url,<span class="keyword">async</span>)          规定请求类型，URL，是否异步处理请求</span><br><span class="line">    method:请求类型;GET/POST</span><br><span class="line">    url:要请求的连接;如www.google.com</span><br><span class="line">    <span class="keyword">async</span>:是否同步;<span class="literal">true</span>(异步)/<span class="literal">false</span>(同步)</span><br><span class="line">send(<span class="built_in">String</span>)                    发送请求到服务器</span><br><span class="line">    string:仅用于post请求</span><br><span class="line">setRequestHeader(header,value)  向请求添加HTTP头</span><br><span class="line">    header:规定头的名称</span><br><span class="line">    value:规定头的值</span><br></pre></td></tr></table></figure>
+<h4 id="3-获取响应"><a href="#3-获取响应" class="headerlink" title="3. 获取响应"></a>3. 获取响应</h4><p>涉及属性如下:</p>
+<pre><code>responseText                  获得字符串形式的相应数据
+responseXML                   获得XML形式的响应数据
+</code></pre><h4 id="4-onreadystatechange事件"><a href="#4-onreadystatechange事件" class="headerlink" title="4. onreadystatechange事件"></a>4. onreadystatechange事件</h4><p>onreadystatechange是当AJAX请求发送到服务器时，根据服务器的处理进度进行反馈的标志</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">readyState 属性               存储XMLHttpRequest的状态，从<span class="number">0</span>到<span class="number">4</span>变化</span><br><span class="line">      <span class="number">0</span>：请求为初始化</span><br><span class="line">      <span class="number">1</span>：服务器连接已建立</span><br><span class="line">      <span class="number">2</span>：请求已接收</span><br><span class="line">      <span class="number">3</span>：请求处理中</span><br><span class="line">      <span class="number">4</span>：请求已完成，且响应已就绪</span><br><span class="line">status</span><br><span class="line">      <span class="number">200</span>：“ok”</span><br><span class="line">      <span class="number">404</span>：paga not found</span><br><span class="line">onreadystatechange          存储函数名，在每次readyState变化时调用存储的函数</span><br></pre></td></tr></table></figure>
+<h3 id="一个基本的请求相映模板"><a href="#一个基本的请求相映模板" class="headerlink" title="一个基本的请求相映模板"></a>一个基本的请求相映模板</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadXMLDoc</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> xmlhttp = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest)&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  xmlhttp.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(xmlhttp.state == <span class="number">200</span> &amp;&amp; xmlhttp.readeyState == <span class="number">4</span>)&#123;</span><br><span class="line">      <span class="comment">//获取响应数据</span></span><br><span class="line">      <span class="keyword">var</span> responseT = xmlhttp.responseText;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"www.baidu.com"</span>,<span class="literal">true</span>);</span><br><span class="line">  xmlhttp.send(<span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/canxing/code-repository/tree/master/java/spring_return_json" target="_blank" rel="noopener">一个使用ajax发送到服务器，服务器使用spring-mvc返回JSON数据并在页面显示的实例源码</a></p>
+]]></content>
+      <categories>
+        <category>ajax</category>
+      </categories>
+      <tags>
+        <tag>ajax</tag>
+        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -396,40 +396,6 @@ responseXML                   获得XML形式的响应数据
       <tags>
         <tag>docker</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>filebeat 本地编译</title>
-    <url>/2023/11/20/filebeat%E6%9C%AC%E5%9C%B0%E7%BC%96%E8%AF%91/</url>
-    <content><![CDATA[<blockquote>
-<p>在本地对 filebeat 进行编译</p>
-</blockquote>
-<h1 id="filebeat-本地编译"><a href="#filebeat-本地编译" class="headerlink" title="filebeat 本地编译"></a>filebeat 本地编译</h1><p>使用的 filebeat 版本为 7.13.2，安全漏洞扫描，扫描出 filebeat 有 7 分以上安全漏洞 CVE-2023-44487，CVE-2023-4785。</p>
-<p>查阅资源，发现这个安全漏洞是 grpc 引入，7.13.2 的 filebeat 使用的 grpc 版本为 1.29.1，为了解决安全漏洞，需要将 grpc 版本升级到 1.58.3 或者更高的版本。</p>
-<p>两个办法，一个是升级 filebeat，但是 filebeat 和 elasticsearch 有兼容关系 <a href="https://www.elastic.co/cn/support/matrix?spm=a2c4g.11186623.0.0.312237875y8kxE#matrix_compatibility" target="_blank" rel="noopener">产品兼容性</a>。如果升级 filebeat，那么 elasticsearch 和 kibana 很有可能需要同步升级，这很有可能导致其他问题。</p>
-<p>另一个办法是自行对 filebeat 进行编译，将 filebeat 依赖的 grpc 升级。本编文章就是介绍这个的。</p>
-<h2 id="编译步骤"><a href="#编译步骤" class="headerlink" title="编译步骤"></a>编译步骤</h2><ol>
-<li>从 <a href="https://github.com/elastic/beats" target="_blank" rel="noopener">https://github.com/elastic/beats</a> 下载或者克隆源码，下载选择 7.13.2 版本，克隆则切换到 7.13.2 tag</li>
-<li>访问源码下的 <code>docs/devguide/contributing.asciidoc</code>，这篇只能介绍了本地编译 filebeat 所需的环境，filebeat 只需要 golang 环境即可</li>
-<li>golang 环境，这里使用 Docker 镜像构建，设置代理，不然无法访问 filebeat 所需依赖</li>
-<li><p>将源码放置在指定位置</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir -p <span class="variable">$GOPATH</span>/src/github.com/elastic</span><br><span class="line">mv beats/ <span class="variable">$GOPATH</span>/src/github.com/elastic</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改源码下的 go.mod 文件，将 grpc 版本从 1.29.1 改为 1.58.3，并将倒数第三行从文件中删除，如下。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">github.com/kardianos/service =&gt; github.com/blakerouse/service v1.1.1-0.20200924160513-057808572ffa</span><br></pre></td></tr></table></figure>
-<p>这一行似乎是转换，让 github.com/kardianos/service 这个依赖从 github.com/blakerouse/service 下载。但是直接下载并没有找到 github.com/blakerouse/service 这个依赖。依赖可以通过<a href="https://pkg.go.dev/" target="_blank" rel="noopener">官方仓库</a>搜索</p>
-</li>
-<li>进入 filebeat 目录，执行 <code>go mod tidy</code> 更新依赖，这一步同时会下载依赖</li>
-<li><p>在 filebeat 目录下执行 <code>make</code> 命令编译，这一步可以看见编译命令，类似于</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go build -ldflags <span class="string">"-X github.com/elastic/beats/libbeat/version.buildTime=2023-11-20T10:48:12Z -X github.com/elastic/beats/libbeat/version.commit=686ba416a74193f2e69dcfa2eb142f4364a79307"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>交叉编译，编译 windows 下的可执行文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags <span class="string">"-X github.com/elastic/beats/libbeat/version.buildTime=2023-11-20T10:48:12Z -X github.com/elastic/beats/libbeat/version.commit=686ba416a74193f2e69dcfa2eb142f4364a79307"</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>也可以通过这个命令编译 ARM 平台下的二进制 <code>CGO_ENABLED=0  GOOS=linux  GOARCH=arm64 go build</code></p>
-</blockquote>
-</li>
-</ol>
-]]></content>
   </entry>
   <entry>
     <title>docker基础</title>
@@ -667,37 +633,38 @@ responseXML                   获得XML形式的响应数据
       </tags>
   </entry>
   <entry>
-    <title>java8-collect方法</title>
-    <url>/2018/01/13/java8-collect%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="collect方法"><a href="#collect方法" class="headerlink" title="collect方法"></a>collect方法</h2><p>collect 方法是 Stream 中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。</p>
-<p>收集器是 Stream 用于收集某种形式的数据信息，基本上所有的 Stream 的终端操作都可以使用 collect 方法来实现</p>
-<h2 id="collect的定义"><a href="#collect的定义" class="headerlink" title="collect的定义"></a>collect的定义</h2><p>collect 方法有两种形式  </p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">方法原型<span class="number">1</span></span><br><span class="line">&lt;R&gt; <span class="function">R <span class="title">collect</span><span class="params">(Supplier&lt;R&gt; supplier,</span></span></span><br><span class="line"><span class="function"><span class="params">			  BiConsumer&lt;R, ? <span class="keyword">super</span> T&gt; accumulator,</span></span></span><br><span class="line"><span class="function"><span class="params">			  BiConsumer&lt;R, R&gt; combiner)</span></span>;</span><br><span class="line">方法原型<span class="number">2</span></span><br><span class="line">&lt;R, A&gt; <span class="function">R <span class="title">collect</span><span class="params">(Collector&lt;? <span class="keyword">super</span> T, A, R&gt; collector)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>这里主要使用方法原型 2,这个方法原型接收一个实现了 Collector 接口的对象，Collector 接口有五个抽象方法，幸运的是 java8 封装了一些常用的方法供我们使用，这些常用方法封装在 <code>java.util.stream.Collectors</code> 对象中，这个对象含有多个静态方法，用来返回 Collector 对象  </p>
-<h1 id="collect-方法示例"><a href="#collect-方法示例" class="headerlink" title="collect 方法示例"></a>collect 方法示例</h1><p>Apple.java</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> weight;</span><br><span class="line">	<span class="keyword">private</span> String color;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(<span class="keyword">int</span> weight, String color)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.weight = weight;</span><br><span class="line">		<span class="keyword">this</span>.color = color;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//getter</span></span><br><span class="line">	<span class="comment">//setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Main.java</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;Apple&gt; inventory = Arrays.asList(</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">10</span>,<span class="string">"green"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">20</span>,<span class="string">"red"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">12</span>,<span class="string">"red"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">12</span>,<span class="string">"red"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">25</span>,<span class="string">"green"</span>));</span><br><span class="line">		<span class="comment">//返回重量最重的苹果</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回重量最重的苹果----------------"</span>);</span><br><span class="line">		Optional&lt;Apple&gt; heaviestApple = inventory.stream().collect(Collectors.maxBy(Comparator.comparing(Apple::getWeight)));</span><br><span class="line">		System.out.println(heaviestApple);</span><br><span class="line">		<span class="comment">//返回重量最轻的苹果</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回重量最轻的苹果----------------"</span>);</span><br><span class="line">		Optional&lt;Apple&gt; lightestApple = inventory.stream().collect(Collectors.minBy(Comparator.comparing(Apple::getWeight)));</span><br><span class="line">		System.out.println(lightestApple);</span><br><span class="line">		<span class="comment">//返回苹果的总重量</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回苹果的总重量----------------"</span>);</span><br><span class="line">		<span class="keyword">int</span> sumInt = inventory.stream().collect(Collectors.summingInt(Apple::getWeight));</span><br><span class="line">		System.out.println(sumInt);</span><br><span class="line">		<span class="comment">//使用Collectors.averagingInt方法求苹果的平均重量</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------求苹果的平均重量-----------------"</span>);</span><br><span class="line">		<span class="keyword">double</span> averageWeight = inventory.stream().collect(Collectors.averagingDouble(Apple::getWeight));</span><br><span class="line">		System.out.println(averageWeight);</span><br><span class="line">		<span class="comment">//返回苹果的重量的各个数据</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回苹果重量的各个数据属性-----------------"</span>);</span><br><span class="line">		IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));</span><br><span class="line">		System.out.println(intSummartStatistics);</span><br><span class="line">		<span class="comment">//将所有苹果颜色拼接为一个字符串</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------将所有苹果颜色拼接为一个字符串-----------------"</span>);</span><br><span class="line">		<span class="comment">//joining会自动将流中的数据拼接为字符串，在处理时需要保证流中的数据都是字符串</span></span><br><span class="line">		String appleColors = inventory.stream()</span><br><span class="line">			.map(Apple::getColor)	<span class="comment">//将流中的apple转换为apple的颜色</span></span><br><span class="line">			.collect(Collectors.joining(<span class="comment">/*将每一个颜色后面加上一个空格*/</span><span class="string">" "</span>));</span><br><span class="line">		System.out.println(appleColors);</span><br><span class="line">		<span class="comment">//返回苹果数量</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回苹果的总数量-----------------"</span>);</span><br><span class="line">		Long count = inventory.stream().collect(Collectors.counting());</span><br><span class="line">		System.out.println(count);</span><br><span class="line">		<span class="comment">//分组</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------将苹果按照苹果颜色进行分组----------------"</span>);</span><br><span class="line">		Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));</span><br><span class="line">		System.out.println(appleColorMap);</span><br><span class="line">		System.out.println(<span class="string">"-------------------将苹果按照苹果颜色和重量进行分组 	----------------"</span>);</span><br><span class="line">		System.out.println(inventory.stream().collect(Collectors.groupingBy(Apple::getColor,</span><br><span class="line">				Collectors.groupingBy(apple -&gt; &#123;</span><br><span class="line">					<span class="keyword">if</span>(apple.getWeight() &gt; <span class="number">10</span> &amp;&amp; apple.getWeight() &lt; <span class="number">20</span>) <span class="keyword">return</span> <span class="string">"一般"</span>;</span><br><span class="line">					<span class="keyword">else</span> <span class="keyword">if</span>(apple.getWeight() &gt;= <span class="number">20</span> ) <span class="keyword">return</span> <span class="string">"很重"</span>;</span><br><span class="line">					<span class="keyword">else</span> <span class="keyword">return</span> <span class="string">"轻"</span>;</span><br><span class="line">				&#125;))));</span><br><span class="line">		<span class="comment">//收集每个颜色的苹果有多少个</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------收集每个颜色的苹果有多少个----------------"</span>);</span><br><span class="line">		Map&lt;String, Long&gt; colorCount = inventory.stream().collect(Collectors.groupingBy(Apple::getColor,Collectors.counting()));</span><br><span class="line">		System.out.println(colorCount);</span><br><span class="line">		<span class="comment">//分区</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------根据苹果颜色进行分区----------------"</span>);</span><br><span class="line">		Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(<span class="string">"red"</span>)));</span><br><span class="line">		System.out.println(colorPartition);</span><br><span class="line">		<span class="comment">//归约</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------归约操作----------------"</span>);</span><br><span class="line">		System.out.println(inventory.stream().collect(Collectors.reducing(<span class="number">0</span>,Apple::getWeight,(a,b) -&gt; a + b)));</span><br><span class="line">		System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.reducing((a,b) -&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span>(a &gt; b) <span class="keyword">return</span> a;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> b;</span><br><span class="line">		&#125;)));</span><br><span class="line">		System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.reducing(<span class="number">100</span>,(a,b) -&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span>(a &gt; b) <span class="keyword">return</span> a;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> b;</span><br><span class="line">		&#125;)));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码使用了大多数 Collectors 的方法，还有一些类型的方法,如: averagingDouble,averagingInt,averagingLong 都是相同的。</p>
-<p>Collectors 中的方法大致分为分组，分区，容器（返回list，set，map），简单的数值计算和其他</p>
-<p>其中分组和分区是有区别的，分区可以看做是分组的特殊形式，分区只会有两个区别满足条件的（true）和不满足条件的（false），不管是分区还是分组，都可以再分,分组是根据返回的条件进行分组  </p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));</span><br></pre></td></tr></table></figure>
-<p>这里就是根据苹果的颜色进行分组，map 中只会有两个主键，red 或者 green。如果将条件改为 Apple::getWeight，那么主键就会有 10,20,12,25，因为有两个重量为 12 的苹果，这两个苹果就会分在一组</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(<span class="string">"red"</span>)));</span><br></pre></td></tr></table></figure>
-<p>这里根据苹果颜色是不是红色进行分区，只会有两个主键，true 或者 false，true 分区里的苹果都是红色的，false 分区里的值都不是红色的，但是 partitioningBy 里面可以传第二个参数，可以对分区里面再进行<code>收集</code>（collect方法）操作</p>
-<p>容器可以为三种，List，Set，Map 容器，只需要调用 Collectors.toXxxx() 方法就可以将流最后组装成一个容易</p>
-<p>简单的数值计算可以直接通过流计算得出，例如 Stream.max() 方法和 Stream.collect(Collectors.maxBy()) 方法是相同的，在某些方面，如</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));</span><br></pre></td></tr></table></figure>
-<p>可以返回多种数据的不同运算结果，还是很方便的</p>
-<p>collect 方法接收一个 Collector 对象，而大多数的 Collector 对象都可以通过 Collectors 对象的静态工厂方法获取，如果有需要可以查阅手册</p>
+    <title>filebeat 本地编译</title>
+    <url>/2023/11/20/filebeat%E6%9C%AC%E5%9C%B0%E7%BC%96%E8%AF%91/</url>
+    <content><![CDATA[<blockquote>
+<p>在本地对 filebeat 进行编译</p>
+</blockquote>
+<h1 id="filebeat-本地编译"><a href="#filebeat-本地编译" class="headerlink" title="filebeat 本地编译"></a>filebeat 本地编译</h1><p>使用的 filebeat 版本为 7.13.2，安全漏洞扫描，扫描出 filebeat 有 7 分以上安全漏洞 CVE-2023-44487，CVE-2023-4785。</p>
+<p>查阅资源，发现这个安全漏洞是 grpc 引入，7.13.2 的 filebeat 使用的 grpc 版本为 1.29.1，为了解决安全漏洞，需要将 grpc 版本升级到 1.58.3 或者更高的版本。</p>
+<p>两个办法，一个是升级 filebeat，但是 filebeat 和 elasticsearch 有兼容关系 <a href="https://www.elastic.co/cn/support/matrix?spm=a2c4g.11186623.0.0.312237875y8kxE#matrix_compatibility" target="_blank" rel="noopener">产品兼容性</a>。如果升级 filebeat，那么 elasticsearch 和 kibana 很有可能需要同步升级，这很有可能导致其他问题。</p>
+<p>另一个办法是自行对 filebeat 进行编译，将 filebeat 依赖的 grpc 升级。本编文章就是介绍这个的。</p>
+<h2 id="编译步骤"><a href="#编译步骤" class="headerlink" title="编译步骤"></a>编译步骤</h2><ol>
+<li>从 <a href="https://github.com/elastic/beats" target="_blank" rel="noopener">https://github.com/elastic/beats</a> 下载或者克隆源码，下载选择 7.13.2 版本，克隆则切换到 7.13.2 tag</li>
+<li>访问源码下的 <code>docs/devguide/contributing.asciidoc</code>，这篇只能介绍了本地编译 filebeat 所需的环境，filebeat 只需要 golang 环境即可</li>
+<li>golang 环境，这里使用 Docker 镜像构建，设置代理，不然无法访问 filebeat 所需依赖</li>
+<li><p>将源码放置在指定位置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir -p <span class="variable">$GOPATH</span>/src/github.com/elastic</span><br><span class="line">mv beats/ <span class="variable">$GOPATH</span>/src/github.com/elastic</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改源码下的 go.mod 文件，将 grpc 版本从 1.29.1 改为 1.58.3，并将倒数第三行从文件中删除，如下。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">github.com/kardianos/service =&gt; github.com/blakerouse/service v1.1.1-0.20200924160513-057808572ffa</span><br></pre></td></tr></table></figure>
+<p>这一行似乎是转换，让 github.com/kardianos/service 这个依赖从 github.com/blakerouse/service 下载。但是直接下载并没有找到 github.com/blakerouse/service 这个依赖。依赖可以通过<a href="https://pkg.go.dev/" target="_blank" rel="noopener">官方仓库</a>搜索</p>
+</li>
+<li>进入 filebeat 目录，执行 <code>go mod tidy</code> 更新依赖，这一步同时会下载依赖</li>
+<li><p>在 filebeat 目录下执行 <code>make</code> 命令编译，这一步可以看见编译命令，类似于</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go build -ldflags <span class="string">"-X github.com/elastic/beats/libbeat/version.buildTime=2023-11-20T10:48:12Z -X github.com/elastic/beats/libbeat/version.commit=686ba416a74193f2e69dcfa2eb142f4364a79307"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>交叉编译，编译 windows 下的可执行文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags <span class="string">"-X github.com/elastic/beats/libbeat/version.buildTime=2023-11-20T10:48:12Z -X github.com/elastic/beats/libbeat/version.commit=686ba416a74193f2e69dcfa2eb142f4364a79307"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>也可以通过这个命令编译 ARM 平台下的二进制 <code>CGO_ENABLED=0  GOOS=linux  GOARCH=arm64 go build</code></p>
+</blockquote>
+</li>
+</ol>
 ]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java8</tag>
-      </tags>
   </entry>
   <entry>
     <title>java-tcp套接字编程</title>
@@ -749,6 +716,39 @@ responseXML                   获得XML形式的响应数据
 <p>如果接口的抽象方法具有多个参数，那么 lambda 的传入参数个数也要一一对应，<br>如果抽象方法具有返回值，在 lambda 表达式中也要有返回值，否则可以省略 return 语句<br>注意：lambda 表达式的参数类型和返回类型要和抽象方法的参数类型和返回类型相同</p>
 </blockquote>
 <h1 id="lambda-表达式和匿名内部类"><a href="#lambda-表达式和匿名内部类" class="headerlink" title="lambda 表达式和匿名内部类"></a>lambda 表达式和匿名内部类</h1><p>lambda 表达式是匿名内部类的一种简化形式，lambda 表达式只能书写于只有一个抽象方法的接口，匿名内部类可以书写具有多个抽象方法的接口和抽象类</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java8-collect方法</title>
+    <url>/2018/01/13/java8-collect%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="collect方法"><a href="#collect方法" class="headerlink" title="collect方法"></a>collect方法</h2><p>collect 方法是 Stream 中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。</p>
+<p>收集器是 Stream 用于收集某种形式的数据信息，基本上所有的 Stream 的终端操作都可以使用 collect 方法来实现</p>
+<h2 id="collect的定义"><a href="#collect的定义" class="headerlink" title="collect的定义"></a>collect的定义</h2><p>collect 方法有两种形式  </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">方法原型<span class="number">1</span></span><br><span class="line">&lt;R&gt; <span class="function">R <span class="title">collect</span><span class="params">(Supplier&lt;R&gt; supplier,</span></span></span><br><span class="line"><span class="function"><span class="params">			  BiConsumer&lt;R, ? <span class="keyword">super</span> T&gt; accumulator,</span></span></span><br><span class="line"><span class="function"><span class="params">			  BiConsumer&lt;R, R&gt; combiner)</span></span>;</span><br><span class="line">方法原型<span class="number">2</span></span><br><span class="line">&lt;R, A&gt; <span class="function">R <span class="title">collect</span><span class="params">(Collector&lt;? <span class="keyword">super</span> T, A, R&gt; collector)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这里主要使用方法原型 2,这个方法原型接收一个实现了 Collector 接口的对象，Collector 接口有五个抽象方法，幸运的是 java8 封装了一些常用的方法供我们使用，这些常用方法封装在 <code>java.util.stream.Collectors</code> 对象中，这个对象含有多个静态方法，用来返回 Collector 对象  </p>
+<h1 id="collect-方法示例"><a href="#collect-方法示例" class="headerlink" title="collect 方法示例"></a>collect 方法示例</h1><p>Apple.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> weight;</span><br><span class="line">	<span class="keyword">private</span> String color;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(<span class="keyword">int</span> weight, String color)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.weight = weight;</span><br><span class="line">		<span class="keyword">this</span>.color = color;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//getter</span></span><br><span class="line">	<span class="comment">//setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Main.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;Apple&gt; inventory = Arrays.asList(</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">10</span>,<span class="string">"green"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">20</span>,<span class="string">"red"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">12</span>,<span class="string">"red"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">12</span>,<span class="string">"red"</span>),</span><br><span class="line">				<span class="keyword">new</span> Apple(<span class="number">25</span>,<span class="string">"green"</span>));</span><br><span class="line">		<span class="comment">//返回重量最重的苹果</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回重量最重的苹果----------------"</span>);</span><br><span class="line">		Optional&lt;Apple&gt; heaviestApple = inventory.stream().collect(Collectors.maxBy(Comparator.comparing(Apple::getWeight)));</span><br><span class="line">		System.out.println(heaviestApple);</span><br><span class="line">		<span class="comment">//返回重量最轻的苹果</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回重量最轻的苹果----------------"</span>);</span><br><span class="line">		Optional&lt;Apple&gt; lightestApple = inventory.stream().collect(Collectors.minBy(Comparator.comparing(Apple::getWeight)));</span><br><span class="line">		System.out.println(lightestApple);</span><br><span class="line">		<span class="comment">//返回苹果的总重量</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回苹果的总重量----------------"</span>);</span><br><span class="line">		<span class="keyword">int</span> sumInt = inventory.stream().collect(Collectors.summingInt(Apple::getWeight));</span><br><span class="line">		System.out.println(sumInt);</span><br><span class="line">		<span class="comment">//使用Collectors.averagingInt方法求苹果的平均重量</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------求苹果的平均重量-----------------"</span>);</span><br><span class="line">		<span class="keyword">double</span> averageWeight = inventory.stream().collect(Collectors.averagingDouble(Apple::getWeight));</span><br><span class="line">		System.out.println(averageWeight);</span><br><span class="line">		<span class="comment">//返回苹果的重量的各个数据</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回苹果重量的各个数据属性-----------------"</span>);</span><br><span class="line">		IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));</span><br><span class="line">		System.out.println(intSummartStatistics);</span><br><span class="line">		<span class="comment">//将所有苹果颜色拼接为一个字符串</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------将所有苹果颜色拼接为一个字符串-----------------"</span>);</span><br><span class="line">		<span class="comment">//joining会自动将流中的数据拼接为字符串，在处理时需要保证流中的数据都是字符串</span></span><br><span class="line">		String appleColors = inventory.stream()</span><br><span class="line">			.map(Apple::getColor)	<span class="comment">//将流中的apple转换为apple的颜色</span></span><br><span class="line">			.collect(Collectors.joining(<span class="comment">/*将每一个颜色后面加上一个空格*/</span><span class="string">" "</span>));</span><br><span class="line">		System.out.println(appleColors);</span><br><span class="line">		<span class="comment">//返回苹果数量</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------返回苹果的总数量-----------------"</span>);</span><br><span class="line">		Long count = inventory.stream().collect(Collectors.counting());</span><br><span class="line">		System.out.println(count);</span><br><span class="line">		<span class="comment">//分组</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------将苹果按照苹果颜色进行分组----------------"</span>);</span><br><span class="line">		Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));</span><br><span class="line">		System.out.println(appleColorMap);</span><br><span class="line">		System.out.println(<span class="string">"-------------------将苹果按照苹果颜色和重量进行分组 	----------------"</span>);</span><br><span class="line">		System.out.println(inventory.stream().collect(Collectors.groupingBy(Apple::getColor,</span><br><span class="line">				Collectors.groupingBy(apple -&gt; &#123;</span><br><span class="line">					<span class="keyword">if</span>(apple.getWeight() &gt; <span class="number">10</span> &amp;&amp; apple.getWeight() &lt; <span class="number">20</span>) <span class="keyword">return</span> <span class="string">"一般"</span>;</span><br><span class="line">					<span class="keyword">else</span> <span class="keyword">if</span>(apple.getWeight() &gt;= <span class="number">20</span> ) <span class="keyword">return</span> <span class="string">"很重"</span>;</span><br><span class="line">					<span class="keyword">else</span> <span class="keyword">return</span> <span class="string">"轻"</span>;</span><br><span class="line">				&#125;))));</span><br><span class="line">		<span class="comment">//收集每个颜色的苹果有多少个</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------收集每个颜色的苹果有多少个----------------"</span>);</span><br><span class="line">		Map&lt;String, Long&gt; colorCount = inventory.stream().collect(Collectors.groupingBy(Apple::getColor,Collectors.counting()));</span><br><span class="line">		System.out.println(colorCount);</span><br><span class="line">		<span class="comment">//分区</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------根据苹果颜色进行分区----------------"</span>);</span><br><span class="line">		Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(<span class="string">"red"</span>)));</span><br><span class="line">		System.out.println(colorPartition);</span><br><span class="line">		<span class="comment">//归约</span></span><br><span class="line">		System.out.println(<span class="string">"-------------------归约操作----------------"</span>);</span><br><span class="line">		System.out.println(inventory.stream().collect(Collectors.reducing(<span class="number">0</span>,Apple::getWeight,(a,b) -&gt; a + b)));</span><br><span class="line">		System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.reducing((a,b) -&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span>(a &gt; b) <span class="keyword">return</span> a;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> b;</span><br><span class="line">		&#125;)));</span><br><span class="line">		System.out.println(inventory.stream().map(Apple::getWeight).collect(Collectors.reducing(<span class="number">100</span>,(a,b) -&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span>(a &gt; b) <span class="keyword">return</span> a;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> b;</span><br><span class="line">		&#125;)));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码使用了大多数 Collectors 的方法，还有一些类型的方法,如: averagingDouble,averagingInt,averagingLong 都是相同的。</p>
+<p>Collectors 中的方法大致分为分组，分区，容器（返回list，set，map），简单的数值计算和其他</p>
+<p>其中分组和分区是有区别的，分区可以看做是分组的特殊形式，分区只会有两个区别满足条件的（true）和不满足条件的（false），不管是分区还是分组，都可以再分,分组是根据返回的条件进行分组  </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String, List&lt;Apple&gt;&gt; appleColorMap = inventory.stream().collect(Collectors.groupingBy(Apple::getColor));</span><br></pre></td></tr></table></figure>
+<p>这里就是根据苹果的颜色进行分组，map 中只会有两个主键，red 或者 green。如果将条件改为 Apple::getWeight，那么主键就会有 10,20,12,25，因为有两个重量为 12 的苹果，这两个苹果就会分在一组</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;Boolean,List&lt;Apple&gt;&gt; colorPartition = inventory.stream().collect(Collectors.partitioningBy(apple -&gt; apple.getColor().equals(<span class="string">"red"</span>)));</span><br></pre></td></tr></table></figure>
+<p>这里根据苹果颜色是不是红色进行分区，只会有两个主键，true 或者 false，true 分区里的苹果都是红色的，false 分区里的值都不是红色的，但是 partitioningBy 里面可以传第二个参数，可以对分区里面再进行<code>收集</code>（collect方法）操作</p>
+<p>容器可以为三种，List，Set，Map 容器，只需要调用 Collectors.toXxxx() 方法就可以将流最后组装成一个容易</p>
+<p>简单的数值计算可以直接通过流计算得出，例如 Stream.max() 方法和 Stream.collect(Collectors.maxBy()) 方法是相同的，在某些方面，如</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));</span><br></pre></td></tr></table></figure>
+<p>可以返回多种数据的不同运算结果，还是很方便的</p>
+<p>collect 方法接收一个 Collector 对象，而大多数的 Collector 对象都可以通过 Collectors 对象的静态工厂方法获取，如果有需要可以查阅手册</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1027,50 +1027,6 @@ forEach(inventory,two.andThen(add));
       </tags>
   </entry>
   <entry>
-    <title>json数据</title>
-    <url>/2017/12/16/json%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[<h1 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h1><p>JSON：JavaScript 对象表示法（JavaScript Object Notation）。<br>JSON 是存储和交换文本信息的语法。类似 XML。<br>JSON 比 XML 更小、更快，更易解析。<br>参考<a href="http://www.w3school.com.cn/json/index.asp" target="_blank" rel="noopener">w3school</a></p>
-<h1 id="JSON实例"><a href="#JSON实例" class="headerlink" title="JSON实例"></a>JSON实例</h1><pre><code>{
-    &quot;employees&quot;: [
-        { &quot;firstName&quot;:&quot;Bill&quot; , &quot;lastName&quot;:&quot;Gates&quot; },
-        { &quot;firstName&quot;:&quot;George&quot; , &quot;lastName&quot;:&quot;Bush&quot; },
-        { &quot;firstName&quot;:&quot;Thomas&quot; , &quot;lastName&quot;:&quot;Carter&quot; }
-    ]
-}
-</code></pre><h2 id="使用python表示JSON实例"><a href="#使用python表示JSON实例" class="headerlink" title="使用python表示JSON实例"></a>使用python表示JSON实例</h2><pre><code>one = {&quot;firstName&quot;:&quot;Bill&quot;,&quot;lastName&quot;:&quot;Gates&quot;}
-two = {&quot;firstName&quot;:&quot;George&quot;,&quot;lastName&quot;:&quot;Bush&quot;}
-three = {&quot;firstName&quot;:&quot;Thomas&quot;,&quot;lastName&quot;:&quot;Carter&quot;}
-employees = [one,two,three]
-o = {&quot;employess&quot;:employees}
-</code></pre><h2 id="使用java表示JSON实例"><a href="#使用java表示JSON实例" class="headerlink" title="使用java表示JSON实例"></a>使用java表示JSON实例</h2><pre><code>Map&lt;String,String&gt; one = new HashMap&lt;&gt;();
-Map&lt;String,String&gt; two = new HashMap&lt;&gt;();
-Map&lt;String,String&gt; three = new HashMap&lt;&gt;();
-one.put(&quot;firstName&quot;,&quot;Bill&quot;);
-one.put(&quot;lastName&quot;,&quot;Gates&quot;);
-two.put(&quot;firstName&quot;,&quot;George&quot;);
-two.put(&quot;lastName&quot;,&quot;Bush&quot;);
-three.put(&quot;firstName&quot;,&quot;Thomas&quot;);
-three.put(&quot;lastName&quot;,&quot;Carter&quot;);
-List&lt;Map&lt;String,String&gt;&gt; employees = new LinkedList&lt;&gt;(Arrays.asList(one,two,three));
-Map&lt;String,List&lt;Map&lt;String,String&gt;&gt;&gt; o = new HashMap&lt;&gt;();
-o.put(&quot;employees&quot;,employees);
-</code></pre><p>可以发现JSON并没有什么神奇的地方，只不过是一群人定义的字符床规范格式而已，用的人多了就成了标准</p>
-<h2 id="将JSON转换为javascript对象"><a href="#将JSON转换为javascript对象" class="headerlink" title="将JSON转换为javascript对象"></a>将JSON转换为javascript对象</h2><blockquote>
-<p>javascript 可以使用内置eval()函数将JSON数据生成原生的javascript对象<br>var obj = eval(“(“ + JSON + “)”);</p>
-</blockquote>
-<h2 id="JSON值有以下几种"><a href="#JSON值有以下几种" class="headerlink" title="JSON值有以下几种"></a>JSON值有以下几种</h2><blockquote>
-<p>数字(整数或浮点数)<br>字符串(双引号中)<br>逻辑值(true或false)<br>数组(在方括号中)<br>对象(在花括号中)<br>null</p>
-</blockquote>
-<p>使用本地JSON构建javascript对象实例可以在w3school找到，这里给出一个使用java:spring-mvc返回json对象并转换成javascript对象的实例<a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
-]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>json</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>java8-方法引用</title>
     <url>/2018/01/07/java8-%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/</url>
     <content><![CDATA[<h1 id="什么是方法引用"><a href="#什么是方法引用" class="headerlink" title="什么是方法引用"></a>什么是方法引用</h1><p>方法引用是lambd表达式的一种特殊形式。看起来更易读更自然</p>
@@ -1219,6 +1175,50 @@ public class Main {
       </tags>
   </entry>
   <entry>
+    <title>json数据</title>
+    <url>/2017/12/16/json%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<h1 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h1><p>JSON：JavaScript 对象表示法（JavaScript Object Notation）。<br>JSON 是存储和交换文本信息的语法。类似 XML。<br>JSON 比 XML 更小、更快，更易解析。<br>参考<a href="http://www.w3school.com.cn/json/index.asp" target="_blank" rel="noopener">w3school</a></p>
+<h1 id="JSON实例"><a href="#JSON实例" class="headerlink" title="JSON实例"></a>JSON实例</h1><pre><code>{
+    &quot;employees&quot;: [
+        { &quot;firstName&quot;:&quot;Bill&quot; , &quot;lastName&quot;:&quot;Gates&quot; },
+        { &quot;firstName&quot;:&quot;George&quot; , &quot;lastName&quot;:&quot;Bush&quot; },
+        { &quot;firstName&quot;:&quot;Thomas&quot; , &quot;lastName&quot;:&quot;Carter&quot; }
+    ]
+}
+</code></pre><h2 id="使用python表示JSON实例"><a href="#使用python表示JSON实例" class="headerlink" title="使用python表示JSON实例"></a>使用python表示JSON实例</h2><pre><code>one = {&quot;firstName&quot;:&quot;Bill&quot;,&quot;lastName&quot;:&quot;Gates&quot;}
+two = {&quot;firstName&quot;:&quot;George&quot;,&quot;lastName&quot;:&quot;Bush&quot;}
+three = {&quot;firstName&quot;:&quot;Thomas&quot;,&quot;lastName&quot;:&quot;Carter&quot;}
+employees = [one,two,three]
+o = {&quot;employess&quot;:employees}
+</code></pre><h2 id="使用java表示JSON实例"><a href="#使用java表示JSON实例" class="headerlink" title="使用java表示JSON实例"></a>使用java表示JSON实例</h2><pre><code>Map&lt;String,String&gt; one = new HashMap&lt;&gt;();
+Map&lt;String,String&gt; two = new HashMap&lt;&gt;();
+Map&lt;String,String&gt; three = new HashMap&lt;&gt;();
+one.put(&quot;firstName&quot;,&quot;Bill&quot;);
+one.put(&quot;lastName&quot;,&quot;Gates&quot;);
+two.put(&quot;firstName&quot;,&quot;George&quot;);
+two.put(&quot;lastName&quot;,&quot;Bush&quot;);
+three.put(&quot;firstName&quot;,&quot;Thomas&quot;);
+three.put(&quot;lastName&quot;,&quot;Carter&quot;);
+List&lt;Map&lt;String,String&gt;&gt; employees = new LinkedList&lt;&gt;(Arrays.asList(one,two,three));
+Map&lt;String,List&lt;Map&lt;String,String&gt;&gt;&gt; o = new HashMap&lt;&gt;();
+o.put(&quot;employees&quot;,employees);
+</code></pre><p>可以发现JSON并没有什么神奇的地方，只不过是一群人定义的字符床规范格式而已，用的人多了就成了标准</p>
+<h2 id="将JSON转换为javascript对象"><a href="#将JSON转换为javascript对象" class="headerlink" title="将JSON转换为javascript对象"></a>将JSON转换为javascript对象</h2><blockquote>
+<p>javascript 可以使用内置eval()函数将JSON数据生成原生的javascript对象<br>var obj = eval(“(“ + JSON + “)”);</p>
+</blockquote>
+<h2 id="JSON值有以下几种"><a href="#JSON值有以下几种" class="headerlink" title="JSON值有以下几种"></a>JSON值有以下几种</h2><blockquote>
+<p>数字(整数或浮点数)<br>字符串(双引号中)<br>逻辑值(true或false)<br>数组(在方括号中)<br>对象(在花括号中)<br>null</p>
+</blockquote>
+<p>使用本地JSON构建javascript对象实例可以在w3school找到，这里给出一个使用java:spring-mvc返回json对象并转换成javascript对象的实例<a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>json</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>kubernetes pod 调度</title>
     <url>/2023/10/24/kubernetes%20pod%20%E8%B0%83%E5%BA%A6/</url>
     <content><![CDATA[<blockquote>
@@ -1259,81 +1259,6 @@ public class Main {
 <p>当调度器找到能够满足 Pod 的其他调度请求的节点时，调度器会遍历节点满足的所有的偏好性规则， 并将对应表达式的 weight 值加和。</p>
 <p>最终的加和值会添加到该节点的其他优先级函数的评分之上。 在调度器为 Pod 作出调度决定时，总分最高的节点的优先级也最高。</p>
 <h2 id="Pod-间亲和性与反亲和性"><a href="#Pod-间亲和性与反亲和性" class="headerlink" title="Pod 间亲和性与反亲和性"></a>Pod 间亲和性与反亲和性</h2><p>不管是 nodeName，nodeSelector 还是节点亲和性都只能选择 Pod 在哪个节点或者哪类节点上。但是如果一个 Deployoment 在有多个副本时希望尽可能让每个副本可以均匀的分布在多个可调度节点上时，以上字段就不能满足要求。此时可以考虑 Pod 间亲和性与反亲和性。</p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>kubernetes 安装---基础环境准备</title>
-    <url>/2023/04/07/kubernetes%20%E5%AE%89%E8%A3%85---%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</url>
-    <content><![CDATA[<h1 id="kubernetes-安装—基础环境准备"><a href="#kubernetes-安装—基础环境准备" class="headerlink" title="kubernetes 安装—基础环境准备"></a>kubernetes 安装—基础环境准备</h1><ul>
-<li><a href="#kubernetes-安装---基础环境准备">kubernetes 安装—基础环境准备</a><ul>
-<li><a href="#前提条件">前提条件</a></li>
-<li><a href="#环境初始化">环境初始化</a><ul>
-<li><a href="#设置仓库源">设置仓库源</a></li>
-<li><a href="#系统配置">系统配置</a></li>
-<li><a href="#安装-docker">安装 Docker</a></li>
-<li><a href="#安装-kubeadm">安装 kubeadm</a></li>
-<li><a href="#初始化-kubernetes-设置可选">初始化 Kubernetes 设置（可选）</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>Ubuntu Linux 或者 CentOS</p>
-<h2 id="环境初始化"><a href="#环境初始化" class="headerlink" title="环境初始化"></a>环境初始化</h2><h3 id="设置仓库源"><a href="#设置仓库源" class="headerlink" title="设置仓库源"></a>设置仓库源</h3><p>CentOS 系统在<code>/etc/yum.repos.d/</code>目录下，使用下面命令设置仓库源<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 可选的，更换基础源为阿里云源，注意备份同名的镜像源文件</span></span><br><span class="line"><span class="comment"># Centos 7 使用下面命令更换阿里云源</span></span><br><span class="line">curl -o CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"><span class="comment"># Centos 8 使用下面命令更新阿里云源</span></span><br><span class="line">curl -o CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo</span><br><span class="line"></span><br><span class="line">curl -o docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</span><br><span class="line">        http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br><span class="line">EOF</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure></p>
-<p>Ubuntu 系统使用下面命令设置仓库</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line"></span><br><span class="line">curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">add-apt-repository \</span><br><span class="line">   <span class="string">"deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \</span></span><br><span class="line"><span class="string">   <span class="variable">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">   stable"</span></span><br><span class="line"></span><br><span class="line">curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - </span><br><span class="line"></span><br><span class="line">sudo tee /etc/apt/sources.list.d/kubernetes.list &lt;&lt;-<span class="string">'EOF'</span></span><br><span class="line">deb https://mirrors.aliyun.com/kubernetes/apt kubernetes-xenial main</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
-<h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><ol>
-<li><p>关闭交换空间（如果有）</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">swapoff -a</span><br><span class="line">sed -ri <span class="string">"s/.*.swap.*/#&amp;/"</span> /etc/fstab</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>禁用 SELinux（如果有）</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">setenforce 0</span><br><span class="line">sed -i --follow-symlinks <span class="string">'s/SELINUX=enforcing/SELINUX=disabled/g'</span> /etc/sysconfig/selinux</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关闭防火墙（如果有）</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置内核参数</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'net.bridge.bridge-nf-call-ip6tables = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'net.bridge.bridge-nf-call-iptables = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'net.ipv4.ip_forward = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line">modprobe br_netfilter</span><br><span class="line">sysctl -p /etc/sysctl.d/k8s.conf</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置 hostname （单机可选，多节点需要设置防止冲突）</p>
- <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname master</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>ubuntu-server 18.04 在执行上述命令之前需要执行 <code>sed -i &quot;s|preserve_hostname: false|preserve_hostname: true|g&quot; /etc/cloud/cloud.cfg</code> 防止重启 hostname 失效。桌面版本不用设置</p>
-</blockquote>
-</li>
-</ol>
-<h3 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h3><blockquote>
-<p><a href="https://github.com/kubernetes/kubernetes/" target="_blank" rel="noopener">kubernetes github</a> 上的 CHANGELOG 记录了 kubernetes 对 Docker 版本的要求，建议选好对应的 kubernetes 版本再安装 Docker。例如如果希望安装 Kubernetes 1.15，那么查看 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.15.md" target="_blank" rel="noopener">CHANGELOG-1.15.md</a>，可以查看到 Kuberentes 1.15 对 Docker 的最低版本要求是 1.13.1。</p>
-</blockquote>
-<p>CentOS 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum install -y docker-ce <span class="comment"># 安装最新版</span></span><br><span class="line">yum install -y docker-ce-18.06.3.ce-3.el7 <span class="comment"># 安装 18.06.3 版本</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>使用 <code>yum list all docker-ce --showduplicates | sort -r</code> 查看可安装的版本</p>
-</blockquote>
-<p>Ubuntu 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install -y docker-ce <span class="comment"># 安装最新版</span></span><br><span class="line">apt-get install -y docker-ce=5:18.09.7~3-0~ubuntu-bionic <span class="comment"># 安装指定版本</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>使用 <code>apt-cache madison docker-ce</code> 查看可安装的版本</p>
-</blockquote>
-<p>Docker 设置</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'&#123;"insecure-registries": ["0.0.0.0/0"]&#125;'</span> &gt;&gt; /etc/docker/daemon.json</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
-<h3 id="安装-kubeadm"><a href="#安装-kubeadm" class="headerlink" title="安装 kubeadm"></a>安装 kubeadm</h3><p>CentOS 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum install -y kubeadm <span class="comment"># 安装最新的 kubeadm</span></span><br><span class="line">yum install -y kubeadm-1.14.1-0 <span class="comment"># 安装 kubeadm 1.14.1</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>使用 <code>yum list all kubeadm --showduplicates | sort -r</code> 查看可安装的版本</p>
-</blockquote>
-<p>Ubuntu 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install -y kubeadm <span class="comment"># 安装最新的 kubeadm</span></span><br><span class="line">apt-get install -y kubeadm=1.14.1-00 <span class="comment"># 安装 kubeadm 1.14.1</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>使用 <code>apt-cache madison kubeadm</code> 查看可安装的版本</p>
-</blockquote>
-<p>配置 kubelet</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubelet 使用的 cgroup 要和 Docker 的 cgroup 一致</span></span><br><span class="line">sed -i <span class="string">'0,/"$/s/"$/ --cgroup-driver=cgroupfs"/'</span> /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl <span class="built_in">enable</span> kubelet</span><br><span class="line">systemctl start kubelet</span><br></pre></td></tr></table></figure>
-<h3 id="初始化-Kubernetes-设置（可选）"><a href="#初始化-Kubernetes-设置（可选）" class="headerlink" title="初始化 Kubernetes 设置（可选）"></a>初始化 Kubernetes 设置（可选）</h3><p>使用 <code>kubeadm config images list</code> 查看初始化所需要的镜像，当前版本为 1.14.1，需要的镜像有<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">k8s.gcr.io/kube-apiserver:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-controller-manager:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-scheduler:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-proxy:v1.14.1</span><br><span class="line">k8s.gcr.io/pause:3.1</span><br><span class="line">k8s.gcr.io/etcd:3.3.10</span><br><span class="line">k8s.gcr.io/coredns:1.3.1</span><br><span class="line"># kubernetes-dashboard 镜像，使用的 dashboard ui 不同版本也不同</span><br><span class="line">k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1</span><br></pre></td></tr></table></figure></p>
-<p>编写脚本从阿里云拉取镜像再 tag</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">images=( <span class="comment"># 这里的镜像列表是 kubeadm config images list 查看的列表去掉 k8s.gcr.io/ 得到的</span></span><br><span class="line">kube-apiserver:v1.14.1</span><br><span class="line">kube-controller-manager:v1.14.1</span><br><span class="line">kube-scheduler:v1.14.1</span><br><span class="line">kube-proxy:v1.14.1</span><br><span class="line">pause:3.1</span><br><span class="line">etcd:3.3.10</span><br><span class="line">coredns:1.3.1</span><br><span class="line">kubernetes-dashboard-amd64:v1.10.1</span><br><span class="line">)</span><br><span class="line"><span class="keyword">for</span> imageName <span class="keyword">in</span> <span class="variable">$&#123;images[@]&#125;</span> ; <span class="keyword">do</span></span><br><span class="line">  docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span></span><br><span class="line">  docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span> k8s.gcr.io/<span class="variable">$imageName</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>kubernetes</category>
@@ -1418,6 +1343,81 @@ public class Main {
 </li>
 </ol>
 <h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p><a href="https://docs.projectcalico.org/getting-started/kubernetes/quickstart" target="_blank" rel="noopener">calico 安装指南</a></p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>kubernetes 安装---基础环境准备</title>
+    <url>/2023/04/07/kubernetes%20%E5%AE%89%E8%A3%85---%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</url>
+    <content><![CDATA[<h1 id="kubernetes-安装—基础环境准备"><a href="#kubernetes-安装—基础环境准备" class="headerlink" title="kubernetes 安装—基础环境准备"></a>kubernetes 安装—基础环境准备</h1><ul>
+<li><a href="#kubernetes-安装---基础环境准备">kubernetes 安装—基础环境准备</a><ul>
+<li><a href="#前提条件">前提条件</a></li>
+<li><a href="#环境初始化">环境初始化</a><ul>
+<li><a href="#设置仓库源">设置仓库源</a></li>
+<li><a href="#系统配置">系统配置</a></li>
+<li><a href="#安装-docker">安装 Docker</a></li>
+<li><a href="#安装-kubeadm">安装 kubeadm</a></li>
+<li><a href="#初始化-kubernetes-设置可选">初始化 Kubernetes 设置（可选）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>Ubuntu Linux 或者 CentOS</p>
+<h2 id="环境初始化"><a href="#环境初始化" class="headerlink" title="环境初始化"></a>环境初始化</h2><h3 id="设置仓库源"><a href="#设置仓库源" class="headerlink" title="设置仓库源"></a>设置仓库源</h3><p>CentOS 系统在<code>/etc/yum.repos.d/</code>目录下，使用下面命令设置仓库源<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 可选的，更换基础源为阿里云源，注意备份同名的镜像源文件</span></span><br><span class="line"><span class="comment"># Centos 7 使用下面命令更换阿里云源</span></span><br><span class="line">curl -o CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line"><span class="comment"># Centos 8 使用下面命令更新阿里云源</span></span><br><span class="line">curl -o CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo</span><br><span class="line"></span><br><span class="line">curl -o docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</span><br><span class="line">        http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br><span class="line">EOF</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure></p>
+<p>Ubuntu 系统使用下面命令设置仓库</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line"></span><br><span class="line">curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">add-apt-repository \</span><br><span class="line">   <span class="string">"deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \</span></span><br><span class="line"><span class="string">   <span class="variable">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">   stable"</span></span><br><span class="line"></span><br><span class="line">curl -s https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - </span><br><span class="line"></span><br><span class="line">sudo tee /etc/apt/sources.list.d/kubernetes.list &lt;&lt;-<span class="string">'EOF'</span></span><br><span class="line">deb https://mirrors.aliyun.com/kubernetes/apt kubernetes-xenial main</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
+<h3 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h3><ol>
+<li><p>关闭交换空间（如果有）</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">swapoff -a</span><br><span class="line">sed -ri <span class="string">"s/.*.swap.*/#&amp;/"</span> /etc/fstab</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>禁用 SELinux（如果有）</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">setenforce 0</span><br><span class="line">sed -i --follow-symlinks <span class="string">'s/SELINUX=enforcing/SELINUX=disabled/g'</span> /etc/sysconfig/selinux</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭防火墙（如果有）</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置内核参数</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'net.bridge.bridge-nf-call-ip6tables = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'net.bridge.bridge-nf-call-iptables = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'net.ipv4.ip_forward = 1'</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line">modprobe br_netfilter</span><br><span class="line">sysctl -p /etc/sysctl.d/k8s.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置 hostname （单机可选，多节点需要设置防止冲突）</p>
+ <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname master</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ubuntu-server 18.04 在执行上述命令之前需要执行 <code>sed -i &quot;s|preserve_hostname: false|preserve_hostname: true|g&quot; /etc/cloud/cloud.cfg</code> 防止重启 hostname 失效。桌面版本不用设置</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h3><blockquote>
+<p><a href="https://github.com/kubernetes/kubernetes/" target="_blank" rel="noopener">kubernetes github</a> 上的 CHANGELOG 记录了 kubernetes 对 Docker 版本的要求，建议选好对应的 kubernetes 版本再安装 Docker。例如如果希望安装 Kubernetes 1.15，那么查看 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.15.md" target="_blank" rel="noopener">CHANGELOG-1.15.md</a>，可以查看到 Kuberentes 1.15 对 Docker 的最低版本要求是 1.13.1。</p>
+</blockquote>
+<p>CentOS 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum install -y docker-ce <span class="comment"># 安装最新版</span></span><br><span class="line">yum install -y docker-ce-18.06.3.ce-3.el7 <span class="comment"># 安装 18.06.3 版本</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用 <code>yum list all docker-ce --showduplicates | sort -r</code> 查看可安装的版本</p>
+</blockquote>
+<p>Ubuntu 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install -y docker-ce <span class="comment"># 安装最新版</span></span><br><span class="line">apt-get install -y docker-ce=5:18.09.7~3-0~ubuntu-bionic <span class="comment"># 安装指定版本</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用 <code>apt-cache madison docker-ce</code> 查看可安装的版本</p>
+</blockquote>
+<p>Docker 设置</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'&#123;"insecure-registries": ["0.0.0.0/0"]&#125;'</span> &gt;&gt; /etc/docker/daemon.json</span><br><span class="line">systemctl <span class="built_in">enable</span> docker</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h3 id="安装-kubeadm"><a href="#安装-kubeadm" class="headerlink" title="安装 kubeadm"></a>安装 kubeadm</h3><p>CentOS 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yum install -y kubeadm <span class="comment"># 安装最新的 kubeadm</span></span><br><span class="line">yum install -y kubeadm-1.14.1-0 <span class="comment"># 安装 kubeadm 1.14.1</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用 <code>yum list all kubeadm --showduplicates | sort -r</code> 查看可安装的版本</p>
+</blockquote>
+<p>Ubuntu 安装<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install -y kubeadm <span class="comment"># 安装最新的 kubeadm</span></span><br><span class="line">apt-get install -y kubeadm=1.14.1-00 <span class="comment"># 安装 kubeadm 1.14.1</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用 <code>apt-cache madison kubeadm</code> 查看可安装的版本</p>
+</blockquote>
+<p>配置 kubelet</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kubelet 使用的 cgroup 要和 Docker 的 cgroup 一致</span></span><br><span class="line">sed -i <span class="string">'0,/"$/s/"$/ --cgroup-driver=cgroupfs"/'</span> /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl <span class="built_in">enable</span> kubelet</span><br><span class="line">systemctl start kubelet</span><br></pre></td></tr></table></figure>
+<h3 id="初始化-Kubernetes-设置（可选）"><a href="#初始化-Kubernetes-设置（可选）" class="headerlink" title="初始化 Kubernetes 设置（可选）"></a>初始化 Kubernetes 设置（可选）</h3><p>使用 <code>kubeadm config images list</code> 查看初始化所需要的镜像，当前版本为 1.14.1，需要的镜像有<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">k8s.gcr.io/kube-apiserver:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-controller-manager:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-scheduler:v1.14.1</span><br><span class="line">k8s.gcr.io/kube-proxy:v1.14.1</span><br><span class="line">k8s.gcr.io/pause:3.1</span><br><span class="line">k8s.gcr.io/etcd:3.3.10</span><br><span class="line">k8s.gcr.io/coredns:1.3.1</span><br><span class="line"># kubernetes-dashboard 镜像，使用的 dashboard ui 不同版本也不同</span><br><span class="line">k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1</span><br></pre></td></tr></table></figure></p>
+<p>编写脚本从阿里云拉取镜像再 tag</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">images=( <span class="comment"># 这里的镜像列表是 kubeadm config images list 查看的列表去掉 k8s.gcr.io/ 得到的</span></span><br><span class="line">kube-apiserver:v1.14.1</span><br><span class="line">kube-controller-manager:v1.14.1</span><br><span class="line">kube-scheduler:v1.14.1</span><br><span class="line">kube-proxy:v1.14.1</span><br><span class="line">pause:3.1</span><br><span class="line">etcd:3.3.10</span><br><span class="line">coredns:1.3.1</span><br><span class="line">kubernetes-dashboard-amd64:v1.10.1</span><br><span class="line">)</span><br><span class="line"><span class="keyword">for</span> imageName <span class="keyword">in</span> <span class="variable">$&#123;images[@]&#125;</span> ; <span class="keyword">do</span></span><br><span class="line">  docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span></span><br><span class="line">  docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/<span class="variable">$imageName</span> k8s.gcr.io/<span class="variable">$imageName</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>kubernetes</category>
@@ -2383,83 +2383,6 @@ public class Main {
       </tags>
   </entry>
   <entry>
-    <title>ubuntu下gpg的基本使用</title>
-    <url>/2017/12/10/ubuntu%E4%B8%8Bgpg%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
-<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
-</blockquote>
-<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
-<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
-</blockquote>
-<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
-<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
-<p>  输入以下命令开始生成密钥对  </p>
-<ul>
-<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
-</ul>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
-<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
-<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>##4.上出公钥</p>
-<blockquote>
-<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
-<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
-<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
-<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
-<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
-<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
-</blockquote>
-</blockquote>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
-</blockquote>
-<blockquote>
-<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>pgp</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>spring-mvc返回json数据</title>
     <url>/2017/12/16/spring-mvc%E8%BF%94%E5%9B%9Ejson%E6%95%B0%E6%8D%AE/</url>
     <content><![CDATA[<p>在使用spring-mvc过程中遇到很多问题，记录下来方便查看</p>
@@ -2591,6 +2514,83 @@ public class User{
         <tag>ajax</tag>
         <tag>json</tag>
         <tag>spring-mvc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu下gpg的基本使用</title>
+    <url>/2017/12/10/ubuntu%E4%B8%8Bgpg%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
+<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
+</blockquote>
+<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
+<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
+</blockquote>
+<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
+<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
+<p>  输入以下命令开始生成密钥对  </p>
+<ul>
+<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
+<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
+<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>##4.上出公钥</p>
+<blockquote>
+<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
+<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
+<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
+<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
+<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
+<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
+</blockquote>
+</blockquote>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
+</blockquote>
+<blockquote>
+<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>pgp</tag>
       </tags>
   </entry>
   <entry>
