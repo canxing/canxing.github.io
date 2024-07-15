@@ -371,33 +371,6 @@ responseXML                   获得XML形式的响应数据
       </tags>
   </entry>
   <entry>
-    <title>使用 docker buildx 构建多 CPU 架构镜像</title>
-    <url>/2022/07/13/docker%E5%A4%9A%E6%9E%B6%E6%9E%84%E6%9E%84%E5%BB%BA/</url>
-    <content><![CDATA[<h1 id="使用-docker-buildx-构建多-CPU-架构镜像"><a href="#使用-docker-buildx-构建多-CPU-架构镜像" class="headerlink" title="使用 docker buildx 构建多 CPU 架构镜像"></a>使用 docker buildx 构建多 CPU 架构镜像</h1><p>docker 版本大于等于 19.03 支持使用 docker buildx 方式构建多 CPU 架构镜像</p>
-<h2 id="启动-docker-buildx"><a href="#启动-docker-buildx" class="headerlink" title="启动 docker buildx"></a>启动 docker buildx</h2><p>在最新的 docker 20.10.7 版本中，docker buildx 已经默认启动，可以通过 <code>docker buildx version</code> 查看。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker buildx version</span></span><br><span class="line">github.com/docker/buildx v0.5.1-docker 11057da37336192bfc57d81e02359ba7ba848e4a</span><br></pre></td></tr></table></figure>
-<p>如果返回找不到命令，那么需要为当前版本 docker 开启这项功能。编辑 <code>/etc/docker/daemon.json</code> 文件，写入 <code>&quot;experimetal&quot;: true</code>，保存退出后重启 docker。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 请备份 daemon.json 文件！！！</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"&#123;"</span>experimetal<span class="string">": true&#125;"</span> &gt; /etc/docker/daemon.json;</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
-<h2 id="开启-binfmt-misc"><a href="#开启-binfmt-misc" class="headerlink" title="开启 binfmt_misc"></a>开启 binfmt_misc</h2><p>通过一个特权容器来开启 Linux 系统上的 binfmt_misc</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>DockerHub 地址: <a href="https://hub.docker.com/r/docker/binfmt" target="_blank" rel="noopener">docker/binfmt</a></p>
-</blockquote>
-<p>查看是否设置正确</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># ls -al /proc/sys/fs/binfmt_misc/</span></span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x 2 root root 0 Jul  7 06:27 .</span><br><span class="line">dr-xr-xr-x 1 root root 0 Jul  7 06:08 ..</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-aarch64</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-arm</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-ppc64le</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-riscv64</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-s390x</span><br><span class="line">--w------- 1 root root 0 Jul  7 06:27 register</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 status</span><br></pre></td></tr></table></figure>
-<h2 id="切换镜像构建为多架构构建器"><a href="#切换镜像构建为多架构构建器" class="headerlink" title="切换镜像构建为多架构构建器"></a>切换镜像构建为多架构构建器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker buildx create --use --name mybuilder</span><br></pre></td></tr></table></figure>
-<p>验证构建器是否生效</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker buildx ls</span></span><br><span class="line">NAME/NODE    DRIVER/ENDPOINT             STATUS   PLATFORMS</span><br><span class="line">mybuilder *  docker-container                     </span><br><span class="line">  mybuilder0 unix:///var/run/docker.sock inactive </span><br><span class="line">default      docker                               </span><br><span class="line">  default    default                     running  linux/amd64, linux/386, linux/arm64, linux/riscv64, linux/ppc64le, linux/s390x, linux/arm/v7, linux/arm/v6</span><br></pre></td></tr></table></figure>
-<h2 id="在-amd64-机器上启动-arm-架构容器"><a href="#在-amd64-机器上启动-arm-架构容器" class="headerlink" title="在 amd64 机器上启动 arm 架构容器"></a>在 amd64 机器上启动 arm 架构容器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker pull --platform arm64 nginx</span></span><br><span class="line">root@:~<span class="comment"># docker run -d -p 80:80 --platform arm64 nginx</span></span><br><span class="line">root@:~<span class="comment"># curl localhost</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Welcome to nginx!&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    body &#123;</span><br><span class="line">        width: 35em;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        font-family: Tahoma, Verdana, Arial, sans-serif;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;If you see this page, the nginx web server is successfully installed and</span><br><span class="line">working. Further configuration is required.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;For online documentation and support please refer to</span><br><span class="line">&lt;a href=<span class="string">"http://nginx.org/"</span>&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;</span><br><span class="line">Commercial support is available at</span><br><span class="line">&lt;a href=<span class="string">"http://nginx.com/"</span>&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;&lt;em&gt;Thank you <span class="keyword">for</span> using nginx.&lt;/em&gt;&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>docker基础</title>
     <url>/2018/11/26/docker%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="Docker基础"><a href="#Docker基础" class="headerlink" title="Docker基础"></a>Docker基础</h1><p>本文参考自 <code>&lt;&lt;Docker--从入门到实践&gt;&gt;</code>，该书<a href="https://github.com/yeasy/docker_practice" target="_blank" rel="noopener">github 地址</a>，<a href="https://gitee.com/docker_practice/docker_practice" target="_blank" rel="noopener">国内镜像</a></p>
@@ -633,6 +606,33 @@ responseXML                   获得XML形式的响应数据
       </tags>
   </entry>
   <entry>
+    <title>使用 docker buildx 构建多 CPU 架构镜像</title>
+    <url>/2022/07/13/docker%E5%A4%9A%E6%9E%B6%E6%9E%84%E6%9E%84%E5%BB%BA/</url>
+    <content><![CDATA[<h1 id="使用-docker-buildx-构建多-CPU-架构镜像"><a href="#使用-docker-buildx-构建多-CPU-架构镜像" class="headerlink" title="使用 docker buildx 构建多 CPU 架构镜像"></a>使用 docker buildx 构建多 CPU 架构镜像</h1><p>docker 版本大于等于 19.03 支持使用 docker buildx 方式构建多 CPU 架构镜像</p>
+<h2 id="启动-docker-buildx"><a href="#启动-docker-buildx" class="headerlink" title="启动 docker buildx"></a>启动 docker buildx</h2><p>在最新的 docker 20.10.7 版本中，docker buildx 已经默认启动，可以通过 <code>docker buildx version</code> 查看。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker buildx version</span></span><br><span class="line">github.com/docker/buildx v0.5.1-docker 11057da37336192bfc57d81e02359ba7ba848e4a</span><br></pre></td></tr></table></figure>
+<p>如果返回找不到命令，那么需要为当前版本 docker 开启这项功能。编辑 <code>/etc/docker/daemon.json</code> 文件，写入 <code>&quot;experimetal&quot;: true</code>，保存退出后重启 docker。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 请备份 daemon.json 文件！！！</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"&#123;"</span>experimetal<span class="string">": true&#125;"</span> &gt; /etc/docker/daemon.json;</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h2 id="开启-binfmt-misc"><a href="#开启-binfmt-misc" class="headerlink" title="开启 binfmt_misc"></a>开启 binfmt_misc</h2><p>通过一个特权容器来开启 Linux 系统上的 binfmt_misc</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>DockerHub 地址: <a href="https://hub.docker.com/r/docker/binfmt" target="_blank" rel="noopener">docker/binfmt</a></p>
+</blockquote>
+<p>查看是否设置正确</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># ls -al /proc/sys/fs/binfmt_misc/</span></span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x 2 root root 0 Jul  7 06:27 .</span><br><span class="line">dr-xr-xr-x 1 root root 0 Jul  7 06:08 ..</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-aarch64</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-arm</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-ppc64le</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-riscv64</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-s390x</span><br><span class="line">--w------- 1 root root 0 Jul  7 06:27 register</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 status</span><br></pre></td></tr></table></figure>
+<h2 id="切换镜像构建为多架构构建器"><a href="#切换镜像构建为多架构构建器" class="headerlink" title="切换镜像构建为多架构构建器"></a>切换镜像构建为多架构构建器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker buildx create --use --name mybuilder</span><br></pre></td></tr></table></figure>
+<p>验证构建器是否生效</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker buildx ls</span></span><br><span class="line">NAME/NODE    DRIVER/ENDPOINT             STATUS   PLATFORMS</span><br><span class="line">mybuilder *  docker-container                     </span><br><span class="line">  mybuilder0 unix:///var/run/docker.sock inactive </span><br><span class="line">default      docker                               </span><br><span class="line">  default    default                     running  linux/amd64, linux/386, linux/arm64, linux/riscv64, linux/ppc64le, linux/s390x, linux/arm/v7, linux/arm/v6</span><br></pre></td></tr></table></figure>
+<h2 id="在-amd64-机器上启动-arm-架构容器"><a href="#在-amd64-机器上启动-arm-架构容器" class="headerlink" title="在 amd64 机器上启动 arm 架构容器"></a>在 amd64 机器上启动 arm 架构容器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker pull --platform arm64 nginx</span></span><br><span class="line">root@:~<span class="comment"># docker run -d -p 80:80 --platform arm64 nginx</span></span><br><span class="line">root@:~<span class="comment"># curl localhost</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Welcome to nginx!&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    body &#123;</span><br><span class="line">        width: 35em;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        font-family: Tahoma, Verdana, Arial, sans-serif;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;If you see this page, the nginx web server is successfully installed and</span><br><span class="line">working. Further configuration is required.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;For online documentation and support please refer to</span><br><span class="line">&lt;a href=<span class="string">"http://nginx.org/"</span>&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;</span><br><span class="line">Commercial support is available at</span><br><span class="line">&lt;a href=<span class="string">"http://nginx.com/"</span>&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;&lt;em&gt;Thank you <span class="keyword">for</span> using nginx.&lt;/em&gt;&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>filebeat 本地编译</title>
     <url>/2023/11/20/filebeat%E6%9C%AC%E5%9C%B0%E7%BC%96%E8%AF%91/</url>
     <content><![CDATA[<blockquote>
@@ -694,38 +694,6 @@ responseXML                   获得XML形式的响应数据
       </tags>
   </entry>
   <entry>
-    <title>java8-lambda表达式</title>
-    <url>/2018/01/04/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<p>测试环境 JDK 10 ，JUnit4</p>
-<h1 id="如何使用-lambda-表达式"><a href="#如何使用-lambda-表达式" class="headerlink" title="如何使用 lambda 表达式"></a>如何使用 lambda 表达式</h1><ol>
-<li>定义一个只含有一个抽象方法的接口 AbstractFuncOfSingle (只能是接口)</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractFuncOfSingle</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>传入两个int类型的参数，返回一个类型的参数</p>
-<ol start="2">
-<li>定义一个方法，传入参数为 AbstractFuncOfSingle</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callAbstractFuncOfSingle</span><span class="params">(AbstractFuncOfSingle singleFunc, <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> result = singleFunc.print(a, b);</span><br><span class="line">	System.out.println(result * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在方法中将方法参数 a，b 作为参数传入 <code>AbstractFuncOfSingle.print()</code> 方法，并使用 result 接收返回参数然后打印 </p>
-<ol start="3">
-<li>调用上述方法</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAbstractFuncOfSingle</span><span class="params">()</span></span>&#123;</span><br><span class="line">	callAbstractFuncOfSingle((a, b)-&gt;&#123;</span><br><span class="line">		System.out.println(a + b);</span><br><span class="line">		<span class="keyword">return</span> a + b;</span><br><span class="line">	&#125;, <span class="number">10</span>, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 lambda 表达式创建一个内部类，打印 a + b 的和并返回 a + b 和</p>
-<blockquote>
-<p>如果接口的抽象方法具有多个参数，那么 lambda 的传入参数个数也要一一对应，<br>如果抽象方法具有返回值，在 lambda 表达式中也要有返回值，否则可以省略 return 语句<br>注意：lambda 表达式的参数类型和返回类型要和抽象方法的参数类型和返回类型相同</p>
-</blockquote>
-<h1 id="lambda-表达式和匿名内部类"><a href="#lambda-表达式和匿名内部类" class="headerlink" title="lambda 表达式和匿名内部类"></a>lambda 表达式和匿名内部类</h1><p>lambda 表达式是匿名内部类的一种简化形式，lambda 表达式只能书写于只有一个抽象方法的接口，匿名内部类可以书写具有多个抽象方法的接口和抽象类</p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java8</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>java8-collect方法</title>
     <url>/2018/01/13/java8-collect%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h2 id="collect方法"><a href="#collect方法" class="headerlink" title="collect方法"></a>collect方法</h2><p>collect 方法是 Stream 中一个很重要的方法，通过这个方法可以将流中的数据格式转换为需要的形式，如，List，Set，Map，求流数据的总数，流中数据某条属性的平均值或者其他值，将流中的字符串拼接为一条字符串等。</p>
@@ -749,6 +717,38 @@ responseXML                   获得XML形式的响应数据
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IntSummaryStatistics intSummartStatistics = inventory.stream().collect(Collectors.summarizingInt(Apple::getWeight));</span><br></pre></td></tr></table></figure>
 <p>可以返回多种数据的不同运算结果，还是很方便的</p>
 <p>collect 方法接收一个 Collector 对象，而大多数的 Collector 对象都可以通过 Collectors 对象的静态工厂方法获取，如果有需要可以查阅手册</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java8-lambda表达式</title>
+    <url>/2018/01/04/java8-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<p>测试环境 JDK 10 ，JUnit4</p>
+<h1 id="如何使用-lambda-表达式"><a href="#如何使用-lambda-表达式" class="headerlink" title="如何使用 lambda 表达式"></a>如何使用 lambda 表达式</h1><ol>
+<li>定义一个只含有一个抽象方法的接口 AbstractFuncOfSingle (只能是接口)</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractFuncOfSingle</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>传入两个int类型的参数，返回一个类型的参数</p>
+<ol start="2">
+<li>定义一个方法，传入参数为 AbstractFuncOfSingle</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callAbstractFuncOfSingle</span><span class="params">(AbstractFuncOfSingle singleFunc, <span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> result = singleFunc.print(a, b);</span><br><span class="line">	System.out.println(result * <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在方法中将方法参数 a，b 作为参数传入 <code>AbstractFuncOfSingle.print()</code> 方法，并使用 result 接收返回参数然后打印 </p>
+<ol start="3">
+<li>调用上述方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAbstractFuncOfSingle</span><span class="params">()</span></span>&#123;</span><br><span class="line">	callAbstractFuncOfSingle((a, b)-&gt;&#123;</span><br><span class="line">		System.out.println(a + b);</span><br><span class="line">		<span class="keyword">return</span> a + b;</span><br><span class="line">	&#125;, <span class="number">10</span>, <span class="number">23</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 lambda 表达式创建一个内部类，打印 a + b 的和并返回 a + b 和</p>
+<blockquote>
+<p>如果接口的抽象方法具有多个参数，那么 lambda 的传入参数个数也要一一对应，<br>如果抽象方法具有返回值，在 lambda 表达式中也要有返回值，否则可以省略 return 语句<br>注意：lambda 表达式的参数类型和返回类型要和抽象方法的参数类型和返回类型相同</p>
+</blockquote>
+<h1 id="lambda-表达式和匿名内部类"><a href="#lambda-表达式和匿名内部类" class="headerlink" title="lambda 表达式和匿名内部类"></a>lambda 表达式和匿名内部类</h1><p>lambda 表达式是匿名内部类的一种简化形式，lambda 表达式只能书写于只有一个抽象方法的接口，匿名内部类可以书写具有多个抽象方法的接口和抽象类</p>
 ]]></content>
       <categories>
         <category>java</category>
@@ -1027,6 +1027,50 @@ LongSupplier                    long get();
       </tags>
   </entry>
   <entry>
+    <title>json数据</title>
+    <url>/2017/12/16/json%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<h1 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h1><p>JSON：JavaScript 对象表示法（JavaScript Object Notation）。<br>JSON 是存储和交换文本信息的语法。类似 XML。<br>JSON 比 XML 更小、更快，更易解析。<br>参考<a href="http://www.w3school.com.cn/json/index.asp" target="_blank" rel="noopener">w3school</a></p>
+<h1 id="JSON实例"><a href="#JSON实例" class="headerlink" title="JSON实例"></a>JSON实例</h1><pre><code>{
+    &quot;employees&quot;: [
+        { &quot;firstName&quot;:&quot;Bill&quot; , &quot;lastName&quot;:&quot;Gates&quot; },
+        { &quot;firstName&quot;:&quot;George&quot; , &quot;lastName&quot;:&quot;Bush&quot; },
+        { &quot;firstName&quot;:&quot;Thomas&quot; , &quot;lastName&quot;:&quot;Carter&quot; }
+    ]
+}
+</code></pre><h2 id="使用python表示JSON实例"><a href="#使用python表示JSON实例" class="headerlink" title="使用python表示JSON实例"></a>使用python表示JSON实例</h2><pre><code>one = {&quot;firstName&quot;:&quot;Bill&quot;,&quot;lastName&quot;:&quot;Gates&quot;}
+two = {&quot;firstName&quot;:&quot;George&quot;,&quot;lastName&quot;:&quot;Bush&quot;}
+three = {&quot;firstName&quot;:&quot;Thomas&quot;,&quot;lastName&quot;:&quot;Carter&quot;}
+employees = [one,two,three]
+o = {&quot;employess&quot;:employees}
+</code></pre><h2 id="使用java表示JSON实例"><a href="#使用java表示JSON实例" class="headerlink" title="使用java表示JSON实例"></a>使用java表示JSON实例</h2><pre><code>Map&lt;String,String&gt; one = new HashMap&lt;&gt;();
+Map&lt;String,String&gt; two = new HashMap&lt;&gt;();
+Map&lt;String,String&gt; three = new HashMap&lt;&gt;();
+one.put(&quot;firstName&quot;,&quot;Bill&quot;);
+one.put(&quot;lastName&quot;,&quot;Gates&quot;);
+two.put(&quot;firstName&quot;,&quot;George&quot;);
+two.put(&quot;lastName&quot;,&quot;Bush&quot;);
+three.put(&quot;firstName&quot;,&quot;Thomas&quot;);
+three.put(&quot;lastName&quot;,&quot;Carter&quot;);
+List&lt;Map&lt;String,String&gt;&gt; employees = new LinkedList&lt;&gt;(Arrays.asList(one,two,three));
+Map&lt;String,List&lt;Map&lt;String,String&gt;&gt;&gt; o = new HashMap&lt;&gt;();
+o.put(&quot;employees&quot;,employees);
+</code></pre><p>可以发现JSON并没有什么神奇的地方，只不过是一群人定义的字符床规范格式而已，用的人多了就成了标准</p>
+<h2 id="将JSON转换为javascript对象"><a href="#将JSON转换为javascript对象" class="headerlink" title="将JSON转换为javascript对象"></a>将JSON转换为javascript对象</h2><blockquote>
+<p>javascript 可以使用内置eval()函数将JSON数据生成原生的javascript对象<br>var obj = eval(“(“ + JSON + “)”);</p>
+</blockquote>
+<h2 id="JSON值有以下几种"><a href="#JSON值有以下几种" class="headerlink" title="JSON值有以下几种"></a>JSON值有以下几种</h2><blockquote>
+<p>数字(整数或浮点数)<br>字符串(双引号中)<br>逻辑值(true或false)<br>数组(在方括号中)<br>对象(在花括号中)<br>null</p>
+</blockquote>
+<p>使用本地JSON构建javascript对象实例可以在w3school找到，这里给出一个使用java:spring-mvc返回json对象并转换成javascript对象的实例<a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>json</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java8-方法引用</title>
     <url>/2018/01/07/java8-%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/</url>
     <content><![CDATA[<h1 id="什么是方法引用"><a href="#什么是方法引用" class="headerlink" title="什么是方法引用"></a>什么是方法引用</h1><p>方法引用是lambd表达式的一种特殊形式。看起来更易读更自然</p>
@@ -1172,50 +1216,6 @@ public class Main {
       <tags>
         <tag>java</tag>
         <tag>java8</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>json数据</title>
-    <url>/2017/12/16/json%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[<h1 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h1><p>JSON：JavaScript 对象表示法（JavaScript Object Notation）。<br>JSON 是存储和交换文本信息的语法。类似 XML。<br>JSON 比 XML 更小、更快，更易解析。<br>参考<a href="http://www.w3school.com.cn/json/index.asp" target="_blank" rel="noopener">w3school</a></p>
-<h1 id="JSON实例"><a href="#JSON实例" class="headerlink" title="JSON实例"></a>JSON实例</h1><pre><code>{
-    &quot;employees&quot;: [
-        { &quot;firstName&quot;:&quot;Bill&quot; , &quot;lastName&quot;:&quot;Gates&quot; },
-        { &quot;firstName&quot;:&quot;George&quot; , &quot;lastName&quot;:&quot;Bush&quot; },
-        { &quot;firstName&quot;:&quot;Thomas&quot; , &quot;lastName&quot;:&quot;Carter&quot; }
-    ]
-}
-</code></pre><h2 id="使用python表示JSON实例"><a href="#使用python表示JSON实例" class="headerlink" title="使用python表示JSON实例"></a>使用python表示JSON实例</h2><pre><code>one = {&quot;firstName&quot;:&quot;Bill&quot;,&quot;lastName&quot;:&quot;Gates&quot;}
-two = {&quot;firstName&quot;:&quot;George&quot;,&quot;lastName&quot;:&quot;Bush&quot;}
-three = {&quot;firstName&quot;:&quot;Thomas&quot;,&quot;lastName&quot;:&quot;Carter&quot;}
-employees = [one,two,three]
-o = {&quot;employess&quot;:employees}
-</code></pre><h2 id="使用java表示JSON实例"><a href="#使用java表示JSON实例" class="headerlink" title="使用java表示JSON实例"></a>使用java表示JSON实例</h2><pre><code>Map&lt;String,String&gt; one = new HashMap&lt;&gt;();
-Map&lt;String,String&gt; two = new HashMap&lt;&gt;();
-Map&lt;String,String&gt; three = new HashMap&lt;&gt;();
-one.put(&quot;firstName&quot;,&quot;Bill&quot;);
-one.put(&quot;lastName&quot;,&quot;Gates&quot;);
-two.put(&quot;firstName&quot;,&quot;George&quot;);
-two.put(&quot;lastName&quot;,&quot;Bush&quot;);
-three.put(&quot;firstName&quot;,&quot;Thomas&quot;);
-three.put(&quot;lastName&quot;,&quot;Carter&quot;);
-List&lt;Map&lt;String,String&gt;&gt; employees = new LinkedList&lt;&gt;(Arrays.asList(one,two,three));
-Map&lt;String,List&lt;Map&lt;String,String&gt;&gt;&gt; o = new HashMap&lt;&gt;();
-o.put(&quot;employees&quot;,employees);
-</code></pre><p>可以发现JSON并没有什么神奇的地方，只不过是一群人定义的字符床规范格式而已，用的人多了就成了标准</p>
-<h2 id="将JSON转换为javascript对象"><a href="#将JSON转换为javascript对象" class="headerlink" title="将JSON转换为javascript对象"></a>将JSON转换为javascript对象</h2><blockquote>
-<p>javascript 可以使用内置eval()函数将JSON数据生成原生的javascript对象<br>var obj = eval(“(“ + JSON + “)”);</p>
-</blockquote>
-<h2 id="JSON值有以下几种"><a href="#JSON值有以下几种" class="headerlink" title="JSON值有以下几种"></a>JSON值有以下几种</h2><blockquote>
-<p>数字(整数或浮点数)<br>字符串(双引号中)<br>逻辑值(true或false)<br>数组(在方括号中)<br>对象(在花括号中)<br>null</p>
-</blockquote>
-<p>使用本地JSON构建javascript对象实例可以在w3school找到，这里给出一个使用java:spring-mvc返回json对象并转换成javascript对象的实例<a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
-]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>json</tag>
       </tags>
   </entry>
   <entry>
@@ -2517,6 +2517,83 @@ public class User{
       </tags>
   </entry>
   <entry>
+    <title>ubuntu下gpg的基本使用</title>
+    <url>/2017/12/10/ubuntu%E4%B8%8Bgpg%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
+<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
+</blockquote>
+<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
+<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
+</blockquote>
+<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
+<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
+<p>  输入以下命令开始生成密钥对  </p>
+<ul>
+<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
+<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
+<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>##4.上出公钥</p>
+<blockquote>
+<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
+<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
+<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
+<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
+<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
+<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
+</blockquote>
+</blockquote>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
+</blockquote>
+<blockquote>
+<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>pgp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于github+hexo的个人博客</title>
     <url>/2017/12/09/%E5%9F%BA%E4%BA%8Egithub-hexo%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="基于github-hexo的个人博客"><a href="#基于github-hexo的个人博客" class="headerlink" title="基于github+hexo的个人博客"></a>基于github+hexo的个人博客</h1><h2 id="1-本地环境配置"><a href="#1-本地环境配置" class="headerlink" title="1. 本地环境配置"></a>1. 本地环境配置</h2><blockquote>
@@ -2608,83 +2685,6 @@ public class User{
       <tags>
         <tag>hexo</tag>
         <tag>node.js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ubuntu下gpg的基本使用</title>
-    <url>/2017/12/10/ubuntu%E4%B8%8Bgpg%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
-<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
-</blockquote>
-<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
-<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
-</blockquote>
-<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
-<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
-<p>  输入以下命令开始生成密钥对  </p>
-<ul>
-<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
-</ul>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
-<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
-<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>##4.上出公钥</p>
-<blockquote>
-<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
-<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
-<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
-<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
-<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
-<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
-</blockquote>
-</blockquote>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
-</blockquote>
-<blockquote>
-<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>pgp</tag>
       </tags>
   </entry>
   <entry>
@@ -2816,25 +2816,6 @@ public class User{
       </tags>
   </entry>
   <entry>
-    <title>数据结构c语言描述八-再散列</title>
-    <url>/2018/03/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84c%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E5%85%AB-%E5%86%8D%E6%95%A3%E5%88%97/</url>
-    <content><![CDATA[<h2 id="什么是再散列"><a href="#什么是再散列" class="headerlink" title="什么是再散列"></a>什么是再散列</h2><p>再散列也是散列表的一种，不同的是再散列可以动态的扩充表长，再搭配好的散列函数解决冲突</p>
-<p>再散列在散列表到达某一临界点时扩充原来表长的容量，再将原来散列表中的数据重新散列移动到新的散列表的过程</p>
-<h2 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> Index;</span><br><span class="line"><span class="keyword">typedef</span> Index Position;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>* <span class="title">HashTable</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElementType;</span><br><span class="line"><span class="function">HashTable <span class="title">InitializeTable</span><span class="params">(<span class="keyword">int</span> TableSize,<span class="keyword">float</span> Facotr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DestroyTable</span><span class="params">(HashTable H)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function">HashTable <span class="title">Insert</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function">HashTable <span class="title">Rehash</span><span class="params">(HashTable H)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> Index <span class="title">Hash</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> key,<span class="keyword">int</span> TableSize)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> KindOfEntry&#123;Legitimate,Emtry,Deleted&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashEntry</span>&#123;</span></span><br><span class="line">	ElementType Element;</span><br><span class="line">	<span class="keyword">enum</span> KindOfEntry Info;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">HashEntry</span> <span class="title">Cell</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> TableSize;</span><br><span class="line">	<span class="keyword">int</span> Capacity;</span><br><span class="line">	<span class="keyword">float</span> LocalFacotr;<span class="comment">//装填因子</span></span><br><span class="line">	<span class="keyword">int</span> MaxCapacity;<span class="comment">//散列表所能容纳的最大容量，超过该容量后就要扩容</span></span><br><span class="line">	Cell* TheCells;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这里采用当散列表容量达到指定的装填因子时进行再散列，采用的默认散列因子是 0.75，TableSize 表示散列表的长度，Capacity 表示散列表容乃数据的大小，MaxCapacity 表示散列表可以容纳的最大容量，由 TableSize × LocalFacotr 得出</p>
-<h2 id="散列表的插入"><a href="#散列表的插入" class="headerlink" title="散列表的插入"></a>散列表的插入</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">HashTable <span class="title">Insert</span><span class="params">(ElementType key,HashTable H)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(H == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span> ;</span><br><span class="line">	<span class="keyword">if</span>(H-&gt;Capacity &gt;= H-&gt;MaxCapacity)&#123;</span><br><span class="line">		H = Rehash(H);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> index = Hash(key,H-&gt;TableSize);</span><br><span class="line">	<span class="comment">//如果已经在相同下标的散列表上有值，那就不管了</span></span><br><span class="line">	<span class="keyword">if</span>(H-&gt;TheCells[index].Info != Emtry)&#123;</span><br><span class="line">		<span class="keyword">return</span> H;</span><br><span class="line">	&#125;</span><br><span class="line">	H-&gt;Capacity++;</span><br><span class="line">	H-&gt;TheCells[index].Element = key;</span><br><span class="line">	H-&gt;TheCells[index].Info = Legitimate;</span><br><span class="line">	<span class="keyword">return</span> H;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当散列表的容量超过最大容量是就要使用再散列方法</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">HashTable <span class="title">Rehash</span><span class="params">(HashTable H)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(H == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	HashTable T = InitializeTable(H-&gt;TableSize &lt;&lt; <span class="number">1</span>,H-&gt;LocalFacotr);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; H-&gt;TableSize;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(H-&gt;TheCells[i].Element != <span class="number">0</span>)</span><br><span class="line">			Insert(H-&gt;TheCells[i].Element,T);</span><br><span class="line">	&#125;</span><br><span class="line">	DestroyTable(H);</span><br><span class="line">	<span class="keyword">return</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/canxing/code-repository/blob/master/c/data_structure_and_algorithm_analysis" target="_blank" rel="noopener">参考源码</a></p>
-]]></content>
-      <categories>
-        <category>data_structure</category>
-      </categories>
-      <tags>
-        <tag>c语言</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据结构c语言描述五-伸展树</title>
     <url>/2018/03/22/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84c%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E4%BA%94-%E4%BC%B8%E5%B1%95%E6%A0%91/</url>
     <content><![CDATA[<h2 id="什么是伸展树"><a href="#什么是伸展树" class="headerlink" title="什么是伸展树"></a>什么是伸展树</h2><p>伸展树保证了从空树开始任意连续 M 次对树的操作最多话费 O(M log N) 时间，伸展树是二叉搜索树的一种变形，不同于 AVL 树，伸展树不需要维护节点的高度，相对 AVL 树来说比较容易实现</p>
@@ -2865,6 +2846,25 @@ public class User{
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">SplayTree <span class="title">Insert</span><span class="params">(ElementType X,SplayTree T)</span></span>&#123;</span><br><span class="line">	Position temp = <span class="literal">NULL</span>;</span><br><span class="line">	temp = (SplayTree)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct TreeNode));</span><br><span class="line">	<span class="keyword">if</span>(temp == <span class="literal">NULL</span>)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"初始化树失败\n"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	temp-&gt;Element = X;</span><br><span class="line">	temp-&gt;Left = temp-&gt;Right = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(T == <span class="literal">NULL</span>)&#123;</span><br><span class="line">		T = temp;</span><br><span class="line">		<span class="keyword">return</span> T;</span><br><span class="line">	&#125;</span><br><span class="line">	Position ptr = T;</span><br><span class="line">	<span class="comment">//按照二叉搜索树的性质插入节点</span></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(X &lt; ptr-&gt;Element &amp;&amp; ptr-&gt;Left != <span class="literal">NULL</span>)&#123;</span><br><span class="line">			ptr = ptr-&gt;Left;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(X &gt; ptr-&gt;Element &amp;&amp; ptr-&gt;Right != <span class="literal">NULL</span>)&#123;</span><br><span class="line">			ptr = ptr-&gt;Right;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(X &lt; ptr-&gt;Element &amp;&amp; ptr-&gt;Left == <span class="literal">NULL</span>)&#123;</span><br><span class="line">			ptr-&gt;Left = temp;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(X &gt; ptr-&gt;Element &amp;&amp; ptr-&gt;Right == <span class="literal">NULL</span>)&#123;</span><br><span class="line">			ptr-&gt;Right = temp;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> Splay(X,T);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h2><p>删除操作先将删除节点伸展到根结点，此时，根结点的左子树元素都小于根节点，右子树元素都大于根结点，删除根结点，然后将左子树的最大元素进行伸展，此时左子树根结点是左子树中的最大元素，没有右儿子，然后再将左子树的右指针指向右子树，删除完成</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">SplayTree <span class="title">Delete</span><span class="params">(ElementType X,SplayTree T)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(T == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span>(X == T-&gt;Element)&#123;</span><br><span class="line">		<span class="keyword">if</span>(T-&gt;Left == <span class="literal">NULL</span>) <span class="keyword">return</span> T-&gt;Right;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(T-&gt;Right == <span class="literal">NULL</span>) <span class="keyword">return</span> T-&gt;Left;</span><br><span class="line">		<span class="comment">//再查找最大元素的同时就对最大元素进行了伸展操作</span></span><br><span class="line">		Position left = FindMax(T-&gt;Left);</span><br><span class="line">		left-&gt;Right = T-&gt;Right;</span><br><span class="line">		<span class="built_in">free</span>(T);</span><br><span class="line">		<span class="keyword">return</span> left;</span><br><span class="line">	&#125;</span><br><span class="line">	T = Splay(X,T);</span><br><span class="line">	<span class="keyword">return</span> Delete(X,T);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/canxing/code-repository/blob/master/c/data_structure_and_algorithm_analysis" target="_blank" rel="noopener">参考源码</a></p>
+]]></content>
+      <categories>
+        <category>data_structure</category>
+      </categories>
+      <tags>
+        <tag>c语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构c语言描述八-再散列</title>
+    <url>/2018/03/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84c%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E5%85%AB-%E5%86%8D%E6%95%A3%E5%88%97/</url>
+    <content><![CDATA[<h2 id="什么是再散列"><a href="#什么是再散列" class="headerlink" title="什么是再散列"></a>什么是再散列</h2><p>再散列也是散列表的一种，不同的是再散列可以动态的扩充表长，再搭配好的散列函数解决冲突</p>
+<p>再散列在散列表到达某一临界点时扩充原来表长的容量，再将原来散列表中的数据重新散列移动到新的散列表的过程</p>
+<h2 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> Index;</span><br><span class="line"><span class="keyword">typedef</span> Index Position;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>* <span class="title">HashTable</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElementType;</span><br><span class="line"><span class="function">HashTable <span class="title">InitializeTable</span><span class="params">(<span class="keyword">int</span> TableSize,<span class="keyword">float</span> Facotr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DestroyTable</span><span class="params">(HashTable H)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function">HashTable <span class="title">Insert</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function">HashTable <span class="title">Rehash</span><span class="params">(HashTable H)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> Index <span class="title">Hash</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> key,<span class="keyword">int</span> TableSize)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> KindOfEntry&#123;Legitimate,Emtry,Deleted&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashEntry</span>&#123;</span></span><br><span class="line">	ElementType Element;</span><br><span class="line">	<span class="keyword">enum</span> KindOfEntry Info;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">HashEntry</span> <span class="title">Cell</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> TableSize;</span><br><span class="line">	<span class="keyword">int</span> Capacity;</span><br><span class="line">	<span class="keyword">float</span> LocalFacotr;<span class="comment">//装填因子</span></span><br><span class="line">	<span class="keyword">int</span> MaxCapacity;<span class="comment">//散列表所能容纳的最大容量，超过该容量后就要扩容</span></span><br><span class="line">	Cell* TheCells;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里采用当散列表容量达到指定的装填因子时进行再散列，采用的默认散列因子是 0.75，TableSize 表示散列表的长度，Capacity 表示散列表容乃数据的大小，MaxCapacity 表示散列表可以容纳的最大容量，由 TableSize × LocalFacotr 得出</p>
+<h2 id="散列表的插入"><a href="#散列表的插入" class="headerlink" title="散列表的插入"></a>散列表的插入</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">HashTable <span class="title">Insert</span><span class="params">(ElementType key,HashTable H)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(H == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span> ;</span><br><span class="line">	<span class="keyword">if</span>(H-&gt;Capacity &gt;= H-&gt;MaxCapacity)&#123;</span><br><span class="line">		H = Rehash(H);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> index = Hash(key,H-&gt;TableSize);</span><br><span class="line">	<span class="comment">//如果已经在相同下标的散列表上有值，那就不管了</span></span><br><span class="line">	<span class="keyword">if</span>(H-&gt;TheCells[index].Info != Emtry)&#123;</span><br><span class="line">		<span class="keyword">return</span> H;</span><br><span class="line">	&#125;</span><br><span class="line">	H-&gt;Capacity++;</span><br><span class="line">	H-&gt;TheCells[index].Element = key;</span><br><span class="line">	H-&gt;TheCells[index].Info = Legitimate;</span><br><span class="line">	<span class="keyword">return</span> H;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当散列表的容量超过最大容量是就要使用再散列方法</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">HashTable <span class="title">Rehash</span><span class="params">(HashTable H)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(H == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	HashTable T = InitializeTable(H-&gt;TableSize &lt;&lt; <span class="number">1</span>,H-&gt;LocalFacotr);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; H-&gt;TableSize;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(H-&gt;TheCells[i].Element != <span class="number">0</span>)</span><br><span class="line">			Insert(H-&gt;TheCells[i].Element,T);</span><br><span class="line">	&#125;</span><br><span class="line">	DestroyTable(H);</span><br><span class="line">	<span class="keyword">return</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="https://github.com/canxing/code-repository/blob/master/c/data_structure_and_algorithm_analysis" target="_blank" rel="noopener">参考源码</a></p>
 ]]></content>
       <categories>
