@@ -371,6 +371,33 @@ responseXML                   获得XML形式的响应数据
       </tags>
   </entry>
   <entry>
+    <title>使用 docker buildx 构建多 CPU 架构镜像</title>
+    <url>/2022/07/13/docker%E5%A4%9A%E6%9E%B6%E6%9E%84%E6%9E%84%E5%BB%BA/</url>
+    <content><![CDATA[<h1 id="使用-docker-buildx-构建多-CPU-架构镜像"><a href="#使用-docker-buildx-构建多-CPU-架构镜像" class="headerlink" title="使用 docker buildx 构建多 CPU 架构镜像"></a>使用 docker buildx 构建多 CPU 架构镜像</h1><p>docker 版本大于等于 19.03 支持使用 docker buildx 方式构建多 CPU 架构镜像</p>
+<h2 id="启动-docker-buildx"><a href="#启动-docker-buildx" class="headerlink" title="启动 docker buildx"></a>启动 docker buildx</h2><p>在最新的 docker 20.10.7 版本中，docker buildx 已经默认启动，可以通过 <code>docker buildx version</code> 查看。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker buildx version</span></span><br><span class="line">github.com/docker/buildx v0.5.1-docker 11057da37336192bfc57d81e02359ba7ba848e4a</span><br></pre></td></tr></table></figure>
+<p>如果返回找不到命令，那么需要为当前版本 docker 开启这项功能。编辑 <code>/etc/docker/daemon.json</code> 文件，写入 <code>&quot;experimetal&quot;: true</code>，保存退出后重启 docker。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 请备份 daemon.json 文件！！！</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"&#123;"</span>experimetal<span class="string">": true&#125;"</span> &gt; /etc/docker/daemon.json;</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h2 id="开启-binfmt-misc"><a href="#开启-binfmt-misc" class="headerlink" title="开启 binfmt_misc"></a>开启 binfmt_misc</h2><p>通过一个特权容器来开启 Linux 系统上的 binfmt_misc</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>DockerHub 地址: <a href="https://hub.docker.com/r/docker/binfmt" target="_blank" rel="noopener">docker/binfmt</a></p>
+</blockquote>
+<p>查看是否设置正确</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># ls -al /proc/sys/fs/binfmt_misc/</span></span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x 2 root root 0 Jul  7 06:27 .</span><br><span class="line">dr-xr-xr-x 1 root root 0 Jul  7 06:08 ..</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-aarch64</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-arm</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-ppc64le</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-riscv64</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-s390x</span><br><span class="line">--w------- 1 root root 0 Jul  7 06:27 register</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 status</span><br></pre></td></tr></table></figure>
+<h2 id="切换镜像构建为多架构构建器"><a href="#切换镜像构建为多架构构建器" class="headerlink" title="切换镜像构建为多架构构建器"></a>切换镜像构建为多架构构建器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker buildx create --use --name mybuilder</span><br></pre></td></tr></table></figure>
+<p>验证构建器是否生效</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker buildx ls</span></span><br><span class="line">NAME/NODE    DRIVER/ENDPOINT             STATUS   PLATFORMS</span><br><span class="line">mybuilder *  docker-container                     </span><br><span class="line">  mybuilder0 unix:///var/run/docker.sock inactive </span><br><span class="line">default      docker                               </span><br><span class="line">  default    default                     running  linux/amd64, linux/386, linux/arm64, linux/riscv64, linux/ppc64le, linux/s390x, linux/arm/v7, linux/arm/v6</span><br></pre></td></tr></table></figure>
+<h2 id="在-amd64-机器上启动-arm-架构容器"><a href="#在-amd64-机器上启动-arm-架构容器" class="headerlink" title="在 amd64 机器上启动 arm 架构容器"></a>在 amd64 机器上启动 arm 架构容器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker pull --platform arm64 nginx</span></span><br><span class="line">root@:~<span class="comment"># docker run -d -p 80:80 --platform arm64 nginx</span></span><br><span class="line">root@:~<span class="comment"># curl localhost</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Welcome to nginx!&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    body &#123;</span><br><span class="line">        width: 35em;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        font-family: Tahoma, Verdana, Arial, sans-serif;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;If you see this page, the nginx web server is successfully installed and</span><br><span class="line">working. Further configuration is required.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;For online documentation and support please refer to</span><br><span class="line">&lt;a href=<span class="string">"http://nginx.org/"</span>&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;</span><br><span class="line">Commercial support is available at</span><br><span class="line">&lt;a href=<span class="string">"http://nginx.com/"</span>&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;&lt;em&gt;Thank you <span class="keyword">for</span> using nginx.&lt;/em&gt;&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>docker基础</title>
     <url>/2018/11/26/docker%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="Docker基础"><a href="#Docker基础" class="headerlink" title="Docker基础"></a>Docker基础</h1><p>本文参考自 <code>&lt;&lt;Docker--从入门到实践&gt;&gt;</code>，该书<a href="https://github.com/yeasy/docker_practice" target="_blank" rel="noopener">github 地址</a>，<a href="https://gitee.com/docker_practice/docker_practice" target="_blank" rel="noopener">国内镜像</a></p>
@@ -597,33 +624,6 @@ responseXML                   获得XML形式的响应数据
 <blockquote>
 <p>挂在主机目录时，需要使用绝对路径，因此需要将 /root/vol 改为自己主机上的绝对路径</p>
 </blockquote>
-]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用 docker buildx 构建多 CPU 架构镜像</title>
-    <url>/2022/07/13/docker%E5%A4%9A%E6%9E%B6%E6%9E%84%E6%9E%84%E5%BB%BA/</url>
-    <content><![CDATA[<h1 id="使用-docker-buildx-构建多-CPU-架构镜像"><a href="#使用-docker-buildx-构建多-CPU-架构镜像" class="headerlink" title="使用 docker buildx 构建多 CPU 架构镜像"></a>使用 docker buildx 构建多 CPU 架构镜像</h1><p>docker 版本大于等于 19.03 支持使用 docker buildx 方式构建多 CPU 架构镜像</p>
-<h2 id="启动-docker-buildx"><a href="#启动-docker-buildx" class="headerlink" title="启动 docker buildx"></a>启动 docker buildx</h2><p>在最新的 docker 20.10.7 版本中，docker buildx 已经默认启动，可以通过 <code>docker buildx version</code> 查看。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker buildx version</span></span><br><span class="line">github.com/docker/buildx v0.5.1-docker 11057da37336192bfc57d81e02359ba7ba848e4a</span><br></pre></td></tr></table></figure>
-<p>如果返回找不到命令，那么需要为当前版本 docker 开启这项功能。编辑 <code>/etc/docker/daemon.json</code> 文件，写入 <code>&quot;experimetal&quot;: true</code>，保存退出后重启 docker。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 请备份 daemon.json 文件！！！</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"&#123;"</span>experimetal<span class="string">": true&#125;"</span> &gt; /etc/docker/daemon.json;</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
-<h2 id="开启-binfmt-misc"><a href="#开启-binfmt-misc" class="headerlink" title="开启 binfmt_misc"></a>开启 binfmt_misc</h2><p>通过一个特权容器来开启 Linux 系统上的 binfmt_misc</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>DockerHub 地址: <a href="https://hub.docker.com/r/docker/binfmt" target="_blank" rel="noopener">docker/binfmt</a></p>
-</blockquote>
-<p>查看是否设置正确</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># ls -al /proc/sys/fs/binfmt_misc/</span></span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x 2 root root 0 Jul  7 06:27 .</span><br><span class="line">dr-xr-xr-x 1 root root 0 Jul  7 06:08 ..</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-aarch64</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-arm</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-ppc64le</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-riscv64</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 qemu-s390x</span><br><span class="line">--w------- 1 root root 0 Jul  7 06:27 register</span><br><span class="line">-rw-r--r-- 1 root root 0 Jul  7 06:27 status</span><br></pre></td></tr></table></figure>
-<h2 id="切换镜像构建为多架构构建器"><a href="#切换镜像构建为多架构构建器" class="headerlink" title="切换镜像构建为多架构构建器"></a>切换镜像构建为多架构构建器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker buildx create --use --name mybuilder</span><br></pre></td></tr></table></figure>
-<p>验证构建器是否生效</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker buildx ls</span></span><br><span class="line">NAME/NODE    DRIVER/ENDPOINT             STATUS   PLATFORMS</span><br><span class="line">mybuilder *  docker-container                     </span><br><span class="line">  mybuilder0 unix:///var/run/docker.sock inactive </span><br><span class="line">default      docker                               </span><br><span class="line">  default    default                     running  linux/amd64, linux/386, linux/arm64, linux/riscv64, linux/ppc64le, linux/s390x, linux/arm/v7, linux/arm/v6</span><br></pre></td></tr></table></figure>
-<h2 id="在-amd64-机器上启动-arm-架构容器"><a href="#在-amd64-机器上启动-arm-架构容器" class="headerlink" title="在 amd64 机器上启动 arm 架构容器"></a>在 amd64 机器上启动 arm 架构容器</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@:~<span class="comment"># docker pull --platform arm64 nginx</span></span><br><span class="line">root@:~<span class="comment"># docker run -d -p 80:80 --platform arm64 nginx</span></span><br><span class="line">root@:~<span class="comment"># curl localhost</span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Welcome to nginx!&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    body &#123;</span><br><span class="line">        width: 35em;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        font-family: Tahoma, Verdana, Arial, sans-serif;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;If you see this page, the nginx web server is successfully installed and</span><br><span class="line">working. Further configuration is required.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;For online documentation and support please refer to</span><br><span class="line">&lt;a href=<span class="string">"http://nginx.org/"</span>&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;</span><br><span class="line">Commercial support is available at</span><br><span class="line">&lt;a href=<span class="string">"http://nginx.com/"</span>&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;&lt;em&gt;Thank you <span class="keyword">for</span> using nginx.&lt;/em&gt;&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>docker</category>
@@ -877,82 +877,6 @@ Object[] toArray()                                                              
       </tags>
   </entry>
   <entry>
-    <title>java8-复合lambda表达式</title>
-    <url>/2018/01/11/java8-%E5%A4%8D%E5%90%88lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<p>java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作</p>
-<h1 id="Predicate系列的组合操作"><a href="#Predicate系列的组合操作" class="headerlink" title="Predicate系列的组合操作"></a>Predicate系列的组合操作</h1><pre><code>接口                        相关方法
-Predicate&lt;T&gt;            Predicate&lt;T&gt; negate()
-                        Predicate&lt;T&gt; or(Predicate&lt;? super T&gt; other)
-                        Predicate&lt;T&gt; and(Predicate&lt;? super T&gt; other)
-
-                        DoublePredicate negate()
-DoublePredicate            DoublePredicate and(DoublePredicate other)
-                        DoublePredicate or(DoublePredicate other)
-
-                        IntPredicate negate()
-IntPredicate            IntPredicate and(IntPredicate other)
-                        IntPredicate or(IntPredicate other)
-
-                        LongPredicate negate()
-LongPredicate            LongPredicate and(LongPredicate other)
-                        LongPredicate or(LongPredicate other)
-
-                        BiPredicate&lt;T,U&gt; negate()
-BiPredicate&lt;T,U&gt;        BiPredicate&lt;T,U&gt; and(BiPredicate&lt;? super T,? super U&gt; other)
-                        BiPredicate&lt;T,U&gt; or(BiPredicate&lt;? super T,? super U&gt; other)
-</code></pre><p>Predicate系列的每个借口都含有and,or,not操作，可以和其他相同的借口进行组合<br>对于苹果类，根据苹果的颜色和重量筛选符合要求的苹果可以有</p>
-<pre><code>//筛选颜色为红色的苹果
-Predicate&lt;Apple&gt; redApple = (Apple apple) -&gt; apple.getColor().equals(&quot;red&quot;);
-//筛选苹果重量大于15的苹果
-Predicate&lt;Apple&gt; weightApple = apple -&gt; apple.getWeight() &gt; 15;
-//对苹果的颜色和重量筛选进行复合，筛选出即是红色重量有大于15的苹果
-List&lt;Apple&gt; filterApples = filter(inventory,redApple.and(weightApple));
-
-//筛选出是红色或者重量大于15的苹果
-filterApples = filter(inventory,redApple.or(weightApple));
-
-//筛选出既不是颜色既不是红色重量也不大于15的苹果
-filterApples = filter(inventory,redApple.negate().or(weightApple.negate()));
-</code></pre><h1 id="Function系列的组合操作"><a href="#Function系列的组合操作" class="headerlink" title="Function系列的组合操作"></a>Function系列的组合操作</h1><pre><code>接口                        相关方法
-Function&lt;T,R&gt;            Function&lt;T,V&gt; addThen(Function&lt;? super R,? extends V&gt; after)
-                        Function&lt;V,R&gt; compose(Function&lt;? super V,? extends T&gt; before)
-
-BiFunction&lt;T,U,R&gt;        BiFunction&lt;T,U,V&gt; addThen(Function&lt;? super R,? extends V&gt; after)
-</code></pre><p>Function系列的接口只有Function&lt;T,R&gt;和BiFunction&lt;T,U,R&gt;可以进行复合操作<br>    Function的意思是函数，作为函数，具有参数和返回值，类似于f(x) = x + 1,<br>    那么Function&lt;T,V&gt;的addThen方法可以理解为将我的返回值作为别的函数的参数，在别的函数中进行函数运算。<br>    如果说有两个函数 f(x) = x + 1 和 g(y) = y + 2，那么addThen可以将f(x)的返回值作为g(x)的参数传递进去，类似于g(f(x)) = f(x) + 2 = (x + 1) + 2这种<br>    同样compose方法可以将别的函数的返回值作为自己的参数进行函数运算  </p>
-<p>BiFunction&lt;T,U,R&gt;和Function&lt;T,R&gt;不同的是，他具有三个泛型参数，以及他的addThen方法接收的是一个Function&lt;? super V,? extends T&gt;对象<br>    同样也是将BiFunction的运算结果作为Function的参数，返回Function的运算结果</p>
-<p>使用Function接口实现为苹果的重量加20，并返回一个列表</p>
-<pre><code>//获取苹果的重量
-Function&lt;Apple,Integer&gt; getWeight = Apple::getWeight;
-//将一个数字加上20,在这里这个数字表示重量
-Function&lt;Integer,Integer&gt; addWeight = weight -&gt; weight + 20;
-
-//使用Function的addThen方法将所有苹果的重量加上20并返回一个列表
-List&lt;Integer&gt; weights = map(inventory,getWeight.andThen(addWeight));
-//使用Function的compose方法将所有苹果的重量加上20并返回一个列表
-weights = map(inventory,addWeight.compose(getWeight));
-</code></pre><h1 id="Consumer系列接口"><a href="#Consumer系列接口" class="headerlink" title="Consumer系列接口"></a>Consumer系列接口</h1><pre><code>接口                        相关方法
-Consumer&lt;T&gt;                Consumer&lt;T&gt; addThen(Consumer&lt;? super T&gt; after)
-DoubleConsumer            DoubleConsumer addThen(DoubleConsumer after)
-IntConsumer                IntConsumer addThen(IntConsumer after)
-LongConsuemr            LongConsumer addThen(LongConsumer after)
-BiConsumer&lt;T,U&gt;            BiConsumer&lt;T,U&gt; addThen(BiConsumer&lt;? super T,? super U&gt; after)
-</code></pre><p>Consumer系列的接口只接收一个泛型参数的都可以使用addThen方法，接收两个参数的只有BiConsumer接口可以使用addThen方法<br>    关于addThen方法，很显然，在经过当前的Consumer对象的处理之后，可以继续被某个Consumer对象处理<br>    使用Consumer将苹果的重量在原有的基础上乘2再加上10  </p>
-<pre><code>//将苹果的重量乘2
-Consumer&lt;Apple&gt; two = apple -&gt; apple.setWeight(apple.getWeight() * 2); 
-//将苹果的重量加10
-Consumer&lt;Apple&gt; add = apple -&gt; apple.setWeight(apple.getWeight() + 10);
-//使用组合将苹果的重量先乘2再加10
-forEach(inventory,two.andThen(add));
-</code></pre>]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>java8</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>java8-函数式接口</title>
     <url>/2018/01/05/java8-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/</url>
     <content><![CDATA[<p>在上一次使用自定义的函数接口来使用lambda表达式，每一个lambda都要自定义一个已知的接口来实现，这样比较麻烦，如果可以使用通用的函数式接口，那么会方便很多。幸运的是java8中新增了一些通用的函数式接口供我们使用。下面就来看看吧。</p>
@@ -1035,6 +959,82 @@ IntSupplier                        int get();
 LongSupplier                    long get();
 </code></pre><h2 id="其他函数式接口"><a href="#其他函数式接口" class="headerlink" title="其他函数式接口"></a>其他函数式接口</h2><p>java.util.function包中还有几个使用Operator结尾的接口，现在还不太明白如何使用，以后再加。</p>
 ]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>java8</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java8-复合lambda表达式</title>
+    <url>/2018/01/11/java8-%E5%A4%8D%E5%90%88lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<p>java8中的函数式借口提供了允许你进行复合的方法，可以把多个lambda表达式复合成更复杂的表达式,就好像与操作(and)，或操作(or)，非操作(not)，以及组合操作</p>
+<h1 id="Predicate系列的组合操作"><a href="#Predicate系列的组合操作" class="headerlink" title="Predicate系列的组合操作"></a>Predicate系列的组合操作</h1><pre><code>接口                        相关方法
+Predicate&lt;T&gt;            Predicate&lt;T&gt; negate()
+                        Predicate&lt;T&gt; or(Predicate&lt;? super T&gt; other)
+                        Predicate&lt;T&gt; and(Predicate&lt;? super T&gt; other)
+
+                        DoublePredicate negate()
+DoublePredicate            DoublePredicate and(DoublePredicate other)
+                        DoublePredicate or(DoublePredicate other)
+
+                        IntPredicate negate()
+IntPredicate            IntPredicate and(IntPredicate other)
+                        IntPredicate or(IntPredicate other)
+
+                        LongPredicate negate()
+LongPredicate            LongPredicate and(LongPredicate other)
+                        LongPredicate or(LongPredicate other)
+
+                        BiPredicate&lt;T,U&gt; negate()
+BiPredicate&lt;T,U&gt;        BiPredicate&lt;T,U&gt; and(BiPredicate&lt;? super T,? super U&gt; other)
+                        BiPredicate&lt;T,U&gt; or(BiPredicate&lt;? super T,? super U&gt; other)
+</code></pre><p>Predicate系列的每个借口都含有and,or,not操作，可以和其他相同的借口进行组合<br>对于苹果类，根据苹果的颜色和重量筛选符合要求的苹果可以有</p>
+<pre><code>//筛选颜色为红色的苹果
+Predicate&lt;Apple&gt; redApple = (Apple apple) -&gt; apple.getColor().equals(&quot;red&quot;);
+//筛选苹果重量大于15的苹果
+Predicate&lt;Apple&gt; weightApple = apple -&gt; apple.getWeight() &gt; 15;
+//对苹果的颜色和重量筛选进行复合，筛选出即是红色重量有大于15的苹果
+List&lt;Apple&gt; filterApples = filter(inventory,redApple.and(weightApple));
+
+//筛选出是红色或者重量大于15的苹果
+filterApples = filter(inventory,redApple.or(weightApple));
+
+//筛选出既不是颜色既不是红色重量也不大于15的苹果
+filterApples = filter(inventory,redApple.negate().or(weightApple.negate()));
+</code></pre><h1 id="Function系列的组合操作"><a href="#Function系列的组合操作" class="headerlink" title="Function系列的组合操作"></a>Function系列的组合操作</h1><pre><code>接口                        相关方法
+Function&lt;T,R&gt;            Function&lt;T,V&gt; addThen(Function&lt;? super R,? extends V&gt; after)
+                        Function&lt;V,R&gt; compose(Function&lt;? super V,? extends T&gt; before)
+
+BiFunction&lt;T,U,R&gt;        BiFunction&lt;T,U,V&gt; addThen(Function&lt;? super R,? extends V&gt; after)
+</code></pre><p>Function系列的接口只有Function&lt;T,R&gt;和BiFunction&lt;T,U,R&gt;可以进行复合操作<br>    Function的意思是函数，作为函数，具有参数和返回值，类似于f(x) = x + 1,<br>    那么Function&lt;T,V&gt;的addThen方法可以理解为将我的返回值作为别的函数的参数，在别的函数中进行函数运算。<br>    如果说有两个函数 f(x) = x + 1 和 g(y) = y + 2，那么addThen可以将f(x)的返回值作为g(x)的参数传递进去，类似于g(f(x)) = f(x) + 2 = (x + 1) + 2这种<br>    同样compose方法可以将别的函数的返回值作为自己的参数进行函数运算  </p>
+<p>BiFunction&lt;T,U,R&gt;和Function&lt;T,R&gt;不同的是，他具有三个泛型参数，以及他的addThen方法接收的是一个Function&lt;? super V,? extends T&gt;对象<br>    同样也是将BiFunction的运算结果作为Function的参数，返回Function的运算结果</p>
+<p>使用Function接口实现为苹果的重量加20，并返回一个列表</p>
+<pre><code>//获取苹果的重量
+Function&lt;Apple,Integer&gt; getWeight = Apple::getWeight;
+//将一个数字加上20,在这里这个数字表示重量
+Function&lt;Integer,Integer&gt; addWeight = weight -&gt; weight + 20;
+
+//使用Function的addThen方法将所有苹果的重量加上20并返回一个列表
+List&lt;Integer&gt; weights = map(inventory,getWeight.andThen(addWeight));
+//使用Function的compose方法将所有苹果的重量加上20并返回一个列表
+weights = map(inventory,addWeight.compose(getWeight));
+</code></pre><h1 id="Consumer系列接口"><a href="#Consumer系列接口" class="headerlink" title="Consumer系列接口"></a>Consumer系列接口</h1><pre><code>接口                        相关方法
+Consumer&lt;T&gt;                Consumer&lt;T&gt; addThen(Consumer&lt;? super T&gt; after)
+DoubleConsumer            DoubleConsumer addThen(DoubleConsumer after)
+IntConsumer                IntConsumer addThen(IntConsumer after)
+LongConsuemr            LongConsumer addThen(LongConsumer after)
+BiConsumer&lt;T,U&gt;            BiConsumer&lt;T,U&gt; addThen(BiConsumer&lt;? super T,? super U&gt; after)
+</code></pre><p>Consumer系列的接口只接收一个泛型参数的都可以使用addThen方法，接收两个参数的只有BiConsumer接口可以使用addThen方法<br>    关于addThen方法，很显然，在经过当前的Consumer对象的处理之后，可以继续被某个Consumer对象处理<br>    使用Consumer将苹果的重量在原有的基础上乘2再加上10  </p>
+<pre><code>//将苹果的重量乘2
+Consumer&lt;Apple&gt; two = apple -&gt; apple.setWeight(apple.getWeight() * 2); 
+//将苹果的重量加10
+Consumer&lt;Apple&gt; add = apple -&gt; apple.setWeight(apple.getWeight() + 10);
+//使用组合将苹果的重量先乘2再加10
+forEach(inventory,two.andThen(add));
+</code></pre>]]></content>
       <categories>
         <category>java</category>
       </categories>
@@ -1965,6 +1965,140 @@ public class Main {
       </tags>
   </entry>
   <entry>
+    <title>spring-mvc返回json数据</title>
+    <url>/2017/12/16/spring-mvc%E8%BF%94%E5%9B%9Ejson%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<p>在使用spring-mvc过程中遇到很多问题，记录下来方便查看</p>
+<p>开发环境如下:</p>
+<p>eclipse Oxygen Release (4.7.0)</p>
+<p>java1.8</p>
+<p>spring 4.3.3</p>
+<p>freemarker 2.3.26(这个不是必须的)</p>
+<h2 id="maven依赖包如下："><a href="#maven依赖包如下：" class="headerlink" title="maven依赖包如下："></a>maven依赖包如下：</h2><pre><code>&lt;!-- spring mvc返回json所需依赖  --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+        &lt;version&gt;2.7.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+        &lt;version&gt;2.7.0&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;!-- freemarker 引擎，有了这个就不需要使用jstl了，只需要使用freemarker表达式就行了 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.freemarker&lt;/groupId&gt;
+        &lt;artifactId&gt;freemarker&lt;/artifactId&gt;
+        &lt;version&gt;2.3.26-incubating&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- spring 核心 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- springmvc 核心 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;!-- spring bean 核心 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
+        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;
+        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre><h2 id="web-xml-配置"><a href="#web-xml-配置" class="headerlink" title="web.xml 配置:"></a>web.xml 配置:</h2><pre><code>&lt;servlet&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;/WEB-INF/applicationContext.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;&lt;!--启动顺序，让这个Servlet随Servletp容器一起启动。 --&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt; &lt;!--会拦截URL中带“/”的请求。 --&gt;
+&lt;/servlet-mapping&gt;
+</code></pre><h2 id="spring-mvc配置"><a href="#spring-mvc配置" class="headerlink" title="spring-mvc配置:"></a>spring-mvc配置:</h2><pre><code>&lt;mvc:annotation-driven /&gt;
+&lt;context:component-scan base-package=&quot;canxing.web&quot; /&gt;
+</code></pre><h2 id="spring-mvc配置freemarker"><a href="#spring-mvc配置freemarker" class="headerlink" title="spring-mvc配置freemarker:"></a>spring-mvc配置freemarker:</h2><pre><code>&lt;!-- freemarker 配置文件 --&gt;
+&lt;!-- freemarker config --&gt;
+&lt;bean id=&quot;freemarkerConfig&quot;
+    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer&quot;&gt;
+    &lt;property name=&quot;templateLoaderPath&quot; value=&quot;/WEB-INF/freemarker/&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;!-- View resolvers can also be configured with ResourceBundles or XML files.
+    If you need different view resolving based on Locale, you have to use the
+    resource bundle resolver. --&gt;
+&lt;bean id=&quot;viewResolver&quot;
+    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;
+    &lt;property name=&quot;cache&quot; value=&quot;true&quot; /&gt;
+    &lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;
+    &lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><h2 id="JSONController-java"><a href="#JSONController-java" class="headerlink" title="JSONController.java:"></a>JSONController.java:</h2><pre><code>@Controller
+public class JSONController {
+    @RequestMapping(path=&quot;/json&quot;,produces=&quot;application/json&quot;)
+    public @ResponseBody User index() {//使用@RespnseBody将返回的对象转化为JSON数据
+        System.out.println(&quot;index start&quot;);
+        User user = new User();
+        user.setUsername(&quot;canxing&quot;);
+        user.setPassword(&quot;123&quot;);
+        System.out.println(&quot;index end&quot;);
+        return user;
+    }
+    @RequestMapping(path=&quot;/&quot;)
+    public String test() {
+        return &quot;test&quot;;
+    }
+}
+</code></pre><h2 id="User-java："><a href="#User-java：" class="headerlink" title="User.java："></a>User.java：</h2><pre><code>//类不需要进行处理，只是一个普通的pojo类
+public class User{
+        private String username;
+        private String password;
+        public String getUsername() {
+            return username;
+        }
+        public void setUsername(String username) {
+            this.username = username;
+        }
+        public String getPassword() {
+            return password;
+        }
+        public void setPassword(String password) {
+            this.password = password;
+        }
+        @Override
+        public String toString() {
+            return &quot;User [username=&quot; + username + &quot;, password=&quot; + password + &quot;]&quot;;
+        }
+    }
+</code></pre><h2 id="test-flt"><a href="#test-flt" class="headerlink" title="test.flt:"></a>test.flt:</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>freemarker test <span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">loadXMLDoc</span>(<span class="params"></span>)</span></span></span><br><span class="line">			&#123;</span><br><span class="line"><span class="javascript">				xmlhttp=<span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest)</span></span><br><span class="line"><span class="javascript">				  &#123;<span class="comment">// code for Firefox, Mozilla, IE7, etc.</span></span></span><br><span class="line"><span class="javascript">				  xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject)</span></span><br><span class="line"><span class="javascript">				  &#123;<span class="comment">// code for IE6, IE5</span></span></span><br><span class="line"><span class="javascript">				  xmlhttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">if</span> (xmlhttp!=<span class="literal">null</span>)</span></span><br><span class="line">				  &#123;</span><br><span class="line">				  xmlhttp.onreadystatechange=state_Change;</span><br><span class="line"><span class="javascript">				  xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"http://localhost:8080/spring_web_test/json"</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">				  xmlhttp.send(<span class="literal">null</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">else</span></span></span><br><span class="line">				  &#123;</span><br><span class="line"><span class="javascript">				  alert(<span class="string">"Your browser does not support XMLHTTP."</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line">			&#125;</span><br><span class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">state_Change</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">var</span> obj = <span class="built_in">eval</span>(<span class="string">"("</span> + xmlhttp.responseText + <span class="string">")"</span>);</span></span><br><span class="line"><span class="javascript">				<span class="built_in">document</span>.getElementById(<span class="string">"username"</span>).innerHTML=obj.username</span></span><br><span class="line"><span class="javascript">				<span class="built_in">document</span>.getElementById(<span class="string">"password"</span>).innerHTML=obj.password</span></span><br><span class="line">			&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>freemarker test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">		username : <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'username'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		password : <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'password'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">'button'</span> <span class="attr">onclick</span>=<span class="string">"loadXMLDoc()"</span>&gt;</span>adfads<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
+<h3 id="寻找答案中遇到的问题"><a href="#寻找答案中遇到的问题" class="headerlink" title="寻找答案中遇到的问题"></a>寻找答案中遇到的问题</h3><ol>
+<li>依赖问题，spring 默认的对象转化为 json 的 jar 包依赖，网上多是直接使用并没有说明依赖</li>
+<li>还是依赖问题，spring 和 jackson 之间版本的兼容性太差，稍微更改以下 jackson 或者 spring 的版本就会导致 NoSuchMethodError 错误，据说这里可以看见<a href="https://jira.spring.io/browse/SPR/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel" target="_blank" rel="noopener">版本支持</a>，但是看不懂</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>ajax</tag>
+        <tag>json</tag>
+        <tag>spring-mvc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>shell基础</title>
     <url>/2018/11/28/shell%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="Shell-基础"><a href="#Shell-基础" class="headerlink" title="Shell 基础"></a>Shell 基础</h1><blockquote>
@@ -2400,217 +2534,6 @@ public class Main {
       </tags>
   </entry>
   <entry>
-    <title>spring-mvc返回json数据</title>
-    <url>/2017/12/16/spring-mvc%E8%BF%94%E5%9B%9Ejson%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[<p>在使用spring-mvc过程中遇到很多问题，记录下来方便查看</p>
-<p>开发环境如下:</p>
-<p>eclipse Oxygen Release (4.7.0)</p>
-<p>java1.8</p>
-<p>spring 4.3.3</p>
-<p>freemarker 2.3.26(这个不是必须的)</p>
-<h2 id="maven依赖包如下："><a href="#maven依赖包如下：" class="headerlink" title="maven依赖包如下："></a>maven依赖包如下：</h2><pre><code>&lt;!-- spring mvc返回json所需依赖  --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-        &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
-        &lt;version&gt;2.7.0&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
-        &lt;version&gt;2.7.0&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;!-- freemarker 引擎，有了这个就不需要使用jstl了，只需要使用freemarker表达式就行了 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.freemarker&lt;/groupId&gt;
-        &lt;artifactId&gt;freemarker&lt;/artifactId&gt;
-        &lt;version&gt;2.3.26-incubating&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;!-- spring 核心 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;!-- springmvc 核心 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;!-- spring bean 核心 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-</code></pre><h2 id="web-xml-配置"><a href="#web-xml-配置" class="headerlink" title="web.xml 配置:"></a>web.xml 配置:</h2><pre><code>&lt;servlet&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
-    &lt;init-param&gt;
-        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
-        &lt;param-value&gt;/WEB-INF/applicationContext.xml&lt;/param-value&gt;
-    &lt;/init-param&gt;
-    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;&lt;!--启动顺序，让这个Servlet随Servletp容器一起启动。 --&gt;
-&lt;/servlet&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;/&lt;/url-pattern&gt; &lt;!--会拦截URL中带“/”的请求。 --&gt;
-&lt;/servlet-mapping&gt;
-</code></pre><h2 id="spring-mvc配置"><a href="#spring-mvc配置" class="headerlink" title="spring-mvc配置:"></a>spring-mvc配置:</h2><pre><code>&lt;mvc:annotation-driven /&gt;
-&lt;context:component-scan base-package=&quot;canxing.web&quot; /&gt;
-</code></pre><h2 id="spring-mvc配置freemarker"><a href="#spring-mvc配置freemarker" class="headerlink" title="spring-mvc配置freemarker:"></a>spring-mvc配置freemarker:</h2><pre><code>&lt;!-- freemarker 配置文件 --&gt;
-&lt;!-- freemarker config --&gt;
-&lt;bean id=&quot;freemarkerConfig&quot;
-    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer&quot;&gt;
-    &lt;property name=&quot;templateLoaderPath&quot; value=&quot;/WEB-INF/freemarker/&quot; /&gt;
-&lt;/bean&gt;
-
-&lt;!-- View resolvers can also be configured with ResourceBundles or XML files.
-    If you need different view resolving based on Locale, you have to use the
-    resource bundle resolver. --&gt;
-&lt;bean id=&quot;viewResolver&quot;
-    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;
-    &lt;property name=&quot;cache&quot; value=&quot;true&quot; /&gt;
-    &lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;
-    &lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;
-&lt;/bean&gt;
-</code></pre><h2 id="JSONController-java"><a href="#JSONController-java" class="headerlink" title="JSONController.java:"></a>JSONController.java:</h2><pre><code>@Controller
-public class JSONController {
-    @RequestMapping(path=&quot;/json&quot;,produces=&quot;application/json&quot;)
-    public @ResponseBody User index() {//使用@RespnseBody将返回的对象转化为JSON数据
-        System.out.println(&quot;index start&quot;);
-        User user = new User();
-        user.setUsername(&quot;canxing&quot;);
-        user.setPassword(&quot;123&quot;);
-        System.out.println(&quot;index end&quot;);
-        return user;
-    }
-    @RequestMapping(path=&quot;/&quot;)
-    public String test() {
-        return &quot;test&quot;;
-    }
-}
-</code></pre><h2 id="User-java："><a href="#User-java：" class="headerlink" title="User.java："></a>User.java：</h2><pre><code>//类不需要进行处理，只是一个普通的pojo类
-public class User{
-        private String username;
-        private String password;
-        public String getUsername() {
-            return username;
-        }
-        public void setUsername(String username) {
-            this.username = username;
-        }
-        public String getPassword() {
-            return password;
-        }
-        public void setPassword(String password) {
-            this.password = password;
-        }
-        @Override
-        public String toString() {
-            return &quot;User [username=&quot; + username + &quot;, password=&quot; + password + &quot;]&quot;;
-        }
-    }
-</code></pre><h2 id="test-flt"><a href="#test-flt" class="headerlink" title="test.flt:"></a>test.flt:</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>freemarker test <span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">loadXMLDoc</span>(<span class="params"></span>)</span></span></span><br><span class="line">			&#123;</span><br><span class="line"><span class="javascript">				xmlhttp=<span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest)</span></span><br><span class="line"><span class="javascript">				  &#123;<span class="comment">// code for Firefox, Mozilla, IE7, etc.</span></span></span><br><span class="line"><span class="javascript">				  xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject)</span></span><br><span class="line"><span class="javascript">				  &#123;<span class="comment">// code for IE6, IE5</span></span></span><br><span class="line"><span class="javascript">				  xmlhttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">if</span> (xmlhttp!=<span class="literal">null</span>)</span></span><br><span class="line">				  &#123;</span><br><span class="line">				  xmlhttp.onreadystatechange=state_Change;</span><br><span class="line"><span class="javascript">				  xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"http://localhost:8080/spring_web_test/json"</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">				  xmlhttp.send(<span class="literal">null</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">else</span></span></span><br><span class="line">				  &#123;</span><br><span class="line"><span class="javascript">				  alert(<span class="string">"Your browser does not support XMLHTTP."</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line">			&#125;</span><br><span class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">state_Change</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">var</span> obj = <span class="built_in">eval</span>(<span class="string">"("</span> + xmlhttp.responseText + <span class="string">")"</span>);</span></span><br><span class="line"><span class="javascript">				<span class="built_in">document</span>.getElementById(<span class="string">"username"</span>).innerHTML=obj.username</span></span><br><span class="line"><span class="javascript">				<span class="built_in">document</span>.getElementById(<span class="string">"password"</span>).innerHTML=obj.password</span></span><br><span class="line">			&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>freemarker test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">		username : <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'username'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		password : <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'password'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">'button'</span> <span class="attr">onclick</span>=<span class="string">"loadXMLDoc()"</span>&gt;</span>adfads<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
-<h3 id="寻找答案中遇到的问题"><a href="#寻找答案中遇到的问题" class="headerlink" title="寻找答案中遇到的问题"></a>寻找答案中遇到的问题</h3><ol>
-<li>依赖问题，spring 默认的对象转化为 json 的 jar 包依赖，网上多是直接使用并没有说明依赖</li>
-<li>还是依赖问题，spring 和 jackson 之间版本的兼容性太差，稍微更改以下 jackson 或者 spring 的版本就会导致 NoSuchMethodError 错误，据说这里可以看见<a href="https://jira.spring.io/browse/SPR/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel" target="_blank" rel="noopener">版本支持</a>，但是看不懂</li>
-</ol>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>ajax</tag>
-        <tag>json</tag>
-        <tag>spring-mvc</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ubuntu下gpg的基本使用</title>
-    <url>/2017/12/10/ubuntu%E4%B8%8Bgpg%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
-<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
-</blockquote>
-<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
-<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
-</blockquote>
-<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
-<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
-<p>  输入以下命令开始生成密钥对  </p>
-<ul>
-<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
-</ul>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
-<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
-<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>##4.上出公钥</p>
-<blockquote>
-<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
-<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
-<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
-<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
-<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
-<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
-</blockquote>
-</blockquote>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
-</blockquote>
-<blockquote>
-<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>pgp</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基于github+hexo的个人博客</title>
     <url>/2017/12/09/%E5%9F%BA%E4%BA%8Egithub-hexo%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="基于github-hexo的个人博客"><a href="#基于github-hexo的个人博客" class="headerlink" title="基于github+hexo的个人博客"></a>基于github+hexo的个人博客</h1><h2 id="1-本地环境配置"><a href="#1-本地环境配置" class="headerlink" title="1. 本地环境配置"></a>1. 本地环境配置</h2><blockquote>
@@ -2702,6 +2625,83 @@ public class User{
       <tags>
         <tag>hexo</tag>
         <tag>node.js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu下gpg的基本使用</title>
+    <url>/2017/12/10/ubuntu%E4%B8%8Bgpg%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
+<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
+</blockquote>
+<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
+<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
+</blockquote>
+<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
+<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
+<p>  输入以下命令开始生成密钥对  </p>
+<ul>
+<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
+<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
+<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>##4.上出公钥</p>
+<blockquote>
+<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
+<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
+<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
+<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
+<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
+<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
+</blockquote>
+</blockquote>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
+</blockquote>
+<blockquote>
+<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>pgp</tag>
       </tags>
   </entry>
   <entry>
@@ -2914,6 +2914,39 @@ public class User{
       </tags>
   </entry>
   <entry>
+    <title>系统监控指标</title>
+    <url>/2023/02/19/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E6%8C%87%E6%A0%87/</url>
+    <content><![CDATA[<h1 id="系统监控指标"><a href="#系统监控指标" class="headerlink" title="系统监控指标"></a>系统监控指标</h1><ul>
+<li><a href="https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/system-metrics/" target="_blank" rel="noopener">Kubernetes 系统组件指标</a></li>
+<li><a href="https://yasongxu.gitbook.io/container-monitor/yi-.-kai-yuan-fang-an/di-2-zhang-prometheus/metric" target="_blank" rel="noopener">K8S常用指标分析</a></li>
+</ul>
+<p>通过系统组件指标可以更好地了解系统组个内部发生的情况。</p>
+<p>Kubernetes 组件以 Prometheus 格式 生成度量值。 这种格式是结构化的纯文本，旨在使人和机器都可以阅读。</p>
+<p>kubernetes 组件大致有</p>
+<ul>
+<li>kube-container-manager</li>
+<li>kube-proxy</li>
+<li>kube-apiserver</li>
+<li>kube-scheduler</li>
+<li>kubelet</li>
+</ul>
+<p>大多数情况下可以通过 HTTP 访问组件的 /metrics 端点获取指标的度量值</p>
+<p>kubelet 包含了大量 Pod 级别指标，这些指标可以用于展示 Pod 对于资源的使用情况，kubelet 还会在 <code>/metrcis/cadvisor</code>, <code>/metrics/resource</code> 和 <code>/metrics/probes</code> 端点中公开度量值。</p>
+<p>一般而言，为了收集 kubernetes 系统的指标，会在 kubernetes 内部部署一个 metrics-server 来统一公开指标，再通过 prometheus 收集指标，最后再通过 grafana 对指标进行图形化展示。</p>
+<p>其中 kubelet 存储的 Pod，container，Node 级别的指标最丰富也是最常用的指标。</p>
+<p>kubelet 包含的 Pod 级别的指标来自于底层容器运行时，kubelet 通过采集当前节点上容器运行时的目录计算归总得到 Pod 级别指标。</p>
+<p>常用的指标有 <code>container_cpu_user_seconds_total</code>, <code>container_cpu_system_seconds_total</code>, <code>container_cpu_usage_seconds_total</code>，具体参考 <a href="https://yasongxu.gitbook.io/container-monitor/yi-.-kai-yuan-fang-an/di-2-zhang-prometheus/metric" target="_blank" rel="noopener">K8S常用指标分析</a></p>
+<p>kubernetes 系统更新时有时会对系统指标进行更改，每个版本的指标更改可以通过 kubernetes 工程下的 <a href="https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG" target="_blank" rel="noopener">CHANGELOG</a> 进行查看</p>
+<p>在<a href="https://kubernetes.io/docs/reference/instrumentation/metrics/" target="_blank" rel="noopener">这里</a>可以查看最新的 kubenretes 可用指标列表</p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据结构c语言描述四-AVL树</title>
     <url>/2018/03/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84c%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E5%9B%9B-AVL%E6%A0%91/</url>
     <content><![CDATA[<p>AVL 树是带有平衡条件的二叉查找树，所谓平衡条件就是:任何节点的深度均不得过深，如下图所示的二叉查找树是不应该出现的</p>
@@ -2949,39 +2982,6 @@ public class User{
       </categories>
       <tags>
         <tag>c语言</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>系统监控指标</title>
-    <url>/2023/02/19/%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7%E6%8C%87%E6%A0%87/</url>
-    <content><![CDATA[<h1 id="系统监控指标"><a href="#系统监控指标" class="headerlink" title="系统监控指标"></a>系统监控指标</h1><ul>
-<li><a href="https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/system-metrics/" target="_blank" rel="noopener">Kubernetes 系统组件指标</a></li>
-<li><a href="https://yasongxu.gitbook.io/container-monitor/yi-.-kai-yuan-fang-an/di-2-zhang-prometheus/metric" target="_blank" rel="noopener">K8S常用指标分析</a></li>
-</ul>
-<p>通过系统组件指标可以更好地了解系统组个内部发生的情况。</p>
-<p>Kubernetes 组件以 Prometheus 格式 生成度量值。 这种格式是结构化的纯文本，旨在使人和机器都可以阅读。</p>
-<p>kubernetes 组件大致有</p>
-<ul>
-<li>kube-container-manager</li>
-<li>kube-proxy</li>
-<li>kube-apiserver</li>
-<li>kube-scheduler</li>
-<li>kubelet</li>
-</ul>
-<p>大多数情况下可以通过 HTTP 访问组件的 /metrics 端点获取指标的度量值</p>
-<p>kubelet 包含了大量 Pod 级别指标，这些指标可以用于展示 Pod 对于资源的使用情况，kubelet 还会在 <code>/metrcis/cadvisor</code>, <code>/metrics/resource</code> 和 <code>/metrics/probes</code> 端点中公开度量值。</p>
-<p>一般而言，为了收集 kubernetes 系统的指标，会在 kubernetes 内部部署一个 metrics-server 来统一公开指标，再通过 prometheus 收集指标，最后再通过 grafana 对指标进行图形化展示。</p>
-<p>其中 kubelet 存储的 Pod，container，Node 级别的指标最丰富也是最常用的指标。</p>
-<p>kubelet 包含的 Pod 级别的指标来自于底层容器运行时，kubelet 通过采集当前节点上容器运行时的目录计算归总得到 Pod 级别指标。</p>
-<p>常用的指标有 <code>container_cpu_user_seconds_total</code>, <code>container_cpu_system_seconds_total</code>, <code>container_cpu_usage_seconds_total</code>，具体参考 <a href="https://yasongxu.gitbook.io/container-monitor/yi-.-kai-yuan-fang-an/di-2-zhang-prometheus/metric" target="_blank" rel="noopener">K8S常用指标分析</a></p>
-<p>kubernetes 系统更新时有时会对系统指标进行更改，每个版本的指标更改可以通过 kubernetes 工程下的 <a href="https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG" target="_blank" rel="noopener">CHANGELOG</a> 进行查看</p>
-<p>在<a href="https://kubernetes.io/docs/reference/instrumentation/metrics/" target="_blank" rel="noopener">这里</a>可以查看最新的 kubenretes 可用指标列表</p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
       </tags>
   </entry>
   <entry>
