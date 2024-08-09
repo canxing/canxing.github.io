@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>IDEA社区版使用maven搭建web开发环境</title>
+    <url>/2018/04/17/IntelljJ-IDEA-Community-Edition-maven-webapp/</url>
+    <content><![CDATA[<p>IDEA社区版是不支持web应用程序开发，但是IDEA支持Maven，在Maven配置文件中可以添加tomcat插件，因此可以使用IDEA进行web应用程序开发</p>
+<h1 id="一-新建Maven项目"><a href="#一-新建Maven项目" class="headerlink" title="一 新建Maven项目"></a>一 新建Maven项目</h1><p>在选择新项目时选择maven项目，勾选 Create from archetype，在下方选择maven-archetype-webapp，点击Next<br><img src="idea-maven.png" alt="idea-创建maven类型项目"></p>
+<p>输入GroupId和ArtifactId<br><img src="输入名称.png" alt="GroupId和ArtifactId"></p>
+<p>选择Maven位置，如果Maven已经添加到环境变量，那么可以自动找到，如果没有配置，那么需要手动添加<br>User setting file为你的Maven配置文件，如果不是默认路径需要手动添加<br>Local repository为你的Maven仓库，如果不是默认路径需要手动添加<br><img src="maven-position.png" alt="Maven工程配置"></p>
+<p>最后输入工程名称和工程位置<br><img src="最后.png" alt="工程名称和位置"></p>
+<p>首次使用Maven会下载一些东西需要一些时间</p>
+<h1 id="二-配置tomcat"><a href="#二-配置tomcat" class="headerlink" title="二 配置tomcat"></a>二 配置tomcat</h1><ol>
+<li>首先在tomcat中添加tomcat插件  </li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat7-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">hostName</span>&gt;</span>localhost<span class="tag">&lt;/<span class="name">hostName</span>&gt;</span>    <span class="comment">&lt;!-- Default: localhost --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span>&gt;</span>8080<span class="tag">&lt;/<span class="name">port</span>&gt;</span>    <span class="comment">&lt;!-- 启动端口 Default:8080 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">uriEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">uriEncoding</span>&gt;</span>      <span class="comment">&lt;!-- uri编码 Default: ISO-8859-1 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里使用的tomcat7</p>
+<ol start="2">
+<li>配置tomcat7</li>
+</ol>
+<p>单击菜单栏 Run，选择Edit Configurations…，进入如下界面  </p>
+<p><img src="tomcat7配置.png" alt="tomcat7配置">  </p>
+<p>默认只有一个Defaults，Maven是我配置好了的</p>
+<p>选择+-&gt;Maven</p>
+<p><img src="选择Mave.png" alt="选择Maven">  </p>
+<p>输入Tomcat7，在Command line输入tomcat7:run完成配置</p>
+<p><img src="tomcat7配置运行.png" alt></p>
+<ol start="3">
+<li>点击Run开始运行，打开浏览器查看结果如下</li>
+</ol>
+<p><img src="运行结果.png" alt="运行结果"></p>
+]]></content>
+      <categories>
+        <category>ide</category>
+      </categories>
+      <tags>
+        <tag>configure</tag>
+        <tag>ide</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java_基本类型</title>
     <url>/2018/10/10/Java-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<ul>
@@ -123,43 +160,6 @@
       </categories>
       <tags>
         <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>IDEA社区版使用maven搭建web开发环境</title>
-    <url>/2018/04/17/IntelljJ-IDEA-Community-Edition-maven-webapp/</url>
-    <content><![CDATA[<p>IDEA社区版是不支持web应用程序开发，但是IDEA支持Maven，在Maven配置文件中可以添加tomcat插件，因此可以使用IDEA进行web应用程序开发</p>
-<h1 id="一-新建Maven项目"><a href="#一-新建Maven项目" class="headerlink" title="一 新建Maven项目"></a>一 新建Maven项目</h1><p>在选择新项目时选择maven项目，勾选 Create from archetype，在下方选择maven-archetype-webapp，点击Next<br><img src="idea-maven.png" alt="idea-创建maven类型项目"></p>
-<p>输入GroupId和ArtifactId<br><img src="输入名称.png" alt="GroupId和ArtifactId"></p>
-<p>选择Maven位置，如果Maven已经添加到环境变量，那么可以自动找到，如果没有配置，那么需要手动添加<br>User setting file为你的Maven配置文件，如果不是默认路径需要手动添加<br>Local repository为你的Maven仓库，如果不是默认路径需要手动添加<br><img src="maven-position.png" alt="Maven工程配置"></p>
-<p>最后输入工程名称和工程位置<br><img src="最后.png" alt="工程名称和位置"></p>
-<p>首次使用Maven会下载一些东西需要一些时间</p>
-<h1 id="二-配置tomcat"><a href="#二-配置tomcat" class="headerlink" title="二 配置tomcat"></a>二 配置tomcat</h1><ol>
-<li>首先在tomcat中添加tomcat插件  </li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat7-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">hostName</span>&gt;</span>localhost<span class="tag">&lt;/<span class="name">hostName</span>&gt;</span>    <span class="comment">&lt;!-- Default: localhost --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span>&gt;</span>8080<span class="tag">&lt;/<span class="name">port</span>&gt;</span>    <span class="comment">&lt;!-- 启动端口 Default:8080 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">uriEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">uriEncoding</span>&gt;</span>      <span class="comment">&lt;!-- uri编码 Default: ISO-8859-1 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这里使用的tomcat7</p>
-<ol start="2">
-<li>配置tomcat7</li>
-</ol>
-<p>单击菜单栏 Run，选择Edit Configurations…，进入如下界面  </p>
-<p><img src="tomcat7配置.png" alt="tomcat7配置">  </p>
-<p>默认只有一个Defaults，Maven是我配置好了的</p>
-<p>选择+-&gt;Maven</p>
-<p><img src="选择Mave.png" alt="选择Maven">  </p>
-<p>输入Tomcat7，在Command line输入tomcat7:run完成配置</p>
-<p><img src="tomcat7配置运行.png" alt></p>
-<ol start="3">
-<li>点击Run开始运行，打开浏览器查看结果如下</li>
-</ol>
-<p><img src="运行结果.png" alt="运行结果"></p>
-]]></content>
-      <categories>
-        <category>ide</category>
-      </categories>
-      <tags>
-        <tag>configure</tag>
-        <tag>ide</tag>
       </tags>
   </entry>
   <entry>
@@ -1044,6 +1044,50 @@ forEach(inventory,two.andThen(add));
       </tags>
   </entry>
   <entry>
+    <title>json数据</title>
+    <url>/2017/12/16/json%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<h1 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h1><p>JSON：JavaScript 对象表示法（JavaScript Object Notation）。<br>JSON 是存储和交换文本信息的语法。类似 XML。<br>JSON 比 XML 更小、更快，更易解析。<br>参考<a href="http://www.w3school.com.cn/json/index.asp" target="_blank" rel="noopener">w3school</a></p>
+<h1 id="JSON实例"><a href="#JSON实例" class="headerlink" title="JSON实例"></a>JSON实例</h1><pre><code>{
+    &quot;employees&quot;: [
+        { &quot;firstName&quot;:&quot;Bill&quot; , &quot;lastName&quot;:&quot;Gates&quot; },
+        { &quot;firstName&quot;:&quot;George&quot; , &quot;lastName&quot;:&quot;Bush&quot; },
+        { &quot;firstName&quot;:&quot;Thomas&quot; , &quot;lastName&quot;:&quot;Carter&quot; }
+    ]
+}
+</code></pre><h2 id="使用python表示JSON实例"><a href="#使用python表示JSON实例" class="headerlink" title="使用python表示JSON实例"></a>使用python表示JSON实例</h2><pre><code>one = {&quot;firstName&quot;:&quot;Bill&quot;,&quot;lastName&quot;:&quot;Gates&quot;}
+two = {&quot;firstName&quot;:&quot;George&quot;,&quot;lastName&quot;:&quot;Bush&quot;}
+three = {&quot;firstName&quot;:&quot;Thomas&quot;,&quot;lastName&quot;:&quot;Carter&quot;}
+employees = [one,two,three]
+o = {&quot;employess&quot;:employees}
+</code></pre><h2 id="使用java表示JSON实例"><a href="#使用java表示JSON实例" class="headerlink" title="使用java表示JSON实例"></a>使用java表示JSON实例</h2><pre><code>Map&lt;String,String&gt; one = new HashMap&lt;&gt;();
+Map&lt;String,String&gt; two = new HashMap&lt;&gt;();
+Map&lt;String,String&gt; three = new HashMap&lt;&gt;();
+one.put(&quot;firstName&quot;,&quot;Bill&quot;);
+one.put(&quot;lastName&quot;,&quot;Gates&quot;);
+two.put(&quot;firstName&quot;,&quot;George&quot;);
+two.put(&quot;lastName&quot;,&quot;Bush&quot;);
+three.put(&quot;firstName&quot;,&quot;Thomas&quot;);
+three.put(&quot;lastName&quot;,&quot;Carter&quot;);
+List&lt;Map&lt;String,String&gt;&gt; employees = new LinkedList&lt;&gt;(Arrays.asList(one,two,three));
+Map&lt;String,List&lt;Map&lt;String,String&gt;&gt;&gt; o = new HashMap&lt;&gt;();
+o.put(&quot;employees&quot;,employees);
+</code></pre><p>可以发现JSON并没有什么神奇的地方，只不过是一群人定义的字符床规范格式而已，用的人多了就成了标准</p>
+<h2 id="将JSON转换为javascript对象"><a href="#将JSON转换为javascript对象" class="headerlink" title="将JSON转换为javascript对象"></a>将JSON转换为javascript对象</h2><blockquote>
+<p>javascript 可以使用内置eval()函数将JSON数据生成原生的javascript对象<br>var obj = eval(“(“ + JSON + “)”);</p>
+</blockquote>
+<h2 id="JSON值有以下几种"><a href="#JSON值有以下几种" class="headerlink" title="JSON值有以下几种"></a>JSON值有以下几种</h2><blockquote>
+<p>数字(整数或浮点数)<br>字符串(双引号中)<br>逻辑值(true或false)<br>数组(在方括号中)<br>对象(在花括号中)<br>null</p>
+</blockquote>
+<p>使用本地JSON构建javascript对象实例可以在w3school找到，这里给出一个使用java:spring-mvc返回json对象并转换成javascript对象的实例<a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>json</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java8-方法引用</title>
     <url>/2018/01/07/java8-%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/</url>
     <content><![CDATA[<h1 id="什么是方法引用"><a href="#什么是方法引用" class="headerlink" title="什么是方法引用"></a>什么是方法引用</h1><p>方法引用是lambd表达式的一种特殊形式。看起来更易读更自然</p>
@@ -1192,47 +1236,52 @@ public class Main {
       </tags>
   </entry>
   <entry>
-    <title>json数据</title>
-    <url>/2017/12/16/json%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[<h1 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h1><p>JSON：JavaScript 对象表示法（JavaScript Object Notation）。<br>JSON 是存储和交换文本信息的语法。类似 XML。<br>JSON 比 XML 更小、更快，更易解析。<br>参考<a href="http://www.w3school.com.cn/json/index.asp" target="_blank" rel="noopener">w3school</a></p>
-<h1 id="JSON实例"><a href="#JSON实例" class="headerlink" title="JSON实例"></a>JSON实例</h1><pre><code>{
-    &quot;employees&quot;: [
-        { &quot;firstName&quot;:&quot;Bill&quot; , &quot;lastName&quot;:&quot;Gates&quot; },
-        { &quot;firstName&quot;:&quot;George&quot; , &quot;lastName&quot;:&quot;Bush&quot; },
-        { &quot;firstName&quot;:&quot;Thomas&quot; , &quot;lastName&quot;:&quot;Carter&quot; }
-    ]
-}
-</code></pre><h2 id="使用python表示JSON实例"><a href="#使用python表示JSON实例" class="headerlink" title="使用python表示JSON实例"></a>使用python表示JSON实例</h2><pre><code>one = {&quot;firstName&quot;:&quot;Bill&quot;,&quot;lastName&quot;:&quot;Gates&quot;}
-two = {&quot;firstName&quot;:&quot;George&quot;,&quot;lastName&quot;:&quot;Bush&quot;}
-three = {&quot;firstName&quot;:&quot;Thomas&quot;,&quot;lastName&quot;:&quot;Carter&quot;}
-employees = [one,two,three]
-o = {&quot;employess&quot;:employees}
-</code></pre><h2 id="使用java表示JSON实例"><a href="#使用java表示JSON实例" class="headerlink" title="使用java表示JSON实例"></a>使用java表示JSON实例</h2><pre><code>Map&lt;String,String&gt; one = new HashMap&lt;&gt;();
-Map&lt;String,String&gt; two = new HashMap&lt;&gt;();
-Map&lt;String,String&gt; three = new HashMap&lt;&gt;();
-one.put(&quot;firstName&quot;,&quot;Bill&quot;);
-one.put(&quot;lastName&quot;,&quot;Gates&quot;);
-two.put(&quot;firstName&quot;,&quot;George&quot;);
-two.put(&quot;lastName&quot;,&quot;Bush&quot;);
-three.put(&quot;firstName&quot;,&quot;Thomas&quot;);
-three.put(&quot;lastName&quot;,&quot;Carter&quot;);
-List&lt;Map&lt;String,String&gt;&gt; employees = new LinkedList&lt;&gt;(Arrays.asList(one,two,three));
-Map&lt;String,List&lt;Map&lt;String,String&gt;&gt;&gt; o = new HashMap&lt;&gt;();
-o.put(&quot;employees&quot;,employees);
-</code></pre><p>可以发现JSON并没有什么神奇的地方，只不过是一群人定义的字符床规范格式而已，用的人多了就成了标准</p>
-<h2 id="将JSON转换为javascript对象"><a href="#将JSON转换为javascript对象" class="headerlink" title="将JSON转换为javascript对象"></a>将JSON转换为javascript对象</h2><blockquote>
-<p>javascript 可以使用内置eval()函数将JSON数据生成原生的javascript对象<br>var obj = eval(“(“ + JSON + “)”);</p>
+    <title>kubernetes pod 调度</title>
+    <url>/2023/10/24/kubernetes%20pod%20%E8%B0%83%E5%BA%A6/</url>
+    <content><![CDATA[<blockquote>
+<p>pod 是 kubernetes 中最小运行单元，默认情况下 pod 可以运行在所有工作节点上。但是默认的调度策略不能满足额外的需求，比如希望 pod 只调度某些节点；在副本数大于 1 时希望多个 pod 不要在同一个工作节点上；希望 pod 可以均匀的分布到多个工作节点等。</p>
 </blockquote>
-<h2 id="JSON值有以下几种"><a href="#JSON值有以下几种" class="headerlink" title="JSON值有以下几种"></a>JSON值有以下几种</h2><blockquote>
-<p>数字(整数或浮点数)<br>字符串(双引号中)<br>逻辑值(true或false)<br>数组(在方括号中)<br>对象(在花括号中)<br>null</p>
-</blockquote>
-<p>使用本地JSON构建javascript对象实例可以在w3school找到，这里给出一个使用java:spring-mvc返回json对象并转换成javascript对象的实例<a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
+<h1 id="kubernetes-pod-调度"><a href="#kubernetes-pod-调度" class="headerlink" title="kubernetes pod 调度"></a>kubernetes pod 调度</h1><h2 id="kubernetes-默认调度器"><a href="#kubernetes-默认调度器" class="headerlink" title="kubernetes 默认调度器"></a>kubernetes 默认调度器</h2><p>kube-scheduler 是 kubernetes 集群中默认的调度器，在安装好 kubernetes 集群之后即可在 kube-system 命名空间下找到</p>
+<p>kube-scheduler 发现需要创建一个 pod 时，会选择一个最佳的节点来运行新创建或者没有调度的 pod。每个 pod 有不同的要求，因此 kube-scheduler 会过滤掉不满足要求的节点。在一个集群中，可能会出现多个节点都满足要求，这些节点被称为<strong><em>可调度节点</em></strong>。如果一个集群中没有找到任何一个节点能满足 pod 的要求，那么这个 pod 会一直停留在未调度状态知道调度器可以找到合适的节点。</p>
+<p><a href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/" target="_blank" rel="noopener">官方文档</a></p>
+<h2 id="绕过调度器的属性-nodeName"><a href="#绕过调度器的属性-nodeName" class="headerlink" title="绕过调度器的属性: nodeName"></a>绕过调度器的属性: nodeName</h2><p>可以通过指定 pod 资源中的 <code>spec.nodeName</code> 名称来绕过调度器的节点选择。</p>
+<p>通过设置 nodeName 来指定部署的节点是很方便的，但是使用这种方式存在以下问题:</p>
+<ul>
+<li>如果指定的节点不存在，那么 pod 不会创建</li>
+<li>如果指定的节点资源不满足要求，那么 pod 不会创建。比如一个节点规格为 16 核 32G 内存，但是 pod 的 resouces.request 设置的是 20 核 30G，那么这种情况下无法创建</li>
+<li>如果指定的节点掉线或者修改名称，这个情况下部署也是不稳定的</li>
+</ul>
+<p><a href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodename" target="_blank" rel="noopener">pod nodeName</a></p>
+<h2 id="根据节点标签进行选择-nodeSelector"><a href="#根据节点标签进行选择-nodeSelector" class="headerlink" title="根据节点标签进行选择: nodeSelector"></a>根据节点标签进行选择: nodeSelector</h2><p>有的时候 pod 执行需要特定资源，比如节点上有 GPU 或者 SSD，希望 pod 可以部署到拥有这些资源的节点上。那么这时可以使用 nodeSelector。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">nodeSelector:</span></span><br><span class="line">    <span class="attr">disktype:</span> <span class="string">ssd</span> <span class="comment"># 该 pod 需要运行在标签为 disktyp=ssd 的节点上</span></span><br></pre></td></tr></table></figure>
+<p>为了使用 nodeSelector，需要为节点加上 label</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl get nodes --show-labels <span class="comment"># 查看所有节点和对应的 label</span></span><br><span class="line">kubectl label node &lt;nodeName&gt; foo=bar <span class="comment"># 为节点设置 label foo=bar</span></span><br><span class="line">kubectl label node &lt;nodeName&gt; foo- <span class="comment"># 取消节点的 foo label</span></span><br></pre></td></tr></table></figure>
+<p>如果 nodeSelector 指定了多个 label，那么部署的节点必须同时拥有这些 label</p>
+<p><a href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector" target="_blank" rel="noopener">pod nodeSelector</a></p>
+<h2 id="节点亲和性-nodeAffinity"><a href="#节点亲和性-nodeAffinity" class="headerlink" title="节点亲和性: nodeAffinity"></a>节点亲和性: nodeAffinity</h2><p>节点亲和性功能比 nodeSelector 更强，它既可以像 nodeSelector 一样只有在满足一定标签的情况下才能调度，也可以标明一些规则不是必须，如果没有满足这些条件任然可以调度节点</p>
+<p><a href="https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#NodeAffinity" target="_blank" rel="noopener">api 文档</a></p>
+<p>节点亲和性由两种类型组成</p>
+<ul>
+<li>requiredDuringSchedulingIgnoredDuringExecution: 一种强硬的规则，只有在满足定义的条件时才能进行调度</li>
+<li>preferredDuringSchedulingIgnoredDuringExecution: 调度器尝试寻找满足条件的节点，如果没找到，任然会调度节点</li>
+</ul>
+<h3 id="requiredDuringSchedulingIgnoredDuringExecution"><a href="#requiredDuringSchedulingIgnoredDuringExecution" class="headerlink" title="requiredDuringSchedulingIgnoredDuringExecution"></a>requiredDuringSchedulingIgnoredDuringExecution</h3><p>一个 requiredDuringSchedulingIgnoredDuringExecution 示例如下</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">with-node-affinity</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">affinity:</span></span><br><span class="line">    <span class="attr">nodeAffinity:</span></span><br><span class="line">      <span class="attr">requiredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">        <span class="attr">nodeSelectorTerms:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">topology.kubernetes.io/zone</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-east1</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-west1</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">matchFields:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">metadata.name</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-east1</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-west1</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">with-node-affinity</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">registry.k8s.io/pause:2.0</span></span><br></pre></td></tr></table></figure>
+<p>requiredDuringSchedulingIgnoredDuringExecution 只有一个字段 nodeSelectorTerms，其下可以跟多个数组，每个数组可以是 <code>matchExpressions</code> 和 <code>matchFields</code> 两种类型。</p>
+<p><code>matchExpressions</code> 使用 label 进行筛选，<code>matchFields</code> 则是使用字段进行筛选。使用字段进行筛选参考 <a href="https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/field-selectors/" target="_blank" rel="noopener">字段选择器</a></p>
+<p><code>operator</code> 一共有 6 种合法值，分别是 In, NotIn, Exists, DoesNotExist, Gt 和 Lt。 <a href="https://kubernetes.io/zh-cn/docs/reference/kubernetes-api/common-definitions/node-selector-requirement/" target="_blank" rel="noopener">NodeSelectorRequirement</a>。具体使用可以参考 <a href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#operators" target="_blank" rel="noopener">操作符</a></p>
+<h3 id="preferredDuringSchedulingIgnoredDuringExecution"><a href="#preferredDuringSchedulingIgnoredDuringExecution" class="headerlink" title="preferredDuringSchedulingIgnoredDuringExecution"></a>preferredDuringSchedulingIgnoredDuringExecution</h3><p>一个简单的 preferredDuringSchedulingIgnoredDuringExecution 示例如下</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">with-node-affinity</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">affinity:</span></span><br><span class="line">    <span class="attr">nodeAffinity:</span></span><br><span class="line">      <span class="attr">preferredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">weight:</span> <span class="number">10</span></span><br><span class="line">        <span class="attr">preference:</span></span><br><span class="line">          <span class="attr">matchFields:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">metadata.name</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-east1</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-west1</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">weight:</span> <span class="number">50</span></span><br><span class="line">        <span class="attr">preference:</span></span><br><span class="line">          <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">topology.kubernetes.io/zone</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-east1</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-west1</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">with-node-affinity</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">registry.k8s.io/pause:2.0</span></span><br></pre></td></tr></table></figure>
+<p>preferredDuringSchedulingIgnoredDuringExecution 的一个重要字段是 weight，这是一个必填字段，值在 1 到 100 之间。</p>
+<p>当调度器找到能够满足 Pod 的其他调度请求的节点时，调度器会遍历节点满足的所有的偏好性规则， 并将对应表达式的 weight 值加和。</p>
+<p>最终的加和值会添加到该节点的其他优先级函数的评分之上。 在调度器为 Pod 作出调度决定时，总分最高的节点的优先级也最高。</p>
+<h2 id="Pod-间亲和性与反亲和性"><a href="#Pod-间亲和性与反亲和性" class="headerlink" title="Pod 间亲和性与反亲和性"></a>Pod 间亲和性与反亲和性</h2><p>不管是 nodeName，nodeSelector 还是节点亲和性都只能选择 Pod 在哪个节点或者哪类节点上。但是如果一个 Deployoment 在有多个副本时希望尽可能让每个副本可以均匀的分布在多个可调度节点上时，以上字段就不能满足要求。此时可以考虑 Pod 间亲和性与反亲和性。</p>
 ]]></content>
       <categories>
-        <category>javascript</category>
+        <category>kubernetes</category>
       </categories>
       <tags>
-        <tag>json</tag>
+        <tag>kubernetes</tag>
       </tags>
   </entry>
   <entry>
@@ -1311,55 +1360,6 @@ o.put(&quot;employees&quot;,employees);
 </li>
 </ol>
 <h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p><a href="https://docs.projectcalico.org/getting-started/kubernetes/quickstart" target="_blank" rel="noopener">calico 安装指南</a></p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>kubernetes pod 调度</title>
-    <url>/2023/10/24/kubernetes%20pod%20%E8%B0%83%E5%BA%A6/</url>
-    <content><![CDATA[<blockquote>
-<p>pod 是 kubernetes 中最小运行单元，默认情况下 pod 可以运行在所有工作节点上。但是默认的调度策略不能满足额外的需求，比如希望 pod 只调度某些节点；在副本数大于 1 时希望多个 pod 不要在同一个工作节点上；希望 pod 可以均匀的分布到多个工作节点等。</p>
-</blockquote>
-<h1 id="kubernetes-pod-调度"><a href="#kubernetes-pod-调度" class="headerlink" title="kubernetes pod 调度"></a>kubernetes pod 调度</h1><h2 id="kubernetes-默认调度器"><a href="#kubernetes-默认调度器" class="headerlink" title="kubernetes 默认调度器"></a>kubernetes 默认调度器</h2><p>kube-scheduler 是 kubernetes 集群中默认的调度器，在安装好 kubernetes 集群之后即可在 kube-system 命名空间下找到</p>
-<p>kube-scheduler 发现需要创建一个 pod 时，会选择一个最佳的节点来运行新创建或者没有调度的 pod。每个 pod 有不同的要求，因此 kube-scheduler 会过滤掉不满足要求的节点。在一个集群中，可能会出现多个节点都满足要求，这些节点被称为<strong><em>可调度节点</em></strong>。如果一个集群中没有找到任何一个节点能满足 pod 的要求，那么这个 pod 会一直停留在未调度状态知道调度器可以找到合适的节点。</p>
-<p><a href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/" target="_blank" rel="noopener">官方文档</a></p>
-<h2 id="绕过调度器的属性-nodeName"><a href="#绕过调度器的属性-nodeName" class="headerlink" title="绕过调度器的属性: nodeName"></a>绕过调度器的属性: nodeName</h2><p>可以通过指定 pod 资源中的 <code>spec.nodeName</code> 名称来绕过调度器的节点选择。</p>
-<p>通过设置 nodeName 来指定部署的节点是很方便的，但是使用这种方式存在以下问题:</p>
-<ul>
-<li>如果指定的节点不存在，那么 pod 不会创建</li>
-<li>如果指定的节点资源不满足要求，那么 pod 不会创建。比如一个节点规格为 16 核 32G 内存，但是 pod 的 resouces.request 设置的是 20 核 30G，那么这种情况下无法创建</li>
-<li>如果指定的节点掉线或者修改名称，这个情况下部署也是不稳定的</li>
-</ul>
-<p><a href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodename" target="_blank" rel="noopener">pod nodeName</a></p>
-<h2 id="根据节点标签进行选择-nodeSelector"><a href="#根据节点标签进行选择-nodeSelector" class="headerlink" title="根据节点标签进行选择: nodeSelector"></a>根据节点标签进行选择: nodeSelector</h2><p>有的时候 pod 执行需要特定资源，比如节点上有 GPU 或者 SSD，希望 pod 可以部署到拥有这些资源的节点上。那么这时可以使用 nodeSelector。</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">nodeSelector:</span></span><br><span class="line">    <span class="attr">disktype:</span> <span class="string">ssd</span> <span class="comment"># 该 pod 需要运行在标签为 disktyp=ssd 的节点上</span></span><br></pre></td></tr></table></figure>
-<p>为了使用 nodeSelector，需要为节点加上 label</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">kubectl get nodes --show-labels <span class="comment"># 查看所有节点和对应的 label</span></span><br><span class="line">kubectl label node &lt;nodeName&gt; foo=bar <span class="comment"># 为节点设置 label foo=bar</span></span><br><span class="line">kubectl label node &lt;nodeName&gt; foo- <span class="comment"># 取消节点的 foo label</span></span><br></pre></td></tr></table></figure>
-<p>如果 nodeSelector 指定了多个 label，那么部署的节点必须同时拥有这些 label</p>
-<p><a href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector" target="_blank" rel="noopener">pod nodeSelector</a></p>
-<h2 id="节点亲和性-nodeAffinity"><a href="#节点亲和性-nodeAffinity" class="headerlink" title="节点亲和性: nodeAffinity"></a>节点亲和性: nodeAffinity</h2><p>节点亲和性功能比 nodeSelector 更强，它既可以像 nodeSelector 一样只有在满足一定标签的情况下才能调度，也可以标明一些规则不是必须，如果没有满足这些条件任然可以调度节点</p>
-<p><a href="https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#NodeAffinity" target="_blank" rel="noopener">api 文档</a></p>
-<p>节点亲和性由两种类型组成</p>
-<ul>
-<li>requiredDuringSchedulingIgnoredDuringExecution: 一种强硬的规则，只有在满足定义的条件时才能进行调度</li>
-<li>preferredDuringSchedulingIgnoredDuringExecution: 调度器尝试寻找满足条件的节点，如果没找到，任然会调度节点</li>
-</ul>
-<h3 id="requiredDuringSchedulingIgnoredDuringExecution"><a href="#requiredDuringSchedulingIgnoredDuringExecution" class="headerlink" title="requiredDuringSchedulingIgnoredDuringExecution"></a>requiredDuringSchedulingIgnoredDuringExecution</h3><p>一个 requiredDuringSchedulingIgnoredDuringExecution 示例如下</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">with-node-affinity</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">affinity:</span></span><br><span class="line">    <span class="attr">nodeAffinity:</span></span><br><span class="line">      <span class="attr">requiredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">        <span class="attr">nodeSelectorTerms:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">topology.kubernetes.io/zone</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-east1</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-west1</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">matchFields:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">metadata.name</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-east1</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-west1</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">with-node-affinity</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">registry.k8s.io/pause:2.0</span></span><br></pre></td></tr></table></figure>
-<p>requiredDuringSchedulingIgnoredDuringExecution 只有一个字段 nodeSelectorTerms，其下可以跟多个数组，每个数组可以是 <code>matchExpressions</code> 和 <code>matchFields</code> 两种类型。</p>
-<p><code>matchExpressions</code> 使用 label 进行筛选，<code>matchFields</code> 则是使用字段进行筛选。使用字段进行筛选参考 <a href="https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/field-selectors/" target="_blank" rel="noopener">字段选择器</a></p>
-<p><code>operator</code> 一共有 6 种合法值，分别是 In, NotIn, Exists, DoesNotExist, Gt 和 Lt。 <a href="https://kubernetes.io/zh-cn/docs/reference/kubernetes-api/common-definitions/node-selector-requirement/" target="_blank" rel="noopener">NodeSelectorRequirement</a>。具体使用可以参考 <a href="https://kubernetes.io/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#operators" target="_blank" rel="noopener">操作符</a></p>
-<h3 id="preferredDuringSchedulingIgnoredDuringExecution"><a href="#preferredDuringSchedulingIgnoredDuringExecution" class="headerlink" title="preferredDuringSchedulingIgnoredDuringExecution"></a>preferredDuringSchedulingIgnoredDuringExecution</h3><p>一个简单的 preferredDuringSchedulingIgnoredDuringExecution 示例如下</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">with-node-affinity</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">affinity:</span></span><br><span class="line">    <span class="attr">nodeAffinity:</span></span><br><span class="line">      <span class="attr">preferredDuringSchedulingIgnoredDuringExecution:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">weight:</span> <span class="number">10</span></span><br><span class="line">        <span class="attr">preference:</span></span><br><span class="line">          <span class="attr">matchFields:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">metadata.name</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-east1</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-west1</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">weight:</span> <span class="number">50</span></span><br><span class="line">        <span class="attr">preference:</span></span><br><span class="line">          <span class="attr">matchExpressions:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">topology.kubernetes.io/zone</span></span><br><span class="line">            <span class="attr">operator:</span> <span class="string">In</span></span><br><span class="line">            <span class="attr">values:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-east1</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">antarctica-west1</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">with-node-affinity</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">registry.k8s.io/pause:2.0</span></span><br></pre></td></tr></table></figure>
-<p>preferredDuringSchedulingIgnoredDuringExecution 的一个重要字段是 weight，这是一个必填字段，值在 1 到 100 之间。</p>
-<p>当调度器找到能够满足 Pod 的其他调度请求的节点时，调度器会遍历节点满足的所有的偏好性规则， 并将对应表达式的 weight 值加和。</p>
-<p>最终的加和值会添加到该节点的其他优先级函数的评分之上。 在调度器为 Pod 作出调度决定时，总分最高的节点的优先级也最高。</p>
-<h2 id="Pod-间亲和性与反亲和性"><a href="#Pod-间亲和性与反亲和性" class="headerlink" title="Pod 间亲和性与反亲和性"></a>Pod 间亲和性与反亲和性</h2><p>不管是 nodeName，nodeSelector 还是节点亲和性都只能选择 Pod 在哪个节点或者哪类节点上。但是如果一个 Deployoment 在有多个副本时希望尽可能让每个副本可以均匀的分布在多个可调度节点上时，以上字段就不能满足要求。此时可以考虑 Pod 间亲和性与反亲和性。</p>
 ]]></content>
       <categories>
         <category>kubernetes</category>
@@ -1965,6 +1965,140 @@ o.put(&quot;employees&quot;,employees);
       </tags>
   </entry>
   <entry>
+    <title>spring-mvc返回json数据</title>
+    <url>/2017/12/16/spring-mvc%E8%BF%94%E5%9B%9Ejson%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<p>在使用spring-mvc过程中遇到很多问题，记录下来方便查看</p>
+<p>开发环境如下:</p>
+<p>eclipse Oxygen Release (4.7.0)</p>
+<p>java1.8</p>
+<p>spring 4.3.3</p>
+<p>freemarker 2.3.26(这个不是必须的)</p>
+<h2 id="maven依赖包如下："><a href="#maven依赖包如下：" class="headerlink" title="maven依赖包如下："></a>maven依赖包如下：</h2><pre><code>&lt;!-- spring mvc返回json所需依赖  --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+        &lt;version&gt;2.7.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+        &lt;version&gt;2.7.0&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;!-- freemarker 引擎，有了这个就不需要使用jstl了，只需要使用freemarker表达式就行了 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.freemarker&lt;/groupId&gt;
+        &lt;artifactId&gt;freemarker&lt;/artifactId&gt;
+        &lt;version&gt;2.3.26-incubating&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- spring 核心 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- springmvc 核心 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;!-- spring bean 核心 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
+        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;
+        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre><h2 id="web-xml-配置"><a href="#web-xml-配置" class="headerlink" title="web.xml 配置:"></a>web.xml 配置:</h2><pre><code>&lt;servlet&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;/WEB-INF/applicationContext.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;&lt;!--启动顺序，让这个Servlet随Servletp容器一起启动。 --&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt; &lt;!--会拦截URL中带“/”的请求。 --&gt;
+&lt;/servlet-mapping&gt;
+</code></pre><h2 id="spring-mvc配置"><a href="#spring-mvc配置" class="headerlink" title="spring-mvc配置:"></a>spring-mvc配置:</h2><pre><code>&lt;mvc:annotation-driven /&gt;
+&lt;context:component-scan base-package=&quot;canxing.web&quot; /&gt;
+</code></pre><h2 id="spring-mvc配置freemarker"><a href="#spring-mvc配置freemarker" class="headerlink" title="spring-mvc配置freemarker:"></a>spring-mvc配置freemarker:</h2><pre><code>&lt;!-- freemarker 配置文件 --&gt;
+&lt;!-- freemarker config --&gt;
+&lt;bean id=&quot;freemarkerConfig&quot;
+    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer&quot;&gt;
+    &lt;property name=&quot;templateLoaderPath&quot; value=&quot;/WEB-INF/freemarker/&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;!-- View resolvers can also be configured with ResourceBundles or XML files.
+    If you need different view resolving based on Locale, you have to use the
+    resource bundle resolver. --&gt;
+&lt;bean id=&quot;viewResolver&quot;
+    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;
+    &lt;property name=&quot;cache&quot; value=&quot;true&quot; /&gt;
+    &lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;
+    &lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;
+&lt;/bean&gt;
+</code></pre><h2 id="JSONController-java"><a href="#JSONController-java" class="headerlink" title="JSONController.java:"></a>JSONController.java:</h2><pre><code>@Controller
+public class JSONController {
+    @RequestMapping(path=&quot;/json&quot;,produces=&quot;application/json&quot;)
+    public @ResponseBody User index() {//使用@RespnseBody将返回的对象转化为JSON数据
+        System.out.println(&quot;index start&quot;);
+        User user = new User();
+        user.setUsername(&quot;canxing&quot;);
+        user.setPassword(&quot;123&quot;);
+        System.out.println(&quot;index end&quot;);
+        return user;
+    }
+    @RequestMapping(path=&quot;/&quot;)
+    public String test() {
+        return &quot;test&quot;;
+    }
+}
+</code></pre><h2 id="User-java："><a href="#User-java：" class="headerlink" title="User.java："></a>User.java：</h2><pre><code>//类不需要进行处理，只是一个普通的pojo类
+public class User{
+        private String username;
+        private String password;
+        public String getUsername() {
+            return username;
+        }
+        public void setUsername(String username) {
+            this.username = username;
+        }
+        public String getPassword() {
+            return password;
+        }
+        public void setPassword(String password) {
+            this.password = password;
+        }
+        @Override
+        public String toString() {
+            return &quot;User [username=&quot; + username + &quot;, password=&quot; + password + &quot;]&quot;;
+        }
+    }
+</code></pre><h2 id="test-flt"><a href="#test-flt" class="headerlink" title="test.flt:"></a>test.flt:</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>freemarker test <span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">loadXMLDoc</span>(<span class="params"></span>)</span></span></span><br><span class="line">			&#123;</span><br><span class="line"><span class="javascript">				xmlhttp=<span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest)</span></span><br><span class="line"><span class="javascript">				  &#123;<span class="comment">// code for Firefox, Mozilla, IE7, etc.</span></span></span><br><span class="line"><span class="javascript">				  xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject)</span></span><br><span class="line"><span class="javascript">				  &#123;<span class="comment">// code for IE6, IE5</span></span></span><br><span class="line"><span class="javascript">				  xmlhttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">if</span> (xmlhttp!=<span class="literal">null</span>)</span></span><br><span class="line">				  &#123;</span><br><span class="line">				  xmlhttp.onreadystatechange=state_Change;</span><br><span class="line"><span class="javascript">				  xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"http://localhost:8080/spring_web_test/json"</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">				  xmlhttp.send(<span class="literal">null</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">else</span></span></span><br><span class="line">				  &#123;</span><br><span class="line"><span class="javascript">				  alert(<span class="string">"Your browser does not support XMLHTTP."</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line">			&#125;</span><br><span class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">state_Change</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">var</span> obj = <span class="built_in">eval</span>(<span class="string">"("</span> + xmlhttp.responseText + <span class="string">")"</span>);</span></span><br><span class="line"><span class="javascript">				<span class="built_in">document</span>.getElementById(<span class="string">"username"</span>).innerHTML=obj.username</span></span><br><span class="line"><span class="javascript">				<span class="built_in">document</span>.getElementById(<span class="string">"password"</span>).innerHTML=obj.password</span></span><br><span class="line">			&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>freemarker test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">		username : <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'username'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		password : <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'password'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">'button'</span> <span class="attr">onclick</span>=<span class="string">"loadXMLDoc()"</span>&gt;</span>adfads<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
+<h3 id="寻找答案中遇到的问题"><a href="#寻找答案中遇到的问题" class="headerlink" title="寻找答案中遇到的问题"></a>寻找答案中遇到的问题</h3><ol>
+<li>依赖问题，spring 默认的对象转化为 json 的 jar 包依赖，网上多是直接使用并没有说明依赖</li>
+<li>还是依赖问题，spring 和 jackson 之间版本的兼容性太差，稍微更改以下 jackson 或者 spring 的版本就会导致 NoSuchMethodError 错误，据说这里可以看见<a href="https://jira.spring.io/browse/SPR/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel" target="_blank" rel="noopener">版本支持</a>，但是看不懂</li>
+</ol>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>ajax</tag>
+        <tag>json</tag>
+        <tag>spring-mvc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>shell基础</title>
     <url>/2018/11/28/shell%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="Shell-基础"><a href="#Shell-基础" class="headerlink" title="Shell 基础"></a>Shell 基础</h1><blockquote>
@@ -2400,137 +2534,80 @@ o.put(&quot;employees&quot;,employees);
       </tags>
   </entry>
   <entry>
-    <title>spring-mvc返回json数据</title>
-    <url>/2017/12/16/spring-mvc%E8%BF%94%E5%9B%9Ejson%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[<p>在使用spring-mvc过程中遇到很多问题，记录下来方便查看</p>
-<p>开发环境如下:</p>
-<p>eclipse Oxygen Release (4.7.0)</p>
-<p>java1.8</p>
-<p>spring 4.3.3</p>
-<p>freemarker 2.3.26(这个不是必须的)</p>
-<h2 id="maven依赖包如下："><a href="#maven依赖包如下：" class="headerlink" title="maven依赖包如下："></a>maven依赖包如下：</h2><pre><code>&lt;!-- spring mvc返回json所需依赖  --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-        &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
-        &lt;version&gt;2.7.0&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
-        &lt;version&gt;2.7.0&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;!-- freemarker 引擎，有了这个就不需要使用jstl了，只需要使用freemarker表达式就行了 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.freemarker&lt;/groupId&gt;
-        &lt;artifactId&gt;freemarker&lt;/artifactId&gt;
-        &lt;version&gt;2.3.26-incubating&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;!-- spring 核心 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;!-- springmvc 核心 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;!-- spring bean 核心 --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;dependency&gt;
-        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-        &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;
-        &lt;version&gt;4.3.3.RELEASE&lt;/version&gt;
-    &lt;/dependency&gt;
-</code></pre><h2 id="web-xml-配置"><a href="#web-xml-配置" class="headerlink" title="web.xml 配置:"></a>web.xml 配置:</h2><pre><code>&lt;servlet&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
-    &lt;init-param&gt;
-        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
-        &lt;param-value&gt;/WEB-INF/applicationContext.xml&lt;/param-value&gt;
-    &lt;/init-param&gt;
-    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;&lt;!--启动顺序，让这个Servlet随Servletp容器一起启动。 --&gt;
-&lt;/servlet&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;DispatcherServlet&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;/&lt;/url-pattern&gt; &lt;!--会拦截URL中带“/”的请求。 --&gt;
-&lt;/servlet-mapping&gt;
-</code></pre><h2 id="spring-mvc配置"><a href="#spring-mvc配置" class="headerlink" title="spring-mvc配置:"></a>spring-mvc配置:</h2><pre><code>&lt;mvc:annotation-driven /&gt;
-&lt;context:component-scan base-package=&quot;canxing.web&quot; /&gt;
-</code></pre><h2 id="spring-mvc配置freemarker"><a href="#spring-mvc配置freemarker" class="headerlink" title="spring-mvc配置freemarker:"></a>spring-mvc配置freemarker:</h2><pre><code>&lt;!-- freemarker 配置文件 --&gt;
-&lt;!-- freemarker config --&gt;
-&lt;bean id=&quot;freemarkerConfig&quot;
-    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer&quot;&gt;
-    &lt;property name=&quot;templateLoaderPath&quot; value=&quot;/WEB-INF/freemarker/&quot; /&gt;
-&lt;/bean&gt;
-
-&lt;!-- View resolvers can also be configured with ResourceBundles or XML files.
-    If you need different view resolving based on Locale, you have to use the
-    resource bundle resolver. --&gt;
-&lt;bean id=&quot;viewResolver&quot;
-    class=&quot;org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver&quot;&gt;
-    &lt;property name=&quot;cache&quot; value=&quot;true&quot; /&gt;
-    &lt;property name=&quot;prefix&quot; value=&quot;&quot; /&gt;
-    &lt;property name=&quot;suffix&quot; value=&quot;.ftl&quot; /&gt;
-&lt;/bean&gt;
-</code></pre><h2 id="JSONController-java"><a href="#JSONController-java" class="headerlink" title="JSONController.java:"></a>JSONController.java:</h2><pre><code>@Controller
-public class JSONController {
-    @RequestMapping(path=&quot;/json&quot;,produces=&quot;application/json&quot;)
-    public @ResponseBody User index() {//使用@RespnseBody将返回的对象转化为JSON数据
-        System.out.println(&quot;index start&quot;);
-        User user = new User();
-        user.setUsername(&quot;canxing&quot;);
-        user.setPassword(&quot;123&quot;);
-        System.out.println(&quot;index end&quot;);
-        return user;
-    }
-    @RequestMapping(path=&quot;/&quot;)
-    public String test() {
-        return &quot;test&quot;;
-    }
-}
-</code></pre><h2 id="User-java："><a href="#User-java：" class="headerlink" title="User.java："></a>User.java：</h2><pre><code>//类不需要进行处理，只是一个普通的pojo类
-public class User{
-        private String username;
-        private String password;
-        public String getUsername() {
-            return username;
-        }
-        public void setUsername(String username) {
-            this.username = username;
-        }
-        public String getPassword() {
-            return password;
-        }
-        public void setPassword(String password) {
-            this.password = password;
-        }
-        @Override
-        public String toString() {
-            return &quot;User [username=&quot; + username + &quot;, password=&quot; + password + &quot;]&quot;;
-        }
-    }
-</code></pre><h2 id="test-flt"><a href="#test-flt" class="headerlink" title="test.flt:"></a>test.flt:</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>freemarker test <span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">loadXMLDoc</span>(<span class="params"></span>)</span></span></span><br><span class="line">			&#123;</span><br><span class="line"><span class="javascript">				xmlhttp=<span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest)</span></span><br><span class="line"><span class="javascript">				  &#123;<span class="comment">// code for Firefox, Mozilla, IE7, etc.</span></span></span><br><span class="line"><span class="javascript">				  xmlhttp=<span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.ActiveXObject)</span></span><br><span class="line"><span class="javascript">				  &#123;<span class="comment">// code for IE6, IE5</span></span></span><br><span class="line"><span class="javascript">				  xmlhttp=<span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">if</span> (xmlhttp!=<span class="literal">null</span>)</span></span><br><span class="line">				  &#123;</span><br><span class="line">				  xmlhttp.onreadystatechange=state_Change;</span><br><span class="line"><span class="javascript">				  xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"http://localhost:8080/spring_web_test/json"</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="javascript">				  xmlhttp.send(<span class="literal">null</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line"><span class="javascript">				<span class="keyword">else</span></span></span><br><span class="line">				  &#123;</span><br><span class="line"><span class="javascript">				  alert(<span class="string">"Your browser does not support XMLHTTP."</span>);</span></span><br><span class="line">				  &#125;</span><br><span class="line">			&#125;</span><br><span class="line"><span class="javascript">			<span class="function"><span class="keyword">function</span> <span class="title">state_Change</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">				<span class="keyword">var</span> obj = <span class="built_in">eval</span>(<span class="string">"("</span> + xmlhttp.responseText + <span class="string">")"</span>);</span></span><br><span class="line"><span class="javascript">				<span class="built_in">document</span>.getElementById(<span class="string">"username"</span>).innerHTML=obj.username</span></span><br><span class="line"><span class="javascript">				<span class="built_in">document</span>.getElementById(<span class="string">"password"</span>).innerHTML=obj.password</span></span><br><span class="line">			&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h1</span>&gt;</span>freemarker test<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">		username : <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'username'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		password : <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'password'</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">'button'</span> <span class="attr">onclick</span>=<span class="string">"loadXMLDoc()"</span>&gt;</span>adfads<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/canxing/spring-mvc-return-object-as-json" target="_blank" rel="noopener">spring-mvc返回JSOn数据参考源码</a></p>
-<h3 id="寻找答案中遇到的问题"><a href="#寻找答案中遇到的问题" class="headerlink" title="寻找答案中遇到的问题"></a>寻找答案中遇到的问题</h3><ol>
-<li>依赖问题，spring 默认的对象转化为 json 的 jar 包依赖，网上多是直接使用并没有说明依赖</li>
-<li>还是依赖问题，spring 和 jackson 之间版本的兼容性太差，稍微更改以下 jackson 或者 spring 的版本就会导致 NoSuchMethodError 错误，据说这里可以看见<a href="https://jira.spring.io/browse/SPR/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel" target="_blank" rel="noopener">版本支持</a>，但是看不懂</li>
-</ol>
+    <title>ubuntu下gpg的基本使用</title>
+    <url>/2017/12/10/ubuntu%E4%B8%8Bgpg%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
+<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
+</blockquote>
+<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
+<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
+</blockquote>
+<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
+<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
+<p>  输入以下命令开始生成密钥对  </p>
+<ul>
+<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
+<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
+<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>##4.上出公钥</p>
+<blockquote>
+<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
+<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
+<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
+<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
+<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
+<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
+</blockquote>
+</blockquote>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
+</blockquote>
+<blockquote>
+<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
+</blockquote>
 ]]></content>
       <categories>
-        <category>java</category>
+        <category>linux</category>
       </categories>
       <tags>
-        <tag>java</tag>
-        <tag>ajax</tag>
-        <tag>json</tag>
-        <tag>spring-mvc</tag>
+        <tag>pgp</tag>
       </tags>
   </entry>
   <entry>
@@ -2625,83 +2702,6 @@ public class User{
       <tags>
         <tag>hexo</tag>
         <tag>node.js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ubuntu下gpg的基本使用</title>
-    <url>/2017/12/10/ubuntu%E4%B8%8Bgpg%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="什么是gpg"><a href="#什么是gpg" class="headerlink" title="什么是gpg"></a>什么是gpg</h1><blockquote>
-<p>课程实验需要使用pgp对文件进行加密解密操作，pgp是一套用于消息加密、验证的应用程序，采用IDEA的散列算法作为加密与验证之用,但是pgp是商业软件不能自由使用，所以有自由软件基金会开发一个pgp的替代品，取名GnuPG，这就是gpg。</p>
-</blockquote>
-<h2 id="安装gpg"><a href="#安装gpg" class="headerlink" title="安装gpg"></a>安装gpg</h2><blockquote>
-<p>在ubuntu16.04下gpg已经安装好了，可以使用如下命令<br><em><code>gpg -h</code></em><br>如果输出有gpg的帮助文档，那么就有gpg，如果没有可以前往 <a href="https://www.gnupg.org/download/index.html" target="_blank" rel="noopener">gnupg官网</a> 页面下载</p>
-</blockquote>
-<h2 id="gpg-基本使用"><a href="#gpg-基本使用" class="headerlink" title="gpg 基本使用"></a>gpg 基本使用</h2><blockquote>
-<h2 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h2><blockquote>
-<p>  输入以下命令开始生成密钥对  </p>
-<ul>
-<li><code>gpg --gen-key</code> *<br><br>选择密钥种类，默认选择1,使用RSA and RSA算法，表示加密和签名都使用RSA算法<br><br>然后选择要使用的密钥长度默认为2048,密钥长度越长，越安全，由于是课程实验，所以使用默认值<br><br>选择密钥的有效期，由于是课程实验，所以选择永不过期，如果是要上传到服务器上，按情况自行选择有效期<br><br>系统确认<br><br>输入真实姓名<br><br>电子邮箱<br><br>注释<br><br>然后生成用户标识<br><br>然后系统最后确认<br><br>接着系统让你设置一个私钥密钥，用来保护私钥<br><br>接着系统生成密钥，需要大量的随机字节，按系统提示等一下就会生成密钥<br></li>
-</ul>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="2-检查密钥"><a href="#2-检查密钥" class="headerlink" title="2.检查密钥"></a>2.检查密钥</h2><blockquote>
-<p>   查看本机密钥<br><br>    <em><code>gpg --list-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="3-输出密钥"><a href="#3-输出密钥" class="headerlink" title="3.输出密钥"></a>3.输出密钥</h2><blockquote>
-<p>   输出公钥<br><br>   <em><code>gpg -a -o public-key.txt --export [用户标识(可以是密钥id，就是使用gpg --list-key 查看到的密钥id)]</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>  输出私钥<br><br>   <em><code>gpg -a -o private-key.txt --export-secret-keys</code></em></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<p>##4.上出公钥</p>
-<blockquote>
-<p>   由于是课程实验，所以并没有上传（其实是不知道什么原因，无法上传到服务器)</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="5-导入密钥"><a href="#5-导入密钥" class="headerlink" title="5.导入密钥"></a>5.导入密钥</h2><blockquote>
-<p>  <em><code>gpg --import [密钥文件]</code></em><br><br>   也可以到公钥服务器上寻找(未验证)<br><br>   <em><code>gpg --keyserver hkp://subkeys.pgp.net --search-keys [用户id]</code></em> <br><br>   <strong>注意：</strong><br><br>       使用手动导入公钥会出现无法认证的问题，可以使用<br><br>       <em><code>gpg --fingerpring</code></em> <br><br>       打印指纹，指纹是每对密钥生成的时候生成的，查看指纹后可以通过电话或者其他方式到提供者验证指纹<br><br>       然后使用以下命令<br><br>       <em><code>gpg --sign-key [公钥id]</code></em><br><br>       或者使用如下命令删除<br><br>       <em><code>gpg --delete-keys [公钥id]</code></em><br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="6-公钥加密"><a href="#6-公钥加密" class="headerlink" title="6.公钥加密"></a>6.公钥加密</h2><blockquote>
-<p> <em><code>gpg -r [用户id] -o [输出文件] -e [加密文件]</code></em><br><br>   -r 接受者的公钥的id，可以是邮箱<br><br>   -o 输出加密后的文件名<br><br>   -e 要执行加密操作的数据<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="7-解密"><a href="#7-解密" class="headerlink" title="7.解密"></a>7.解密</h2><blockquote>
-<p> <em><code>gpg [解密文件]</code></em><br><br>  gpg 有一个默认选择 -d 默认使用你的私钥解密别人使用你的公钥解密传送过来的数据</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="8-数字签名"><a href="#8-数字签名" class="headerlink" title="8.数字签名"></a>8.数字签名</h2><blockquote>
-<p>   <em><code>gpg -s [文件名]</code></em> 生成一份签名<br><br>    <em><code>gpg --clearsign [文件名]</code></em> 生成一份明文签名<br><br>    <em><code>gpg -a -b [文件名]</code></em> 生成一份分离的明文签名(去掉-a就是二进制签名)<br></p>
-</blockquote>
-</blockquote>
-<blockquote>
-<h2 id="9-验证签名"><a href="#9-验证签名" class="headerlink" title="9.验证签名"></a>9.验证签名</h2><blockquote>
-<p>   <em><code>gpg --verify</code></em> [被签名的文件]<br></p>
-</blockquote>
-</blockquote>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></p>
-</blockquote>
-<blockquote>
-<p><a href="http://www.williamlong.info/archives/3439.html" target="_blank" rel="noopener">http://www.williamlong.info/archives/3439.html</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>pgp</tag>
       </tags>
   </entry>
   <entry>
@@ -2833,6 +2833,25 @@ public class User{
       </tags>
   </entry>
   <entry>
+    <title>数据结构c语言描述八-再散列</title>
+    <url>/2018/03/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84c%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E5%85%AB-%E5%86%8D%E6%95%A3%E5%88%97/</url>
+    <content><![CDATA[<h2 id="什么是再散列"><a href="#什么是再散列" class="headerlink" title="什么是再散列"></a>什么是再散列</h2><p>再散列也是散列表的一种，不同的是再散列可以动态的扩充表长，再搭配好的散列函数解决冲突</p>
+<p>再散列在散列表到达某一临界点时扩充原来表长的容量，再将原来散列表中的数据重新散列移动到新的散列表的过程</p>
+<h2 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> Index;</span><br><span class="line"><span class="keyword">typedef</span> Index Position;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>* <span class="title">HashTable</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElementType;</span><br><span class="line"><span class="function">HashTable <span class="title">InitializeTable</span><span class="params">(<span class="keyword">int</span> TableSize,<span class="keyword">float</span> Facotr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DestroyTable</span><span class="params">(HashTable H)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function">HashTable <span class="title">Insert</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function">HashTable <span class="title">Rehash</span><span class="params">(HashTable H)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> Index <span class="title">Hash</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> key,<span class="keyword">int</span> TableSize)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> KindOfEntry&#123;Legitimate,Emtry,Deleted&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashEntry</span>&#123;</span></span><br><span class="line">	ElementType Element;</span><br><span class="line">	<span class="keyword">enum</span> KindOfEntry Info;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">HashEntry</span> <span class="title">Cell</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> TableSize;</span><br><span class="line">	<span class="keyword">int</span> Capacity;</span><br><span class="line">	<span class="keyword">float</span> LocalFacotr;<span class="comment">//装填因子</span></span><br><span class="line">	<span class="keyword">int</span> MaxCapacity;<span class="comment">//散列表所能容纳的最大容量，超过该容量后就要扩容</span></span><br><span class="line">	Cell* TheCells;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里采用当散列表容量达到指定的装填因子时进行再散列，采用的默认散列因子是 0.75，TableSize 表示散列表的长度，Capacity 表示散列表容乃数据的大小，MaxCapacity 表示散列表可以容纳的最大容量，由 TableSize × LocalFacotr 得出</p>
+<h2 id="散列表的插入"><a href="#散列表的插入" class="headerlink" title="散列表的插入"></a>散列表的插入</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">HashTable <span class="title">Insert</span><span class="params">(ElementType key,HashTable H)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(H == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span> ;</span><br><span class="line">	<span class="keyword">if</span>(H-&gt;Capacity &gt;= H-&gt;MaxCapacity)&#123;</span><br><span class="line">		H = Rehash(H);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> index = Hash(key,H-&gt;TableSize);</span><br><span class="line">	<span class="comment">//如果已经在相同下标的散列表上有值，那就不管了</span></span><br><span class="line">	<span class="keyword">if</span>(H-&gt;TheCells[index].Info != Emtry)&#123;</span><br><span class="line">		<span class="keyword">return</span> H;</span><br><span class="line">	&#125;</span><br><span class="line">	H-&gt;Capacity++;</span><br><span class="line">	H-&gt;TheCells[index].Element = key;</span><br><span class="line">	H-&gt;TheCells[index].Info = Legitimate;</span><br><span class="line">	<span class="keyword">return</span> H;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当散列表的容量超过最大容量是就要使用再散列方法</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">HashTable <span class="title">Rehash</span><span class="params">(HashTable H)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(H == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	HashTable T = InitializeTable(H-&gt;TableSize &lt;&lt; <span class="number">1</span>,H-&gt;LocalFacotr);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; H-&gt;TableSize;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(H-&gt;TheCells[i].Element != <span class="number">0</span>)</span><br><span class="line">			Insert(H-&gt;TheCells[i].Element,T);</span><br><span class="line">	&#125;</span><br><span class="line">	DestroyTable(H);</span><br><span class="line">	<span class="keyword">return</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/canxing/code-repository/blob/master/c/data_structure_and_algorithm_analysis" target="_blank" rel="noopener">参考源码</a></p>
+]]></content>
+      <categories>
+        <category>data_structure</category>
+      </categories>
+      <tags>
+        <tag>c语言</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据结构c语言描述五-伸展树</title>
     <url>/2018/03/22/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84c%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E4%BA%94-%E4%BC%B8%E5%B1%95%E6%A0%91/</url>
     <content><![CDATA[<h2 id="什么是伸展树"><a href="#什么是伸展树" class="headerlink" title="什么是伸展树"></a>什么是伸展树</h2><p>伸展树保证了从空树开始任意连续 M 次对树的操作最多话费 O(M log N) 时间，伸展树是二叉搜索树的一种变形，不同于 AVL 树，伸展树不需要维护节点的高度，相对 AVL 树来说比较容易实现</p>
@@ -2873,25 +2892,6 @@ public class User{
       </tags>
   </entry>
   <entry>
-    <title>数据结构c语言描述八-再散列</title>
-    <url>/2018/03/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84c%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E5%85%AB-%E5%86%8D%E6%95%A3%E5%88%97/</url>
-    <content><![CDATA[<h2 id="什么是再散列"><a href="#什么是再散列" class="headerlink" title="什么是再散列"></a>什么是再散列</h2><p>再散列也是散列表的一种，不同的是再散列可以动态的扩充表长，再搭配好的散列函数解决冲突</p>
-<p>再散列在散列表到达某一临界点时扩充原来表长的容量，再将原来散列表中的数据重新散列移动到新的散列表的过程</p>
-<h2 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> Index;</span><br><span class="line"><span class="keyword">typedef</span> Index Position;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>* <span class="title">HashTable</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElementType;</span><br><span class="line"><span class="function">HashTable <span class="title">InitializeTable</span><span class="params">(<span class="keyword">int</span> TableSize,<span class="keyword">float</span> Facotr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DestroyTable</span><span class="params">(HashTable H)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function">HashTable <span class="title">Insert</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">(ElementType key,HashTable H)</span></span>;</span><br><span class="line"><span class="function">HashTable <span class="title">Rehash</span><span class="params">(HashTable H)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> Index <span class="title">Hash</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> key,<span class="keyword">int</span> TableSize)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> KindOfEntry&#123;Legitimate,Emtry,Deleted&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashEntry</span>&#123;</span></span><br><span class="line">	ElementType Element;</span><br><span class="line">	<span class="keyword">enum</span> KindOfEntry Info;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">HashEntry</span> <span class="title">Cell</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HashTbl</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> TableSize;</span><br><span class="line">	<span class="keyword">int</span> Capacity;</span><br><span class="line">	<span class="keyword">float</span> LocalFacotr;<span class="comment">//装填因子</span></span><br><span class="line">	<span class="keyword">int</span> MaxCapacity;<span class="comment">//散列表所能容纳的最大容量，超过该容量后就要扩容</span></span><br><span class="line">	Cell* TheCells;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这里采用当散列表容量达到指定的装填因子时进行再散列，采用的默认散列因子是 0.75，TableSize 表示散列表的长度，Capacity 表示散列表容乃数据的大小，MaxCapacity 表示散列表可以容纳的最大容量，由 TableSize × LocalFacotr 得出</p>
-<h2 id="散列表的插入"><a href="#散列表的插入" class="headerlink" title="散列表的插入"></a>散列表的插入</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">HashTable <span class="title">Insert</span><span class="params">(ElementType key,HashTable H)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(H == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span> ;</span><br><span class="line">	<span class="keyword">if</span>(H-&gt;Capacity &gt;= H-&gt;MaxCapacity)&#123;</span><br><span class="line">		H = Rehash(H);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> index = Hash(key,H-&gt;TableSize);</span><br><span class="line">	<span class="comment">//如果已经在相同下标的散列表上有值，那就不管了</span></span><br><span class="line">	<span class="keyword">if</span>(H-&gt;TheCells[index].Info != Emtry)&#123;</span><br><span class="line">		<span class="keyword">return</span> H;</span><br><span class="line">	&#125;</span><br><span class="line">	H-&gt;Capacity++;</span><br><span class="line">	H-&gt;TheCells[index].Element = key;</span><br><span class="line">	H-&gt;TheCells[index].Info = Legitimate;</span><br><span class="line">	<span class="keyword">return</span> H;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当散列表的容量超过最大容量是就要使用再散列方法</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">HashTable <span class="title">Rehash</span><span class="params">(HashTable H)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(H == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	HashTable T = InitializeTable(H-&gt;TableSize &lt;&lt; <span class="number">1</span>,H-&gt;LocalFacotr);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; H-&gt;TableSize;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(H-&gt;TheCells[i].Element != <span class="number">0</span>)</span><br><span class="line">			Insert(H-&gt;TheCells[i].Element,T);</span><br><span class="line">	&#125;</span><br><span class="line">	DestroyTable(H);</span><br><span class="line">	<span class="keyword">return</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/canxing/code-repository/blob/master/c/data_structure_and_algorithm_analysis" target="_blank" rel="noopener">参考源码</a></p>
-]]></content>
-      <categories>
-        <category>data_structure</category>
-      </categories>
-      <tags>
-        <tag>c语言</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据结构c语言描述六-分离链接散列表</title>
     <url>/2018/03/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84c%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E5%85%AD-%E5%88%86%E7%A6%BB%E9%93%BE%E6%8E%A5%E6%95%A3%E5%88%97%E8%A1%A8/</url>
     <content><![CDATA[<h2 id="什么是分离链接散列表"><a href="#什么是分离链接散列表" class="headerlink" title="什么是分离链接散列表"></a>什么是分离链接散列表</h2><p>分离链接散列表是散列表解决冲突的一种方法，其做法是将散列到同一个值的所有元素保留到一个表中。为方便起见，这些表都有表头</p>
@@ -2904,6 +2904,44 @@ public class User{
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(ElementType key,HashTable H)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(H == <span class="literal">NULL</span>) <span class="keyword">return</span> ;</span><br><span class="line">	<span class="keyword">int</span> index = Hash(key,H-&gt;TableSize);</span><br><span class="line">	Position ptr = H-&gt;TheList[index];</span><br><span class="line">	Position temp = (List)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">	<span class="keyword">if</span>(temp == <span class="literal">NULL</span>) <span class="keyword">return</span> ;</span><br><span class="line">	temp-&gt;Element = key;</span><br><span class="line">	temp-&gt;Next = ptr-&gt;Next;</span><br><span class="line">	ptr-&gt;Next = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="分离链接散列表的查找"><a href="#分离链接散列表的查找" class="headerlink" title="分离链接散列表的查找"></a>分离链接散列表的查找</h2><p>查找时首先计算要查找值的Hash值，然后返回对应的表头，遍历链表，找到就返回</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType key,HashTable H)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(H == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> index = Hash(key,H-&gt;TableSize);</span><br><span class="line">	Position ptr = H-&gt;TheList[index];</span><br><span class="line">	ptr = ptr-&gt;Next;</span><br><span class="line">	<span class="keyword">while</span>(ptr != <span class="literal">NULL</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(ptr-&gt;Element == key)</span><br><span class="line">			<span class="keyword">return</span> ptr;</span><br><span class="line">		ptr = ptr-&gt;Next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/canxing/code-repository/blob/master/c/data_structure_and_algorithm_analysis" target="_blank" rel="noopener">参考源码</a></p>
+]]></content>
+      <categories>
+        <category>data_structure</category>
+      </categories>
+      <tags>
+        <tag>c语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构c语言描述四-AVL树</title>
+    <url>/2018/03/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84c%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E5%9B%9B-AVL%E6%A0%91/</url>
+    <content><![CDATA[<p>AVL 树是带有平衡条件的二叉查找树，所谓平衡条件就是:任何节点的深度均不得过深，如下图所示的二叉查找树是不应该出现的</p>
+<p><img src="二叉查找树的不平衡插入.png" alt="二叉查找树的不平衡插入"></p>
+<p>一颗 AVL 树是其每个节点的左子树和右子树的高度最多差1的二叉查找树（空树的高度定义为-1），这是一颗 AVL 树，树的高度为 3</p>
+<p><img src="AVL树模型.png" alt="AVL树模型"></p>
+<h1 id="AVL树的定义"><a href="#AVL树的定义" class="headerlink" title="AVL树的定义"></a>AVL树的定义</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//头文件中的函数定义</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AvlNode</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">AvlNode</span>* <span class="title">Position</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">AvlNode</span>* <span class="title">AvlTree</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElementType ;</span><br><span class="line"></span><br><span class="line"><span class="function">AvlTree <span class="title">MakeEmpty</span><span class="params">(AvlTree T)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType X,AvlTree T)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">FindMin</span><span class="params">(AvlTree T)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">FindMax</span><span class="params">(AvlTree T)</span></span>;</span><br><span class="line"><span class="function">AvlTree <span class="title">Insert</span><span class="params">(ElementType X,AvlTree T)</span></span>;</span><br><span class="line"><span class="function">AvlTree <span class="title">Delete</span><span class="params">(ElementType X,AvlTree T)</span></span>;</span><br><span class="line"><span class="function">ElementType <span class="title">Retrieve</span><span class="params">(Position P)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体实现文件中的树节点定义，这里的树节点元素使用int类型</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AvlNode</span>&#123;</span></span><br><span class="line">	ElementType Element;</span><br><span class="line">	AvlTree Left;</span><br><span class="line">	AvlTree Right;</span><br><span class="line">	<span class="keyword">int</span> Height;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看见，AVL 树和二叉查找树的定义没有什么区别，在节点定义上多了一个变量用来存储树的高度</p>
+<h2 id="AVL树的实现"><a href="#AVL树的实现" class="headerlink" title="AVL树的实现"></a>AVL树的实现</h2><p>AVL 树的不同主要体现在插入和删除时的不同，在插入和删除时都有可能破坏 AVL 树的平衡，此时就需要对 AVL 树进行平衡修复</p>
+<h2 id="AVL树的插入实现"><a href="#AVL树的插入实现" class="headerlink" title="AVL树的插入实现"></a>AVL树的插入实现</h2><p><a href="https://commons.wikimedia.org/w/index.php?curid=12803426" target="_blank" rel="noopener"><img src="Tree_Rebalancing.png" alt="AVL树的插入情况"></a>图摘自维基百科</p>
+<p>进行插入操作时，有四种情况可能破坏AVL树的平衡，我们把被破坏的平衡的节点称为root</p>
+<ol>
+<li>对 root 左儿子的左子树进行一次插入，对应上图的左左情况</li>
+<li>对 root 右儿子的右子树进行一次插入，对应上图的右右情况</li>
+<li>对 root 左儿子的右子树进行一次插入，对应上图的左右情况</li>
+<li>对 root 右儿子的左子树进行一次哈入，对应上图的右左情况</li>
+</ol>
+<p>对于 1，2 情况，插入节点相对于 root 节点的’外侧’，这时只需要对 root 节点和 root 节点的左儿子或者右儿子进行一次右旋转或者左旋转就可以了; 3，4 情况相对于 root 节点的’内侧’，这是需要实行两次的旋转达到平衡</p>
+<p>注意，无论是一次旋转还是两次旋转，都是为了满足二叉查找树的性质和平衡条件</p>
+<p>下图演示了依次将 3,2,1,4,5,6,7,16,15,14,13,12,11,10,8,9 插入 AVL 树的过程，带箭头的表示插入时使用了旋转操作</p>
+<p><img src="插入1到7.png" alt="插入1到7">  </p>
+<p>上图演示了从1到7顺序插入AVL树的过程，这里都是1和2的情况</p>
+<p><img src="插入模型.png" alt="插入模型"></p>
+<h3 id="插入代码实现"><a href="#插入代码实现" class="headerlink" title="插入代码实现"></a>插入代码实现</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">AvlTree <span class="title">Insert</span><span class="params">(ElementType X,AvlTree T)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(T == <span class="literal">NULL</span>)&#123;</span><br><span class="line">		T = (AvlTree)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct AvlNode));</span><br><span class="line">		<span class="keyword">if</span>(T == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">		T-&gt;Left = T-&gt;Right = <span class="literal">NULL</span>;</span><br><span class="line">		T-&gt;Element = X;</span><br><span class="line">		T-&gt;Height = <span class="number">0</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(X &gt; T-&gt;Element)&#123;</span><br><span class="line">			T-&gt;Right = Insert(X,T-&gt;Right);</span><br><span class="line">			<span class="keyword">if</span>(Height(T-&gt;Right) - Height(T-&gt;Left) == <span class="number">2</span>)</span><br><span class="line">				<span class="keyword">if</span>(X &gt; T-&gt;Right-&gt;Element)</span><br><span class="line">					T = SingleRotaleWithRight(T);</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					T = DoubleRotaleWithRight(T);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			T-&gt;Left = Insert(X,T-&gt;Left);</span><br><span class="line">			<span class="keyword">if</span>(Height(T-&gt;Left) - Height(T-&gt;Right) == <span class="number">2</span>)</span><br><span class="line">				<span class="keyword">if</span>(X &lt; T-&gt;Left-&gt;Element)</span><br><span class="line">					T = SingleRotaleWithLeft(T);</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					T = DoubleRotaleWithLeft(T);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	T-&gt;Height = max(Height(T-&gt;Left),Height(T-&gt;Right)) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="AVL树的删除实现"><a href="#AVL树的删除实现" class="headerlink" title="AVL树的删除实现"></a>AVL树的删除实现</h2><p>AVL树的删除实现比起插入实现要复杂</p>
+<p>基本想法是删除成功时，修正删除路径上节点高度，然后判断删除路径上的节点的平衡，然后进行旋转</p>
+<p>删除失败时，不改变任何东西  </p>
+<p>由于删除功能是按照本人自己的想法实现，实现过程较长，这里不进行展示，如有兴趣可以查看参考源码</p>
 <p><a href="https://github.com/canxing/code-repository/blob/master/c/data_structure_and_algorithm_analysis" target="_blank" rel="noopener">参考源码</a></p>
 ]]></content>
       <categories>
@@ -2944,44 +2982,6 @@ public class User{
       </categories>
       <tags>
         <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据结构c语言描述四-AVL树</title>
-    <url>/2018/03/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84c%E8%AF%AD%E8%A8%80%E6%8F%8F%E8%BF%B0%E5%9B%9B-AVL%E6%A0%91/</url>
-    <content><![CDATA[<p>AVL 树是带有平衡条件的二叉查找树，所谓平衡条件就是:任何节点的深度均不得过深，如下图所示的二叉查找树是不应该出现的</p>
-<p><img src="二叉查找树的不平衡插入.png" alt="二叉查找树的不平衡插入"></p>
-<p>一颗 AVL 树是其每个节点的左子树和右子树的高度最多差1的二叉查找树（空树的高度定义为-1），这是一颗 AVL 树，树的高度为 3</p>
-<p><img src="AVL树模型.png" alt="AVL树模型"></p>
-<h1 id="AVL树的定义"><a href="#AVL树的定义" class="headerlink" title="AVL树的定义"></a>AVL树的定义</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//头文件中的函数定义</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AvlNode</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">AvlNode</span>* <span class="title">Position</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">AvlNode</span>* <span class="title">AvlTree</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElementType ;</span><br><span class="line"></span><br><span class="line"><span class="function">AvlTree <span class="title">MakeEmpty</span><span class="params">(AvlTree T)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType X,AvlTree T)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">FindMin</span><span class="params">(AvlTree T)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">FindMax</span><span class="params">(AvlTree T)</span></span>;</span><br><span class="line"><span class="function">AvlTree <span class="title">Insert</span><span class="params">(ElementType X,AvlTree T)</span></span>;</span><br><span class="line"><span class="function">AvlTree <span class="title">Delete</span><span class="params">(ElementType X,AvlTree T)</span></span>;</span><br><span class="line"><span class="function">ElementType <span class="title">Retrieve</span><span class="params">(Position P)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体实现文件中的树节点定义，这里的树节点元素使用int类型</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AvlNode</span>&#123;</span></span><br><span class="line">	ElementType Element;</span><br><span class="line">	AvlTree Left;</span><br><span class="line">	AvlTree Right;</span><br><span class="line">	<span class="keyword">int</span> Height;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>可以看见，AVL 树和二叉查找树的定义没有什么区别，在节点定义上多了一个变量用来存储树的高度</p>
-<h2 id="AVL树的实现"><a href="#AVL树的实现" class="headerlink" title="AVL树的实现"></a>AVL树的实现</h2><p>AVL 树的不同主要体现在插入和删除时的不同，在插入和删除时都有可能破坏 AVL 树的平衡，此时就需要对 AVL 树进行平衡修复</p>
-<h2 id="AVL树的插入实现"><a href="#AVL树的插入实现" class="headerlink" title="AVL树的插入实现"></a>AVL树的插入实现</h2><p><a href="https://commons.wikimedia.org/w/index.php?curid=12803426" target="_blank" rel="noopener"><img src="Tree_Rebalancing.png" alt="AVL树的插入情况"></a>图摘自维基百科</p>
-<p>进行插入操作时，有四种情况可能破坏AVL树的平衡，我们把被破坏的平衡的节点称为root</p>
-<ol>
-<li>对 root 左儿子的左子树进行一次插入，对应上图的左左情况</li>
-<li>对 root 右儿子的右子树进行一次插入，对应上图的右右情况</li>
-<li>对 root 左儿子的右子树进行一次插入，对应上图的左右情况</li>
-<li>对 root 右儿子的左子树进行一次哈入，对应上图的右左情况</li>
-</ol>
-<p>对于 1，2 情况，插入节点相对于 root 节点的’外侧’，这时只需要对 root 节点和 root 节点的左儿子或者右儿子进行一次右旋转或者左旋转就可以了; 3，4 情况相对于 root 节点的’内侧’，这是需要实行两次的旋转达到平衡</p>
-<p>注意，无论是一次旋转还是两次旋转，都是为了满足二叉查找树的性质和平衡条件</p>
-<p>下图演示了依次将 3,2,1,4,5,6,7,16,15,14,13,12,11,10,8,9 插入 AVL 树的过程，带箭头的表示插入时使用了旋转操作</p>
-<p><img src="插入1到7.png" alt="插入1到7">  </p>
-<p>上图演示了从1到7顺序插入AVL树的过程，这里都是1和2的情况</p>
-<p><img src="插入模型.png" alt="插入模型"></p>
-<h3 id="插入代码实现"><a href="#插入代码实现" class="headerlink" title="插入代码实现"></a>插入代码实现</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">AvlTree <span class="title">Insert</span><span class="params">(ElementType X,AvlTree T)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(T == <span class="literal">NULL</span>)&#123;</span><br><span class="line">		T = (AvlTree)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct AvlNode));</span><br><span class="line">		<span class="keyword">if</span>(T == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">		T-&gt;Left = T-&gt;Right = <span class="literal">NULL</span>;</span><br><span class="line">		T-&gt;Element = X;</span><br><span class="line">		T-&gt;Height = <span class="number">0</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(X &gt; T-&gt;Element)&#123;</span><br><span class="line">			T-&gt;Right = Insert(X,T-&gt;Right);</span><br><span class="line">			<span class="keyword">if</span>(Height(T-&gt;Right) - Height(T-&gt;Left) == <span class="number">2</span>)</span><br><span class="line">				<span class="keyword">if</span>(X &gt; T-&gt;Right-&gt;Element)</span><br><span class="line">					T = SingleRotaleWithRight(T);</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					T = DoubleRotaleWithRight(T);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			T-&gt;Left = Insert(X,T-&gt;Left);</span><br><span class="line">			<span class="keyword">if</span>(Height(T-&gt;Left) - Height(T-&gt;Right) == <span class="number">2</span>)</span><br><span class="line">				<span class="keyword">if</span>(X &lt; T-&gt;Left-&gt;Element)</span><br><span class="line">					T = SingleRotaleWithLeft(T);</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					T = DoubleRotaleWithLeft(T);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	T-&gt;Height = max(Height(T-&gt;Left),Height(T-&gt;Right)) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="AVL树的删除实现"><a href="#AVL树的删除实现" class="headerlink" title="AVL树的删除实现"></a>AVL树的删除实现</h2><p>AVL树的删除实现比起插入实现要复杂</p>
-<p>基本想法是删除成功时，修正删除路径上节点高度，然后判断删除路径上的节点的平衡，然后进行旋转</p>
-<p>删除失败时，不改变任何东西  </p>
-<p>由于删除功能是按照本人自己的想法实现，实现过程较长，这里不进行展示，如有兴趣可以查看参考源码</p>
-<p><a href="https://github.com/canxing/code-repository/blob/master/c/data_structure_and_algorithm_analysis" target="_blank" rel="noopener">参考源码</a></p>
-]]></content>
-      <categories>
-        <category>data_structure</category>
-      </categories>
-      <tags>
-        <tag>c语言</tag>
       </tags>
   </entry>
   <entry>
